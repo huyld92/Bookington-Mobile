@@ -1,0 +1,191 @@
+import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_court_binding.dart';
+import 'package:bookington_v2_2/presentation/choose_court_screen/choose_court_screen.dart';
+import 'package:bookington_v2_2/presentation/choose_slot_screen/binding/choose_slot_binding.dart';
+import 'package:bookington_v2_2/presentation/choose_slot_screen/choose_slot_screen.dart';
+import 'package:bookington_v2_2/presentation/court_details_screen/binding/court_details_binding.dart';
+import 'package:bookington_v2_2/presentation/court_details_screen/court_details_screen.dart';
+import 'package:bookington_v2_2/presentation/create_password_screen/binding/create_password_binding.dart';
+import 'package:bookington_v2_2/presentation/create_password_screen/create_password_screen.dart';
+import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
+import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
+import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
+import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
+import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
+import 'package:bookington_v2_2/presentation/login_screen/login_screen.dart';
+import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
+import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
+import 'package:bookington_v2_2/presentation/recommend_screen/binding/recommend_binding.dart';
+import 'package:bookington_v2_2/presentation/recommend_screen/recommend_screen.dart';
+import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
+import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
+import 'package:bookington_v2_2/presentation/registration_verify_screen/binding/verify_phone_number_binding.dart';
+import 'package:bookington_v2_2/presentation/registration_verify_screen/verify_phone_number_screen.dart';
+import 'package:bookington_v2_2/presentation/search_page/binding/search_binding.dart';
+import 'package:bookington_v2_2/presentation/search_page/search_screen.dart';
+import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_binding.dart';
+import 'package:bookington_v2_2/presentation/splash_screen/splash_screen.dart';
+
+import '../core/app_export.dart';
+
+class AppRoutes {
+  static String initialRoute = '/initialRoute';
+
+  static const String splashScreen = '/splash_screen';
+
+  static const String loginScreen = '/login_screen';
+
+  static const String registrationPhoneScreen = '/registration_phone_screen';
+
+  static const String verifyPhoneNumberScreen = '/verify_screen';
+
+  static const String createPasswordScreen = '/create_password_screen';
+
+  static const String homeScreen = '/home_screen';
+
+  static const String recommendScreen = '/recommend_screen';
+
+  static const String searchScreen = '/search_screen';
+
+  static const String profileScreen = '/profile_screen';
+
+  static const String editProfileScreen = '/edit_profile_screen';
+
+  static const String paymentScreen = '/payment_screen';
+
+  static const String courtDetailsScreen = '/court_detail_screen';
+
+  static const String chooseCourtScreen = '/choose_court_screen';
+
+  static const String chooseSlotScreen = '/choose_slot_screen';
+
+  static List<GetPage> pages = [
+    GetPage(
+      name: initialRoute,
+      // name: splashScreen,
+      page: () => SplashScreen(),
+      bindings: [
+        SplashBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: loginScreen,
+      page: () => LoginScreen(),
+      bindings: [
+        LoginBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: registrationPhoneScreen,
+      page: () => RegistrationPhoneScreen(),
+      bindings: [
+        RegistrationPhoneBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: verifyPhoneNumberScreen,
+      page: () => VerifyPhoneNumberScreen(),
+      bindings: [
+        VerifyPhoneNumberBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: createPasswordScreen,
+      page: () => CreatePasswordScreen(),
+      bindings: [
+        CreatePasswordBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: homeScreen,
+      page: () => HomeScreen(),
+      bindings: [
+        HomeBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: recommendScreen,
+      page: () => RecommendScreen(),
+      bindings: [
+        RecommendBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: courtDetailsScreen,
+      page: () => CourtDetailsScreen(),
+      bindings: [
+        CourtDetailsBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: chooseCourtScreen,
+      page: () => ChooseCourtScreen(),
+      bindings: [
+        ChooseCourtBinding(),
+      ],
+    ),
+
+
+    GetPage(
+      // name: initialRoute,
+      name: chooseSlotScreen,
+      page: () => ChooseSlotScreen(),
+      bindings: [
+        ChooseSlotBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: searchScreen,
+      page: () => SearchScreen(),
+      bindings: [
+        SearchBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: profileScreen,
+      page: () => ProfileScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: editProfileScreen,
+      page: () => EditProfileScreen(),
+      bindings: [
+        EditProfileBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: paymentScreen,
+      page: () => PaymentScreen(),
+      bindings: [
+        PaymentBinding(),
+      ],
+    ),
+  ];
+}
