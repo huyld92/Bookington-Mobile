@@ -8,13 +8,13 @@ import 'listrectangle_item_widget.dart';
 
 // ignore: must_be_immutable
 class SearchResultWidget extends StatelessWidget {
-  SearchResultWidget(this.controller);
+  SearchResultWidget(this.controller, {super.key});
 
   SearchController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: size.width,
       child: Padding(
           padding: getPadding(
@@ -39,10 +39,7 @@ class SearchResultWidget extends StatelessWidget {
                         bottom: 3,
                       ),
                       child: Text(
-                        "lbl_result".tr +
-                            "(" +
-                            controller.totalCount.value +
-                            ")",
+                        "${"lbl_result".tr}(${controller.totalCount.value})",
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeBold18,
@@ -66,7 +63,7 @@ class SearchResultWidget extends StatelessWidget {
               Padding(
                 padding: getPadding(bottom: 20),
                 child: ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   separatorBuilder: (context, index) {
                     return SizedBox(
@@ -78,7 +75,7 @@ class SearchResultWidget extends StatelessWidget {
                   itemCount: controller.listSearchMode.length,
                   itemBuilder: (context, index) {
                     SearchModel model = controller.listSearchMode[index];
-                    return ListRectangleItemWidget(model);
+                    return ListRectangleItemWidget(model,index);
                   },
                 ),
               ),

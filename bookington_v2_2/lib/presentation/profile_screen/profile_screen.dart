@@ -206,6 +206,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             width: getSize(20.00),
                             margin: getMargin(top: 10, bottom: 10))
                       ])),
+
               Padding(
                 padding: getPadding(top: 10),
                 child:
@@ -256,7 +257,6 @@ class ProfileScreen extends GetWidget<ProfileController> {
           ),
         ),
         bottomNavigationBar: CustomBottomBar(
-
           onChanged: (BottomBarEnum type) {
             Get.toNamed(getCurrentRoute(type));
           },
@@ -271,7 +271,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.homeScreen;
+        return AppRoutes.messageChatScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:

@@ -1,3 +1,6 @@
+import 'package:bookington_v2_2/core/utils/validation_functions.dart';
+import 'package:flutter/gestures.dart';
+
 import 'controller/registration_phone_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -8,52 +11,295 @@ import 'package:bookington_v2_2/widgets/custom_text_form_field.dart';
 class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  RegistrationPhoneScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: ColorConstant.whiteA700,
-            body: Form(
-                key: _formKey,
-                child: Container(
-                    width: size.width,
-                    padding: getPadding(left: 16, right: 16),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: ColorConstant.whiteA700,
+        body: Form(
+          key: _formKey,
+          child: Container(
+            width: size.width,
+            padding: getPadding(left: 16, right: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    width: getHorizontalSize(350.00),
+                    child: Text("lbl_register".tr,
+                        maxLines: null,
+                        textAlign: TextAlign.center,
+                        style: AppStyle.txtManropeExtraBold24.copyWith(
+                            letterSpacing: getHorizontalSize(0.72),
+                            height: getVerticalSize(1.22)))),
+                Container(
+                    width: getHorizontalSize(358.00),
+                    margin: getMargin(top: 15),
+                    padding: getPadding(left: 23, top: 8, right: 23, bottom: 8),
+                    decoration: AppDecoration.fillGray300.copyWith(
+                        // decoration: AppDecoration.fillGray300.copyWith(
+                        borderRadius: BorderRadiusStyle.roundedBorder8),
+                    // BorderRadiusStyle.roundedBorder8),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                              width: getHorizontalSize(350.00),
-                              child: Text("lbl_bookington".tr,
-                                  maxLines: null,
-                                  textAlign: TextAlign.center,
-                                  style: AppStyle.txtManropeExtraBold24
-                                      .copyWith(
-                                          letterSpacing:
-                                              getHorizontalSize(0.72),
-                                          height: getVerticalSize(1.22)))),
                           CustomTextFormField(
-                              width: 358,
-                              focusNode: FocusNode(),
-                              controller: controller.txtPhone,
-                              hintText: "msg_enter_your_phone".tr,
-                              margin: getMargin(top: 37),
-                              textInputType: TextInputType.phone,
-                               ),
-                          //login button
-                          CustomButton(
-                            height: 53,
-                            width: 358,
-                            text: "lbl_next".tr,
-                            margin: getMargin(top: 24),
-                            onTap: () {
-                              print("Next registration phone screen button");
-                              // Get.toNamed(AppRoutes.verifyPhoneNumberScreen);
-                              controller.registrationWithPhone();
+                            width: 310,
+                            focusNode: FocusNode(),
+                            controller: controller.txtPhoneController,
+                            hintText: "msg_enter_your_phone".tr,
+                            margin: getMargin(top: 5),
+                            variant: TextFormFieldVariant.None,
+                            padding: TextFormFieldPadding.PaddingT1,
+                            textInputAction: TextInputAction.none,
+                            textInputType: TextInputType.phone,
+                            suffixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(32.00)),
+                            validator: (value) {
+                              if (value == null ||
+                                  (!isValidPhone(value, isRequired: true))) {
+                                return "Please enter valid phone";
+                              }
+                              return null;
                             },
-                          ),
+                          )
+                        ])),
 
-                        ])))));
+                Container(
+                    width: getHorizontalSize(358.00),
+                    margin: getMargin(top: 15),
+                    padding: getPadding(left: 23, top: 8, right: 23, bottom: 8),
+                    decoration: AppDecoration.fillGray300.copyWith(
+                        borderRadius: BorderRadiusStyle.roundedBorder8),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Obx(() => CustomTextFormField(
+                              width: 310,
+                              controller: controller.txtPasswordController,
+                              hintText: "msg_enter_your_password".tr,
+                              margin: getMargin(top: 5),
+                              variant: TextFormFieldVariant.None,
+                              padding: TextFormFieldPadding.PaddingT1,
+                              textInputAction: TextInputAction.done,
+                              textInputType: TextInputType.visiblePassword,
+                              suffix: InkWell(
+                                  onTap: () {
+                                    controller.isShowPassword.value =
+                                        !controller.isShowPassword.value;
+                                  },
+                                  child: Container(
+                                      margin: getMargin(left: 20),
+                                      child: CustomImageView(
+                                          width: 32,
+                                          svgPath:
+                                              controller.isShowPassword.value
+                                                  ? ImageConstant.imgHideEye
+                                                  : ImageConstant.imgEye))),
+                              suffixConstraints: BoxConstraints(
+                                  maxHeight: getVerticalSize(32.00)),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please enter valid password";
+                                }
+                                return null;
+                              },
+                              isObscureText: !controller.isShowPassword.value)),
+                        ])),
+                Container(
+                  width: getHorizontalSize(358.00),
+                  margin: getMargin(top: 15),
+                  padding: getPadding(left: 23, top: 8, right: 23, bottom: 8),
+                  decoration: AppDecoration.fillGray300
+                      .copyWith(borderRadius: BorderRadiusStyle.roundedBorder8),
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Obx(() => CustomTextFormField(
+                            width: 310,
+                            controller: controller.txtPasswordConfirm,
+                            hintText: "msg_enter_confirm_password".tr,
+                            margin: getMargin(top: 5),
+                            variant: TextFormFieldVariant.None,
+                            padding: TextFormFieldPadding.PaddingT1,
+                            textInputAction: TextInputAction.done,
+                            textInputType: TextInputType.visiblePassword,
+                            suffix: InkWell(
+                                onTap: () {
+                                  controller.isShowConfirm.value =
+                                      !controller.isShowConfirm.value;
+                                },
+                                child: Container(
+                                    margin: getMargin(left: 20),
+                                    child: CustomImageView(
+                                        width: 32,
+                                        svgPath: controller.isShowConfirm.value
+                                            ? ImageConstant.imgHideEye
+                                            : ImageConstant.imgEye))),
+                            suffixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(32.00)),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter match password";
+                              } else if (controller.txtPasswordConfirm.value !=
+                                  controller.txtPasswordController.value) {
+                                return "Please enter match password";
+                              }
+                              return null;
+                            },
+                            isObscureText: !controller.isShowConfirm.value))
+                      ]),
+                ),
+
+                //login button
+                CustomButton(
+                  height: 53,
+                  width: 358,
+                  text: "lbl_login".tr,
+                  margin: getMargin(top: 24),
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      controller.registrationWithPhone();
+                    }
+                  },
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                        padding: getPadding(top: 43, bottom: 5),
+                        child: RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: "msg_alredy_account".tr,
+                                  style: TextStyle(
+                                      color: ColorConstant.gray90001,
+                                      fontSize: getFontSize(14),
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w400,
+                                      height: getVerticalSize(1.25))),
+                              TextSpan(
+                                  text: "lbl_login".tr,
+                                  style: TextStyle(
+                                      color: ColorConstant.indigoA200,
+                                      fontSize: getFontSize(14),
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w600,
+                                      height: getVerticalSize(1.23)),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      controller.loginScreen();
+                                    }),
+                            ]),
+                            textAlign: TextAlign.left)))
+
+                // Container(
+                //     width: getHorizontalSize(358.00),
+                //     margin: getMargin(top: 15),
+                //     padding: getPadding(left: 23, top: 8, right: 23, bottom: 8),
+                //     decoration: AppDecoration.fillBluegray50.copyWith(
+                //         borderRadius: BorderRadiusStyle.roundedBorder8),
+                //     child: Column(
+                //         mainAxisSize: MainAxisSize.min,
+                //         mainAxisAlignment: MainAxisAlignment.end,
+                //         children: [
+                //           Obx(() => CustomTextFormField(
+                //               width: 310,
+                //               controller: controller.txtPassword,
+                //               hintText: "msg_enter_your_password".tr,
+                //               margin: getMargin(top: 5),
+                //               variant: TextFormFieldVariant.None,
+                //               padding: TextFormFieldPadding.PaddingT1,
+                //               textInputAction: TextInputAction.done,
+                //               textInputType: TextInputType.visiblePassword,
+                //               suffix: InkWell(
+                //                   onTap: () {
+                //                     controller.isShowPassword.value =
+                //                         !controller.isShowPassword.value;
+                //                   },
+                //                   child: Container(
+                //                       margin: getMargin(left: 20),
+                //                       child: CustomImageView(
+                //                           width: 32,
+                //                           svgPath:
+                //                               controller.isShowPassword.value
+                //                                   ? ImageConstant.imgHideEye
+                //                                   : ImageConstant.imgEye))),
+                //               suffixConstraints: BoxConstraints(
+                //                   maxHeight: getVerticalSize(32.00)),
+                //               validator: (value) {
+                //                 if (value == null || value.isEmpty) {
+                //                   return "Please enter valid password";
+                //                 }
+                //                 return null;
+                //               },
+                //               isObscureText: !controller.isShowPassword.value))
+                //         ])),
+                // Container(
+                //     width: getHorizontalSize(358.00),
+                //     margin: getMargin(top: 15),
+                //     padding: getPadding(left: 23, top: 8, right: 23, bottom: 8),
+                //     decoration: AppDecoration.fillBluegray50.copyWith(
+                //         borderRadius: BorderRadiusStyle.roundedBorder8),
+                //     child: Column(
+                //         mainAxisSize: MainAxisSize.min,
+                //         mainAxisAlignment: MainAxisAlignment.end,
+                //         children: [
+                //           Obx(() => CustomTextFormField(
+                //               width: 310,
+                //               controller: controller.txtPasswordConfirm,
+                //               hintText: "msg_enter_confirm_password".tr,
+                //               margin: getMargin(top: 5),
+                //               variant: TextFormFieldVariant.None,
+                //               padding: TextFormFieldPadding.PaddingT1,
+                //               textInputAction: TextInputAction.done,
+                //               textInputType: TextInputType.visiblePassword,
+                //               suffix: InkWell(
+                //                   onTap: () {
+                //                     controller.isShowConfirm.value =
+                //                         !controller.isShowConfirm.value;
+                //                   },
+                //                   child: Container(
+                //                       margin: getMargin(left: 20),
+                //                       child: CustomImageView(
+                //                           width: 32,
+                //                           svgPath:
+                //                               controller.isShowConfirm.value
+                //                                   ? ImageConstant.imgHideEye
+                //                                   : ImageConstant.imgEye))),
+                //               suffixConstraints: BoxConstraints(
+                //                   maxHeight: getVerticalSize(32.00)),
+                //               validator: (value) {
+                //                 if (value == null || value.isEmpty) {
+                //                   return "Please enter match password";
+                //                 }
+                //                 return null;
+                //               },
+                //               isObscureText: !controller.isShowConfirm.value))
+                //         ])),
+                //login button
+                // CustomButton(
+                //   height: 53,
+                //   width: 358,
+                //   text: "lbl_next".tr,
+                //   margin: getMargin(top: 24),
+                //   onTap: () {
+                //     print("Next registration phone screen button");
+                //     if (_formKey.currentState!.validate()) {}
+                //     controller.registrationWithPhone();
+                //   },
+                // ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

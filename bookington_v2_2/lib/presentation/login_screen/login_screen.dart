@@ -137,9 +137,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                     controller.txtPhoneController.text,
                                     controller.txtPasswordController.text);
                               }
-                              // print("Login button");
-                              // controller.login();
-                            },
+                             },
                           ),
 
                           Align(

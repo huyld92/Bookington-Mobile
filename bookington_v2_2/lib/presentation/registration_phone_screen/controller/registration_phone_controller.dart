@@ -8,11 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class RegistrationPhoneController extends GetxController {
-  TextEditingController txtPhone = TextEditingController();
+  TextEditingController txtPhoneController = TextEditingController();
 
   Rx<RegistrationModel> registraionPhoneModelObj = RegistrationModel().obs;
-  RxString controllerText = ''.obs;
 
+  TextEditingController txtPasswordController = TextEditingController();
+
+  TextEditingController txtPasswordConfirm = TextEditingController();
+
+  Rx<bool> isShowPassword = false.obs;
+  Rx<bool> isShowConfirm = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -26,26 +31,31 @@ class RegistrationPhoneController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    txtPhone.dispose();
-  }
+   }
 
   Future<void> registrationWithPhone() async {
-    var headers = {'Content-Type': 'application/json; charset=utf-8'};
-    try {
-      var jsonResult = await ApiClient.sendSms(txtPhone.text);
+    //  try {
+    //   var response = await ApiClient.sendSms(txtPhone.text);
+    //
+    //   print(response.statusCode);
+    //
+    //   if (response.statusCode == 200) {
+    //
+    //     PrefUtils.setString("rePhoneNumber",txtPhone.text);
+    //     Get.offNamed(AppRoutes.verifyPhoneNumberScreen);      }
+    //   else {
+    //     Get.defaultDialog(title: "Send Otp Failed!", middleText:  jsonDecode(response.body)["Message"]);
+    //   }
+    // } catch (error) {
+    //   Get.defaultDialog(title: "send otp Failed!", middleText: error.toString());
+    // }
 
-      print(jsonResult.toString());
+    PrefUtils.setString("rePhoneNumber",txtPhoneController.text);
+    Get.offNamed(AppRoutes.verifyPhoneNumberScreen);
+  }
 
-      if (!jsonResult["isError"]) {
-        //success
-        PrefUtils.setString("rePhoneNumber",txtPhone.text);
-        Get.offNamed(AppRoutes.verifyPhoneNumberScreen);
+  loginScreen(){
+    Get.offNamed(AppRoutes.loginScreen);
 
-      } else {
-        Get.defaultDialog(title: "Login Failed!", middleText: jsonResult["Message"]);
-      }
-    } catch (error) {
-      Get.defaultDialog(title: "send otp Failed!", middleText: error.toString());
-    }
   }
 }

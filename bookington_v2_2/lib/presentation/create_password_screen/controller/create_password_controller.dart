@@ -12,8 +12,7 @@ class CreatePasswordController extends GetxController {
 
   TextEditingController txtPasswordConfirm = TextEditingController();
 
-  // Rx<LoginModel> loginModelObj = LoginModel().obs;
-   Rx<bool> isShowPassword = false.obs;
+    Rx<bool> isShowPassword = false.obs;
   Rx<bool> isShowConfirm = false.obs;
 
   @override
@@ -65,20 +64,9 @@ class CreatePasswordController extends GetxController {
         var jsonResult =
             await ApiClient.loginWithPhone(phoneNumber, txtPassword.text);
         print(jsonResult.toString());
-        Get.toNamed(AppRoutes.homeScreen);
+        PrefUtils.clearPreferencesData();
+        Get.offNamed(AppRoutes.loginScreen);
         print(jsonResult.toString());
-
-        if (!jsonResult["isError"]) {
-          //success
-          LoginModel loginModel = LoginModel.fromJson(jsonResult["result"]);
-          PrefUtils.setAccessToken(loginModel.sysToken);
-          PrefUtils.setString("userID", loginModel.userID);
-          PrefUtils.setString("fullName", loginModel.fullName);
-          PrefUtils.setString("phoneNumber", loginModel.phoneNumber);
-        } else {
-          Get.defaultDialog(
-              title: "Login Failed!", middleText: jsonResult["Message"]);
-        }
       } else {
         Get.defaultDialog(
             title: "Create new Failed!", middleText: jsonResult["Message"]);

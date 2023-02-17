@@ -23,7 +23,8 @@ class HomeController extends GetxController {
   }
 
   void goRecommendScreen() {
-    Get.toNamed(AppRoutes.recommendScreen);
+    print("go Recommend");
+    // Get.toNamed(AppRoutes.recommendScreen);
   }
 
   void goCourtDetails() {
@@ -31,12 +32,11 @@ class HomeController extends GetxController {
   }
 
   void checkLogin() {
-
     if (PrefUtils.getAccessToken() == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
       String? fullName = PrefUtils.getString("fullName") ?? "aaaaa";
-      print('fulen: ' +fullName);
+
       homeModelObj = HomeModel(fullName).obs;
     }
   }

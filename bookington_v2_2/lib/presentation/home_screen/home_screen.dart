@@ -117,15 +117,10 @@ class HomeScreen extends GetWidget<HomeController> {
                     margin: EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
                     height: 120,
-                    decoration: BoxDecoration(
-                        color: Color(0xFF0D6EFD),
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                              'https://media-api.advertisingvietnam.com/oapi/v1/media?uuid=06ba64b4-16cb-46b1-8ee6-1678ef295320&resolution=1440x756&type=image'),
-                        ))
-                    // child: Image.asset("assets/images/momo.png", ),
+                    child: CustomImageView(
+                      width: double.infinity,
+                      height: 120,
+                      imagePath: ImageConstant.imgMomoAds,),
                     ),
                 //Recommend see more
                 Container(
@@ -156,7 +151,7 @@ class HomeScreen extends GetWidget<HomeController> {
                               "lbl_see_more".tr,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeBold14.copyWith(
+                              style: AppStyle.txtManropeBold14Blue500.copyWith(
                                 letterSpacing: getHorizontalSize(
                                   0.20,
                                 ),
@@ -166,7 +161,7 @@ class HomeScreen extends GetWidget<HomeController> {
                               ),
                             ),
                             CustomImageView(
-                              svgPath: ImageConstant.imgSend,
+                              svgPath: ImageConstant.imgNext,
                               height: getSize(
                                 16.00,
                               ),
@@ -178,6 +173,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                 top: 1,
                                 bottom: 2,
                               ),
+                              color: ColorConstant.blue500,
                             ),
                           ],
                         ),
@@ -240,7 +236,7 @@ class HomeScreen extends GetWidget<HomeController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.homeScreen;
+        return AppRoutes.messageChatScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:

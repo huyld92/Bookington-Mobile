@@ -83,7 +83,6 @@ class CreatePasswordScreen extends GetWidget<CreatePasswordController> {
                                         isObscureText:
                                             !controller.isShowPassword.value))
                                   ])),
-
                           Container(
                               width: getHorizontalSize(358.00),
                               margin: getMargin(top: 15),
@@ -100,7 +99,7 @@ class CreatePasswordScreen extends GetWidget<CreatePasswordController> {
                                         width: 310,
                                         controller:
                                             controller.txtPasswordConfirm,
-                                        hintText: "msg_enter_your_password".tr,
+                                        hintText: "msg_enter_confirm_password".tr,
                                         margin: getMargin(top: 5),
                                         variant: TextFormFieldVariant.None,
                                         padding: TextFormFieldPadding.PaddingT1,

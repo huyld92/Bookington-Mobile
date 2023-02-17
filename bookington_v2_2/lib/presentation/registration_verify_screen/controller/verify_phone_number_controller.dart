@@ -10,9 +10,10 @@ import 'package:http/http.dart' as http;
 
 class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   Rx<TextEditingController> otpController = TextEditingController().obs;
-
+  String phoneNumber = "";
   Rx<VerifyPhoneNumberModel> verifyPhoneNumberModelObj =
       VerifyPhoneNumberModel().obs;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
 
   @override
   void codeUpdated() {
@@ -23,6 +24,7 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   void onInit() {
     super.onInit();
     listenForCode();
+    loadData();
   }
 
   @override
@@ -40,18 +42,28 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
       String? phoneNumber = PrefUtils.getString("rePhoneNumber");
       print("cootp: " + otpController.value.text);
 
-      var response = await ApiClient.verifyOtp(phoneNumber!, otpController.value.text);
-
+      var response =
+          await ApiClient.verifyOtp(phoneNumber!, otpController.value.text);
 
       if (response.statusCode == 204) {
         //success
-        Get.offNamed(AppRoutes.createPasswordScreen);
-
+        Get.offNamed(AppRoutes.loginScreen);
       } else {
-        Get.defaultDialog(title: "veirfy otp failed!", middleText: jsonDecode(response.body)["Message"]);
+        Get.defaultDialog(
+            title: "Verify otp failed!",
+            middleText: jsonDecode(response.body)["Message"]);
       }
     } catch (error) {
-      Get.defaultDialog(title: "veirfy otp error!", middleText: error.toString());
+      Get.defaultDialog(
+          title: "Verify otp error!", middleText: error.toString());
+    }
+  }
+
+  void loadData() {
+    if(PrefUtils.getString("rePhoneNumber") != null){
+
+      phoneNumber = PrefUtils.getString("rePhoneNumber")!.substring(7);
+
     }
   }
 }

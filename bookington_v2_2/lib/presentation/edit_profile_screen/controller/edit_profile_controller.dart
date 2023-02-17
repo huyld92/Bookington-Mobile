@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/account_model.dart';
@@ -31,19 +33,27 @@ class EditProfileController extends GetxController {
     birthdayController.dispose();
   }
 
+
   void loadProfile() {
     if (PrefUtils.getString("sysToken") == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
-      String? userID = PrefUtils.getString("userID");
-      String? fullName = PrefUtils.getString("fullName");
-      String? phomeNumber =
-      PrefUtils.getString("phoneNumber");
-      AccountModel accountModel = AccountModel(userID!, "1", phomeNumber!, "", fullName!, DateFormat("dd/MM/yyyy").parse("12/1/2000"),  DateFormat("dd/MM/yyyy").parse("12/1/2000"), true);
-      editProfileModelObj = EditProfileModel(accountModel).obs;
-      phoneController.text = fullName;
-      fullNameController.text = accountModel.fullName;
-      birthdayController.text = accountModel.dateOfBirth.toString();
+      String userID = PrefUtils.getString("userID") ?? "-1";
+      print('userID: ' + userID);
+      ApiClient.getProfileById(userID).then((result) {
+        print(result.statusCode );
+        if (result.statusCode == 200) {
+          final jsonResult = (jsonDecode(result.body)["result"]) ;
+          print(jsonResult);
+          phoneController.text = jsonResult["phone"];
+          fullNameController.text =jsonResult["fullName"];
+          try{
+            birthdayController.text = DateFormat("dd/MM/yyyy").format(jsonResult["dateOfBirth"]);
+          } catch(error){
+            birthdayController.text = "Select date";
+          }
+        }
+      });
 
     }
   }

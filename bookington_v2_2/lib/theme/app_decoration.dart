@@ -7,6 +7,10 @@ class AppDecoration {
         color: ColorConstant.gray500,
       );
 
+  static BoxDecoration get fillBlue50 => BoxDecoration(
+        color: ColorConstant.blue50,
+      );
+
   static BoxDecoration get fillGray50 => BoxDecoration(
         color: ColorConstant.gray50,
       );
@@ -77,6 +81,28 @@ class AppDecoration {
 
 class BorderRadiusStyle {
   static Border borderBlack2 = Border.all(color: Colors.black, width: 2);
+
+  static Border borderGray2 = Border.all(color: ColorConstant.gray500, width: 2);
+
+  static BorderRadius customBorderTL10 = BorderRadius.only(
+    topLeft: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+    bottomLeft: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+    bottomRight: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+  );
+
+
   static BorderRadius roundedBorder24 = BorderRadius.circular(
     getHorizontalSize(
       24.00,
@@ -92,6 +118,12 @@ class BorderRadiusStyle {
   static BorderRadius roundedBorder16 = BorderRadius.circular(
     getHorizontalSize(
       16.00,
+    ),
+  );
+
+  static BorderRadius roundedBorder10 = BorderRadius.circular(
+    getHorizontalSize(
+      10.00,
     ),
   );
 

@@ -19,6 +19,9 @@ class LoginController extends GetxController {
   @override
   void onInit() async {
     print('onInit');
+    if(PrefUtils.getString("fullName") != null){
+      print('login: ' +PrefUtils.getString("fullName")!);
+    }
     super.onInit();
   }
 
@@ -33,8 +36,6 @@ class LoginController extends GetxController {
   void onClose() {
     print('close');
     super.onClose();
-    txtPhoneController.dispose();
-    txtPasswordController.dispose();
   }
 
   Future<void> login(String phone, String password) async {
@@ -52,7 +53,7 @@ class LoginController extends GetxController {
         PrefUtils.setString("userID", loginModel.userID);
         PrefUtils.setString("fullName", loginModel.fullName);
         PrefUtils.setString("phoneNumber", loginModel.phoneNumber);
-        Get.toNamed(AppRoutes.homeScreen);
+        Get.offNamed(AppRoutes.homeScreen);
 
       } else {
         errorMessage = jsonResult["Message"];

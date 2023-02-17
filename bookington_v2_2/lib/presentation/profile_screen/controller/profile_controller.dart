@@ -25,7 +25,7 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     PrefUtils.clearPreferencesData();
     print('logout');
-    Get.toNamed(AppRoutes.loginScreen);
+    Get.offAllNamed(AppRoutes.loginScreen);
   }
 
   Future<void> editProfileScreen() async {
@@ -38,9 +38,7 @@ class ProfileController extends GetxController {
     late String _content = "aaaaaaaaa";
     ReportModel reportModel = ReportModel.forReport(_refCourt, _content);
     var result = await ApiClient.reportCourt(reportCourtURL, reportModel);
-    print(result["result"].toString());
-    // Get.toNamed(AppRoutes.editProfileScreen);
-  }
+    }
 
   void loadProfile() {
     if (PrefUtils.getAccessToken() == null) {
