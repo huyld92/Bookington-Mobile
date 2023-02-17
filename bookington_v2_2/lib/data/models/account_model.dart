@@ -8,14 +8,14 @@ AccountModel accountRespFromJson(String str) => AccountModel.fromJson(json.decod
 String accountRespToJson(AccountModel data) => json.encode(data.toJson());
 
 class AccountModel {
-  String _id;
-  String _roleId;
-  String _phone;
-  String _password;
-  String _fullName;
-  DateTime _dateOfBirth;
-  DateTime _createAt;
-  bool _isActive;
+  late String _id;
+  late String _roleId;
+  late String _phone;
+  late String _password;
+  late String _fullName;
+  late DateTime _dateOfBirth;
+  late DateTime _createAt;
+  late bool _isActive;
 
   AccountModel(this._id, this._roleId, this._phone, this._password,
       this._fullName, this._dateOfBirth, this._createAt, this._isActive);
@@ -77,6 +77,7 @@ class AccountModel {
       json["date_of_birth"],
       json["create_at"],
       json["is_active"]);
+
 
   Map<String, dynamic> toJson() => {
         "id": _id,

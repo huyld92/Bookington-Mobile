@@ -51,11 +51,12 @@ class ChooseCourtController extends GetxController{
   }
 
   void nextChooseSlot(){
-    Map<String,String> params = {
-      "id": idSlected,
-      "date":selectedDate.toString(),
-    };
-    Get.offAndToNamed(AppRoutes.chooseSlotScreen, parameters: params);
+    // Map<String,String> params = {
+    //   "id": idSlected,
+    //   "date":selectedDate.toString(),
+    // };
+    // Get.toNamed(AppRoutes.chooseSlotScreen);
+    Get.toNamed(AppRoutes.chooseSlotScreen);
   }
 
 
@@ -81,7 +82,9 @@ class ChooseCourtController extends GetxController{
   }
 
   getBack(){
-    Get.back();
+
+    print("Choose court back");
+    // Get.back();
   }
 
 }

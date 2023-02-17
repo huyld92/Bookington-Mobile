@@ -15,7 +15,7 @@ class SlidericonItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Container(
+      child: SizedBox(
         height: getSize(
           343.00,
         ),
@@ -58,7 +58,7 @@ class SlidericonItemWidget extends StatelessWidget {
                         bottom: 1,
                       ),
                       child: Text(
-                        "Phu Tho Court",
+                        controller.courtModel.name,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
@@ -73,7 +73,7 @@ class SlidericonItemWidget extends StatelessWidget {
                         bottom: 40,
                       ),
                       child: Text(
-                        "District 11, HCM city".tr,
+                        controller.courtModel.districtName.tr,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeMedium14Gray300.copyWith(

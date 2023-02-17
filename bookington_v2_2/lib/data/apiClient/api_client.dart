@@ -50,19 +50,12 @@ class ApiClient extends GetConnect {
     }
   }
 
-  static Future<dynamic> sendSms(String phone) async {
-    var headers = {'Content-Type': 'application/json'};
+  static Future<http.Response> sendSms(String phone) async {
+    print('Phone: ' + phone);
     var url = Uri.parse(AppUrl.smsEndPoint + phone);
 
-    http.Response response = await http.get(url, headers: headers);
-
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      return jsonDecode(response.body);
-    }
+    http.Response response = await http.post(url);
+    return response;
   }
 
   static Future<dynamic> verifyOtp(String phone, String otp) async {
@@ -93,29 +86,37 @@ class ApiClient extends GetConnect {
     }
   }
 
-  static Future<dynamic> searchCourt(int pageNumber, String searchValue) async {
+  static Future<http.Response> getProfileById(String id) async {
     var headers = {'Content-Type': 'application/json'};
     int maxPageSize = 5;
-    var url = Uri.parse(AppUrl.searchEndPoint +
-        "?SearchText=${searchValue}" +
+    var url = Uri.parse(AppUrl.getProfileByIDEndPoint + id);
+    print(url);
+    http.Response response = await http.get(url);
+
+    return response;
+  }
+
+  static Future<http.Response> searchCourt(
+      int pageNumber, CourtModel searchValue) async {
+    var headers = {'Content-Type': 'application/json'};
+    int maxPageSize = 5;
+    var url = Uri.parse(AppUrl.searchCourtEndPoint +
+        "?SearchText=${searchValue.name}" +
+        "&District=${searchValue.districtName}" +
+        // "&Province=${searchValue.provinceName}" +
         "&PageNumber=${pageNumber}&MaxPageSize=${maxPageSize}");
     http.Response response = await http.get(url);
 
-    if (response.statusCode == 201) {
-      return jsonDecode(response.body);
-    } else {
-      return jsonDecode(response.body);
-    }
+    return response;
   }
 
   static Future<dynamic> reportCourt(
       String reportUrl, ReportModel reportModel) async {
     String? sysToken = PrefUtils.getAccessToken();
-
     if (sysToken != null && !sysToken.isEmpty) {
       var headers = {
         'Authorization': 'Bearer ' + sysToken,
-        'Content-Type': 'application/json; charset=utf-8'
+        'Content-Type': 'application/json'
       };
       var url = Uri.parse(AppUrl.verifyEndPoint);
       Map body = {
@@ -124,7 +125,7 @@ class ApiClient extends GetConnect {
       };
       http.Response response =
           await http.post(url, body: jsonEncode(body), headers: headers);
-
+      print(body.toString());
       if (response.statusCode == 201) {
         final jsonResult = jsonDecode(response.body);
         print("result " + jsonResult["result"].toString());
@@ -133,5 +134,29 @@ class ApiClient extends GetConnect {
         print(response.statusCode);
       }
     }
+  }
+
+  static Future<http.Response> getAllProvince() async {
+    var url = Uri.parse(AppUrl.getAllProvinceEndPoint);
+
+    http.Response response = await http.get(url);
+
+    return response;
+  }
+
+  static getDistrictById(String id) async {
+    var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=${id}");
+
+    http.Response response = await http.get(url);
+
+    return response;
+  }
+
+  static getCourtDetails(String id) async {
+    var url = Uri.parse(AppUrl.getCourtDetailsEndPoint + id);
+
+    http.Response response = await http.get(url);
+
+    return response;
   }
 }

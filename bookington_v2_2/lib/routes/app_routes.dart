@@ -12,6 +12,10 @@ import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.da
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
 import 'package:bookington_v2_2/presentation/login_screen/login_screen.dart';
+import 'package:bookington_v2_2/presentation/message_chat_screen/binding/message_chat_binding.dart';
+import 'package:bookington_v2_2/presentation/message_chat_screen/message_chat_screen.dart';
+import 'package:bookington_v2_2/presentation/messages_container_screen/binding/messages_container_binding.dart';
+import 'package:bookington_v2_2/presentation/messages_container_screen/messages_container_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
@@ -54,11 +58,15 @@ class AppRoutes {
 
   static const String paymentScreen = '/payment_screen';
 
-  static const String courtDetailsScreen = '/court_detail_screen';
+  static const String courtDetailsScreen = '/court_details_screen';
 
   static const String chooseCourtScreen = '/choose_court_screen';
 
   static const String chooseSlotScreen = '/choose_slot_screen';
+
+  static const String messagesScreen = '/message_screen';
+
+  static const String messageChatScreen = '/message_chat_screen';
 
   static List<GetPage> pages = [
     GetPage(
@@ -127,7 +135,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: courtDetailsScreen,
-      page: () => CourtDetailsScreen(),
+      page: () => const CourtDetailsScreen(),
       bindings: [
         CourtDetailsBinding(),
       ],
@@ -185,6 +193,24 @@ class AppRoutes {
       page: () => PaymentScreen(),
       bindings: [
         PaymentBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: messagesScreen,
+      page: () => MessagesContainerScreen(),
+      bindings: [
+        MessagesContainerBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: messageChatScreen,
+      page: () => MessageChatScreen(),
+      bindings: [
+        MessageChatBinding(),
       ],
     ),
   ];

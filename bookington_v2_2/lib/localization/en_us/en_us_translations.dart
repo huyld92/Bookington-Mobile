@@ -27,7 +27,7 @@ final Map<String, String> enUs = {
   "lbl_confirm": "Confirm",
   'lbl_resend_code': 'Resend Code',
   'lbl_time_out': 'Time out',
-  'lbl_slot': '/slot (30min)',
+  'lbl_slot': 'VND/slot/hour',
   'lbl_choose_court': 'Choose court)',
   'lbl_payment': 'Payment',
   'lbl_court': 'Court',
@@ -57,6 +57,9 @@ final Map<String, String> enUs = {
   'lbl_choose_slot': 'Choose Slot',
   'lbl_payment_succesfull': 'Payment Succesfull!',
   'lbl_view_booking': 'View your booking!',
+  'lbl_online': 'online',
+  'lbl_today': 'Today',
+  'lbl_register': 'Register',
 
 
   'msg_network_err': 'Network Error',
@@ -65,8 +68,8 @@ final Map<String, String> enUs = {
   'msg_we_send_a_code': 'We send a code to (*****',
   'msg_verify_phone_number': 'OTP Verification',
   'msg_something_went_wrong': 'Something Went Wrong!',
-  "msg_don_t_have_an_account": "Don’t have an account? Register Now",
   "msg_don_t_have_an_account2": "Don’t have an account? ",
+  "msg_alredy_account": "Already have an account?",
   "msg_enter_your_phone": "Enter your phone",
   "msg_enter_your_password": "Enter your password",
   "msg_enter_confirm_password": "Confirm password",

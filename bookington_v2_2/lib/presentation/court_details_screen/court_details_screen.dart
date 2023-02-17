@@ -1,11 +1,12 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/listfive_item_widget.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/slidericon_item_widget.dart';
-import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
+import 'package:intl/intl.dart';
 
 import 'controller/court_details_controller.dart';
 import 'models/listfive_item_model.dart';
@@ -15,26 +16,34 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
+  const CourtDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
+      bottom: false,
       child: Scaffold(
         appBar: CustomAppBar(
             height: getVerticalSize(56.00),
             leadingWidth: 64,
-            leading: AppbarIconbutton(
-                svgPath: ImageConstant.imgArrowleft,
-                margin: getMargin(left: 24),
-                onTap: onTapArrowleft()),
+            leading: AppbarImage(
+              height: getSize(28.00),
+              width: getSize(28.00),
+              svgPath: ImageConstant.imgArrowleft,
+              margin: getMargin(left: 24),
+              onTap: controller.onTapArrowleft(),
+            ),
             centerTitle: true,
             title: AppbarTitle(text: "lbl_court_details".tr)),
-        backgroundColor: ColorConstant.blueGray50,
+        // backgroundColor: ColorConstant.blueGray50,
+        backgroundColor: ColorConstant.whiteA700,
         body: SizedBox(
           width: size.width,
           child: SingleChildScrollView(
             child: Padding(
               padding: getPadding(
-                left: 16,
+                left: 20,
                 top: 15,
                 bottom: 5,
               ),
@@ -42,9 +51,9 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     height: getSize(
-                      343.00,
+                      340.00,
                     ),
                     width: getSize(
                       343.00,
@@ -117,7 +126,6 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                   ),
                   Padding(
                       padding: getPadding(
-                        left: 6,
                         top: 5,
                       ),
                       child: Column(
@@ -169,7 +177,9 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                             top: 1,
                                           ),
                                           child: Text(
-                                            "10:00-24:00",
+                                            "${DateFormat("HH:mm").format(controller.courtModel.openAt)}"
+                                                "-${DateFormat("HH:mm").format(controller.courtModel.closeAt)}",
+                                            // "10:00-24:00",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle.txtManropeBold12
@@ -294,7 +304,9 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                             top: 1,
                                           ),
                                           child: Text(
-                                            "10000đ/slot/30min",
+                                            controller.courtModel.moneyPerHour
+                                                    .toString() +
+                                                "lbl_slot".tr,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle.txtManropeBold12
@@ -316,7 +328,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   height: 34,
                                   width: 34,
                                   margin: getMargin(
-                                    left: 50,
+                                    left: 10,
                                   ),
                                   shape: IconButtonShape.RoundedBorder5,
                                   padding: IconButtonPadding.PaddingAll6,
@@ -352,7 +364,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           top: 1,
                                         ),
                                         child: Text(
-                                          "10".tr,
+                                          " ${controller.courtModel.numberOfSubCourt}",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtManropeBold12
@@ -423,7 +435,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           "lbl_see_more".tr,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeBold14.copyWith(
+                          style: AppStyle.txtManropeBold14Blue500.copyWith(
                             letterSpacing: getHorizontalSize(
                               0.20,
                             ),
@@ -433,7 +445,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           ),
                         ),
                         CustomImageView(
-                          svgPath: ImageConstant.imgSend,
+                          svgPath: ImageConstant.imgNext,
                           height: getSize(
                             16.00,
                           ),
@@ -449,111 +461,95 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: getPadding(
-                      left: 8,
-                      top: 34,
-                    ),
-                    child: Text(
-                      "lbl_gallery".tr,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: AppStyle.txtManropeBold18.copyWith(
-                        letterSpacing: getHorizontalSize(
-                          0.20,
-                        ),
-                        height: getVerticalSize(
-                          1.02,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: getPadding(
-                      left: 8,
-                      top: 13,
-                    ),
-                    child: Row(
-                      children: [
-                        CustomImageView(
-                          imagePath: ImageConstant.imgPhoThoCourt,
-                          height: getVerticalSize(
-                            130.00,
-                          ),
-                          width: getHorizontalSize(
-                            100.00,
-                          ),
-                        ),
-                        CustomImageView(
-                          imagePath: ImageConstant.imgCourt1,
-                          height: getVerticalSize(
-                            130.00,
-                          ),
-                          width: getHorizontalSize(
-                            100.00,
-                          ),
-                          margin: getMargin(
-                            left: 14,
-                          ),
-                          radius: BorderRadius.circular(
-                            getHorizontalSize(
-                              5.00,
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                        ),
+                  // Gallery
 
-                        Container(
-                          height: getVerticalSize(
-                            130.00,
-                          ),
-                          width: getHorizontalSize(
-                            100.00,
-                          ),
-                          margin: getMargin(
-                            left: 14,
-                          ),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CustomImageView(
-                                imagePath: ImageConstant.imgPhoThoCourt,
-                                height: getVerticalSize(
-                                  130.00,
-                                ),
-                                width: getHorizontalSize(
-                                  100.00,
-                                ),
-                                radius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    5.00,
-                                  ),
-                                ),
-                                alignment: Alignment.center,
-                              ),
-                              // Align(
-                              //   alignment: Alignment.center,
-                              //   child: Text(
-                              //     "lbl_12".tr,
-                              //     overflow: TextOverflow.ellipsis,
-                              //     textAlign: TextAlign.left,
-                              //     style: AppStyle.txtManropeExtraBold18Gray300
-                              //         .copyWith(
-                              //       letterSpacing: getHorizontalSize(
-                              //         0.20,
-                              //       ),
-                              //       height: getVerticalSize(
-                              //         0.99,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: getPadding(
+                  //     left: 8,
+                  //     top: 34,
+                  //   ),
+                  //   child: Text(
+                  //     "lbl_gallery".tr,
+                  //     overflow: TextOverflow.ellipsis,
+                  //     textAlign: TextAlign.left,
+                  //     style: AppStyle.txtManropeBold18.copyWith(
+                  //       letterSpacing: getHorizontalSize(
+                  //         0.20,
+                  //       ),
+                  //       height: getVerticalSize(
+                  //         1.02,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: getPadding(
+                  //     left: 8,
+                  //     top: 13,
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       CustomImageView(
+                  //         imagePath: ImageConstant.imgPhoThoCourt,
+                  //         height: getVerticalSize(
+                  //           130.00,
+                  //         ),
+                  //         width: getHorizontalSize(
+                  //           100.00,
+                  //         ),
+                  //       ),
+                  //       CustomImageView(
+                  //         imagePath: ImageConstant.imgCourt1,
+                  //         height: getVerticalSize(
+                  //           130.00,
+                  //         ),
+                  //         width: getHorizontalSize(
+                  //           100.00,
+                  //         ),
+                  //         margin: getMargin(
+                  //           left: 14,
+                  //         ),
+                  //         radius: BorderRadius.circular(
+                  //           getHorizontalSize(
+                  //             5.00,
+                  //           ),
+                  //         ),
+                  //         alignment: Alignment.center,
+                  //       ),
+                  //       Container(
+                  //         height: getVerticalSize(
+                  //           130.00,
+                  //         ),
+                  //         width: getHorizontalSize(
+                  //           100.00,
+                  //         ),
+                  //         margin: getMargin(
+                  //           left: 14,
+                  //         ),
+                  //         child: Stack(
+                  //           alignment: Alignment.center,
+                  //           children: [
+                  //             CustomImageView(
+                  //               imagePath: ImageConstant.imgPhoThoCourt,
+                  //               height: getVerticalSize(
+                  //                 130.00,
+                  //               ),
+                  //               width: getHorizontalSize(
+                  //                 100.00,
+                  //               ),
+                  //               radius: BorderRadius.circular(
+                  //                 getHorizontalSize(
+                  //                   5.00,
+                  //                 ),
+                  //               ),
+                  //               alignment: Alignment.center,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   Container(
                     height: getVerticalSize(
@@ -570,7 +566,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       color: ColorConstant.gray300,
                     ),
                   ),
-                  //review
+
+                   //review
                   Padding(
                     padding: getPadding(
                       left: 8,
@@ -622,7 +619,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     child: Row(
                       children: [
                         Text(
-                          "4.9".tr,
+                          "${controller.courtModel.ratingStar}".tr,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeBold32.copyWith(
@@ -731,7 +728,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     padding: getPadding(
                       left: 8,
                       top: 6,
-                      right: 24,
+                      right: 8,
                     ),
                     child: Obx(
                       () => ListView.separated(
@@ -839,7 +836,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       ),
                     ),
                     Text(
-                      "5\$".tr,
+                      "${controller.courtModel.moneyPerHour} VND",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeExtraBold20.copyWith(
@@ -885,7 +882,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       onTap: () {
                         print("Book now");
                         controller.chooseCourtScreen();
-                       },
+                      },
                     ),
                   ],
                 ),
@@ -895,10 +892,5 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
         ),
       ),
     );
-  }
-
-  onTapArrowleft() {
-    // Get.back();
-    print("back Court detail");
   }
 }

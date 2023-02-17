@@ -4,7 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
-  CustomBottomBar({this.onChanged});
+  CustomBottomBar({super.key, this.onChanged});
 
   RxInt selectedIndex = 0.obs;
 
@@ -173,6 +173,8 @@ class BottomMenuModel {
 }
 
 class DefaultWidget extends StatelessWidget {
+  const DefaultWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

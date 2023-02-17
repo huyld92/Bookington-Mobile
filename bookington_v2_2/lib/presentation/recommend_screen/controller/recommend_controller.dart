@@ -19,23 +19,23 @@ class RecommendController extends GetxController
   }
 
   void findAllCourt() {
-    ApiClient.searchCourt(1, "").then((result) {
-      List<CourtModel>? data = result;
-      CourtImage courtImage = CourtImage(
-          id: "id",
-          courtId: "courtId",
-          image_binary: "assets/images/img_phutho_court.png");
-      data?.forEach((c) {
-        recommendModelObj.value.recommendItemList.add(new RecommendItemModel.full(
-            court: c, courtImage: courtImage, rating: "4.9"));
-
-        // list.add(new RecommendItemModel.full(
-        //     court: c, courtImage: courtImage, rating: "4.9"));
-      });
-      change(data, status: RxStatus.success());
-    }, onError: (err) {
-      change(null, status: RxStatus.error(err.toString()));
-    });
+    // ApiClient.searchCourt(1, "").then((result) {
+    //   List<CourtModel>? data = result;
+    //   CourtImage courtImage = CourtImage(
+    //       id: "id",
+    //       courtId: "courtId",
+    //       image_binary: "assets/images/img_phutho_court.png");
+    //   data?.forEach((c) {
+    //     recommendModelObj.value.recommendItemList.add(new RecommendItemModel.full(
+    //         court: c, courtImage: courtImage, rating: "4.9"));
+    //
+    //     // list.add(new RecommendItemModel.full(
+    //     //     court: c, courtImage: courtImage, rating: "4.9"));
+    //   });
+    //   change(data, status: RxStatus.success());
+    // }, onError: (err) {
+    //   change(null, status: RxStatus.error(err.toString()));
+    // });
   }
 
   @override

@@ -17,8 +17,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
   Widget build(BuildContext context) {
 
     return SafeArea(
-        // top: false,
-        // bottom: false,
+        top: false,
+        bottom: false,
         child: Scaffold(
             // backgroundColor: ColorConstant.blueGray50,
             backgroundColor: ColorConstant.whiteA700,
@@ -180,7 +180,7 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                       controller.nextPaymentScreen();
                     },
                   )
-                ]))));
+                ])),));
   }
 
   onTapArrowleft() {

@@ -51,7 +51,7 @@ class RecommendItemWidget extends StatelessWidget {
               top: 10,
             ),
             child: Text(
-              recommendItemModelObj.court.name,
+              "recommendItemModelObj.court.name",
               maxLines: null,
               textAlign: TextAlign.left,
               style: AppStyle.txtManropeBold16,
@@ -98,7 +98,7 @@ class RecommendItemWidget extends StatelessWidget {
                     top: 1,
                   ),
                   child: Text(
-                    recommendItemModelObj.court.address,
+                    "recommendItemModelObj.court.address",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     style: AppStyle.txtManropeRegular12.copyWith(

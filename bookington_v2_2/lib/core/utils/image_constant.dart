@@ -22,6 +22,8 @@ class ImageConstant {
 
   static String imgCalendar = 'assets/images/img_calendar.svg';
 
+  static String imgNext = 'assets/images/img_next.svg';
+
   static String imgSend = 'assets/images/img_send.svg';
 
   static String imgNotify = 'assets/images/img_notification.svg';
@@ -62,11 +64,15 @@ class ImageConstant {
 
   static String imgFailled = 'assets/images/img_failled.svg';
 
+  static String imgCamera = 'assets/images/img_camera.svg';
+
 
 
 
   static String imgPhoThoCourt = 'assets/images/img_phutho_court.png';
 
   static String imgCourt1 = 'assets/images/san-cau-long-phu-tho.png';
+
+  static String imgMomoAds = 'assets/images/img_momo_ads.jpg';
 
 }

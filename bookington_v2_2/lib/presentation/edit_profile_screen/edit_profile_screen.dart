@@ -13,6 +13,8 @@ import 'package:bookington_v2_2/widgets/custom_text_form_field.dart';
 class EditProfileScreen extends GetWidget<EditProfileController> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  EditProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

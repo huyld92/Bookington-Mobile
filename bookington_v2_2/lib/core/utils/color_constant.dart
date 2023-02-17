@@ -54,6 +54,8 @@ class ColorConstant {
 
   static Color orange500 = fromHex('#FF5722');
 
+  static Color green500 = fromHex('#4CAF50');
+
 
 
   static Color fromHex(String hexString) {

@@ -6,7 +6,7 @@ import 'listrectangle4224_item_model.dart';
 
 class CourtDetailsModel {
   RxList<SlidericonItemModel> slidericonItemList =
-      RxList.filled(1, SlidericonItemModel());
+      RxList.filled(2, SlidericonItemModel());
 
   RxList<ListfiveItemModel> listfiveItemList =
       RxList.filled(5, ListfiveItemModel());

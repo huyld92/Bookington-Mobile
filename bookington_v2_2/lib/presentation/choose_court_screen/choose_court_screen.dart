@@ -27,7 +27,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                 leading: AppbarIconbutton(
                     svgPath: ImageConstant.imgArrowleft,
                     margin: getMargin(left: 24),
-                    onTap: onTapArrowleft()),
+                    onTap: controller.getBack()),
                 centerTitle: true,
                 title: AppbarTitle(text: "lbl_choose_court".tr)),
             body: Column(children: [
@@ -154,7 +154,5 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                 ]))));
   }
 
-  onTapArrowleft() {
-    // Get.back();
-  }
+
 }
