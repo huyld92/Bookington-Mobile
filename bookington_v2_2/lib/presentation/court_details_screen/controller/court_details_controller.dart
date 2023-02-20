@@ -26,9 +26,9 @@ class CourtDetailsController extends GetxController {
 
   loadData(){
     // Map<String, String?> params = Get.parameters;
-    if(PrefUtils.getString("id") != null){
-      getCourtDetails(PrefUtils.getString("id")!);
-      print('id: ${PrefUtils.getString("id") }');
+    if(PrefUtils.getString("courtId") != null){
+      getCourtDetails(PrefUtils.getString("courtId")!);
+      print('id: ${PrefUtils.getString("courtId") }');
     } else{
       print('NUlll');
     }

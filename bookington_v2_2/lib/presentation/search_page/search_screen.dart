@@ -63,7 +63,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                                 .searchController,
                                             focusNode: FocusNode(),
                                             decoration: InputDecoration(
-                                              hintText: 'Search for something',
+                                              hintText: 'lbl_search_for_court'.tr,
                                               prefixIcon: const Icon(Icons.search),
                                               fillColor: ColorConstant
                                                   .whiteA700,
@@ -79,9 +79,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                             textInputAction: TextInputAction
                                                 .search,
                                             onSubmitted: (value) {
-                                              print("value saerch Screen: " +
-                                                  value);
-                                              controller.searchByName(1);
+                                               controller.searchByName(1);
                                             },
                                           ),
                                         ),
@@ -212,11 +210,11 @@ class SearchScreen extends GetWidget<SearchController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.searchScreen;
+        return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:
-        return AppRoutes.searchScreen;
+        return AppRoutes.historyScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:
@@ -229,7 +227,7 @@ class SearchScreen extends GetWidget<SearchController> {
       case AppRoutes.searchScreen:
         return const SearchScreen();
       default:
-        return const DefaultWidget();
+        return const SearchScreen();
     }
   }
 }

@@ -66,6 +66,8 @@ class ImageConstant {
 
   static String imgCamera = 'assets/images/img_camera.svg';
 
+  static String imgSquareEdit = 'assets/images/img_square_edit.svg';
+
 
 
 

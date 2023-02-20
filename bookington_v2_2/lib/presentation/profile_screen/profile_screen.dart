@@ -1,4 +1,3 @@
-
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
@@ -125,28 +124,35 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             margin: getMargin(top: 10))
                       ])),
               Padding(
-                  padding: getPadding(top: 10),
+                padding: getPadding(top: 10),
+                child: InkWell(
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
-                            height: 40,
-                            width: 40,
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgHistory)),
-                        Padding(
-                            padding: getPadding(left: 16, top: 10, bottom: 9),
-                            child: Text("lbl_history".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeSemiBold14)),
-                        Spacer(),
-                        CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getSize(20.00),
-                            width: getSize(20.00),
-                            margin: getMargin(top: 10))
-                      ])),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomIconButton(
+                          height: 40,
+                          width: 40,
+                          child: CustomImageView(
+                              svgPath: ImageConstant.imgNotFound)),
+                      Padding(
+                          padding: getPadding(left: 16, top: 10, bottom: 9),
+                          child: Text("lbl_transaction".tr,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: AppStyle.txtManropeSemiBold14)),
+                      Spacer(),
+                      CustomImageView(
+                          svgPath: ImageConstant.imgArrowright,
+                          height: getSize(20.00),
+                          width: getSize(20.00),
+                          margin: getMargin(top: 10)),
+                    ],
+                  ),
+                  onTap: () {
+                    controller.transactionScreen();
+                  },
+                ),
+              ),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -192,7 +198,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             height: 40,
                             width: 40,
                             child: CustomImageView(
-                                svgPath: ImageConstant.imgHome)),
+                                svgPath: ImageConstant.imgNotFound)),
                         Padding(
                             padding: getPadding(left: 16, top: 10, bottom: 7),
                             child: Text("lbl_change_password".tr,
@@ -206,7 +212,6 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             width: getSize(20.00),
                             margin: getMargin(top: 10, bottom: 10))
                       ])),
-
               Padding(
                 padding: getPadding(top: 10),
                 child:
@@ -271,25 +276,15 @@ class ProfileScreen extends GetWidget<ProfileController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.messageChatScreen;
+        return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:
-        return AppRoutes.homeScreen;
+        return AppRoutes.historyScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:
         return "/";
-    }
-  }
-
-  ///Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.profileScreen:
-        return ProfileScreen();
-      default:
-        return DefaultWidget();
     }
   }
 }

@@ -236,11 +236,11 @@ class HomeScreen extends GetWidget<HomeController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.messageChatScreen;
-      case BottomBarEnum.Search:
+        return AppRoutes.messagesScreen;
+      case BottomBarEnum.Message:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:
-        return AppRoutes.homeScreen;
+        return AppRoutes.historyScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:
@@ -254,7 +254,7 @@ class HomeScreen extends GetWidget<HomeController> {
        case AppRoutes.homeScreen:
         return HomeScreen();
        default:
-        return DefaultWidget();
+        return HomeScreen();
     }
   }
 }

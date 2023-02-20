@@ -131,15 +131,19 @@ class LoginScreen extends GetWidget<LoginController> {
                             width: 358,
                             text: "lbl_login".tr,
                             margin: getMargin(top: 24),
+
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
                                 controller.login(
                                     controller.txtPhoneController.text,
                                     controller.txtPasswordController.text);
                               }
-                             },
+                            },
                           ),
-
+                          Padding(
+                            padding: getPadding(),
+                            child: Text("lbl_forgot_pasword"),
+                          ),
                           Align(
                               alignment: Alignment.center,
                               child: Padding(

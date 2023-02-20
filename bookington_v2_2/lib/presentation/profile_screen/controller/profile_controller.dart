@@ -50,4 +50,8 @@ class ProfileController extends GetxController {
       profileModelObj = ProfileModel(_fullName!, _phomeNumber!).obs;
     }
   }
+
+  void transactionScreen() {
+    Get.offNamed(AppRoutes.transactionScreen);
+  }
 }

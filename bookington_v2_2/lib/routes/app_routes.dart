@@ -8,14 +8,16 @@ import 'package:bookington_v2_2/presentation/create_password_screen/binding/crea
 import 'package:bookington_v2_2/presentation/create_password_screen/create_password_screen.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
+import 'package:bookington_v2_2/presentation/history_screen/binding/history_binding.dart';
+import 'package:bookington_v2_2/presentation/history_screen/history_screen.dart';
 import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
 import 'package:bookington_v2_2/presentation/login_screen/login_screen.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/binding/message_chat_binding.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/message_chat_screen.dart';
-import 'package:bookington_v2_2/presentation/messages_container_screen/binding/messages_container_binding.dart';
-import 'package:bookington_v2_2/presentation/messages_container_screen/messages_container_screen.dart';
+import 'package:bookington_v2_2/presentation/messages_screen.dart/binding/messages_binding.dart';
+import 'package:bookington_v2_2/presentation/messages_screen.dart/messages_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
@@ -30,6 +32,8 @@ import 'package:bookington_v2_2/presentation/search_page/binding/search_binding.
 import 'package:bookington_v2_2/presentation/search_page/search_screen.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/splash_screen.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/binding/transaction_binding.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/transaction_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -68,16 +72,19 @@ class AppRoutes {
 
   static const String messageChatScreen = '/message_chat_screen';
 
+  static const String historyScreen = '/history_screen';
+
+  static const String transactionScreen = '/transaction_screen';
+
   static List<GetPage> pages = [
     GetPage(
-      name: initialRoute,
-      // name: splashScreen,
+      // name: initialRoute,
+      name: splashScreen,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: loginScreen,
@@ -86,7 +93,6 @@ class AppRoutes {
         LoginBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: registrationPhoneScreen,
@@ -95,7 +101,6 @@ class AppRoutes {
         RegistrationPhoneBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: verifyPhoneNumberScreen,
@@ -104,7 +109,6 @@ class AppRoutes {
         VerifyPhoneNumberBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: createPasswordScreen,
@@ -113,7 +117,6 @@ class AppRoutes {
         CreatePasswordBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: homeScreen,
@@ -121,8 +124,8 @@ class AppRoutes {
       bindings: [
         HomeBinding(),
       ],
+      // middlewares: [RouteGuard()],
     ),
-
     GetPage(
       // name: initialRoute,
       name: recommendScreen,
@@ -131,7 +134,6 @@ class AppRoutes {
         RecommendBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: courtDetailsScreen,
@@ -140,17 +142,14 @@ class AppRoutes {
         CourtDetailsBinding(),
       ],
     ),
-
     GetPage(
-      // name: initialRoute,
-      name: chooseCourtScreen,
+      name: initialRoute,
+      // name: chooseCourtScreen,
       page: () => ChooseCourtScreen(),
       bindings: [
         ChooseCourtBinding(),
       ],
     ),
-
-
     GetPage(
       // name: initialRoute,
       name: chooseSlotScreen,
@@ -159,7 +158,6 @@ class AppRoutes {
         ChooseSlotBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: searchScreen,
@@ -168,7 +166,6 @@ class AppRoutes {
         SearchBinding(),
       ],
     ),
-
     GetPage(
       // name: initialRoute,
       name: profileScreen,
@@ -176,8 +173,8 @@ class AppRoutes {
       bindings: [
         ProfileBinding(),
       ],
+      // middlewares: [RouteGuard()],
     ),
-
     GetPage(
       // name: initialRoute,
       name: editProfileScreen,
@@ -185,8 +182,8 @@ class AppRoutes {
       bindings: [
         EditProfileBinding(),
       ],
+      // middlewares: [RouteGuard()],
     ),
-
     GetPage(
       // name: initialRoute,
       name: paymentScreen,
@@ -195,22 +192,39 @@ class AppRoutes {
         PaymentBinding(),
       ],
     ),
-
-    GetPage(
-      // name: initialRoute,
-      name: messagesScreen,
-      page: () => MessagesContainerScreen(),
-      bindings: [
-        MessagesContainerBinding(),
-      ],
-    ),
-
     GetPage(
       // name: initialRoute,
       name: messageChatScreen,
       page: () => MessageChatScreen(),
       bindings: [
         MessageChatBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: messagesScreen,
+      page: () => MessagesScreen(),
+      bindings: [
+        MessagesBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: historyScreen,
+      page: () => HistoryScreen(),
+      bindings: [
+        HistoryBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: transactionScreen,
+      page: () => TransactionScreen(),
+      bindings: [
+        TransactionBinding(),
       ],
     ),
   ];

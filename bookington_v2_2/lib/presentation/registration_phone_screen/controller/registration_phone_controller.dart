@@ -18,6 +18,7 @@ class RegistrationPhoneController extends GetxController {
 
   Rx<bool> isShowPassword = false.obs;
   Rx<bool> isShowConfirm = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -31,31 +32,39 @@ class RegistrationPhoneController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-   }
+  }
 
   Future<void> registrationWithPhone() async {
-    //  try {
-    //   var response = await ApiClient.sendSms(txtPhone.text);
-    //
-    //   print(response.statusCode);
-    //
-    //   if (response.statusCode == 200) {
-    //
-    //     PrefUtils.setString("rePhoneNumber",txtPhone.text);
-    //     Get.offNamed(AppRoutes.verifyPhoneNumberScreen);      }
-    //   else {
-    //     Get.defaultDialog(title: "Send Otp Failed!", middleText:  jsonDecode(response.body)["Message"]);
-    //   }
-    // } catch (error) {
-    //   Get.defaultDialog(title: "send otp Failed!", middleText: error.toString());
-    // }
+    try {
+      var response = await ApiClient.register(txtPhoneController.text,
+          txtPasswordController.text, txtPhoneController.text);
 
-    PrefUtils.setString("rePhoneNumber",txtPhoneController.text);
+      if (response.statusCode == 200) {
+        var response = await ApiClient.sendSms(txtPhoneController.text);
+
+        print(response.statusCode);
+
+        if (response.statusCode == 200) {
+          PrefUtils.setString("rePhoneNumber", txtPhoneController.text);
+          Get.offNamed(AppRoutes.verifyPhoneNumberScreen);
+        } else {
+          Get.defaultDialog(
+              title: "Send Otp Failed!",
+              middleText: jsonDecode(response.body)["Message"]);
+        }
+      } else {
+        print('Error create accont');
+      }
+    } catch (error) {
+      Get.defaultDialog(
+          title: "send otp Failed!", middleText: error.toString());
+    }
+
+    PrefUtils.setString("rePhoneNumber", txtPhoneController.text);
     Get.offNamed(AppRoutes.verifyPhoneNumberScreen);
   }
 
-  loginScreen(){
+  loginScreen() {
     Get.offNamed(AppRoutes.loginScreen);
-
   }
 }

@@ -25,6 +25,15 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle txtManropeBold14Green500 = TextStyle(
+    color: ColorConstant.green500,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w700,
+  );
+
   static TextStyle txtManropeBold14 = TextStyle(
     color: ColorConstant.gray900,
     fontSize: getFontSize(
@@ -107,6 +116,15 @@ class AppStyle {
     ),
     fontFamily: 'Manrope',
     fontWeight: FontWeight.w700,
+  );
+
+  static TextStyle txtManropeSemiBold20 = TextStyle(
+    color: ColorConstant.blueGray500,
+    fontSize: getFontSize(
+      20,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w600,
   );
 
   static TextStyle txtManropeSemiBold16 = TextStyle(
@@ -291,6 +309,14 @@ class AppStyle {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle txtManropeMedium12Gray500 = TextStyle(
+    color: ColorConstant.gray500,
+    fontSize: getFontSize(
+      12,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle txtManropeMedium12 = TextStyle(
     color: ColorConstant.gray900,
     fontSize: getFontSize(
@@ -336,6 +362,15 @@ class AppStyle {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle txtManropeMedium18 = TextStyle(
+    color: ColorConstant.gray900,
+    fontSize: getFontSize(
+      18,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle txtManropeMedium10Blue500 = TextStyle(
     color: ColorConstant.blue500,
     fontSize: getFontSize(
@@ -344,6 +379,16 @@ class AppStyle {
     fontFamily: 'Manrope',
     fontWeight: FontWeight.w500,
   );
+
+  static TextStyle txtManropeRegular11 = TextStyle(
+    color: ColorConstant.gray900,
+    fontSize: getFontSize(
+      11,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w400,
+  );
+
 
   static TextStyle txtManropeRegular12 = TextStyle(
     color: ColorConstant.gray900,

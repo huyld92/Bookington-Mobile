@@ -162,7 +162,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                 CustomButton(
                   height: 53,
                   width: 358,
-                  text: "lbl_login".tr,
+                  text: "lbl_register".tr,
                   margin: getMargin(top: 24),
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {

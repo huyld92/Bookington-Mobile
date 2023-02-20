@@ -5,8 +5,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 // ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
   CustomBottomBar({super.key, this.onChanged});
-
-  RxInt selectedIndex = 0.obs;
+  static RxInt selectedIndex = 0.obs;
 
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(
@@ -16,7 +15,7 @@ class CustomBottomBar extends StatelessWidget {
     ),
     BottomMenuModel(
       icon: ImageConstant.imgChat,
-      title: "lbl_message".tr,
+      title: "lbl_messages".tr,
       type: BottomBarEnum.Message,
     ),
     BottomMenuModel(
@@ -62,8 +61,8 @@ class CustomBottomBar extends StatelessWidget {
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           elevation: 0,
           currentIndex: selectedIndex.value,
           type: BottomNavigationBarType.fixed,
@@ -147,7 +146,7 @@ class CustomBottomBar extends StatelessWidget {
           onTap: (index) {
              selectedIndex.value = index;
             onChanged!(bottomMenuList[index].type);
-          },
+           },
         ),
       ),
     );

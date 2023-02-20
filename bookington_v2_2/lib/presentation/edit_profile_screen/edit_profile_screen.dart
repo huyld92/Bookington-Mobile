@@ -22,7 +22,6 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
         bottom: false,
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: ColorConstant.gray50,
             appBar: CustomAppBar(
                 height: getVerticalSize(40.00),
                 leadingWidth: 64,

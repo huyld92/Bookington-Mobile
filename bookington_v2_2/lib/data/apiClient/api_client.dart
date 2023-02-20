@@ -50,6 +50,21 @@ class ApiClient extends GetConnect {
     }
   }
 
+  static Future<dynamic> register(String phone, String password, fullName) async {
+    var headers = {'Content-Type': 'application/json'};
+    var url = Uri.parse(AppUrl.signUpEndPoint);
+    Map body = {'phone': phone, 'password': password, 'fullName': fullName};
+
+    http.Response response =
+    await http.post(url, headers: headers, body: jsonEncode(body));
+
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
+  }
+
   static Future<http.Response> sendSms(String phone) async {
     print('Phone: ' + phone);
     var url = Uri.parse(AppUrl.smsEndPoint + phone);
@@ -71,20 +86,6 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<dynamic> signUp(String phone, String password, fullName) async {
-    var headers = {'Content-Type': 'application/json'};
-    var url = Uri.parse(AppUrl.signUpEndPoint);
-    Map body = {'phone': phone, 'password': password, 'fullName': fullName};
-
-    http.Response response =
-        await http.post(url, headers: headers, body: jsonEncode(body));
-
-    if (response.statusCode == 201) {
-      return jsonDecode(response.body);
-    } else {
-      return jsonDecode(response.body);
-    }
-  }
 
   static Future<http.Response> getProfileById(String id) async {
     var headers = {'Content-Type': 'application/json'};

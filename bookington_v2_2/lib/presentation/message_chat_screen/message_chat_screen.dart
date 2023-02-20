@@ -45,9 +45,12 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                             style: AppStyle.txtManropeMedium12Green500.copyWith(
                                 letterSpacing: getHorizontalSize(0.40)))))
               ]),
-              AppbarIconbutton(
-                  svgPath: ImageConstant.imgUser,
-                  margin: getMargin(left: 70, bottom: 3))
+              // AppbarIconbutton(
+              //   onTap: null,
+              //     svgPath: ImageConstant.imgUser,
+              //     margin: getMargin(left: 70, bottom: 3)
+              //
+              // )
             ])
           ]),
         ),
@@ -207,30 +210,52 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                            width: 290,
+                            height: 56,
                             padding: getPadding(
-                                left: 16, top: 15, right: 16, bottom: 15),
+                                left: 16, top: 5, right: 16, bottom: 5),
                             decoration: AppDecoration.fillBluegray50.copyWith(
                                 borderRadius:
-                                    BorderRadiusStyle.roundedBorder10),
+                                    BorderRadiusStyle.roundedBorder20),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  CustomImageView(
-                                      // svgPath: ImageConstant.imgPlus,
-                                      height: getSize(22.00),
-                                      width: getSize(22.00),
-                                      margin: getMargin(top: 1, bottom: 1)),
-                                  Padding(
-                                      padding: getPadding(left: 12, top: 4),
-                                      child: Text("Write a reply...".tr,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeRegular14)),
+                                  Container(
+                                    width: 210,
+
+                                    padding:
+                                        getPadding(left: 0, top: 4, bottom: 10),
+                                    child: TextField(
+                                      focusNode: FocusNode(),
+                                      decoration: InputDecoration(
+                                        hintText: 'Aa'.tr,
+                                        contentPadding: getPadding(all: 5),
+                                        border: InputBorder.none,
+                                      ),
+                                      textInputAction: TextInputAction.send,
+                                    ),
+
+                                    // TextField(
+                                    //   controller: controller
+                                    //       .messagesController,
+                                    //   focusNode: FocusNode(),
+                                    //   decoration: InputDecoration(
+                                    //     hintText: 'Aa'.tr,
+                                    //     // prefixIcon: const Icon(Icons.search),
+                                    //     fillColor: ColorConstant
+                                    //         .whiteA700,
+                                    //     contentPadding: getPadding(
+                                    //         all: 16),
+                                    //   ),
+                                    //   textInputAction: TextInputAction
+                                    //       .send,
+                                    // ),
+                                  ),
                                   CustomImageView(
                                       svgPath: ImageConstant.imgCamera,
                                       height: getSize(24.00),
                                       width: getSize(24.00),
-                                      margin: getMargin(left: 83),
+                                      margin: getMargin(left: 10),
                                       onTap: () {
                                         onTapImgCamera();
                                       })
@@ -257,38 +282,5 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
     // await FileManager().showModelSheetForImage(getImages: (value) async {
     //   imageList = value;
     // });
-  }
-
-  onTapArrowleft() {
-    print("Chat sreen back");
-    // Get.back();
-  }
-
-  ///Handling route based on bottom click actions
-  String getCurrentRoute(BottomBarEnum type) {
-    switch (type) {
-      case BottomBarEnum.Home:
-        return AppRoutes.homeScreen;
-      case BottomBarEnum.Message:
-        return AppRoutes.messageChatScreen;
-      case BottomBarEnum.Search:
-        return AppRoutes.searchScreen;
-      case BottomBarEnum.History:
-        return AppRoutes.homeScreen;
-      case BottomBarEnum.Profile:
-        return AppRoutes.profileScreen;
-      default:
-        return "/";
-    }
-  }
-
-  // /Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.homeScreen:
-        return MessageChatScreen();
-      default:
-        return DefaultWidget();
-    }
   }
 }

@@ -1,0 +1,56 @@
+import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/data/models/transaction_model.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/controller/transaction_controller.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/wigets/transaction_item_widget.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
+import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class TransactionScreen extends GetWidget<TransactionController> {
+  const TransactionScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(
+            height: getVerticalSize(40.00),
+            leadingWidth: 64,
+            leading: AppbarIconbutton(
+                svgPath: ImageConstant.imgArrowleft,
+                margin: getMargin(left: 24),
+                onTap: controller.getBack()),
+            centerTitle: true,
+            title: AppbarTitle(text: "lbl_transaction".tr)),
+        body: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(color: ColorConstant.whiteA700),
+          padding: getPadding(top: 10.0 ),
+          child: Column(
+            children: [
+              Container(
+                height: 70,
+                color: Colors.amberAccent,
+              ),
+              Expanded(
+                child:  ListView.builder(
+                    itemCount: controller.listTrasaction.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, int index) {
+                      TransactionModel model = controller.listTrasaction[index];
+                      return  TransactionItemWidget(model,index);
+                    }),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
