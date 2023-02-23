@@ -9,5 +9,6 @@ class InitialBindings extends Bindings {
     Get.put(ApiClient());
     Connectivity connectivity = Connectivity();
     Get.put(NetworkInfo(connectivity));
-   }
+
+  }
 }

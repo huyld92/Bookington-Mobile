@@ -9,6 +9,8 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore_for_file: must_be_immutable
 class ProfileScreen extends GetWidget<ProfileController> {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -256,6 +258,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeSemiBold14Red500)),
                   Spacer(),
+                      CustomImageView(
+                          svgPath: ImageConstant.imgArrowright,
+                          height: getSize(20.00),
+                          width: getSize(20.00),
+                          margin: getMargin(top: 10, bottom: 10))
                 ]),
               ),
             ],

@@ -127,7 +127,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                                   children: [
-                                                    Text("10.000 VND".tr,
+                                                    Text("100,000".tr,
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         textAlign:
@@ -327,7 +327,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                             Padding(
                                 padding:
                                 getPadding(left: 12, top: 2, bottom: 2),
-                                child: Text("lbl_coupon".tr,
+                                child: Text("lbl_voucher".tr,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: AppStyle.txtManropeBold18)),

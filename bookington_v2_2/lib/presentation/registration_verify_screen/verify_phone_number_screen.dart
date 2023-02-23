@@ -7,7 +7,9 @@ import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  VerifyPhoneNumberScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +120,7 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                                 style: AppStyle.txtManropeBold18.copyWith(
                                     letterSpacing: getHorizontalSize(0.20),
                                     height: getVerticalSize(1.10))),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text("05:00",

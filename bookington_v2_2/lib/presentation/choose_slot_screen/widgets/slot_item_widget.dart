@@ -53,58 +53,12 @@ class SlotItemWidget extends StatelessWidget {
               TextSpan(
                 text:
                     "\n" + controller.slotList[index].price.toString() + " VND",
-                style: AppStyle.txtManropeSemiBold14Orange500,
+                style: AppStyle.txtManropeSemiBold14Red500,
               )
             ],
           ),
         ),
       ),),
     );
-
-    //   Container(
-    //   padding: getPadding(
-    //     all: 5
-    //   ),
-    //   decoration: AppDecoration.outlineGray200.copyWith(
-    //     borderRadius: BorderRadiusStyle.roundedBorder5,
-    //   ),
-    //   child: Column(
-    //     mainAxisSize: MainAxisSize.min,
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       Text(
-    //         DateFormat("HH:mm").format(controller.slotList[index].startTime),
-    //         overflow: TextOverflow.ellipsis,
-    //         textAlign: TextAlign.left,
-    //         style: AppStyle.txtManropeBold18,
-    //       ),
-    //       Padding(
-    //         padding: getPadding(
-    //           left: 5,
-    //           bottom: 4,
-    //         ),
-    //         child: Text(
-    //           "to " + DateFormat("HH:mm").format(controller.slotList[index].endTime),
-    //           overflow: TextOverflow.ellipsis,
-    //           textAlign: TextAlign.left,
-    //           style: AppStyle.txtManropeRegular12,
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: getPadding(
-    //           left:0,
-    //           bottom: 4,
-    //         ),
-    //         child: Text(
-    //           controller.slotList[index].price.toString() + " VND",
-    //           overflow: TextOverflow.ellipsis,
-    //           textAlign: TextAlign.left,
-    //           style: AppStyle.txtManropeSemiBold14Blue500,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

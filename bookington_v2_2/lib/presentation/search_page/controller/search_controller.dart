@@ -9,9 +9,10 @@ import 'package:bookington_v2_2/presentation/search_page/models/search_model.dar
 import 'package:flutter/material.dart';
 
 class SearchController extends GetxController {
-  final String searchUrl = "/bookington/courts/query";
   TextEditingController searchController = TextEditingController();
+
   Rx<String> totalCount = "0".obs;
+
   late RxList<SearchModel> listSearchMode = <SearchModel>[].obs;
 
   late RxList<ProvinceModel> province = <ProvinceModel>[].obs;
@@ -19,15 +20,6 @@ class SearchController extends GetxController {
   late RxList<DistrictModel> dictrict = <DistrictModel>[].obs;
   final selectedProvince = ProvinceModel("-1", "Choose province").obs;
   final selectedDistrict = DistrictModel("-1", "Choose district").obs;
-
-  // List listType = ["Ho Chi Minh", "Thua Thien Hue", "Tien Giang", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba CCCC-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "BBBBBBBBBB", "AAAAA"];
-  // // It is mandatory initialize with one value from listType
-  // final selected = "Ho Chi Minh".obs;
-  //
-  // void setSelected(String value) {
-  //   selected.value = value;
-  //   print(selected.value);
-  // }
 
   onSelectedProvince(ProvinceModel value) {
     selectedProvince.value = value;
@@ -132,12 +124,11 @@ class SearchController extends GetxController {
   }
 
   courtDetailsScreen(int index) {
-
     // Map<String,String> params = {
     //   "id": listSearchMode[index].id,
     // };
     PrefUtils.setString("courtId", listSearchMode[index].id);
-     Get.offNamed(AppRoutes.courtDetailsScreen);
+    Get.offNamed(AppRoutes.courtDetailsScreen);
 
     print("Court Details");
   }

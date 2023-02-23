@@ -142,7 +142,7 @@ class CustomButton extends StatelessWidget {
       case ButtonVariant.OutlineGray300:
         return ColorConstant.whiteA700;
       default:
-        return ColorConstant.blue500;
+        return ColorConstant.blue400;
     }
   }
 

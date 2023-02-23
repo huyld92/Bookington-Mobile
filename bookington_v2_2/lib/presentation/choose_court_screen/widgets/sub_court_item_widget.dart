@@ -1,7 +1,7 @@
 
 
-import 'package:bookington_v2_2/core/utils/color_constant.dart';
-import 'package:bookington_v2_2/core/utils/image_constant.dart';
+import 'package:bookington_v2_2/core/constants/color_constant.dart';
+import 'package:bookington_v2_2/core/constants/image_constant.dart';
 import 'package:bookington_v2_2/core/utils/size_utils.dart';
 import 'package:bookington_v2_2/data/models/sub_court_model.dart';
 

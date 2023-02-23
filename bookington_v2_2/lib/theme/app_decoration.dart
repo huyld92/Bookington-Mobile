@@ -183,4 +183,10 @@ class BorderRadiusStyle {
       23.00,
     ),
   );
+
+  static BorderRadius circleBorder5 = BorderRadius.circular(
+    getHorizontalSize(
+      5.00,
+    ),
+  );
 }

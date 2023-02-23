@@ -9,9 +9,11 @@ import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 
-class HomeScreen extends GetWidget<HomeController> {
+class HomeScreen extends GetWidget <HomeController>{
+  const HomeScreen({super.key});
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -80,6 +82,7 @@ class HomeScreen extends GetWidget<HomeController> {
                     svgPath: ImageConstant.imgNotify,
                   ),
                   onTap: () {
+                    controller.notificationScreen();
                     print("onTap notification");
                   },
                 ),
@@ -90,19 +93,15 @@ class HomeScreen extends GetWidget<HomeController> {
                       height: 16,
                       width: 16,
                       decoration: BoxDecoration(
-                        color: Color(0xFFFF4848),
+                        color: ColorConstant.red500,
                         shape: BoxShape.circle,
                         border: Border.all(width: 1.5, color: Colors.white),
                       ),
                       child: Center(
                           child: Text(
                         "3",
-                        style: TextStyle(
-                            fontSize: 10,
-                            height: 1,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      )),
+                        style: AppStyle.txtManropeSemiBold10White ,
+                      ),),
                     ))
               ],
             )
@@ -143,9 +142,9 @@ class HomeScreen extends GetWidget<HomeController> {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       InkWell(
-                        child: new Row(
+                        child: Row(
                           children: [
                             Text(
                               "lbl_see_more".tr,
@@ -198,7 +197,7 @@ class HomeScreen extends GetWidget<HomeController> {
                           top: 10,
                         ),
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         separatorBuilder: (context, index) {
                           return SizedBox(
                             height: getVerticalSize(
@@ -237,7 +236,7 @@ class HomeScreen extends GetWidget<HomeController> {
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
         return AppRoutes.messagesScreen;
-      case BottomBarEnum.Message:
+      case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:
         return AppRoutes.historyScreen;
@@ -252,9 +251,9 @@ class HomeScreen extends GetWidget<HomeController> {
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
        case AppRoutes.homeScreen:
-        return HomeScreen();
+        return const HomeScreen();
        default:
-        return HomeScreen();
+        return const HomeScreen();
     }
   }
 }

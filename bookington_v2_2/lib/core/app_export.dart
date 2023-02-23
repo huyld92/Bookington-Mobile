@@ -1,7 +1,7 @@
 export 'package:get/get.dart';
 export 'package:bookington_v2_2/localization/app_localization.dart';
-export 'package:bookington_v2_2/core/utils/image_constant.dart';
-export 'package:bookington_v2_2/core/utils/color_constant.dart';
+export 'package:bookington_v2_2/core/constants/image_constant.dart';
+export 'package:bookington_v2_2/core/constants/color_constant.dart';
 export 'package:bookington_v2_2/core/utils/size_utils.dart';
 export 'package:bookington_v2_2/core/utils/pref_utils.dart';
 export 'package:bookington_v2_2/core/utils/initial_bindings.dart';

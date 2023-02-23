@@ -59,7 +59,7 @@ class CourtDetailsController extends GetxController {
   }
 
   onTapArrowleft() {
-    // Get.back();
+    Get.back( );
     print("back Court detail");
   }
 }

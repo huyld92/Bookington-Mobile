@@ -33,7 +33,6 @@ class EditProfileController extends GetxController {
     birthdayController.dispose();
   }
 
-
   void loadProfile() {
     if (PrefUtils.getString("sysToken") == null) {
       Get.toNamed(AppRoutes.loginScreen);
@@ -41,21 +40,24 @@ class EditProfileController extends GetxController {
       String userID = PrefUtils.getString("userID") ?? "-1";
       print('userID: ' + userID);
       ApiClient.getProfileById(userID).then((result) {
-        print(result.statusCode );
+        print(result.statusCode);
         if (result.statusCode == 200) {
-          final jsonResult = (jsonDecode(result.body)["result"]) ;
+          final jsonResult = (jsonDecode(result.body)["result"]);
           print(jsonResult);
           phoneController.text = jsonResult["phone"];
-          fullNameController.text =jsonResult["fullName"];
-          try{
-            birthdayController.text = DateFormat("dd/MM/yyyy").format(jsonResult["dateOfBirth"]);
-          } catch(error){
+          fullNameController.text = jsonResult["fullName"];
+          try {
+            birthdayController.text =
+                DateFormat("dd/MM/yyyy").format(jsonResult["dateOfBirth"]);
+          } catch (error) {
             birthdayController.text = "Select date";
           }
         }
       });
-
     }
   }
-}
 
+  getBack() {
+    Get.back(id: 5);
+  }
+}

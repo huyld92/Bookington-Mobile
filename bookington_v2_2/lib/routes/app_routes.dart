@@ -4,8 +4,6 @@ import 'package:bookington_v2_2/presentation/choose_slot_screen/binding/choose_s
 import 'package:bookington_v2_2/presentation/choose_slot_screen/choose_slot_screen.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/binding/court_details_binding.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/court_details_screen.dart';
-import 'package:bookington_v2_2/presentation/create_password_screen/binding/create_password_binding.dart';
-import 'package:bookington_v2_2/presentation/create_password_screen/create_password_screen.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:bookington_v2_2/presentation/history_screen/binding/history_binding.dart';
@@ -18,6 +16,8 @@ import 'package:bookington_v2_2/presentation/message_chat_screen/binding/message
 import 'package:bookington_v2_2/presentation/message_chat_screen/message_chat_screen.dart';
 import 'package:bookington_v2_2/presentation/messages_screen.dart/binding/messages_binding.dart';
 import 'package:bookington_v2_2/presentation/messages_screen.dart/messages_screen.dart';
+import 'package:bookington_v2_2/presentation/notification_screen/binding/notification_binding.dart';
+import 'package:bookington_v2_2/presentation/notification_screen/notification_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
@@ -48,9 +48,9 @@ class AppRoutes {
 
   static const String verifyPhoneNumberScreen = '/verify_screen';
 
-  static const String createPasswordScreen = '/create_password_screen';
-
   static const String homeScreen = '/home_screen';
+
+  static const String notificationScreen = '/notification_screen';
 
   static const String recommendScreen = '/recommend_screen';
 
@@ -109,27 +109,31 @@ class AppRoutes {
         VerifyPhoneNumberBinding(),
       ],
     ),
-    GetPage(
-      // name: initialRoute,
-      name: createPasswordScreen,
-      page: () => CreatePasswordScreen(),
-      bindings: [
-        CreatePasswordBinding(),
-      ],
-    ),
+
     GetPage(
       // name: initialRoute,
       name: homeScreen,
-      page: () => HomeScreen(),
+      page: () => const HomeScreen(),
       bindings: [
         HomeBinding(),
       ],
       // middlewares: [RouteGuard()],
     ),
+
+    GetPage(
+      // name: initialRoute,
+      name: notificationScreen,
+      page: () => const NotificationScreen(),
+      bindings: [
+        NotificationBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
     GetPage(
       // name: initialRoute,
       name: recommendScreen,
-      page: () => RecommendScreen(),
+      page: () => const RecommendScreen(),
       bindings: [
         RecommendBinding(),
       ],
@@ -145,7 +149,7 @@ class AppRoutes {
     GetPage(
       name: initialRoute,
       // name: chooseCourtScreen,
-      page: () => ChooseCourtScreen(),
+      page: () => const ChooseCourtScreen(),
       bindings: [
         ChooseCourtBinding(),
       ],
@@ -153,7 +157,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: chooseSlotScreen,
-      page: () => ChooseSlotScreen(),
+      page: () => const ChooseSlotScreen(),
       bindings: [
         ChooseSlotBinding(),
       ],
@@ -161,7 +165,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: searchScreen,
-      page: () => SearchScreen(),
+      page: () => const SearchScreen(),
       bindings: [
         SearchBinding(),
       ],
@@ -169,7 +173,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: profileScreen,
-      page: () => ProfileScreen(),
+      page: () => const ProfileScreen(),
       bindings: [
         ProfileBinding(),
       ],
@@ -187,7 +191,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: paymentScreen,
-      page: () => PaymentScreen(),
+      page: () => const PaymentScreen(),
       bindings: [
         PaymentBinding(),
       ],
@@ -202,6 +206,7 @@ class AppRoutes {
     ),
 
     GetPage(
+
       // name: initialRoute,
       name: messagesScreen,
       page: () => MessagesScreen(),
@@ -213,7 +218,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: historyScreen,
-      page: () => HistoryScreen(),
+      page: () => const HistoryScreen(),
       bindings: [
         HistoryBinding(),
       ],
@@ -222,7 +227,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: transactionScreen,
-      page: () => TransactionScreen(),
+      page: () => const TransactionScreen(),
       bindings: [
         TransactionBinding(),
       ],

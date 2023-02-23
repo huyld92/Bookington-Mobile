@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 class ChooseCourtController extends GetxController{
 
-
   var selectedDate = DateTime.now().obs;
   String idSlected = "";
 

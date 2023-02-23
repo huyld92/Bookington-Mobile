@@ -40,4 +40,8 @@ class HomeController extends GetxController {
       homeModelObj = HomeModel(fullName).obs;
     }
   }
+
+  void notificationScreen() {
+    Get.toNamed(AppRoutes.notificationScreen);
+  }
 }

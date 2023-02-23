@@ -1,5 +1,5 @@
-import 'package:bookington_v2_2/core/utils/color_constant.dart';
-import 'package:bookington_v2_2/core/utils/image_constant.dart';
+import 'package:bookington_v2_2/core/constants/color_constant.dart';
+import 'package:bookington_v2_2/core/constants/image_constant.dart';
 import 'package:bookington_v2_2/core/utils/size_utils.dart';
 import 'package:bookington_v2_2/theme/app_decoration.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'widgets/recommend_item_widget.dart';
 
 class RecommendScreen extends GetWidget<RecommendController> {
+  const RecommendScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

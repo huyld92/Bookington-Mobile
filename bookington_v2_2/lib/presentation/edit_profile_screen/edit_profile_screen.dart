@@ -28,7 +28,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                 leading: AppbarIconbutton(
                     svgPath: ImageConstant.imgArrowleft,
                     margin: getMargin(left: 24),
-                    onTap: onTapArrowleft),
+                    onTap: controller.getBack()),
                 centerTitle: true,
                 title: AppbarTitle(text: "lbl_edit_profile".tr)),
             body: Form(
@@ -133,7 +133,4 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                     ]))));
   }
 
-  onTapArrowleft() {
-    Get.back();
-  }
 }

@@ -28,7 +28,7 @@ final Map<String, String> enUs = {
   "lbl_confirm": "Confirm",
   'lbl_resend_code': 'Resend Code',
   'lbl_time_out': 'Time out',
-  'lbl_slot': 'VND/slot/hour',
+  'lbl_slot': '/slot/hour',
   'lbl_choose_court': 'Choose court)',
   'lbl_payment': 'Payment',
   'lbl_court': 'Court',
@@ -36,7 +36,7 @@ final Map<String, String> enUs = {
   'lbl_from': 'From',
   'lbl_to': 'To',
   'lbl_total_hours': 'Total hours',
-  'lbl_coupon': 'Coupons',
+  'lbl_voucher': 'Vouchers',
   'lbl_confirm_payment': 'Confirm Payment',
   'lbl_general': 'General',
   'lbl_report': 'Report',
@@ -63,6 +63,8 @@ final Map<String, String> enUs = {
   'lbl_register': 'Register',
   'lbl_search_for_court': 'Search for court',
   'lbl_transaction': 'Transaction',
+  'lbl_notification': 'Notification',
+  'lbl_clear_all': 'Clear all',
 
 
   'msg_network_err': 'Network Error',
