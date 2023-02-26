@@ -51,6 +51,8 @@ class ImageConstant {
   static String imgCoupon = 'assets/images/img_coupon.svg';
 
   static String imgMomo = 'assets/images/img_momo.svg';
+
+  static String imgCashOnHand = 'assets/images/img_cash_on_hand.svg';
   //
   static String imgClock = 'assets/images/img_clock.svg';
 

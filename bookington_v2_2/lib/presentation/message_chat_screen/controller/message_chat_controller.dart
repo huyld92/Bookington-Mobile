@@ -18,6 +18,6 @@ class MessageChatController extends GetxController {
 
   getBack() {
     print("chat get back");
-    // Get.back();
+    Get.back();
   }
 }

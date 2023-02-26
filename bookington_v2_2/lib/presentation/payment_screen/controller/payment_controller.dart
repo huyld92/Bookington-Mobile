@@ -18,6 +18,6 @@ class PaymentController extends GetxController {
 
   getBack(){
     print("payment back");
-    // Get.back();
+    Get.back();
   }
 }

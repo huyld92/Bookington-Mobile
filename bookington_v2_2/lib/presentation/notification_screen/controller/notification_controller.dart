@@ -14,7 +14,7 @@ class NotificationController extends GetxController {
     super.onClose();
   }
 
-  // getBack() {
-  //   Get.back();
-  // }
+  getBack() {
+    Get.back();
+  }
 }

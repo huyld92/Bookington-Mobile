@@ -66,4 +66,8 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
 
     }
   }
+
+  void getBack() {
+    Get.back();
+  }
 }

@@ -91,7 +91,7 @@ class NotificationItemWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding: getPadding(
-                          top: 7,
+                          top: 5,
                         ),
                         child: Text(
                           "Get 50% off in our first booking".tr,

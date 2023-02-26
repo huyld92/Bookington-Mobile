@@ -29,6 +29,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       translations: AppLocalization(),
       locale: Get.deviceLocale, //for setting localization strings
-      fallbackLocale: Locale('en', 'US'),
+      fallbackLocale: const Locale('en', 'US'),
       title: 'Bookington',
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,

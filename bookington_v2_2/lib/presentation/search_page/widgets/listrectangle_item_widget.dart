@@ -6,8 +6,9 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class ListRectangleItemWidget extends StatelessWidget {
-  ListRectangleItemWidget(this._searchModel,this._index, {super.key});
-int _index;
+  ListRectangleItemWidget(this._searchModel, this._index, {super.key});
+
+  final int _index;
   final SearchModel _searchModel;
 
   var controller = Get.find<SearchController>();
@@ -16,7 +17,7 @@ int _index;
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        decoration: AppDecoration.fillGray500.copyWith(
+        decoration: AppDecoration.fillGray300.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder16,
         ),
         child: Row(
@@ -37,7 +38,9 @@ int _index;
                 ),
               ),
             ),
-            Padding(
+            Container(
+              width: getHorizontalSize(200),
+
               padding: getPadding(
                 bottom: 9,
               ),
@@ -71,6 +74,8 @@ int _index;
                           0.20,
                         ),
                       ),
+                      softWrap: true,
+                      maxLines: 2,
                     ),
                   ),
                   Padding(
@@ -108,7 +113,7 @@ int _index;
                           ),
                         ),
                         Padding(
-                          padding: getPadding(top: 5),
+                          padding: getPadding(left: 5),
                           child: Text(
                             "378 reviews".tr,
                             overflow: TextOverflow.ellipsis,

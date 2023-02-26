@@ -35,8 +35,8 @@ class SearchResultWidget extends StatelessWidget {
                   children: [
                     Padding(
                       padding: getPadding(
-                        top: 2,
-                        bottom: 3,
+                        left: 10,
+                         bottom: 5,
                       ),
                       child: Text(
                         "${"lbl_result".tr}(${controller.totalCount.value})",
@@ -46,6 +46,7 @@ class SearchResultWidget extends StatelessWidget {
                       ),
                     ),
                     CustomImageView(
+                      margin: getMargin(right: 10,bottom: 5),
                       svgPath: ImageConstant.imgFilter,
                       height: getSize(
                         28.00,

@@ -10,8 +10,7 @@ class TransactionController extends GetxController{
   ));
 
   getBack() {
-    print('Transaction getback');
-
+    Get.back();
   }
 
 

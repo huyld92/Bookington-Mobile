@@ -2,15 +2,10 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/history_screen/controller/history_controller.dart';
 import 'package:bookington_v2_2/presentation/history_screen/widgets/upcoming_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
+import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 
 import 'package:flutter/material.dart';
-
-const List<Tab> tabs = <Tab>[
-  Tab(text: 'Zeroth'),
-  Tab(text: 'First'),
-  Tab(text: 'Second'),
-];
 
 // ignore_for_file: must_be_immutable
 class HistoryScreen extends GetWidget<HistoryController> {
@@ -20,11 +15,12 @@ class HistoryScreen extends GetWidget<HistoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: ColorConstant.blueGray50,
-      appBar: AppBar(
-        title: AppbarTitle(text: "lbl_history".tr),
+      backgroundColor: ColorConstant.whiteA700,
+      appBar: CustomAppBar(
+        height: getVerticalSize(80.00),
+        leadingWidth: 64,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        title: AppbarTitle(text: "lbl_history".tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -64,23 +60,21 @@ class HistoryScreen extends GetWidget<HistoryController> {
               child: TabBarView(
                 controller: controller.tabcontroller,
                 children: [
-                  // first tab bar view widget
-                  Container(
-                    height: 500,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                              itemCount: controller.listBooking.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (BuildContext context, int index) {
-                                String model = controller.listBooking[index];
-                                return UpComingWidget(model);
-                              }),
-                        ),
-                      ],
-                    )
-                  ),
+                   SizedBox(
+                      height: 500,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: controller.listBooking.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String model = controller.listBooking[index];
+                                  return UpComingWidget(model);
+                                }),
+                          ),
+                        ],
+                      )),
                   // second tab bar view widget
                   Center(
                     child: Text(

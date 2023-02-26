@@ -20,7 +20,7 @@ class AppUrl {
 
   static const String getDistrictByIdProvinceEndPoint=  "$baseUrl/bookington/districts/province";
 
-  static const String getProfileByIDEndPoint=  "$baseUrl/bookington/accounts/profile/";
+  static const String getProfileByIDEndPoint=  "$baseUrl/bookington/accounts/profile";
 
   static const String getCourtDetailsEndPoint=  "$baseUrl/bookington/courts/";
 

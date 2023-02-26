@@ -35,7 +35,7 @@ class SlotItemWidget extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder16),
           side: BorderSide(width: 2),
           backgroundColor: controller.slotList[index].isActive
-              ? (controller.listSelected[index]? ColorConstant.blue500 :ColorConstant.whiteA700)
+              ? (controller.listSelected[index]? ColorConstant.blue400 :ColorConstant.whiteA700)
               :ColorConstant.gray500
         ),
         child: RichText(

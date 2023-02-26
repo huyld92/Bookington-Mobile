@@ -52,7 +52,7 @@ class CustomBottomBar extends StatelessWidget {
               blurRadius: getHorizontalSize(
                 2.00,
               ),
-              offset: Offset(
+              offset: const Offset(
                 0,
                 -8,
               ),
@@ -64,7 +64,7 @@ class CustomBottomBar extends StatelessWidget {
           showSelectedLabels: true,
           showUnselectedLabels: true,
           elevation: 0,
-          currentIndex: selectedIndex.value,
+          currentIndex: selectedIndex.value ,
           type: BottomNavigationBarType.fixed,
           items: List.generate(bottomMenuList.length, (index) {
              return BottomNavigationBarItem(
@@ -144,7 +144,7 @@ class CustomBottomBar extends StatelessWidget {
             );
           }),
           onTap: (index) {
-             selectedIndex.value = index;
+            selectedIndex.value = index;
             onChanged!(bottomMenuList[index].type);
            },
         ),
@@ -178,12 +178,12 @@ class DefaultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Text(
                       'Please replace the respective Widget here',
                       style: TextStyle(

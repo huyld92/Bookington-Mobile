@@ -3,6 +3,7 @@ import 'package:bookington_v2_2/data/models/transaction_model.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/controller/transaction_controller.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/wigets/transaction_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,17 @@ class TransactionScreen extends GetWidget<TransactionController> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
-            height: getVerticalSize(40.00),
+            height: getVerticalSize(80.00),
             leadingWidth: 64,
-            leading: AppbarIconbutton(
-                svgPath: ImageConstant.imgArrowleft,
-                margin: getMargin(left: 24),
-                onTap: controller.getBack()),
+            leading: AppbarImage(
+              height: getSize(64.00),
+              width: getSize(64.00),
+              svgPath: ImageConstant.imgArrowleft,
+              margin: getMargin(left: 24),
+              onTap: () {
+                controller.getBack();
+              },
+            ),
             centerTitle: true,
             title: AppbarTitle(text: "lbl_transaction".tr)),
         body: Container(

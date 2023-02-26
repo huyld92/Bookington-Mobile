@@ -34,9 +34,9 @@ class ProfileController extends GetxController {
 
   Future<void> sendReport() async {
     String reportCourtURL = "/bookington/reports/courtreports";
-    late String _refCourt = "f2cfb0d1-5e3a-4012-b8dc-5793e1b4334c";
-    late String _content = "aaaaaaaaa";
-    ReportModel reportModel = ReportModel.forReport(_refCourt, _content);
+    late String refCourt = "f2cfb0d1-5e3a-4012-b8dc-5793e1b4334c";
+    late String content = "aaaaaaaaa";
+    ReportModel reportModel = ReportModel.forReport(refCourt, content);
     var result = await ApiClient.reportCourt(reportCourtURL, reportModel);
     }
 
@@ -44,14 +44,14 @@ class ProfileController extends GetxController {
     if (PrefUtils.getAccessToken() == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
-      String? _fullName = PrefUtils.getString("fullName");
-      String? _phomeNumber =
+      String? fullName = PrefUtils.getString("fullName");
+      String? phomeNumber =
           PrefUtils.getString("phoneNumber");
-      profileModelObj = ProfileModel(_fullName!, _phomeNumber!).obs;
+      profileModelObj = ProfileModel(fullName!, phomeNumber!).obs;
     }
   }
 
   void transactionScreen() {
-    Get.offNamed(AppRoutes.transactionScreen);
+    Get.toNamed(AppRoutes.transactionScreen);
   }
 }

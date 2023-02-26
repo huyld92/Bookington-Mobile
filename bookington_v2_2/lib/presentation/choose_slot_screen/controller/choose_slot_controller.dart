@@ -84,7 +84,7 @@ class ChooseSlotController extends GetxController {
 
   getBack(){
     print("choose slot back");
-    // Get.back();
+    Get.back();
   }
 
   void selectSlot(int index) {

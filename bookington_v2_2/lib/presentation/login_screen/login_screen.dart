@@ -16,18 +16,18 @@ class LoginScreen extends GetWidget<LoginController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: ColorConstant.whiteA700,
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Form(
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorConstant.whiteA700,
+          body: Form(
               key: _formKey,
               child: Container(
                   width: size.width,
-                  padding: getPadding(top:150,left: 16, right: 16),
+                  padding: getPadding(top: 150, left: 16, right: 16),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -54,10 +54,11 @@ class LoginScreen extends GetWidget<LoginController> {
                                     focusNode: FocusNode(),
                                     controller: controller.txtPhoneController,
                                     hintText: "msg_enter_your_phone".tr,
-                                    variant: TextFormFieldVariant.OutlineGray300,
+                                    variant:
+                                        TextFormFieldVariant.OutlineGray300,
                                     padding: TextFormFieldPadding.PaddingT14L20,
                                     textInputAction: TextInputAction.none,
-                                     textInputType: TextInputType.phone,
+                                    textInputType: TextInputType.phone,
                                     suffixConstraints: BoxConstraints(
                                         maxHeight: getVerticalSize(32.00)),
                                     validator: (value) {
@@ -72,46 +73,45 @@ class LoginScreen extends GetWidget<LoginController> {
                                 ])),
 
                         SizedBox(
-                            height: 80,
-                            width: getHorizontalSize(358.00),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Obx(() => CustomTextFormField(
-                                      width: 310,
-                                      controller:
-                                          controller.txtPasswordController,
-                                      hintText: "msg_enter_your_password".tr,
-                                      variant: TextFormFieldVariant.OutlineGray300,
-                                      padding: TextFormFieldPadding.PaddingT14L20,
-                                      textInputAction: TextInputAction.done,
-                                      textInputType:
-                                          TextInputType.visiblePassword,
-                                      suffix: InkWell(
-                                          onTap: () {
-                                            controller.isShowPassword.value =
-                                                !controller
-                                                    .isShowPassword.value;
-                                          },
-                                          child: CustomImageView(
-                                            margin: getMargin(right: 20),
-                                             width: 28,
-                                             svgPath: controller
-                                                     .isShowPassword.value
-                                                 ? ImageConstant.imgHideEye
-                                                 : ImageConstant.imgEye)),
-                                      suffixConstraints: BoxConstraints(
-                                          maxHeight: getVerticalSize(28.00)),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Please enter valid password";
-                                        }
-                                        return null;
+                          height: 80,
+                          width: getHorizontalSize(358.00),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Obx(() => CustomTextFormField(
+                                  width: 310,
+                                  controller: controller.txtPasswordController,
+                                  hintText: "msg_enter_your_password".tr,
+                                  variant: TextFormFieldVariant.OutlineGray300,
+                                  padding: TextFormFieldPadding.PaddingT14L20,
+                                  textInputAction: TextInputAction.done,
+                                  textInputType: TextInputType.visiblePassword,
+                                  suffix: InkWell(
+                                      onTap: () {
+                                        controller.isShowPassword.value =
+                                            !controller.isShowPassword.value;
                                       },
-                                      isObscureText:
-                                          !controller.isShowPassword.value))
-                                ],),),
+                                      child: CustomImageView(
+                                          margin: getMargin(right: 20),
+                                          width: 28,
+                                          svgPath:
+                                              controller.isShowPassword.value
+                                                  ? ImageConstant.imgHideEye
+                                                  : ImageConstant.imgEye)),
+                                  suffixConstraints: BoxConstraints(
+                                      maxHeight: getVerticalSize(28.00)),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Please enter valid password";
+                                    }
+                                    return null;
+                                  },
+                                  isObscureText:
+                                      !controller.isShowPassword.value))
+                            ],
+                          ),
+                        ),
                         //login button
                         CustomButton(
                           height: 55,
@@ -129,7 +129,8 @@ class LoginScreen extends GetWidget<LoginController> {
                         Align(
                             alignment: Alignment.topRight,
                             child: Padding(
-                                padding: getPadding(top: 15, right: 30, bottom: 5),
+                                padding:
+                                    getPadding(top: 15, right: 30, bottom: 5),
                                 child: GestureDetector(
                                   child: Text('lbl_forgot_password'.tr),
                                   onTap: () {
@@ -148,7 +149,8 @@ class LoginScreen extends GetWidget<LoginController> {
                                           style: AppStyle.txtManropeSemiBold14),
                                       TextSpan(
                                           text: "lbl_register_now".tr,
-                                          style: AppStyle.txtManropeSemiBold14IndigoA200,
+                                          style: AppStyle
+                                              .txtManropeSemiBold14IndigoA200,
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () async {
                                               controller

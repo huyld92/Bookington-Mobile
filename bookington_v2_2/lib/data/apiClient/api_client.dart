@@ -3,21 +3,14 @@ import 'dart:convert';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/app_url.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
-import 'package:bookington_v2_2/data/models/report_model.dart';
+ import 'package:bookington_v2_2/data/models/report_model.dart';
+import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient extends GetConnect {
   late String token = "";
-  late Map<String, String> _mainHeaders;
 
-  ApiClient() {
-    baseUrl = AppUrl.baseUrl;
-    // timeout = Duration(seconds: 30);
-    _mainHeaders = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $token',
-    };
-  }
+  ApiClient();
 
   static Future<List<CourtModel>> fetchCourt() async {
     http.Response response = await http.get(Uri.parse(AppUrl.courtEndPoint));
@@ -50,13 +43,14 @@ class ApiClient extends GetConnect {
     }
   }
 
-  static Future<dynamic> register(String phone, String password, fullName) async {
+  static Future<dynamic> register(
+      String phone, String password, fullName) async {
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(AppUrl.signUpEndPoint);
     Map body = {'phone': phone, 'password': password, 'fullName': fullName};
 
     http.Response response =
-    await http.post(url, headers: headers, body: jsonEncode(body));
+        await http.post(url, headers: headers, body: jsonEncode(body));
 
     if (response.statusCode == 201) {
       return jsonDecode(response.body);
@@ -66,7 +60,6 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> sendSms(String phone) async {
-    print('Phone: ' + phone);
     var url = Uri.parse(AppUrl.smsEndPoint + phone);
 
     http.Response response = await http.post(url);
@@ -74,11 +67,9 @@ class ApiClient extends GetConnect {
   }
 
   static Future<dynamic> verifyOtp(String phone, String otp) async {
-    var headers = {'Content-Type': 'application/json'};
-    String body = "?phoneNumber=" + phone + "&otp=" + otp;
+    String body = "?phoneNumber=$phone&otp=$otp";
     var url = Uri.parse(AppUrl.verifyEndPoint + body);
     // Map body = {'phoneNumber': phone, 'otp': otp};
-    print('url: ' + url.toString());
     http.Response response = await http.put(url);
     // http.Response response = await http.put(url);
 
@@ -86,26 +77,18 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-
-  static Future<http.Response> getProfileById(String id) async {
-    var headers = {'Content-Type': 'application/json'};
-    int maxPageSize = 5;
-    var url = Uri.parse(AppUrl.getProfileByIDEndPoint + id);
-    print(url);
-    http.Response response = await http.get(url);
-
-    return response;
+  static Future<http.Response> getProfile(String sysToken) async {
+    var headers = {'Authorization': 'Bearer $sysToken'};
+    var url = Uri.parse(AppUrl.getProfileByIDEndPoint);
+    http.Response response = await http.get(url, headers: headers);
+     return response;
   }
 
   static Future<http.Response> searchCourt(
-      int pageNumber, CourtModel searchValue) async {
-    var headers = {'Content-Type': 'application/json'};
+      int pageNumber, SearchModel searchValue) async {
     int maxPageSize = 5;
-    var url = Uri.parse(AppUrl.searchCourtEndPoint +
-        "?SearchText=${searchValue.name}" +
-        "&District=${searchValue.districtName}" +
-        // "&Province=${searchValue.provinceName}" +
-        "&PageNumber=${pageNumber}&MaxPageSize=${maxPageSize}");
+    var url = Uri.parse(
+        "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     http.Response response = await http.get(url);
 
     return response;
@@ -114,9 +97,9 @@ class ApiClient extends GetConnect {
   static Future<dynamic> reportCourt(
       String reportUrl, ReportModel reportModel) async {
     String? sysToken = PrefUtils.getAccessToken();
-    if (sysToken != null && !sysToken.isEmpty) {
+    if (sysToken != null && sysToken.isNotEmpty) {
       var headers = {
-        'Authorization': 'Bearer ' + sysToken,
+        'Authorization': 'Bearer $sysToken',
         'Content-Type': 'application/json'
       };
       var url = Uri.parse(AppUrl.verifyEndPoint);
@@ -129,7 +112,7 @@ class ApiClient extends GetConnect {
       print(body.toString());
       if (response.statusCode == 201) {
         final jsonResult = jsonDecode(response.body);
-        print("result " + jsonResult["result"].toString());
+        print("result ${jsonResult["result"]}");
         return jsonResult;
       } else {
         print(response.statusCode);
@@ -146,7 +129,7 @@ class ApiClient extends GetConnect {
   }
 
   static getDistrictById(String id) async {
-    var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=${id}");
+    var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=$id");
 
     http.Response response = await http.get(url);
 

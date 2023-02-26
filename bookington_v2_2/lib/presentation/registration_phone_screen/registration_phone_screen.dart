@@ -16,6 +16,10 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
@@ -190,7 +194,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
             ),
           ),
         ),
-      ),
+      ),),
     );
   }
 }

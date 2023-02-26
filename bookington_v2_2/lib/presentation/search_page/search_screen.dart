@@ -17,9 +17,11 @@ class SearchScreen extends GetWidget<SearchController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      bottom: false,
-      child: Scaffold(
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child:  Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.gray900,
         body: Container(
@@ -38,12 +40,11 @@ class SearchScreen extends GetWidget<SearchController> {
                       top: 40,
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                             width: getVerticalSize(360),
-                            // color: ColorConstant.whiteA700,
                             padding: getPadding(top: 10, bottom: 10),
                             decoration: BoxDecoration(
                               border: BorderRadiusStyle.borderGray2,
@@ -53,7 +54,11 @@ class SearchScreen extends GetWidget<SearchController> {
                               children: [
                                 Container(
                                   width: getVerticalSize(360),
-                                  margin: getMargin(left: 10, right: 20),
+                                  margin: getMargin(left: 10, right: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadiusStyle.circleBorder23,
+                                      border: BorderRadiusStyle.borderGray2),
                                   child: TextField(
                                     controller: controller.searchController,
                                     focusNode: FocusNode(),
@@ -62,11 +67,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                       prefixIcon: const Icon(Icons.search),
                                       fillColor: ColorConstant.whiteA700,
                                       contentPadding: getPadding(all: 16),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1,
-                                            color: ColorConstant.gray500),
-                                      ),
+                                      border: InputBorder.none,
                                     ),
                                     textInputAction: TextInputAction.search,
                                     onSubmitted: (value) {
@@ -79,13 +80,17 @@ class SearchScreen extends GetWidget<SearchController> {
                                     Obx(
                                       () => Container(
                                         width: getVerticalSize(160),
-                                        height: getVerticalSize(40),
+                                        height: getVerticalSize(55),
                                         decoration: BoxDecoration(
                                           border: BorderRadiusStyle.borderGray2,
                                           borderRadius:
-                                              BorderRadiusStyle.roundedBorder8,
+                                              BorderRadiusStyle.roundedBorder16,
                                         ),
-                                        padding: getPadding(all: 10),
+                                        padding: getPadding(
+                                            top: 15,
+                                            left: 5,
+                                            right: 5,
+                                            bottom: 15),
                                         margin: getMargin(all: 10),
                                         child: DropdownButton<ProvinceModel>(
                                           isExpanded: true,
@@ -109,14 +114,18 @@ class SearchScreen extends GetWidget<SearchController> {
                                     Obx(
                                       () => Container(
                                         width: getVerticalSize(160),
-                                        height: getVerticalSize(40),
+                                        height: getVerticalSize(55),
                                         margin: getPadding(top: 10, bottom: 10),
+                                        padding: getPadding(
+                                            top: 15,
+                                            left: 5,
+                                            right: 5,
+                                            bottom: 15),
                                         decoration: BoxDecoration(
                                           border: BorderRadiusStyle.borderGray2,
                                           borderRadius:
-                                              BorderRadiusStyle.roundedBorder8,
+                                              BorderRadiusStyle.roundedBorder16,
                                         ),
-                                        padding: getPadding(all: 10),
                                         child: DropdownButton<DistrictModel>(
                                           isExpanded: true,
                                           items: controller.dictrict.map(
@@ -151,7 +160,8 @@ class SearchScreen extends GetWidget<SearchController> {
                                   },
                                 )
                               ],
-                            )),
+                            ),
+                        ),
                         controller.listSearchMode.isNotEmpty
                             ? SearchResultWidget(controller)
                             : SearchEmptyWidget(),
@@ -169,7 +179,7 @@ class SearchScreen extends GetWidget<SearchController> {
             // Get.toNamed(getCurrentRoute(type),id : 3);
           },
         ),
-      ),
+      ),),
     );
   }
 

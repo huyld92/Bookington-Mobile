@@ -26,7 +26,7 @@ class UpComingWidget extends StatelessWidget{
             padding: getPadding(
                 top: 5, bottom: 5, left: 10, right: 10),
             decoration: BoxDecoration(
-              color: ColorConstant.whiteA700,
+              color: ColorConstant.gray200,
               borderRadius: BorderRadiusStyle.customBorderTLR10,
             ),
             child: Row(
@@ -63,7 +63,7 @@ class UpComingWidget extends StatelessWidget{
             padding: getPadding(
                 top: 5, bottom: 5, left: 10, right: 10),
             decoration: BoxDecoration(
-                color: ColorConstant.whiteA700,
+                color: ColorConstant.gray200,
                 borderRadius:
                 BorderRadiusStyle.customBorderBLR10),
             child: Row(

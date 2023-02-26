@@ -21,7 +21,7 @@ class HomeScreen extends GetWidget <HomeController>{
         backgroundColor: ColorConstant.gray50,
         appBar: CustomAppBar(
           height: getVerticalSize(
-            60.00,
+            80.00,
           ),
           title: Row(
             children: [
@@ -73,7 +73,7 @@ class HomeScreen extends GetWidget <HomeController>{
                   width: 40,
                   margin: getMargin(
                     left: 12,
-                    top: 10,
+                    top: 20,
                     right: 24,
                     bottom: 10,
                   ),
@@ -87,7 +87,7 @@ class HomeScreen extends GetWidget <HomeController>{
                   },
                 ),
                 Positioned(
-                    top: 10,
+                    top: 20,
                     right: 30,
                     child: Container(
                       height: 16,
@@ -113,7 +113,7 @@ class HomeScreen extends GetWidget <HomeController>{
             child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
                     height: 120,
                     child: CustomImageView(
@@ -123,7 +123,7 @@ class HomeScreen extends GetWidget <HomeController>{
                     ),
                 //Recommend see more
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   width: double.infinity,
                   // height: 120,
                   child: Row(

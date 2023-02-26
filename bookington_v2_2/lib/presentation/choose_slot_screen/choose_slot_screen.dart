@@ -1,7 +1,7 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 
 import 'package:bookington_v2_2/presentation/choose_slot_screen/controller/choose_slot_controller.dart';
-import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
@@ -16,32 +16,32 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        top: false,
-        bottom: false,
         child: Scaffold(
-          // backgroundColor: ColorConstant.blueGray50,
           backgroundColor: ColorConstant.whiteA700,
           appBar: CustomAppBar(
-            height: getVerticalSize(56.00),
+            height: getVerticalSize(80.00),
             leadingWidth: 64,
-            leading: AppbarIconbutton(
-                svgPath: ImageConstant.imgArrowleft,
-                margin: getMargin(left: 24),
-                onTap: onTapArrowleft()),
+            leading: AppbarImage(
+              height: getSize(64.00),
+              width: getSize(64.00),
+              svgPath: ImageConstant.imgArrowleft,
+              margin: getMargin(left: 24),
+              onTap: () {
+                controller.getBack();
+              },
+            ),
             centerTitle: true,
             title: AppbarTitle(text: "lbl_choose_slot".tr),
           ),
           body: Column(children: [
             Container(
-              margin: getMargin(top: 10),
-              width: 350,
+               width: 360,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black, width: 2.0),
                 borderRadius: BorderRadiusStyle.circleBorder5,
-                color: ColorConstant.blueGray50,
-              ),
+               ),
               child: SizedBox.fromSize(
-                  size: Size.fromHeight(110),
+                  size: const Size.fromHeight(100),
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,9 +91,9 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
             ),
             Container(
                 margin: getMargin(left: 20, right: 20),
-                width: 360,
-                height: 440,
-                decoration: AppDecoration.fillBluegray50.copyWith(
+                width: getHorizontalSize(360),
+                height: getVerticalSize(400),
+                decoration: AppDecoration.fillWhiteA700.copyWith(
                   border: BorderRadiusStyle.borderBlack2,
                 ),
                 child: Obx(
@@ -113,19 +113,19 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                       }),
                 )),
             Container(
-              padding: getPadding(left: 10, right: 10, top: 0),
-              margin: getMargin(left: 16, right: 20, top: 10),
+              padding: getPadding(left: 10, right: 10 ),
+              margin: getMargin(left: 16, right: 20, top: 5),
               height: 50,
               child: Row(
                 children: [
                   Container(
-                    margin: getMargin(left: 10, right: 10),
+                    margin: getMargin(left: 5, right: 10),
                     height: 20,
                     width: 40,
                     color: ColorConstant.blue500,
                   ),
                   Text(
-                    "Selecting",
+                    "lbl_selecting".tr,
                     style: TextStyle(color: ColorConstant.blue500),
                   ),
                   Container(
@@ -135,7 +135,7 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     color: ColorConstant.black900,
                   ),
                   Text(
-                    "Can book",
+                    "lbl_can_book".tr,
                     style: TextStyle(color: ColorConstant.black900),
                   ),
                   Container(
@@ -145,7 +145,7 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     color: ColorConstant.gray500,
                   ),
                   Text(
-                    "Booked",
+                    "lbl_booked".tr,
                     style: TextStyle(color: ColorConstant.gray500),
                   ),
                 ],
@@ -167,9 +167,5 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                 )
               ])),
         ));
-  }
-
-  onTapArrowleft() {
-    // Get.back();
   }
 }

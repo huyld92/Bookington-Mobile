@@ -8,10 +8,6 @@ class MessagesController extends GetxController {
 
   Rx<MessagesModel> messagesModelObj = MessagesModel().obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {

@@ -22,8 +22,7 @@ import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_bind
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/binding/recommend_binding.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/recommend_screen.dart';
+ import 'package:bookington_v2_2/presentation/recommend_screen/recommend_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_verify_screen/binding/verify_phone_number_binding.dart';
@@ -78,8 +77,8 @@ class AppRoutes {
 
   static List<GetPage> pages = [
     GetPage(
-      // name: initialRoute,
-      name: splashScreen,
+      name: initialRoute,
+      // name: splashScreen,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
@@ -129,15 +128,15 @@ class AppRoutes {
       ],
       // middlewares: [RouteGuard()],
     ),
-
-    GetPage(
-      // name: initialRoute,
-      name: recommendScreen,
-      page: () => const RecommendScreen(),
-      bindings: [
-        RecommendBinding(),
-      ],
-    ),
+    //
+    // GetPage(
+    //   // name: initialRoute,
+    //   name: recommendScreen,
+    //   page: () => const RecommendScreen(),
+    //   bindings: [
+    //     RecommendBinding(),
+    //   ],
+    // ),
     GetPage(
       // name: initialRoute,
       name: courtDetailsScreen,
@@ -147,8 +146,8 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: initialRoute,
-      // name: chooseCourtScreen,
+      // name: initialRoute,
+      name: chooseCourtScreen,
       page: () => const ChooseCourtScreen(),
       bindings: [
         ChooseCourtBinding(),

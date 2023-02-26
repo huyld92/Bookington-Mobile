@@ -14,18 +14,17 @@ class ProfileScreen extends GetWidget<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      bottom: false,
       child: Scaffold(
         backgroundColor: ColorConstant.gray50,
         appBar: CustomAppBar(
-            height: getVerticalSize(40.00),
-            leadingWidth: 64,
-            centerTitle: true,
-            title: AppbarTitle(text: "lbl_profile".tr)),
+          height: getVerticalSize(80.00),
+          leadingWidth: 64,
+          centerTitle: true,
+          title: AppbarTitle(text: "lbl_profile".tr),
+        ),
         body: Container(
           width: size.width,
-          padding: getPadding(left: 24, top: 32, right: 24, bottom: 32),
+          padding: getPadding(left: 24, right: 24, bottom: 32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -42,7 +41,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                     CustomIconButton(
                       height: 24,
                       width: 24,
-                      variant: IconButtonVariant.FillBlue500,
+                      variant: IconButtonVariant.FillBlue400,
                       padding: IconButtonPadding.PaddingAll6,
                       alignment: Alignment.bottomRight,
                       child: CustomImageView(
@@ -88,29 +87,6 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             height: 40,
                             width: 40,
                             child: CustomImageView(
-                                svgPath: ImageConstant.imgNotFound)),
-                        Padding(
-                            padding: getPadding(left: 16, top: 12, bottom: 7),
-                            child: Text("lbl_recently_viewed".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeSemiBold14)),
-                        Spacer(),
-                        CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getSize(20.00),
-                            width: getSize(20.00),
-                            margin: getMargin(top: 10))
-                      ])),
-              Padding(
-                  padding: getPadding(top: 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
-                            height: 40,
-                            width: 40,
-                            child: CustomImageView(
                                 svgPath: ImageConstant.imgFavorite)),
                         Padding(
                             padding: getPadding(left: 16, top: 10, bottom: 7),
@@ -118,16 +94,19 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtManropeSemiBold14)),
-                        Spacer(),
+                        const Spacer(),
                         CustomImageView(
                             svgPath: ImageConstant.imgArrowright,
                             height: getSize(20.00),
                             width: getSize(20.00),
                             margin: getMargin(top: 10))
                       ])),
-              Padding(
-                padding: getPadding(top: 10),
-                child: InkWell(
+              GestureDetector(
+                onTap: () {
+                  controller.transactionScreen();
+                },
+                child: Padding(
+                  padding: getPadding(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -142,7 +121,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtManropeSemiBold14)),
-                      Spacer(),
+                      const Spacer(),
                       CustomImageView(
                           svgPath: ImageConstant.imgArrowright,
                           height: getSize(20.00),
@@ -150,9 +129,6 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           margin: getMargin(top: 10)),
                     ],
                   ),
-                  onTap: () {
-                    controller.transactionScreen();
-                  },
                 ),
               ),
               Align(
@@ -180,7 +156,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtManropeSemiBold14)),
-                        Spacer(),
+                        const Spacer(),
                         CustomImageView(
                           svgPath: ImageConstant.imgArrowright,
                           height: getSize(20.00),
@@ -207,7 +183,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtManropeSemiBold14)),
-                        Spacer(),
+                        const Spacer(),
                         CustomImageView(
                             svgPath: ImageConstant.imgArrowright,
                             height: getSize(20.00),
@@ -229,7 +205,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeSemiBold14)),
-                  Spacer(),
+                  const Spacer(),
                   CustomImageView(
                       svgPath: ImageConstant.imgArrowright,
                       height: getSize(20.00),
@@ -237,34 +213,37 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       margin: getMargin(top: 10, bottom: 10))
                 ]),
               ),
-              Padding(
-                padding: getPadding(top: 10),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomIconButton(
-                    height: 40,
-                    width: 40,
-                    child: CustomImageView(
-                      svgPath: ImageConstant.imgLogout,
-                      onTap: () {
-                        controller.logout();
-                      },
-                    ),
-                  ),
-                  Padding(
-                      padding: getPadding(left: 16, top: 12, bottom: 7),
-                      child: Text("lbl_logout".tr,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeSemiBold14Red500)),
-                  Spacer(),
-                      CustomImageView(
-                          svgPath: ImageConstant.imgArrowright,
-                          height: getSize(20.00),
-                          width: getSize(20.00),
-                          margin: getMargin(top: 10, bottom: 10))
-                ]),
-              ),
+              GestureDetector(
+                onTap: () {
+                  controller.logout();
+                },
+                child: Padding(
+                  padding: getPadding(top: 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomIconButton(
+                          height: 40,
+                          width: 40,
+                          child: CustomImageView(
+                            svgPath: ImageConstant.imgLogout,
+                          ),
+                        ),
+                        Padding(
+                            padding: getPadding(left: 16, top: 12, bottom: 7),
+                            child: Text("lbl_logout".tr,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtManropeSemiBold14Red500)),
+                        const Spacer(),
+                        CustomImageView(
+                            svgPath: ImageConstant.imgArrowright,
+                            height: getSize(20.00),
+                            width: getSize(20.00),
+                            margin: getMargin(top: 10, bottom: 10))
+                      ]),
+                ),
+              )
             ],
           ),
         ),

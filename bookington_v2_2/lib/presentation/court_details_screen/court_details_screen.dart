@@ -21,18 +21,18 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      bottom: false,
       child: Scaffold(
         appBar: CustomAppBar(
-            height: getVerticalSize(56.00),
+            height: getVerticalSize(80.00),
             leadingWidth: 64,
             leading: AppbarImage(
-              height: getSize(28.00),
-              width: getSize(28.00),
+              height: getSize(64.00),
+              width: getSize(64.00),
               svgPath: ImageConstant.imgArrowleft,
               margin: getMargin(left: 24),
-              onTap: controller.onTapArrowleft(),
+              onTap: () {
+                controller.getBack();
+              },
             ),
             centerTitle: true,
             title: AppbarTitle(text: "lbl_court_details".tr)),
@@ -151,17 +151,20 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_open_close".tr,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: getPadding(
+                                        top: 1,
+                                      ),
+                                      child: Text(
+                                        "${DateFormat("HH:mm").format(controller.courtModel.openAt)}"
+                                        "-${DateFormat("HH:mm").format(controller.courtModel.closeAt)}",
+                                        // "10:00-24:00",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
+                                        style:
+                                            AppStyle.txtManropeBold12.copyWith(
                                           letterSpacing: getHorizontalSize(
                                             0.40,
                                           ),
@@ -170,32 +173,54 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: getPadding(
-                                            top: 1,
-                                          ),
-                                          child: Text(
-                                            "${DateFormat("HH:mm").format(controller.courtModel.openAt)}"
-                                                "-${DateFormat("HH:mm").format(controller.courtModel.closeAt)}",
-                                            // "10:00-24:00",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold12
-                                                .copyWith(
-                                              letterSpacing: getHorizontalSize(
-                                                0.40,
-                                              ),
-                                              height: getVerticalSize(
-                                                1.10,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       "lbl_open_close".tr,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: AppStyle.txtManropeRegular10
+                                  //           .copyWith(
+                                  //         letterSpacing: getHorizontalSize(
+                                  //           0.40,
+                                  //         ),
+                                  //         height: getVerticalSize(
+                                  //           1.10,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Align(
+                                  //       alignment: Alignment.center,
+                                  //       child: Padding(
+                                  //         padding: getPadding(
+                                  //           top: 1,
+                                  //         ),
+                                  //         child: Text(
+                                  //           "${DateFormat("HH:mm").format(controller.courtModel.openAt)}"
+                                  //               "-${DateFormat("HH:mm").format(controller.courtModel.closeAt)}",
+                                  //           // "10:00-24:00",
+                                  //           overflow: TextOverflow.ellipsis,
+                                  //           textAlign: TextAlign.left,
+                                  //           style: AppStyle.txtManropeBold12
+                                  //               .copyWith(
+                                  //             letterSpacing: getHorizontalSize(
+                                  //               0.40,
+                                  //             ),
+                                  //             height: getVerticalSize(
+                                  //               1.10,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                                 CustomIconButton(
                                   height: 34,
@@ -214,46 +239,67 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_PhoneNumber".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
-                                          letterSpacing: getHorizontalSize(
-                                            0.40,
-                                          ),
-                                          height: getVerticalSize(
-                                            1.10,
-                                          ),
+                                  child:
+                                  Padding(
+                                    padding: getPadding(
+                                      top: 1,
+                                    ),
+                                    child: Text(
+                                      "0907-123-321".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold12
+                                          .copyWith(
+                                        letterSpacing: getHorizontalSize(
+                                          0.40,
+                                        ),
+                                        height: getVerticalSize(
+                                          1.10,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: getPadding(
-                                          top: 1,
-                                        ),
-                                        child: Text(
-                                          "0907-123-321".tr,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeBold12
-                                              .copyWith(
-                                            letterSpacing: getHorizontalSize(
-                                              0.40,
-                                            ),
-                                            height: getVerticalSize(
-                                              1.10,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       "lbl_PhoneNumber".tr,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: AppStyle.txtManropeRegular10
+                                  //           .copyWith(
+                                  //         letterSpacing: getHorizontalSize(
+                                  //           0.40,
+                                  //         ),
+                                  //         height: getVerticalSize(
+                                  //           1.10,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: getPadding(
+                                  //         top: 1,
+                                  //       ),
+                                  //       child: Text(
+                                  //         "0907-123-321".tr,
+                                  //         overflow: TextOverflow.ellipsis,
+                                  //         textAlign: TextAlign.left,
+                                  //         style: AppStyle.txtManropeBold12
+                                  //             .copyWith(
+                                  //           letterSpacing: getHorizontalSize(
+                                  //             0.40,
+                                  //           ),
+                                  //           height: getVerticalSize(
+                                  //             1.10,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                               ],
                             ),
@@ -278,16 +324,19 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_price".tr,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: getPadding(
+                                        top: 1,
+                                      ),
+                                      child: Text(
+                                        controller.courtModel.moneyPerHour
+                                            .toString() +
+                                            "lbl_hour".tr,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
+                                        style: AppStyle.txtManropeBold12
                                             .copyWith(
                                           letterSpacing: getHorizontalSize(
                                             0.40,
@@ -297,32 +346,54 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: getPadding(
-                                            top: 1,
-                                          ),
-                                          child: Text(
-                                            controller.courtModel.moneyPerHour
-                                                    .toString() +
-                                                "lbl_slot".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold12
-                                                .copyWith(
-                                              letterSpacing: getHorizontalSize(
-                                                0.40,
-                                              ),
-                                              height: getVerticalSize(
-                                                1.10,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       "lbl_price".tr,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: AppStyle.txtManropeRegular10
+                                  //           .copyWith(
+                                  //         letterSpacing: getHorizontalSize(
+                                  //           0.40,
+                                  //         ),
+                                  //         height: getVerticalSize(
+                                  //           1.10,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Align(
+                                  //       alignment: Alignment.center,
+                                  //       child: Padding(
+                                  //         padding: getPadding(
+                                  //           top: 1,
+                                  //         ),
+                                  //         child: Text(
+                                  //           controller.courtModel.moneyPerHour
+                                  //                   .toString() +
+                                  //               "lbl_slot".tr,
+                                  //           overflow: TextOverflow.ellipsis,
+                                  //           textAlign: TextAlign.left,
+                                  //           style: AppStyle.txtManropeBold12
+                                  //               .copyWith(
+                                  //             letterSpacing: getHorizontalSize(
+                                  //               0.40,
+                                  //             ),
+                                  //             height: getVerticalSize(
+                                  //               1.10,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                                 CustomIconButton(
                                   height: 34,
@@ -340,46 +411,66 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_AmountCourt".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
-                                          letterSpacing: getHorizontalSize(
-                                            0.40,
-                                          ),
-                                          height: getVerticalSize(
-                                            1.10,
-                                          ),
+                                  child:                                      Padding(
+                                    padding: getPadding(
+                                      top: 1,
+                                    ),
+                                    child: Text(
+                                      " ${controller.courtModel.numberOfSubCourt}",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold12
+                                          .copyWith(
+                                        letterSpacing: getHorizontalSize(
+                                          0.40,
+                                        ),
+                                        height: getVerticalSize(
+                                          1.10,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: getPadding(
-                                          top: 1,
-                                        ),
-                                        child: Text(
-                                          " ${controller.courtModel.numberOfSubCourt}",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeBold12
-                                              .copyWith(
-                                            letterSpacing: getHorizontalSize(
-                                              0.40,
-                                            ),
-                                            height: getVerticalSize(
-                                              1.10,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       "lbl_AmountCourt".tr,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: AppStyle.txtManropeRegular10
+                                  //           .copyWith(
+                                  //         letterSpacing: getHorizontalSize(
+                                  //           0.40,
+                                  //         ),
+                                  //         height: getVerticalSize(
+                                  //           1.10,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: getPadding(
+                                  //         top: 1,
+                                  //       ),
+                                  //       child: Text(
+                                  //         " ${controller.courtModel.numberOfSubCourt}",
+                                  //         overflow: TextOverflow.ellipsis,
+                                  //         textAlign: TextAlign.left,
+                                  //         style: AppStyle.txtManropeBold12
+                                  //             .copyWith(
+                                  //           letterSpacing: getHorizontalSize(
+                                  //             0.40,
+                                  //           ),
+                                  //           height: getVerticalSize(
+                                  //             1.10,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                               ],
                             ),
@@ -567,7 +658,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     ),
                   ),
 
-                   //review
+                  //review
                   Padding(
                     padding: getPadding(
                       left: 8,

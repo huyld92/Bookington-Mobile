@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
-import 'package:bookington_v2_2/data/models/court_model.dart';
-import 'package:bookington_v2_2/data/models/district_model.dart';
+ import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,7 @@ class SearchController extends GetxController {
     } else if (selectedDistrict.value.districtName == "Choose district") {
       selectedDistrict.value.districtName = "";
     }
-    CourtModel courtModel = CourtModel.search(
+    SearchModel courtModel = SearchModel.search(
         searchController.text.trim(),
         selectedDistrict.value.districtName,
         selectedProvince.value.provinceName);
@@ -128,8 +127,7 @@ class SearchController extends GetxController {
     //   "id": listSearchMode[index].id,
     // };
     PrefUtils.setString("courtId", listSearchMode[index].id);
-    Get.offNamed(AppRoutes.courtDetailsScreen);
+    Get.toNamed(AppRoutes.courtDetailsScreen);
 
-    print("Court Details");
-  }
+   }
 }

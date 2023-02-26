@@ -23,7 +23,7 @@ class AppbarTitle extends StatelessWidget {
           text,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
-          style: AppStyle.txtManropeExtraBold18.copyWith(
+          style: AppStyle.txtManropeExtraBold20.copyWith(
             letterSpacing: getHorizontalSize(
               0.20,
             ),
