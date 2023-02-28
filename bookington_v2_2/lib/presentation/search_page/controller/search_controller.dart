@@ -7,7 +7,7 @@ import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:flutter/material.dart';
 
-class SearchController extends GetxController {
+class SearchController extends GetxController  with StateMixin {
   TextEditingController searchController = TextEditingController();
 
   Rx<String> totalCount = "0".obs;
@@ -34,9 +34,11 @@ class SearchController extends GetxController {
 
   @override
   void onInit() {
+
     print('Init');
     loadData();
     super.onInit();
+
   }
 
   @override
@@ -53,15 +55,20 @@ class SearchController extends GetxController {
     searchController.dispose();
   }
 
-  void loadData() {
+  void loadData() async{
+
     searchByName(1);
     getListProvince();
     dictrict.add(DistrictModel("-1", "Choose district"));
     province.add(ProvinceModel("-1", "Choose province"));
+
   }
 
-  void searchByName(int pageNumber) {
+  void searchByName(int pageNumber) async{
+    change(null, status: RxStatus.loading());
+
     listSearchMode.clear();
+    // default value
     if (selectedProvince.value.provinceName == "Choose province") {
       selectedProvince.value.provinceName = "";
       selectedDistrict.value.districtName = "";
@@ -77,11 +84,12 @@ class SearchController extends GetxController {
         final jsonResult = jsonDecode(result.body);
         listSearchMode.value =
             SearchModel.listFromJson(jsonResult["result"]).obs;
-        totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
+         totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
 
         listSearchMode.refresh();
       }
-    });
+    }
+    );
 
     if (selectedProvince.value.provinceName.isEmpty) {
       selectedProvince.value.provinceName = "Choose province";
@@ -89,6 +97,7 @@ class SearchController extends GetxController {
     if (selectedDistrict.value.districtName.isEmpty) {
       selectedDistrict.value.districtName = "Choose district";
     }
+    change(null, status: RxStatus.success());
   }
 
   void getListProvince() {

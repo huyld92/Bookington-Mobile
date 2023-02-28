@@ -81,39 +81,44 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                           ]),
                           textAlign: TextAlign.left)),
                   Padding(
-                      padding: getPadding(left: 1, top: 37),
-                      child: Obx(() => PinCodeTextField(
-                          appContext: context,
-                          controller: controller.otpController.value,
-                          length: 6,
-                          obscureText: false,
-                          obscuringCharacter: '*',
-                          keyboardType: TextInputType.number,
-                          autoDismissKeyboard: true,
-                          enableActiveFill: true,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          onChanged: (value) {},
-                          textStyle: TextStyle(
-                              color: ColorConstant.gray900,
-                              fontSize: getFontSize(24),
-                              fontFamily: 'Manrope',
-                              fontWeight: FontWeight.w800,
-                              height: getVerticalSize(0.95)),
-                          pinTheme: PinTheme(
-                              fieldHeight: getHorizontalSize(50.00),
-                              fieldWidth: getHorizontalSize(50.00),
-                              shape: PinCodeFieldShape.box,
-                              borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(12.00)),
-                              selectedFillColor: ColorConstant.blueGray50,
-                              activeFillColor: ColorConstant.blueGray50,
-                              inactiveFillColor: ColorConstant.blueGray50,
-                              inactiveColor: ColorConstant.fromHex("#1212121D"),
-                              selectedColor: ColorConstant.fromHex("#1212121D"),
-                              activeColor:
-                                  ColorConstant.fromHex("#1212121D"))))),
+                    padding: getPadding(left: 1, top: 37),
+                    child: Obx(
+                      () => PinCodeTextField(
+                        appContext: context,
+                        controller: controller.otpController.value,
+                        length: 6,
+                        obscureText: false,
+                        obscuringCharacter: '*',
+                        keyboardType: TextInputType.number,
+                        autoDismissKeyboard: true,
+                        enableActiveFill: true,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onChanged: (value) {},
+                        textStyle: TextStyle(
+                            color: ColorConstant.gray900,
+                            fontSize: getFontSize(24),
+                            fontFamily: 'Manrope',
+                            fontWeight: FontWeight.w800,
+                            height: getVerticalSize(0.95)),
+                        pinTheme: PinTheme(
+                          fieldHeight: getHorizontalSize(50.00),
+                          fieldWidth: getHorizontalSize(50.00),
+                          shape: PinCodeFieldShape.box,
+                          borderRadius:
+                              BorderRadius.circular(getHorizontalSize(12.00)),
+                          selectedFillColor: ColorConstant.blueGray50,
+                          activeFillColor: ColorConstant.blueGray50,
+                          inactiveFillColor: ColorConstant.blueGray50,
+                          inactiveColor: ColorConstant.fromHex("#1212121D"),
+                          selectedColor: ColorConstant.fromHex("#1212121D"),
+                          activeColor: ColorConstant.fromHex("#1212121D"),
+                        ),
+
+                      ),
+                    ),
+                  ),
                   Align(
                       alignment: Alignment.center,
                       child: Padding(

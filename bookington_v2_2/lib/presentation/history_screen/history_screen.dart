@@ -13,6 +13,8 @@ class HistoryScreen extends GetWidget<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
+    CustomBottomBar.selectedIndex = 3.obs;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstant.whiteA700,

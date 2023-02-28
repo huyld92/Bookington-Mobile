@@ -27,11 +27,21 @@ class LoginScreen extends GetWidget<LoginController> {
               key: _formKey,
               child: Container(
                   width: size.width,
-                  padding: getPadding(top: 150, left: 16, right: 16),
+                  padding: getPadding(top: 120, left: 16, right: 16),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Container(
+                            width: getHorizontalSize(261.00),
+                            margin: getMargin(left: 100, bottom: 20),
+                            child: Text("Bookington".tr,
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtManropeExtraBold28.copyWith(
+                                    letterSpacing: getHorizontalSize(0.72),
+                                    height: getVerticalSize(1.22)))),
+
                         Container(
                             width: getHorizontalSize(261.00),
                             margin: getMargin(left: 8, bottom: 10),

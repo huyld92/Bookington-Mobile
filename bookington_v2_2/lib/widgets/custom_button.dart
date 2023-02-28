@@ -135,6 +135,8 @@ class CustomButton extends StatelessWidget {
     switch (variant) {
       case ButtonVariant.FillBlue50:
         return ColorConstant.blue50;
+      case ButtonVariant.FillGray300:
+        return ColorConstant.gray300;
       case ButtonVariant.FillBluegray50:
         return ColorConstant.blueGray50;
       case ButtonVariant.OutlineBluegray40014:
@@ -305,6 +307,7 @@ enum ButtonPadding {
 enum ButtonVariant {
   FillBlue500,
   FillBlue50,
+  FillGray300,
   FillBluegray50,
   OutlineBluegray40014,
   OutlineGray300,

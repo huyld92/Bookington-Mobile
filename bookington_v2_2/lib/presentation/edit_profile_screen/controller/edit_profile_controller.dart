@@ -11,7 +11,7 @@ class EditProfileController extends GetxController {
 
   TextEditingController fullNameController = TextEditingController();
 
-  var selectedDate = DateTime.now().obs;
+  var selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
 
   late Rx<EditProfileModel> editProfileModelObj;
 
@@ -33,23 +33,23 @@ class EditProfileController extends GetxController {
       Get.offNamed(AppRoutes.loginScreen);
     } else {
       String sysToken = PrefUtils.getAccessToken() ?? "-1";
-      print(sysToken);
       ApiClient.getProfile(sysToken).then(
         (result) {
           print(result.statusCode);
           if (result.statusCode == 200) {
             final jsonResult = (jsonDecode(result.body)["result"]);
-            print("edit: " + jsonResult);
             phoneController.text = jsonResult["phone"];
             fullNameController.text = jsonResult["fullName"];
-            try {
-              selectedDate =
-                  DateFormat("dd/MM/yyyy").parse(jsonResult["dateOfBirth"]).obs;
-            } catch (error) {
-              selectedDate = DateFormat("dd/MM/yyyy").parse("1900-01-01").obs;
-            }
+            // try {
+            //    selectedDate =
+            //       DateFormat("dd-MM-yyyy").parse(jsonResult["dateOfBirth"]).obs;
+            //    print('selectedDate: $selectedDate');
+            // } catch (error) {
+            //   print(error.toString());
+            //   selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
+            // }
           } else {
-             print('headers: ${result.headers}');
+            print('EDIT PROFILE headers: ${result.headers}');
           }
         },
       );
@@ -57,14 +57,15 @@ class EditProfileController extends GetxController {
   }
 
   getBack() {
-    Get.back();
+    // Get.back();
+    Get.offAndToNamed(AppRoutes.profileScreen);
   }
 
   presentDatePicker() async {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: selectedDate.value,
-      firstDate: DateTime(1900),
+      firstDate: DateTime(0010),
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       // initialDatePickerMode: DatePickerMode.year,
@@ -78,7 +79,39 @@ class EditProfileController extends GetxController {
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
-      print("Date" + pickedDate.toString());
+      print("Date " + pickedDate.toString());
+    }
+  }
+
+  void updateProfile() {
+    if (PrefUtils.getString("userID") == null) {
+      Get.offNamed(AppRoutes.loginScreen);
+    } else {
+      String userID = PrefUtils.getString("userID") ?? "-1";
+      String fullName = fullNameController.text;
+      String date = DateFormat("dd-MM-yyyy").format(selectedDate.value);
+      ApiClient.updateProfile(userID, fullName, date).then(
+        (result) {
+          print(result.statusCode);
+          if (result.statusCode == 200) {
+            final jsonResult = (jsonDecode(result.body)["result"]);
+            print("edit: $jsonResult");
+            phoneController.text = jsonResult["phone"];
+            fullNameController.text = jsonResult["fullName"];
+            // try {
+            //   selectedDate =
+            //       DateFormat("dd-MM-yyyy").parse(jsonResult["dateOfBirth"]).obs;
+            //   print('selectedDate: $selectedDate');
+            // } catch (error) {
+            //   print(error.toString());
+            //   selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
+            // }
+            PrefUtils.setString("fullName", fullNameController.text);
+          } else {
+            print('headers: ${result.headers}');
+          }
+        },
+      );
     }
   }
 }

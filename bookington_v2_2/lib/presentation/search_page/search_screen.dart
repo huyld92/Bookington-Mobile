@@ -16,6 +16,9 @@ class SearchScreen extends GetWidget<SearchController> {
 
   @override
   Widget build(BuildContext context) {
+    CustomBottomBar.selectedIndex = 2.obs;
+    return controller.obx(
+          (state) {
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -93,6 +96,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                             bottom: 15),
                                         margin: getMargin(all: 10),
                                         child: DropdownButton<ProvinceModel>(
+                                          underline: SizedBox(),
                                           isExpanded: true,
                                           items: controller.province.map(
                                               (ProvinceModel
@@ -127,6 +131,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
                                         child: DropdownButton<DistrictModel>(
+                                          underline: SizedBox(),
                                           isExpanded: true,
                                           items: controller.dictrict.map(
                                               (DistrictModel
@@ -181,6 +186,12 @@ class SearchScreen extends GetWidget<SearchController> {
         ),
       ),),
     );
+  },
+  onLoading: const CircularProgressIndicator(
+    backgroundColor: Colors.cyanAccent,
+
+   ),
+  );
   }
 
   String getCurrentRoute(BottomBarEnum type) {

@@ -63,6 +63,15 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle txtManropeBold18Red500 = TextStyle(
+    color: ColorConstant.red500,
+    fontSize: getFontSize(
+      18,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w700,
+  );
+
 
   static TextStyle txtManropeBold18 = TextStyle(
     color: ColorConstant.gray900,
@@ -307,6 +316,16 @@ class AppStyle {
     fontFamily: 'Manrope',
     fontWeight: FontWeight.w800,
   );
+
+  static TextStyle txtManropeExtraBold28 = TextStyle(
+    color: ColorConstant.gray900,
+    fontSize: getFontSize(
+      28,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w800,
+  );
+
 
   static TextStyle txtManropeExtraBold24 = TextStyle(
     color: ColorConstant.gray900,

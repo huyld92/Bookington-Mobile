@@ -13,6 +13,8 @@ class ProfileScreen extends GetWidget<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    CustomBottomBar.selectedIndex = 4.obs;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.gray50,

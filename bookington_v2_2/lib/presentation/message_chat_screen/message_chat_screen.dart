@@ -18,6 +18,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
       bottom: false,
       child: GestureDetector(
         onTap: () {
+          print("Chat focus");
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
@@ -246,6 +247,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                                                 .viewInsets
                                                 .bottom),
                                         child: TextField(
+                                          controller: controller.messagesController,
                                           focusNode: FocusNode(),
                                           decoration: InputDecoration(
                                             hintText: 'Aa'.tr,
@@ -253,6 +255,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                                             border: InputBorder.none,
                                           ),
                                           textInputAction: TextInputAction.send,
+
                                         ),
                                       ),
                                     ),

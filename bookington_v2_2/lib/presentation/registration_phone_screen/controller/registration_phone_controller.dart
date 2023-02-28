@@ -26,7 +26,8 @@ class RegistrationPhoneController extends GetxController {
     //   var response = await ApiClient.register(txtPhoneController.text,
     //       txtPasswordController.text, txtPhoneController.text);
     //
-    //   if (response.statusCode == 200) {
+    //   if (response.statusCode == 201) {
+    //
     //     PrefUtils.setString("rePhoneNumber", txtPhoneController.text);
     //     Get.toNamed(AppRoutes.verifyPhoneNumberScreen);
     //   } else {

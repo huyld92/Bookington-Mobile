@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/app_url.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
- import 'package:bookington_v2_2/data/models/report_model.dart';
+import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,7 +43,7 @@ class ApiClient extends GetConnect {
     }
   }
 
-  static Future<dynamic> register(
+  static Future<http.Response> register(
       String phone, String password, fullName) async {
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(AppUrl.signUpEndPoint);
@@ -52,11 +52,7 @@ class ApiClient extends GetConnect {
     http.Response response =
         await http.post(url, headers: headers, body: jsonEncode(body));
 
-    if (response.statusCode == 201) {
-      return jsonDecode(response.body);
-    } else {
-      return jsonDecode(response.body);
-    }
+    return response;
   }
 
   static Future<http.Response> sendSms(String phone) async {
@@ -81,15 +77,19 @@ class ApiClient extends GetConnect {
     var headers = {'Authorization': 'Bearer $sysToken'};
     var url = Uri.parse(AppUrl.getProfileByIDEndPoint);
     http.Response response = await http.get(url, headers: headers);
-     return response;
+    return response;
   }
 
   static Future<http.Response> searchCourt(
       int pageNumber, SearchModel searchValue) async {
     int maxPageSize = 5;
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+      "Authorization": "Bearer $sysToken",
+     };
     var url = Uri.parse(
         "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(url,headers: header);
 
     return response;
   }
@@ -122,24 +122,48 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAllProvince() async {
     var url = Uri.parse(AppUrl.getAllProvinceEndPoint);
-
-    http.Response response = await http.get(url);
+    int maxPageSize = 5;
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+      "Authorization": "Bearer $sysToken",
+    };
+    http.Response response = await http.get(url,headers: header);
 
     return response;
   }
 
   static getDistrictById(String id) async {
-    var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=$id");
 
-    http.Response response = await http.get(url);
+    var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=$id");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+      "Authorization": "Bearer $sysToken",
+    };
+    http.Response response = await http.get(url,headers: header);
 
     return response;
   }
 
   static getCourtDetails(String id) async {
     var url = Uri.parse(AppUrl.getCourtDetailsEndPoint + id);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+      "Authorization": "Bearer $sysToken",
+    };
+    http.Response response = await http.get(url, headers: header);
 
-    http.Response response = await http.get(url);
+    return response;
+  }
+
+  static updateProfile(String userID, String fullname, String date) async {
+    var url = Uri.parse(AppUrl.updateProfile + userID);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+       "Authorization": "Bearer $sysToken",
+    "Content-Type":"application/json",
+    };
+    Map<String, String> body = {"fullName": fullname, "dateOfBirth": "2022-01-05"};
+    http.Response response = await http.put(url, body: jsonEncode(body), headers: header);
 
     return response;
   }

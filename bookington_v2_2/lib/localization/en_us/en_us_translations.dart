@@ -51,6 +51,7 @@ final Map<String, String> enUs = {
   'lbl_enter_full_name': 'Full name',
   'lbl_phone': 'Phone',
   'lbl_birthday': 'Birthday',
+  'lbl_date': 'Date',
   'lbl_select_date': 'Select date',
   'lbl_save_change': 'Save change',
   'lbl_result': 'Result',

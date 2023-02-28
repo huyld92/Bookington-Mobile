@@ -22,8 +22,7 @@ import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_bind
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
- import 'package:bookington_v2_2/presentation/recommend_screen/recommend_screen.dart';
-import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
+ import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_verify_screen/binding/verify_phone_number_binding.dart';
 import 'package:bookington_v2_2/presentation/registration_verify_screen/verify_phone_number_screen.dart';
@@ -198,7 +197,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: messageChatScreen,
-      page: () => MessageChatScreen(),
+      page: () => const MessageChatScreen(),
       bindings: [
         MessageChatBinding(),
       ],

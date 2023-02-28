@@ -6,6 +6,8 @@ import 'package:bookington_v2_2/presentation/payment_screen/models/payment_model
 class PaymentController extends GetxController {
   Rx<PaymentModel> paymentModelObj = PaymentModel().obs;
 
+  RxString selectedPayment = "Momo".obs;
+
   @override
   void onReady() {
     super.onReady();
@@ -19,5 +21,13 @@ class PaymentController extends GetxController {
   getBack(){
     print("payment back");
     Get.back();
+  }
+
+  void changePaymentMethod(value) {
+    selectedPayment.value = value;
+  }
+
+  void getBackHome() {
+    Get.offNamed(AppRoutes.homeScreen);
   }
 }

@@ -10,6 +10,8 @@ import 'package:bookington_v2_2/core/app_export.dart';
 class MessagesScreen extends GetWidget<MessagesController> {
   @override
   Widget build(BuildContext context) {
+    CustomBottomBar.selectedIndex = 1.obs;
+
     return SafeArea(
       child:  GestureDetector(
         onTap: () {

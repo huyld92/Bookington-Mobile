@@ -59,7 +59,7 @@ class CourtModel {
         json["ownerId"],
         json["districtId"],
         json["name"],
-        json["districtId"],
+        json["address"],
         DateFormat("hh:mm:ss").parse(json["openAt"]),
         DateFormat("hh:mm:ss").parse(json["closeAt"]),
       );

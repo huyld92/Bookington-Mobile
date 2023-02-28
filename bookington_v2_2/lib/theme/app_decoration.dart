@@ -31,6 +31,11 @@ class AppDecoration {
         color: ColorConstant.gray300,
       );
 
+
+  static BoxDecoration get fillGray200 => BoxDecoration(
+        color: ColorConstant.gray200,
+      );
+
   static BoxDecoration get gradientGray80000Gray90096 => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(

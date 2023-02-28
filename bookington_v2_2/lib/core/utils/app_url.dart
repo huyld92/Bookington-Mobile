@@ -6,22 +6,24 @@ class AppUrl {
 
   static const String smsEndPoint =  "$baseUrl/sms/sent/";
 
-  static const String verifyEndPoint =  "$baseUrl/bookington/accounts/verify";
+  static const String verifyEndPoint =  "$baseUrl/accounts/verify";
 
-  static const String signUpEndPoint=  "$baseUrl/bookington/accounts/signUp";
+  static const String signUpEndPoint=  "$baseUrl/accounts/signUp";
 
-  static const String searchCourtEndPoint=  "$baseUrl/bookington/courts/query";
+  static const String updateProfile=  "$baseUrl/accounts/";
 
-  static const String reportEndPoint=  "$baseUrl/bookington/reports/courtreports";
+  static const String searchCourtEndPoint=  "$baseUrl/courts/query";
 
-  static const String courtEndPoint=  "$baseUrl/bookington/courts";
+  static const String reportEndPoint=  "$baseUrl/reports/courtreports";
 
-  static const String getAllProvinceEndPoint=  "$baseUrl/bookington/province/getAll/";
+  static const String courtEndPoint=  "$baseUrl/courts";
 
-  static const String getDistrictByIdProvinceEndPoint=  "$baseUrl/bookington/districts/province";
+  static const String getAllProvinceEndPoint=  "$baseUrl/province/getAll/";
 
-  static const String getProfileByIDEndPoint=  "$baseUrl/bookington/accounts/profile";
+  static const String getDistrictByIdProvinceEndPoint=  "$baseUrl/districts/province";
 
-  static const String getCourtDetailsEndPoint=  "$baseUrl/bookington/courts/";
+  static const String getProfileByIDEndPoint=  "$baseUrl/accounts/profile";
+
+  static const String getCourtDetailsEndPoint=  "$baseUrl/courts/";
 
 }

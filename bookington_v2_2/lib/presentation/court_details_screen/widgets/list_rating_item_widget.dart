@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
-class ListfiveItemWidget extends StatelessWidget {
-  ListfiveItemWidget(this.listfiveItemModelObj);
+class ListRatingItemWidget extends StatelessWidget {
+  ListRatingItemWidget(this.listRatingItemModelObj, {super.key});
 
-  ListfiveItemModel listfiveItemModelObj;
+  ListfiveItemModel listRatingItemModelObj;
 
   var controller = Get.find<CourtDetailsController>();
 

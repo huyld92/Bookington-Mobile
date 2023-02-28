@@ -148,7 +148,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                             top: 5,
                           ),
                           child: Text(
-                            "lbl_slot".tr,
+                            "lbl_hour".tr,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtManropeRegular10.copyWith(
