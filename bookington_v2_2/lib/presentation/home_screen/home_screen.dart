@@ -10,16 +10,19 @@ import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    CustomBottomBar.selectedIndex = 0.obs;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.gray50,
         appBar: CustomAppBar(
           height: getVerticalSize(
-            60.00,
+            80.00,
           ),
           title: Row(
             children: [
@@ -51,10 +54,10 @@ class HomeScreen extends GetWidget<HomeController> {
                               right: 10,
                             ),
                           ),
-                          Text(
-                            controller.homeModelObj.value.fullName,
-                            style: TextStyle(color: ColorConstant.black900),
-                          )
+                          Obx(() => Text(
+                                controller.homeModelObj.value.fullName,
+                                style: TextStyle(color: ColorConstant.black900),
+                              )),
                         ],
                       ),
                     ),
@@ -71,7 +74,7 @@ class HomeScreen extends GetWidget<HomeController> {
                   width: 40,
                   margin: getMargin(
                     left: 12,
-                    top: 10,
+                    top: 20,
                     right: 24,
                     bottom: 10,
                   ),
@@ -80,29 +83,27 @@ class HomeScreen extends GetWidget<HomeController> {
                     svgPath: ImageConstant.imgNotify,
                   ),
                   onTap: () {
+                    controller.notificationScreen();
                     print("onTap notification");
                   },
                 ),
                 Positioned(
-                    top: 10,
+                    top: 20,
                     right: 30,
                     child: Container(
                       height: 16,
                       width: 16,
                       decoration: BoxDecoration(
-                        color: Color(0xFFFF4848),
+                        color: ColorConstant.red500,
                         shape: BoxShape.circle,
                         border: Border.all(width: 1.5, color: Colors.white),
                       ),
                       child: Center(
-                          child: Text(
-                        "3",
-                        style: TextStyle(
-                            fontSize: 10,
-                            height: 1,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      )),
+                        child: Text(
+                          "3",
+                          style: AppStyle.txtManropeSemiBold10White,
+                        ),
+                      ),
                     ))
               ],
             )
@@ -114,17 +115,19 @@ class HomeScreen extends GetWidget<HomeController> {
             child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  width: double.infinity,
+                  height: 120,
+                  child: CustomImageView(
                     width: double.infinity,
                     height: 120,
-                    child: CustomImageView(
-                      width: double.infinity,
-                      height: 120,
-                      imagePath: ImageConstant.imgMomoAds,),
-                    ),
+                    imagePath: ImageConstant.imgMomoAds,
+                  ),
+                ),
                 //Recommend see more
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   width: double.infinity,
                   // height: 120,
                   child: Row(
@@ -143,9 +146,9 @@ class HomeScreen extends GetWidget<HomeController> {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       InkWell(
-                        child: new Row(
+                        child: Row(
                           children: [
                             Text(
                               "lbl_see_more".tr,
@@ -198,7 +201,7 @@ class HomeScreen extends GetWidget<HomeController> {
                           top: 10,
                         ),
                         scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         separatorBuilder: (context, index) {
                           return SizedBox(
                             height: getVerticalSize(
@@ -236,11 +239,11 @@ class HomeScreen extends GetWidget<HomeController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.messageChatScreen;
+        return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.History:
-        return AppRoutes.homeScreen;
+        return AppRoutes.historyScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:
@@ -251,10 +254,10 @@ class HomeScreen extends GetWidget<HomeController> {
   // /Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-       case AppRoutes.homeScreen:
-        return HomeScreen();
-       default:
-        return DefaultWidget();
+      case AppRoutes.homeScreen:
+        return const HomeScreen();
+      default:
+        return const HomeScreen();
     }
   }
 }

@@ -166,7 +166,7 @@ class CustomTextFormField extends StatelessWidget {
   _setFillColor() {
     switch (variant) {
       case TextFormFieldVariant.OutlineGray300:
-        return ColorConstant.whiteA700;
+        return ColorConstant.gray300;
       default:
         return ColorConstant.blueGray50;
     }
@@ -195,6 +195,12 @@ class CustomTextFormField extends StatelessWidget {
           top: 1,
           bottom: 1,
         );
+        case TextFormFieldPadding.PaddingT14L20:
+        return getPadding(
+          top: 14,
+          left: 20,
+          bottom: 14,
+        );
       default:
         return getPadding(
           all: 13,
@@ -212,6 +218,7 @@ enum TextFormFieldPadding {
   PaddingAll13,
   PaddingT16,
   PaddingT1,
+  PaddingT14L20,
 }
 
 enum TextFormFieldVariant {

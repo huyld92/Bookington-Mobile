@@ -22,7 +22,6 @@ class SearchModel {
       this._openAt,
       this._closeAt);
 
-
   String get id => _id;
 
   set id(String value) {
@@ -77,7 +76,6 @@ class SearchModel {
     _closeAt = value;
   }
 
-
   factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
         json["id"],
         json["name"],
@@ -92,4 +90,10 @@ class SearchModel {
 
   static List<SearchModel> listFromJson(list) =>
       List<SearchModel>.from(list.map((dynamic x) => SearchModel.fromJson(x)));
+
+  SearchModel.search(
+    this._name,
+    this._districtName,
+    this._provinceName,
+  );
 }

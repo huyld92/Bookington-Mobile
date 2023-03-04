@@ -7,6 +7,11 @@ class AppDecoration {
         color: ColorConstant.gray500,
       );
 
+  static BoxDecoration get fillRed50 => BoxDecoration(
+        color: ColorConstant.red500,
+      );
+
+
   static BoxDecoration get fillBlue50 => BoxDecoration(
         color: ColorConstant.blue50,
       );
@@ -29,6 +34,10 @@ class AppDecoration {
 
   static BoxDecoration get fillGray300 => BoxDecoration(
         color: ColorConstant.gray300,
+      );
+
+  static BoxDecoration get fillGray200 => BoxDecoration(
+        color: ColorConstant.gray200,
       );
 
   static BoxDecoration get gradientGray80000Gray90096 => BoxDecoration(
@@ -82,7 +91,14 @@ class AppDecoration {
 class BorderRadiusStyle {
   static Border borderBlack2 = Border.all(color: Colors.black, width: 2);
 
-  static Border borderGray2 = Border.all(color: ColorConstant.gray500, width: 2);
+  static Border border2Gray500 =
+      Border.all(color: ColorConstant.gray500, width: 2);
+
+  static Border border2Red500 =
+      Border.all(color: ColorConstant.red500, width: 2);
+
+  static Border borderGrayT1 =
+      Border(top: BorderSide(color: ColorConstant.gray500, width: 1));
 
   static BorderRadius customBorderTL10 = BorderRadius.only(
     topLeft: Radius.circular(
@@ -102,6 +118,37 @@ class BorderRadiusStyle {
     ),
   );
 
+  static BorderRadius customBorderTLR10 = BorderRadius.only(
+    topLeft: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+    topRight: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+  );
+
+  static BorderRadius customBorderBLR10 = BorderRadius.only(
+    bottomLeft: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+    bottomRight: Radius.circular(
+      getHorizontalSize(
+        10.00,
+      ),
+    ),
+  );
+
+  static BorderRadius roundedBorder51 = BorderRadius.circular(
+    getHorizontalSize(
+      51.00,
+    ),
+  );
 
   static BorderRadius roundedBorder24 = BorderRadius.circular(
     getHorizontalSize(
@@ -155,6 +202,12 @@ class BorderRadiusStyle {
   static BorderRadius circleBorder23 = BorderRadius.circular(
     getHorizontalSize(
       23.00,
+    ),
+  );
+
+  static BorderRadius circleBorder5 = BorderRadius.circular(
+    getHorizontalSize(
+      5.00,
     ),
   );
 }

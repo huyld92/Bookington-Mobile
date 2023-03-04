@@ -1,13 +1,13 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
-import 'package:bookington_v2_2/core/utils/pref_utils.dart';
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj;
 
   @override
   void onInit() async {
+    print('homeee controller init');
+
     checkLogin();
     super.onInit();
   }
@@ -32,12 +32,19 @@ class HomeController extends GetxController {
   }
 
   void checkLogin() {
+    change(null, status: RxStatus.loading());
+
     if (PrefUtils.getAccessToken() == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
-      String? fullName = PrefUtils.getString("fullName") ?? "aaaaa";
+      String? fullName = PrefUtils.getString("fullName") ?? "null";
 
       homeModelObj = HomeModel(fullName).obs;
     }
+    change(null, status: RxStatus.success());
+  }
+
+  void notificationScreen() {
+    Get.toNamed(AppRoutes.notificationScreen);
   }
 }

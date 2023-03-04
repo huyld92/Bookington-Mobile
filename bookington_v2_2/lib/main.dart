@@ -6,11 +6,12 @@ import 'package:flutter/services.dart';
 
 import 'core/app_export.dart';
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
@@ -24,11 +25,11 @@ Future<void> main() async {
     runApp(MyApp());
   });
   // await GetStorage.init();
-
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -37,8 +38,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.standard,
       ),
       translations: AppLocalization(),
-      locale: Get.deviceLocale, //for setting localization strings
-      fallbackLocale: Locale('en', 'US'),
+      locale: Get.deviceLocale,
+      //for setting localization strings
+      fallbackLocale: const Locale('en', 'GB'),
       title: 'Bookington',
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,

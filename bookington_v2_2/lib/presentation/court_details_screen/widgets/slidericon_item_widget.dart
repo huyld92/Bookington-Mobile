@@ -5,7 +5,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class SlidericonItemWidget extends StatelessWidget {
-  SlidericonItemWidget(this.slidericonItemModelObj);
+  SlidericonItemWidget(this.slidericonItemModelObj, {super.key});
 
   SlidericonItemModel slidericonItemModelObj;
 
@@ -58,7 +58,7 @@ class SlidericonItemWidget extends StatelessWidget {
                         bottom: 1,
                       ),
                       child: Text(
-                        controller.courtModel.name,
+                        controller.courtDetailsModelObj.value.name,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
@@ -73,14 +73,16 @@ class SlidericonItemWidget extends StatelessWidget {
                         bottom: 40,
                       ),
                       child: Text(
-                        controller.courtModel.districtName.tr,
-                        overflow: TextOverflow.ellipsis,
+                        controller.courtDetailsModelObj.value.address + ", " + controller.courtDetailsModelObj.value.districtName,
+                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeMedium14Gray300.copyWith(
                           height: getVerticalSize(
                             1.10,
                           ),
                         ),
+                        softWrap: true,
+                        maxLines: 2,
                       ),
                     ),
                   ],

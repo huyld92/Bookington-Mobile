@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
-import 'package:bookington_v2_2/data/models/court_model.dart';
-import 'package:bookington_v2_2/data/models/district_model.dart';
+ import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:flutter/material.dart';
 
-class SearchController extends GetxController {
-  final String searchUrl = "/bookington/courts/query";
+class SearchController extends GetxController  with StateMixin {
   TextEditingController searchController = TextEditingController();
+
   Rx<String> totalCount = "0".obs;
+
   late RxList<SearchModel> listSearchMode = <SearchModel>[].obs;
 
   late RxList<ProvinceModel> province = <ProvinceModel>[].obs;
@@ -19,15 +19,6 @@ class SearchController extends GetxController {
   late RxList<DistrictModel> dictrict = <DistrictModel>[].obs;
   final selectedProvince = ProvinceModel("-1", "Choose province").obs;
   final selectedDistrict = DistrictModel("-1", "Choose district").obs;
-
-  // List listType = ["Ho Chi Minh", "Thua Thien Hue", "Tien Giang", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba CCCC-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "Ba Ria-Vung Tau", "BBBBBBBBBB", "AAAAA"];
-  // // It is mandatory initialize with one value from listType
-  // final selected = "Ho Chi Minh".obs;
-  //
-  // void setSelected(String value) {
-  //   selected.value = value;
-  //   print(selected.value);
-  // }
 
   onSelectedProvince(ProvinceModel value) {
     selectedProvince.value = value;
@@ -43,9 +34,11 @@ class SearchController extends GetxController {
 
   @override
   void onInit() {
+
     print('Init');
     loadData();
     super.onInit();
+
   }
 
   @override
@@ -62,22 +55,27 @@ class SearchController extends GetxController {
     searchController.dispose();
   }
 
-  void loadData() {
+  void loadData() async{
+
     searchByName(1);
     getListProvince();
     dictrict.add(DistrictModel("-1", "Choose district"));
     province.add(ProvinceModel("-1", "Choose province"));
+
   }
 
-  void searchByName(int pageNumber) {
+  void searchByName(int pageNumber) async{
+    change(null, status: RxStatus.loading());
+
     listSearchMode.clear();
+    // default value
     if (selectedProvince.value.provinceName == "Choose province") {
       selectedProvince.value.provinceName = "";
       selectedDistrict.value.districtName = "";
     } else if (selectedDistrict.value.districtName == "Choose district") {
       selectedDistrict.value.districtName = "";
     }
-    CourtModel courtModel = CourtModel.search(
+    SearchModel courtModel = SearchModel.search(
         searchController.text.trim(),
         selectedDistrict.value.districtName,
         selectedProvince.value.provinceName);
@@ -86,11 +84,12 @@ class SearchController extends GetxController {
         final jsonResult = jsonDecode(result.body);
         listSearchMode.value =
             SearchModel.listFromJson(jsonResult["result"]).obs;
-        totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
+         totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
 
         listSearchMode.refresh();
       }
-    });
+    }
+    );
 
     if (selectedProvince.value.provinceName.isEmpty) {
       selectedProvince.value.provinceName = "Choose province";
@@ -98,6 +97,7 @@ class SearchController extends GetxController {
     if (selectedDistrict.value.districtName.isEmpty) {
       selectedDistrict.value.districtName = "Choose district";
     }
+    change(null, status: RxStatus.success());
   }
 
   void getListProvince() {
@@ -132,13 +132,11 @@ class SearchController extends GetxController {
   }
 
   courtDetailsScreen(int index) {
-
     // Map<String,String> params = {
     //   "id": listSearchMode[index].id,
     // };
     PrefUtils.setString("courtId", listSearchMode[index].id);
-     Get.offNamed(AppRoutes.courtDetailsScreen);
+    Get.toNamed(AppRoutes.courtDetailsScreen);
 
-    print("Court Details");
-  }
+   }
 }

@@ -2,26 +2,28 @@ import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_
 import 'package:bookington_v2_2/presentation/choose_court_screen/choose_court_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/binding/choose_slot_binding.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/choose_slot_screen.dart';
+import 'package:bookington_v2_2/presentation/choose_voucher_screen/binding/voucher_binding.dart';
+import 'package:bookington_v2_2/presentation/choose_voucher_screen/voucher_screen.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/binding/court_details_binding.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/court_details_screen.dart';
-import 'package:bookington_v2_2/presentation/create_password_screen/binding/create_password_binding.dart';
-import 'package:bookington_v2_2/presentation/create_password_screen/create_password_screen.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
+import 'package:bookington_v2_2/presentation/history_screen/binding/history_binding.dart';
+import 'package:bookington_v2_2/presentation/history_screen/history_screen.dart';
 import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
 import 'package:bookington_v2_2/presentation/login_screen/login_screen.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/binding/message_chat_binding.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/message_chat_screen.dart';
-import 'package:bookington_v2_2/presentation/messages_container_screen/binding/messages_container_binding.dart';
-import 'package:bookington_v2_2/presentation/messages_container_screen/messages_container_screen.dart';
+import 'package:bookington_v2_2/presentation/messages_screen.dart/binding/messages_binding.dart';
+import 'package:bookington_v2_2/presentation/messages_screen.dart/messages_screen.dart';
+import 'package:bookington_v2_2/presentation/notification_screen/binding/notification_binding.dart';
+import 'package:bookington_v2_2/presentation/notification_screen/notification_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/binding/recommend_binding.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/recommend_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_verify_screen/binding/verify_phone_number_binding.dart';
@@ -30,6 +32,8 @@ import 'package:bookington_v2_2/presentation/search_page/binding/search_binding.
 import 'package:bookington_v2_2/presentation/search_page/search_screen.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/splash_screen.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/binding/transaction_binding.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/transaction_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -44,9 +48,9 @@ class AppRoutes {
 
   static const String verifyPhoneNumberScreen = '/verify_screen';
 
-  static const String createPasswordScreen = '/create_password_screen';
-
   static const String homeScreen = '/home_screen';
+
+  static const String notificationScreen = '/notification_screen';
 
   static const String recommendScreen = '/recommend_screen';
 
@@ -64,18 +68,81 @@ class AppRoutes {
 
   static const String chooseSlotScreen = '/choose_slot_screen';
 
+  static const String chooseVoucherScreen = '/choose_voucher_screen';
+
   static const String messagesScreen = '/message_screen';
 
   static const String messageChatScreen = '/message_chat_screen';
 
+  static const String historyScreen = '/history_screen';
+
+  static const String transactionScreen = '/transaction_screen';
+
   static List<GetPage> pages = [
+
     GetPage(
-      name: initialRoute,
-      // name: splashScreen,
-      page: () => SplashScreen(),
+      // name: initialRoute,
+      name: chooseCourtScreen,
+      page: () => const ChooseCourtScreen(),
       bindings: [
-        SplashBinding(),
+        ChooseCourtBinding(),
       ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: chooseSlotScreen,
+      page: () => const ChooseSlotScreen(),
+      bindings: [
+        ChooseSlotBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: chooseVoucherScreen,
+      page: () => const VoucherScreen(),
+      bindings: [
+        VoucherBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: courtDetailsScreen,
+      page: () => const CourtDetailsScreen(),
+      bindings: [
+        CourtDetailsBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: editProfileScreen,
+      page: () => EditProfileScreen(),
+      bindings: [
+        EditProfileBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: historyScreen,
+      page: () => const HistoryScreen(),
+      bindings: [
+        HistoryBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: homeScreen,
+      page: () => const HomeScreen(),
+      bindings: [
+        HomeBinding(),
+      ],
+      // middlewares: [RouteGuard()],
     ),
 
     GetPage(
@@ -86,6 +153,63 @@ class AppRoutes {
         LoginBinding(),
       ],
     ),
+
+    GetPage(
+      // name: initialRoute,
+      name: messageChatScreen,
+      page: () => const MessageChatScreen(),
+      bindings: [
+        MessageChatBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: messagesScreen,
+      page: () => MessagesScreen(),
+      bindings: [
+        MessagesBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: notificationScreen,
+      page: () => const NotificationScreen(),
+      bindings: [
+        NotificationBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: paymentScreen,
+      page: () => const PaymentScreen(),
+      bindings: [
+        PaymentBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: profileScreen,
+      page: () => const ProfileScreen(),
+      bindings: [
+        ProfileBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
+    //
+    // GetPage(
+    //   // name: initialRoute,
+    //   name: recommendScreen,
+    //   page: () => const RecommendScreen(),
+    //   bindings: [
+    //     RecommendBinding(),
+    //   ],
+    // ),
 
     GetPage(
       // name: initialRoute,
@@ -105,112 +229,33 @@ class AppRoutes {
       ],
     ),
 
-    GetPage(
-      // name: initialRoute,
-      name: createPasswordScreen,
-      page: () => CreatePasswordScreen(),
-      bindings: [
-        CreatePasswordBinding(),
-      ],
-    ),
 
     GetPage(
-      // name: initialRoute,
-      name: homeScreen,
-      page: () => HomeScreen(),
-      bindings: [
-        HomeBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: recommendScreen,
-      page: () => RecommendScreen(),
-      bindings: [
-        RecommendBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: courtDetailsScreen,
-      page: () => const CourtDetailsScreen(),
-      bindings: [
-        CourtDetailsBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: chooseCourtScreen,
-      page: () => ChooseCourtScreen(),
-      bindings: [
-        ChooseCourtBinding(),
-      ],
-    ),
-
-
-    GetPage(
-      // name: initialRoute,
-      name: chooseSlotScreen,
-      page: () => ChooseSlotScreen(),
-      bindings: [
-        ChooseSlotBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: searchScreen,
-      page: () => SearchScreen(),
+      name: initialRoute,
+      // name: searchScreen,
+      page: () => const SearchScreen(),
       bindings: [
         SearchBinding(),
       ],
+
     ),
+
 
     GetPage(
       // name: initialRoute,
-      name: profileScreen,
-      page: () => ProfileScreen(),
+      name: splashScreen,
+      page: () => SplashScreen(),
       bindings: [
-        ProfileBinding(),
+        SplashBinding(),
       ],
     ),
 
     GetPage(
       // name: initialRoute,
-      name: editProfileScreen,
-      page: () => EditProfileScreen(),
+      name: transactionScreen,
+      page: () => const TransactionScreen(),
       bindings: [
-        EditProfileBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: paymentScreen,
-      page: () => PaymentScreen(),
-      bindings: [
-        PaymentBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: messagesScreen,
-      page: () => MessagesContainerScreen(),
-      bindings: [
-        MessagesContainerBinding(),
-      ],
-    ),
-
-    GetPage(
-      // name: initialRoute,
-      name: messageChatScreen,
-      page: () => MessageChatScreen(),
-      bindings: [
-        MessageChatBinding(),
+        TransactionBinding(),
       ],
     ),
   ];

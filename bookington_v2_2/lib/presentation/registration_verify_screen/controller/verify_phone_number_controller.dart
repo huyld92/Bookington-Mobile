@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -11,9 +12,14 @@ import 'package:http/http.dart' as http;
 class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   Rx<TextEditingController> otpController = TextEditingController().obs;
   String phoneNumber = "";
+
   Rx<VerifyPhoneNumberModel> verifyPhoneNumberModelObj =
       VerifyPhoneNumberModel().obs;
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+
+  Timer? _timer;
+  int remainSeconds = 1;
+  final time = '00.00'.obs;
+  RxBool isResend = false.obs;
 
   @override
   void codeUpdated() {
@@ -28,12 +34,16 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   }
 
   @override
-  void onReady() {
+  void onReady(){
+    _startTimer(5);
     super.onReady();
   }
 
   @override
-  void onClose() {
+  void onClose(){
+    if(_timer!=null){
+      _timer!.cancel();
+    }
     super.onClose();
   }
 
@@ -60,10 +70,62 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   }
 
   void loadData() {
-    if(PrefUtils.getString("rePhoneNumber") != null){
-
+    if (PrefUtils.getString("rePhoneNumber") != null) {
       phoneNumber = PrefUtils.getString("rePhoneNumber")!.substring(7);
+    }
+  }
 
+  _startTimer(int seconds){
+    const duration = Duration(seconds: 1);
+    remainSeconds = seconds;
+    isResend.value = true;
+    _timer = Timer.periodic(duration, (Timer timer) {
+      if(remainSeconds==0){
+        time.value = '00.00';
+        print('renaub 0');
+        isResend.value = false;
+        timer.cancel();
+      }else{
+        int minutes = remainSeconds~/60;
+        int seconds = remainSeconds%60;
+        time.value = "${minutes.toString().padLeft(2, "0")}:${seconds.toString().padLeft(2, "0")}";
+        remainSeconds--;
+      }
+     });
+  }
+
+  void getBack() {
+    Get.back();
+  }
+
+  Future<void> resendOtp() async {
+    _startTimer(90);
+     try {
+      String? phoneNumber = PrefUtils.getString("rePhoneNumber");
+      print("cootp: " + otpController.value.text);
+
+      var response =
+          await ApiClient.resendOtp(phoneNumber!);
+
+      if (response.statusCode == 204) {
+        //success
+        Get.snackbar(
+          'Resend otp',
+          "Resend otp successful",
+          colorText: ColorConstant.black900,
+          duration: const Duration(seconds: 1),
+          backgroundColor: ColorConstant.whiteA700,
+          icon: CustomImageView(
+              width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+        );
+       } else {
+        Get.defaultDialog(
+            title: "Resend otp failed!",
+            middleText: jsonDecode(response.body)["Message"]);
+      }
+    } catch (error) {
+      Get.defaultDialog(
+          title: "Resend otp error!", middleText: error.toString());
     }
   }
 }

@@ -1,8 +1,7 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/sub_court_model.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/controller/choose_court_controller.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/widgets/sub_court_item_widget.dart';
-import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
@@ -11,42 +10,47 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
+  const ChooseCourtScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // List<bool> _selections = List.generate(length, (_) => false);
 
     return SafeArea(
-        // top: false,
-        // bottom: false,
+         bottom: false,
         child: Scaffold(
-            // backgroundColor: ColorConstant.blueGray50,
-            backgroundColor: ColorConstant.gray300,
+             backgroundColor: ColorConstant.whiteA700,
             appBar: CustomAppBar(
-                height: getVerticalSize(56.00),
+                height: getVerticalSize(80.00),
                 leadingWidth: 64,
-                leading: AppbarIconbutton(
-                    svgPath: ImageConstant.imgArrowleft,
-                    margin: getMargin(left: 24),
-                    onTap: controller.getBack()),
+                leading: AppbarImage(
+                  height: getSize(64.00),
+                  width: getSize(64.00),
+                  svgPath: ImageConstant.imgArrowleft,
+                  margin: getMargin(left: 24),
+                  onTap: () {
+                    controller.getBack();
+                  },
+                ),
                 centerTitle: true,
-                title: AppbarTitle(text: "lbl_choose_court".tr)),
+                title: AppbarTitle(text: "lbl_choose_court".tr),
+            ),
             body: Column(children: [
               Container(
-                margin: EdgeInsets.only(top: 10),
+                padding: getPadding(top: 10, bottom: 10),
                 width: 350,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0) //
-                        )),
-                padding: EdgeInsets.all(0.0),
-                child: SizedBox.fromSize(
-                  size: Size.fromHeight(80),
-                  child: Obx(
+                  border: BorderRadiusStyle.borderBlack2,
+                  borderRadius: BorderRadiusStyle.circleBorder5,
+                ),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Obx(
                     () => TextButton.icon(
                       style: TextButton.styleFrom(
-                        textStyle: TextStyle(color: Colors.black),
+                        textStyle: TextStyle(color: ColorConstant.black900),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadiusStyle.circleBorder23,
                         ),
                       ),
                       onPressed: () {
@@ -58,27 +62,54 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                           svgPath: ImageConstant.imgCalendar,
                           color: ColorConstant.blue500),
                       label: Text(
-                        controller.selectedDate != null
-                            ? DateFormat('dd-MM-yyyy')
-                                .format(controller.selectedDate.value)
-                            : 'Selected date!',
-                        style: AppStyle.txtManropeSemiBold24Blue500,
+                        DateFormat('dd-MM-yyyy')
+                            .format(controller.selectedDate.value),
+                        style: AppStyle.txtManropeSemiBold20BlueA400,
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 50,
+                    child: VerticalDivider(
+                      color: Colors.black,
+                      thickness: 2,
+                    ),
+                  ),
+                  Obx(
+                    () => TextButton.icon(
+                      style: TextButton.styleFrom(
+                        textStyle: TextStyle(color: ColorConstant.black900),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusStyle.circleBorder23,
+                        ),
+                      ),
+                      onPressed: () {
+                        controller.presentTimePicker();
+                      },
+                      icon: CustomImageView(
+                          height: 32,
+                          width: 32,
+                          svgPath: ImageConstant.imgClock,
+                          color: ColorConstant.blue500),
+                      label: Text(
+                        controller.selectedTime.value.format(context),
+                        style: AppStyle.txtManropeSemiBold20BlueA400,
+                      ),
+                    ),
+                  ),
+                ]),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20, left: 30, bottom: 20),
+                padding: getPadding(top: 10, left: 30, bottom: 20),
                 child: Text(
                   "Choose Court",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                  style: AppStyle.txtManropeSemiBold30,
                 ),
               ),
               Container(
                   margin: getMargin(left: 20, right: 20),
-                  width: 360,
-                  height: 420,
+                  width: getVerticalSize(360),
+                  height:  getVerticalSize(400),
                   decoration: AppDecoration.fillWhiteA700.copyWith(
                     border: BorderRadiusStyle.borderBlack2,
                   ),
@@ -95,7 +126,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                         // physics: NeverScrollableScrollPhysics(),
                         itemCount: controller.subCourtList.length,
                         itemBuilder: (BuildContext ctx, index) {
-                           return SubCourtItemWidget(index + 1);
+                          return SubCourtItemWidget(index + 1);
                         }),
                   )),
               Container(
@@ -108,11 +139,11 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                       margin: getMargin(left: 10, right: 10),
                       height: 20,
                       width: 40,
-                      color: ColorConstant.blue500,
+                      color: ColorConstant.blue400,
                     ),
                     Text(
-                      "Selecting",
-                      style: TextStyle(color: ColorConstant.blue500),
+                      "lbl_selecting".tr,
+                      style: TextStyle(color: ColorConstant.blue400),
                     ),
                     Container(
                       margin: getMargin(left: 10, right: 10),
@@ -121,7 +152,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                       color: ColorConstant.black900,
                     ),
                     Text(
-                      "Can book",
+                      "lbl_can_book".tr,
                       style: TextStyle(color: ColorConstant.black900),
                     ),
                     Container(
@@ -131,7 +162,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                       color: ColorConstant.gray500,
                     ),
                     Text(
-                      "Booked",
+                      "lbl_booked".tr,
                       style: TextStyle(color: ColorConstant.gray500),
                     ),
                   ],
@@ -153,6 +184,4 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                   )
                 ]))));
   }
-
-
 }

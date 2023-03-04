@@ -21,7 +21,7 @@ class LoginController extends GetxController {
     print('onInit');
     if(PrefUtils.getString("fullName") != null){
       print('login: ' +PrefUtils.getString("fullName")!);
-    }
+     }
     super.onInit();
   }
 
@@ -73,6 +73,6 @@ class LoginController extends GetxController {
   }
 
   void registrationPhoneScreen() {
-    Get.toNamed(AppRoutes.registrationPhoneScreen);
+    Get.offNamed(AppRoutes.registrationPhoneScreen);
   }
 }

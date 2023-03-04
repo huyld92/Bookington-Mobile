@@ -1,5 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/court_details_screen/widgets/listfive_item_widget.dart';
+import 'package:bookington_v2_2/presentation/court_details_screen/widgets/list_rating_item_widget.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/slidericon_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
@@ -21,18 +21,18 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      bottom: false,
       child: Scaffold(
         appBar: CustomAppBar(
-            height: getVerticalSize(56.00),
+            height: getVerticalSize(80.00),
             leadingWidth: 64,
             leading: AppbarImage(
-              height: getSize(28.00),
-              width: getSize(28.00),
+              height: getSize(64.00),
+              width: getSize(64.00),
               svgPath: ImageConstant.imgArrowleft,
               margin: getMargin(left: 24),
-              onTap: controller.onTapArrowleft(),
+              onTap: () {
+                controller.getBack();
+              },
             ),
             centerTitle: true,
             title: AppbarTitle(text: "lbl_court_details".tr)),
@@ -151,17 +151,20 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_open_close".tr,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: getPadding(
+                                        top: 1,
+                                      ),
+                                      child: Text(
+                                        "${DateFormat("HH:mm").format(controller.courtDetailsModelObj.value.openAt)}"
+                                        "-${DateFormat("HH:mm").format(controller.courtDetailsModelObj.value.closeAt)}",
+                                        // "10:00-24:00",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
+                                        style:
+                                            AppStyle.txtManropeBold12.copyWith(
                                           letterSpacing: getHorizontalSize(
                                             0.40,
                                           ),
@@ -170,32 +173,9 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: getPadding(
-                                            top: 1,
-                                          ),
-                                          child: Text(
-                                            "${DateFormat("HH:mm").format(controller.courtModel.openAt)}"
-                                                "-${DateFormat("HH:mm").format(controller.courtModel.closeAt)}",
-                                            // "10:00-24:00",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold12
-                                                .copyWith(
-                                              letterSpacing: getHorizontalSize(
-                                                0.40,
-                                              ),
-                                              height: getVerticalSize(
-                                                1.10,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
                                 ),
                                 CustomIconButton(
                                   height: 34,
@@ -214,45 +194,25 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_PhoneNumber".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
-                                          letterSpacing: getHorizontalSize(
-                                            0.40,
-                                          ),
-                                          height: getVerticalSize(
-                                            1.10,
-                                          ),
+                                  child:
+                                  Padding(
+                                    padding: getPadding(
+                                      top: 1,
+                                    ),
+                                    child: Text(
+                                      "0907-123-321".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold12
+                                          .copyWith(
+                                        letterSpacing: getHorizontalSize(
+                                          0.40,
+                                        ),
+                                        height: getVerticalSize(
+                                          1.10,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: getPadding(
-                                          top: 1,
-                                        ),
-                                        child: Text(
-                                          "0907-123-321".tr,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeBold12
-                                              .copyWith(
-                                            letterSpacing: getHorizontalSize(
-                                              0.40,
-                                            ),
-                                            height: getVerticalSize(
-                                              1.10,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -278,16 +238,19 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_price".tr,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: getPadding(
+                                        top: 1,
+                                      ),
+                                      child: Text(
+                                        controller.courtDetailsModelObj.value.moneyPerHour
+                                            .toString() +
+                                            "lbl_hour".tr,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
+                                        style: AppStyle.txtManropeBold12
                                             .copyWith(
                                           letterSpacing: getHorizontalSize(
                                             0.40,
@@ -297,38 +260,15 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: getPadding(
-                                            top: 1,
-                                          ),
-                                          child: Text(
-                                            controller.courtModel.moneyPerHour
-                                                    .toString() +
-                                                "lbl_slot".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold12
-                                                .copyWith(
-                                              letterSpacing: getHorizontalSize(
-                                                0.40,
-                                              ),
-                                              height: getVerticalSize(
-                                                1.10,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+
+                                 ),
                                 CustomIconButton(
                                   height: 34,
                                   width: 34,
                                   margin: getMargin(
-                                    left: 10,
+                                    left: 30,
                                   ),
                                   shape: IconButtonShape.RoundedBorder5,
                                   padding: IconButtonPadding.PaddingAll6,
@@ -340,46 +280,66 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                   padding: getPadding(
                                     left: 8,
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "lbl_AmountCourt".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular10
-                                            .copyWith(
-                                          letterSpacing: getHorizontalSize(
-                                            0.40,
-                                          ),
-                                          height: getVerticalSize(
-                                            1.10,
-                                          ),
+                                  child:                                      Padding(
+                                    padding: getPadding(
+                                      top: 1,
+                                    ),
+                                    child: Text(
+                                      " ${controller.courtDetailsModelObj.value.numberOfSubCourt}",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold12
+                                          .copyWith(
+                                        letterSpacing: getHorizontalSize(
+                                          0.40,
+                                        ),
+                                        height: getVerticalSize(
+                                          1.10,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: getPadding(
-                                          top: 1,
-                                        ),
-                                        child: Text(
-                                          " ${controller.courtModel.numberOfSubCourt}",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeBold12
-                                              .copyWith(
-                                            letterSpacing: getHorizontalSize(
-                                              0.40,
-                                            ),
-                                            height: getVerticalSize(
-                                              1.10,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
+
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: [
+                                  //     Text(
+                                  //       "lbl_AmountCourt".tr,
+                                  //       overflow: TextOverflow.ellipsis,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: AppStyle.txtManropeRegular10
+                                  //           .copyWith(
+                                  //         letterSpacing: getHorizontalSize(
+                                  //           0.40,
+                                  //         ),
+                                  //         height: getVerticalSize(
+                                  //           1.10,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: getPadding(
+                                  //         top: 1,
+                                  //       ),
+                                  //       child: Text(
+                                  //         " ${controller.courtModel.numberOfSubCourt}",
+                                  //         overflow: TextOverflow.ellipsis,
+                                  //         textAlign: TextAlign.left,
+                                  //         style: AppStyle.txtManropeBold12
+                                  //             .copyWith(
+                                  //           letterSpacing: getHorizontalSize(
+                                  //             0.40,
+                                  //           ),
+                                  //           height: getVerticalSize(
+                                  //             1.10,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                               ],
                             ),
@@ -567,7 +527,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     ),
                   ),
 
-                   //review
+                  //review
                   Padding(
                     padding: getPadding(
                       left: 8,
@@ -619,7 +579,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     child: Row(
                       children: [
                         Text(
-                          "${controller.courtModel.ratingStar}".tr,
+                          "${controller.courtDetailsModelObj.value.ratingStar}".tr,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeBold32.copyWith(
@@ -748,7 +708,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                               .courtDetailsModelObj
                               .value
                               .listfiveItemList[index];
-                          return ListfiveItemWidget(
+                          return ListRatingItemWidget(
                             model,
                           );
                         },
@@ -836,7 +796,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       ),
                     ),
                     Text(
-                      "${controller.courtModel.moneyPerHour} VND",
+                      "${controller.courtDetailsModelObj.value.moneyPerHour} VND",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeExtraBold20.copyWith(
