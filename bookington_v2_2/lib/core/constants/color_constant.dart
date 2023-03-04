@@ -54,6 +54,8 @@ class ColorConstant {
 
   static Color red500 = fromHex('#F44336');
 
+  static Color red50 = fromHex('#FFEBEE');
+
   static Color orange500 = fromHex('#FF5722');
 
   static Color green500 = fromHex('#4CAF50');

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
-import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
@@ -115,34 +114,33 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                           selectedColor: ColorConstant.fromHex("#1212121D"),
                           activeColor: ColorConstant.fromHex("#1212121D"),
                         ),
-
                       ),
                     ),
                   ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                          padding: getPadding(top: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("lbl_time_out".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18.copyWith(
-                                      letterSpacing: getHorizontalSize(0.20),
-                                      height: getVerticalSize(1.10))),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text("05:00",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18.copyWith(
-                                      letterSpacing: getHorizontalSize(0.20),
-                                      height: getVerticalSize(1.10))),
-                            ],
-                          ))),
+                  // Align(
+                  //     alignment: Alignment.center,
+                  //     child: Padding(
+                  //         padding: getPadding(top: 10),
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           children: [
+                  //             Text("lbl_time_out".tr,
+                  //                 overflow: TextOverflow.ellipsis,
+                  //                 textAlign: TextAlign.left,
+                  //                 style: AppStyle.txtManropeBold18.copyWith(
+                  //                     letterSpacing: getHorizontalSize(0.20),
+                  //                     height: getVerticalSize(1.10))),
+                  //             const SizedBox(
+                  //               width: 10,
+                  //             ),
+                  //             Text("05:00",
+                  //                 overflow: TextOverflow.ellipsis,
+                  //                 textAlign: TextAlign.left,
+                  //                 style: AppStyle.txtManropeBold18.copyWith(
+                  //                     letterSpacing: getHorizontalSize(0.20),
+                  //                     height: getVerticalSize(1.10))),
+                  //           ],
+                  //         ))),
                   CustomButton(
                     height: 56,
                     width: 327,
@@ -158,26 +156,43 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                   Align(
                       alignment: Alignment.center,
                       child: Padding(
-                          padding: getPadding(top: 10),
+                          padding: getPadding(left: 5, top: 15,right: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("lbl_resend_code".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeSemiBold16Gray500
-                                      .copyWith(
-                                          letterSpacing:
-                                              getHorizontalSize(0.20),
-                                          height: getVerticalSize(1.10))),
-                              Text("01:30".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeSemiBold16Blue500
-                                      .copyWith(
-                                          letterSpacing:
-                                              getHorizontalSize(0.20),
-                                          height: getVerticalSize(1.10)))
+                              Obx(
+                                    () => InkWell(
+                                  onTap: () {
+                                    if (!controller.isResend.value) {
+                                      controller.resendOtp();
+                                    }
+                                  },
+                                  child: Text("lbl_resend_code".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: controller.isResend.value
+                                          ? AppStyle.txtManropeSemiBold16Gray500
+                                              .copyWith(
+                                                  letterSpacing:
+                                                      getHorizontalSize(0.20),
+                                                  height: getVerticalSize(1.10))
+                                          : AppStyle.txtManropeSemiBold16Blue500
+                                              .copyWith(
+                                                  letterSpacing:
+                                                      getHorizontalSize(0.20),
+                                                  height:
+                                                      getVerticalSize(1.10),),),
+                                ),),
+                               Obx(
+                                () => Text(controller.time.value,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeSemiBold16Blue500
+                                        .copyWith(
+                                            letterSpacing:
+                                                getHorizontalSize(0.20),
+                                            height: getVerticalSize(1.10),),),
+                              ),
                             ],
                           ))),
                 ],

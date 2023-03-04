@@ -7,6 +7,7 @@ class PaymentController extends GetxController {
   Rx<PaymentModel> paymentModelObj = PaymentModel().obs;
 
   RxString selectedPayment = "Momo".obs;
+  RxString voucherTitile = ''.obs;
 
   @override
   void onReady() {
@@ -29,5 +30,19 @@ class PaymentController extends GetxController {
 
   void getBackHome() {
     Get.offNamed(AppRoutes.homeScreen);
+  }
+
+  void chooseVoucher() {
+    Map<String,String> voucher = {'id':'3'};
+    Get.toNamed(AppRoutes.chooseVoucherScreen, arguments: voucher)?.then((result) {
+      // print("result type: ${result["id"].runtimeType}");
+      if (result["id"] != null) {
+        voucherTitile.value = result["id"];
+      }
+    });
+  }
+
+  void choosePayment(String s) {
+    selectedPayment.value = s;
   }
 }

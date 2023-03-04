@@ -6,7 +6,7 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
 
 // ignore_for_file: must_be_immutable
 class PaymentSuccessfulDialog extends StatelessWidget {
-  PaymentSuccessfulDialog(this.controller);
+  PaymentSuccessfulDialog(this.controller, {super.key});
 
   PaymentController controller;
 
@@ -88,7 +88,7 @@ class PaymentSuccessfulDialog extends StatelessWidget {
                   left: 3.2,
                   top: 29,
                 ),
-                variant: ButtonVariant.FillBlue500,
+                variant: ButtonVariant.FillBlue400,
                 onTap: () {
                   print("View booking");
                 },

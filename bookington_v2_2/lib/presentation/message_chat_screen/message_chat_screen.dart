@@ -3,7 +3,6 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'controller/message_chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/widgets/app_bar/appbar_iconbutton.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
@@ -18,8 +17,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
       bottom: false,
       child: GestureDetector(
         onTap: () {
-          print("Chat focus");
-          FocusScope.of(context).requestFocus(FocusNode());
+           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
           backgroundColor: ColorConstant.whiteA700,
@@ -48,7 +46,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtManropeBold18.copyWith(
-                                letterSpacing: getHorizontalSize(0.10)))),
+                                letterSpacing: getHorizontalSize(0.10),),),),
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(

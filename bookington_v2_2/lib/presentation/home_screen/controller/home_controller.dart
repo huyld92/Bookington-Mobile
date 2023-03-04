@@ -1,7 +1,7 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
 
-class HomeController extends GetxController  with StateMixin {
+class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj;
 
   @override
@@ -37,12 +37,11 @@ class HomeController extends GetxController  with StateMixin {
     if (PrefUtils.getAccessToken() == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
-      String? fullName = PrefUtils.getString("fullName") ?? "aaaaa";
+      String? fullName = PrefUtils.getString("fullName") ?? "null";
 
       homeModelObj = HomeModel(fullName).obs;
     }
     change(null, status: RxStatus.success());
-
   }
 
   void notificationScreen() {

@@ -1,3 +1,4 @@
+import 'package:bookington_v2_2/presentation/profile_screen/widgets/log_out_pop_up_dialog.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
@@ -59,12 +60,15 @@ class ProfileScreen extends GetWidget<ProfileController> {
                     )
                   ])),
               Padding(
-                  padding: getPadding(top: 8),
-                  child: Text(controller.profileModelObj.value.fullName,
+                padding: getPadding(top: 8),
+                child: Obx(
+                  () => Text(controller.profileModelObj.value.fullName,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeBold18
-                          .copyWith(letterSpacing: getHorizontalSize(0.20)))),
+                          .copyWith(letterSpacing: getHorizontalSize(0.20))),
+                ),
+              ),
               Padding(
                   padding: getPadding(top: 4),
                   child: Text(controller.profileModelObj.value.phomeNumber,
@@ -80,29 +84,34 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeExtraBold14.copyWith(
                               letterSpacing: getHorizontalSize(0.20))))),
-              Padding(
-                  padding: getPadding(top: 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
-                            height: 40,
-                            width: 40,
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgFavorite)),
-                        Padding(
-                            padding: getPadding(left: 16, top: 10, bottom: 7),
-                            child: Text("lbl_my_favorites".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeSemiBold14)),
-                        const Spacer(),
-                        CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getSize(20.00),
-                            width: getSize(20.00),
-                            margin: getMargin(top: 10))
-                      ])),
+              GestureDetector(
+                onTap: () {
+                  controller.test();
+                },
+                child: Padding(
+                    padding: getPadding(top: 10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomIconButton(
+                              height: 40,
+                              width: 40,
+                              child: CustomImageView(
+                                  svgPath: ImageConstant.imgFavorite)),
+                          Padding(
+                              padding: getPadding(left: 16, top: 10, bottom: 7),
+                              child: Text("lbl_my_favorites".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeSemiBold14)),
+                          const Spacer(),
+                          CustomImageView(
+                              svgPath: ImageConstant.imgArrowright,
+                              height: getSize(20.00),
+                              width: getSize(20.00),
+                              margin: getMargin(top: 10))
+                        ])),
+              ),
               GestureDetector(
                 onTap: () {
                   controller.transactionScreen();
@@ -217,7 +226,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
               ),
               GestureDetector(
                 onTap: () {
-                  controller.logout();
+                  Get.defaultDialog(
+                    title: "",
+                    content: LogOutPopUpDialog(controller),
+                  );
                 },
                 child: Padding(
                   padding: getPadding(top: 10),
@@ -229,6 +241,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           width: 40,
                           child: CustomImageView(
                             svgPath: ImageConstant.imgLogout,
+                            color: ColorConstant.red500,
                           ),
                         ),
                         Padding(

@@ -1,5 +1,6 @@
 final Map<String, String> enUs = {
   'lbl_60': '60',
+  'lbl_ok': 'OK',
 
   'lbl_home': 'Home',
   'lbl_bookington': 'Bookington',
@@ -71,6 +72,10 @@ final Map<String, String> enUs = {
   'lbl_can_book': 'Can book',
   'lbl_booked': 'Booked',
   'lbl_cash_on_hand': 'Cash on hand',
+  'lbl_choose_voucher': 'Choose voucher',
+  'lbl_enter_voucher': 'Enter voucher',
+  'lbl_apply': 'Apply',
+  'lbl_cancel': 'Cancel',
 
 
   'msg_network_err': 'Network Error',
@@ -88,6 +93,7 @@ final Map<String, String> enUs = {
   "msg_view_all_reviews": "View all Reviews",
   "msg_empty_search": "Sorry, there are no results for this search,\n please try another phase.",
   "msg_successfully": " empty",
+  "msg_are_you_sure_to": "Are you sure to log out of your account?",
   "msg_about_phutho_court":
       "Sân cầu lông nằm trên lầu 1, Nhà thi đấu TDTT ốp tôn và kính màu xanh da trời, nằm ngay góc đường Lữ Gia – Lý Thường Kiệt. Vào cổng Lý Thường Kiệt. 13 sân và sử dụng thảm kawasaki.",
 };

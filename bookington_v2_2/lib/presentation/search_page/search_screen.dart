@@ -17,40 +17,38 @@ class SearchScreen extends GetWidget<SearchController> {
   @override
   Widget build(BuildContext context) {
     CustomBottomBar.selectedIndex = 2.obs;
-    return controller.obx(
-          (state) {
     return SafeArea(
       child: GestureDetector(
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child:  Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: ColorConstant.gray900,
-        body: Container(
-          width: size.width,
-          decoration: AppDecoration.fillWhiteA700,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                  child: Obx(
-                () => SingleChildScrollView(
-                  child: Padding(
-                    padding: getPadding(
-                      left: 10,
-                      right: 10,
-                      top: 40,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorConstant.gray900,
+          body: Container(
+            width: size.width,
+            decoration: AppDecoration.fillWhiteA700,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: Obx(
+                  () => SingleChildScrollView(
+                    child: Padding(
+                      padding: getPadding(
+                        left: 10,
+                        right: 10,
+                        top: 40,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
                             width: getVerticalSize(360),
                             padding: getPadding(top: 10, bottom: 10),
                             decoration: BoxDecoration(
-                              border: BorderRadiusStyle.borderGray2,
+                              border: BorderRadiusStyle.border2Gray500,
                               borderRadius: BorderRadiusStyle.roundedBorder8,
                             ),
                             child: Column(
@@ -61,7 +59,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadiusStyle.circleBorder23,
-                                      border: BorderRadiusStyle.borderGray2),
+                                      border: BorderRadiusStyle.border2Gray500),
                                   child: TextField(
                                     controller: controller.searchController,
                                     focusNode: FocusNode(),
@@ -85,7 +83,8 @@ class SearchScreen extends GetWidget<SearchController> {
                                         width: getVerticalSize(160),
                                         height: getVerticalSize(55),
                                         decoration: BoxDecoration(
-                                          border: BorderRadiusStyle.borderGray2,
+                                          border:
+                                              BorderRadiusStyle.border2Gray500,
                                           borderRadius:
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
@@ -126,7 +125,8 @@ class SearchScreen extends GetWidget<SearchController> {
                                             right: 5,
                                             bottom: 15),
                                         decoration: BoxDecoration(
-                                          border: BorderRadiusStyle.borderGray2,
+                                          border:
+                                              BorderRadiusStyle.border2Gray500,
                                           borderRadius:
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
@@ -166,57 +166,53 @@ class SearchScreen extends GetWidget<SearchController> {
                                 )
                               ],
                             ),
-                        ),
-                        controller.listSearchMode.isNotEmpty
-                            ? SearchResultWidget(controller)
-                            : SearchEmptyWidget(),
-                      ],
+                          ),
+                          controller.listSearchMode.isNotEmpty
+                              ? SearchResultWidget(controller)
+                              : SearchEmptyWidget(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              )),
-            ],
+                ),
+              ],
+            ),
+          ),
+          bottomNavigationBar: CustomBottomBar(
+            onChanged: (BottomBarEnum type) {
+              Get.toNamed(getCurrentRoute(type));
+              // Get.toNamed(getCurrentRoute(type),id : 3);
+            },
           ),
         ),
-        bottomNavigationBar: CustomBottomBar(
-          onChanged: (BottomBarEnum type) {
-            Get.toNamed(getCurrentRoute(type));
-            // Get.toNamed(getCurrentRoute(type),id : 3);
-          },
-        ),
-      ),),
+      ),
     );
-  },
-  onLoading: const CircularProgressIndicator(
-    backgroundColor: Colors.cyanAccent,
-
-   ),
-  );
   }
+}
 
-  String getCurrentRoute(BottomBarEnum type) {
-    switch (type) {
-      case BottomBarEnum.Home:
-        return AppRoutes.homeScreen;
-      case BottomBarEnum.Message:
-        return AppRoutes.messagesScreen;
-      case BottomBarEnum.Search:
-        return AppRoutes.searchScreen;
-      case BottomBarEnum.History:
-        return AppRoutes.historyScreen;
-      case BottomBarEnum.Profile:
-        return AppRoutes.profileScreen;
-      default:
-        return "/";
-    }
+String getCurrentRoute(BottomBarEnum type) {
+  switch (type) {
+    case BottomBarEnum.Home:
+      return AppRoutes.homeScreen;
+    case BottomBarEnum.Message:
+      return AppRoutes.messagesScreen;
+    case BottomBarEnum.Search:
+      return AppRoutes.searchScreen;
+    case BottomBarEnum.History:
+      return AppRoutes.historyScreen;
+    case BottomBarEnum.Profile:
+      return AppRoutes.profileScreen;
+    default:
+      return "/";
   }
+}
 
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.searchScreen:
-        return const SearchScreen();
-      default:
-        return const SearchScreen();
-    }
+Widget getCurrentPage(String currentRoute) {
+  switch (currentRoute) {
+    case AppRoutes.searchScreen:
+      return const SearchScreen();
+    default:
+      return const SearchScreen();
   }
 }

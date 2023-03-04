@@ -1,8 +1,6 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/splash_screen/models/splash_model.dart';
 
 class SplashController extends GetxController {
-  Rx<SplashModel> splashModelObj = SplashModel().obs;
 
   @override
   void onReady() {

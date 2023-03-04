@@ -33,7 +33,7 @@ class MessagesScreen extends GetWidget<MessagesController> {
                   left: 10, right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadiusStyle.circleBorder23,
-                border: BorderRadiusStyle.borderGray2
+                border: BorderRadiusStyle.border2Gray500
               ),
               child: TextField(
                 controller: controller

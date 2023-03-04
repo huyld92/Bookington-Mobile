@@ -133,6 +133,10 @@ class CustomButton extends StatelessWidget {
 
   _setColor() {
     switch (variant) {
+      case ButtonVariant.FillRed500:
+        return ColorConstant.red500;
+      case ButtonVariant.FillBlue400:
+        return ColorConstant.blue400;
       case ButtonVariant.FillBlue50:
         return ColorConstant.blue50;
       case ButtonVariant.FillGray300:
@@ -234,7 +238,7 @@ class CustomButton extends StatelessWidget {
         return TextStyle(
           color: ColorConstant.black900,
           fontSize: getFontSize(
-            14,
+            16,
           ),
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w900,
@@ -305,6 +309,8 @@ enum ButtonPadding {
 }
 
 enum ButtonVariant {
+  FillRed500,
+  FillBlue400,
   FillBlue500,
   FillBlue50,
   FillGray300,

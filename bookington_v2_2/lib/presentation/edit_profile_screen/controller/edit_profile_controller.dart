@@ -40,14 +40,19 @@ class EditProfileController extends GetxController {
             final jsonResult = (jsonDecode(result.body)["result"]);
             phoneController.text = jsonResult["phone"];
             fullNameController.text = jsonResult["fullName"];
-            // try {
-            //    selectedDate =
-            //       DateFormat("dd-MM-yyyy").parse(jsonResult["dateOfBirth"]).obs;
-            //    print('selectedDate: $selectedDate');
-            // } catch (error) {
-            //   print(error.toString());
-            //   selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
-            // }
+            try {
+              var dateValue = DateFormat("yyyy-MM-dd")
+                  .parseUTC(jsonResult["dateOfBirth"])
+                  .toLocal()
+                  .toString();
+
+              print('date: $dateValue');
+              selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
+              print('selectedDate: $selectedDate');
+            } catch (error) {
+              print(error.toString());
+              selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
+            }
           } else {
             print('EDIT PROFILE headers: ${result.headers}');
           }
@@ -57,8 +62,7 @@ class EditProfileController extends GetxController {
   }
 
   getBack() {
-    // Get.back();
-    Get.offAndToNamed(AppRoutes.profileScreen);
+    Get.back(result: "Back edit profile");
   }
 
   presentDatePicker() async {
@@ -67,7 +71,7 @@ class EditProfileController extends GetxController {
       initialDate: selectedDate.value,
       firstDate: DateTime(0010),
       lastDate: DateTime.now(),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      initialEntryMode: DatePickerEntryMode.calendar,
       // initialDatePickerMode: DatePickerMode.year,
       helpText: 'Select Date',
       cancelText: 'Close',
@@ -76,10 +80,11 @@ class EditProfileController extends GetxController {
       errorInvalidText: 'Enter valid date range',
       fieldLabelText: 'Date',
       fieldHintText: 'Month/Date/Year',
+
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
-      print("Date " + pickedDate.toString());
+      print("Date picked: " + pickedDate.toString());
     }
   }
 
@@ -89,26 +94,36 @@ class EditProfileController extends GetxController {
     } else {
       String userID = PrefUtils.getString("userID") ?? "-1";
       String fullName = fullNameController.text;
-      String date = DateFormat("dd-MM-yyyy").format(selectedDate.value);
-      ApiClient.updateProfile(userID, fullName, date).then(
+
+      String date = selectedDate.value.toString();
+       ApiClient.updateProfile(userID, fullName, date).then(
         (result) {
           print(result.statusCode);
           if (result.statusCode == 200) {
             final jsonResult = (jsonDecode(result.body)["result"]);
             print("edit: $jsonResult");
-            phoneController.text = jsonResult["phone"];
             fullNameController.text = jsonResult["fullName"];
-            // try {
-            //   selectedDate =
-            //       DateFormat("dd-MM-yyyy").parse(jsonResult["dateOfBirth"]).obs;
-            //   print('selectedDate: $selectedDate');
-            // } catch (error) {
-            //   print(error.toString());
-            //   selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
-            // }
             PrefUtils.setString("fullName", fullNameController.text);
+            Get.snackbar(
+              'Edit profile',
+              "Edit profile successful",
+              colorText: ColorConstant.black900,
+              duration: const Duration(seconds: 1),
+              backgroundColor: ColorConstant.whiteA700,
+              icon: CustomImageView(
+                  width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+            );
           } else {
-            print('headers: ${result.headers}');
+            print('${result}');
+            Get.snackbar(
+              'Edit profile',
+              "Edit profile failed",
+              colorText: ColorConstant.black900,
+              // duration: const Duration(seconds: 1),
+              backgroundColor: ColorConstant.whiteA700,
+              icon: CustomImageView(
+                  width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+            );
           }
         },
       );

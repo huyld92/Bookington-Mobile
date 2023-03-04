@@ -1,12 +1,14 @@
 
 class AppUrl {
-  static const String baseUrl = "https://10.0.2.2:7179";
+  static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
   static const String smsEndPoint =  "$baseUrl/sms/sent/";
 
   static const String verifyEndPoint =  "$baseUrl/accounts/verify";
+
+  static const String resendOtpEndPoint =  "$baseUrl/auth/resend-otp";
 
   static const String signUpEndPoint=  "$baseUrl/accounts/signUp";
 
@@ -25,5 +27,7 @@ class AppUrl {
   static const String getProfileByIDEndPoint=  "$baseUrl/accounts/profile";
 
   static const String getCourtDetailsEndPoint=  "$baseUrl/courts/";
+
+  static const String getTransactionEndPoint=  "$baseUrl/api/TransactionHistory/self";
 
 }

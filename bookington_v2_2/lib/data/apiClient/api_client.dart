@@ -86,10 +86,10 @@ class ApiClient extends GetConnect {
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
-     };
+    };
     var url = Uri.parse(
         "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
-    http.Response response = await http.get(url,headers: header);
+    http.Response response = await http.get(url, headers: header);
 
     return response;
   }
@@ -122,29 +122,27 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAllProvince() async {
     var url = Uri.parse(AppUrl.getAllProvinceEndPoint);
-    int maxPageSize = 5;
-    String? sysToken = PrefUtils.getAccessToken();
+     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
-    http.Response response = await http.get(url,headers: header);
+    http.Response response = await http.get(url, headers: header);
 
     return response;
   }
 
-  static getDistrictById(String id) async {
-
+  static Future<http.Response>  getDistrictById(String id) async {
     var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=$id");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
-    http.Response response = await http.get(url,headers: header);
+    http.Response response = await http.get(url, headers: header);
 
     return response;
   }
 
-  static getCourtDetails(String id) async {
+  static Future<http.Response>  getCourtDetails(String id) async {
     var url = Uri.parse(AppUrl.getCourtDetailsEndPoint + id);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
@@ -155,16 +153,36 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static updateProfile(String userID, String fullname, String date) async {
+  static Future<http.Response>  updateProfile(String userID, String fullName, String date) async {
     var url = Uri.parse(AppUrl.updateProfile + userID);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
-       "Authorization": "Bearer $sysToken",
-    "Content-Type":"application/json",
+      "Authorization": "Bearer $sysToken",
+      "Content-Type": "application/json",
     };
-    Map<String, String> body = {"fullName": fullname, "dateOfBirth": "2022-01-05"};
-    http.Response response = await http.put(url, body: jsonEncode(body), headers: header);
+    Map<String, String> body = {"fullName": fullName, "dateOfBirth": date};
+    http.Response response =
+        await http.put(url, body: jsonEncode(body), headers: header);
 
     return response;
+  }
+
+  static Future<http.Response> getTransactionHistory() async {
+    var url = Uri.parse(AppUrl.getTransactionEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> header = {
+      "Authorization": "Bearer $sysToken",
+    };
+    http.Response response = await http.get(url, headers: header);
+
+    return response;
+  }
+
+  static  Future<http.Response> resendOtp(String phone) async {
+    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=${phone}');
+    http.Response response = await http.get(url);
+
+    return response;
+
   }
 }
