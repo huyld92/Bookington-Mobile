@@ -76,6 +76,8 @@ final Map<String, String> enUs = {
   'lbl_enter_voucher': 'Enter voucher',
   'lbl_apply': 'Apply',
   'lbl_cancel': 'Cancel',
+  'lbl_favourite': 'Favourite',
+  'lbl_showing_all': 'Showing all',
 
 
   'msg_network_err': 'Network Error',

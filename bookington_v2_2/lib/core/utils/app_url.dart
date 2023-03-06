@@ -1,6 +1,7 @@
 
 class AppUrl {
-  static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
+  // static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
+  static const String baseUrl = "https://10.0.2.2:7179";
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
@@ -29,5 +30,11 @@ class AppUrl {
   static const String getCourtDetailsEndPoint=  "$baseUrl/courts/";
 
   static const String getTransactionEndPoint=  "$baseUrl/api/TransactionHistory/self";
+
+  static const String getAvailableSubCourtEndPoint=  "$baseUrl/bookings/subcourts/available";
+
+  static const String getAvailableSlotEndPoint=  "$baseUrl/bookings/slots/available";
+
+  static const String createNewBookingEndPoint=  "$baseUrl/bookings";
 
 }

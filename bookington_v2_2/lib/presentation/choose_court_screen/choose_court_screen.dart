@@ -6,6 +6,7 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
@@ -17,23 +18,23 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
     // List<bool> _selections = List.generate(length, (_) => false);
 
     return SafeArea(
-         bottom: false,
+        bottom: false,
         child: Scaffold(
-             backgroundColor: ColorConstant.whiteA700,
+            backgroundColor: ColorConstant.whiteA700,
             appBar: CustomAppBar(
-                height: getVerticalSize(80.00),
-                leadingWidth: 64,
-                leading: AppbarImage(
-                  height: getSize(64.00),
-                  width: getSize(64.00),
-                  svgPath: ImageConstant.imgArrowleft,
-                  margin: getMargin(left: 24),
-                  onTap: () {
-                    controller.getBack();
-                  },
-                ),
-                centerTitle: true,
-                title: AppbarTitle(text: "lbl_choose_court".tr),
+              height: getVerticalSize(80.00),
+              leadingWidth: 64,
+              leading: AppbarImage(
+                height: getSize(64.00),
+                width: getSize(64.00),
+                svgPath: ImageConstant.imgArrowleft,
+                margin: getMargin(left: 24),
+                onTap: () {
+                  controller.getBack();
+                },
+              ),
+              centerTitle: true,
+              title: AppbarTitle(text: "lbl_choose_court".tr),
             ),
             body: Column(children: [
               Container(
@@ -84,7 +85,13 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                         ),
                       ),
                       onPressed: () {
-                        controller.presentTimePicker();
+                        DatePicker.showTimePicker(context,
+                            showTitleActions: true,
+                            showSecondsColumn: false, onConfirm: (date) {
+                          controller.timePicker(date);
+                        },
+                            currentTime: controller.selectedTime.value,
+                            locale: LocaleType.vi);
                       },
                       icon: CustomImageView(
                           height: 32,
@@ -92,10 +99,31 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                           svgPath: ImageConstant.imgClock,
                           color: ColorConstant.blue500),
                       label: Text(
-                        controller.selectedTime.value.format(context),
+                        DateFormat("HH:mm").format(controller.selectedTime.value),
                         style: AppStyle.txtManropeSemiBold20BlueA400,
                       ),
                     ),
+
+                    //     TextButton.icon(
+                    //   style: TextButton.styleFrom(
+                    //     textStyle: TextStyle(color: ColorConstant.black900),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadiusStyle.circleBorder23,
+                    //     ),
+                    //   ),
+                    //   onPressed: () {
+                    //     controller.presentTimePicker();
+                    //   },
+                    //   icon: CustomImageView(
+                    //       height: 32,
+                    //       width: 32,
+                    //       svgPath: ImageConstant.imgClock,
+                    //       color: ColorConstant.blue500),
+                    //   label: Text(
+                    //     controller.selectedTime.value.format(context),
+                    //     style: AppStyle.txtManropeSemiBold20BlueA400,
+                    //   ),
+                    // ),
                   ),
                 ]),
               ),
@@ -109,7 +137,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
               Container(
                   margin: getMargin(left: 20, right: 20),
                   width: getVerticalSize(360),
-                  height:  getVerticalSize(400),
+                  height: getVerticalSize(400),
                   decoration: AppDecoration.fillWhiteA700.copyWith(
                     border: BorderRadiusStyle.borderBlack2,
                   ),
@@ -173,14 +201,20 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                 padding: getPadding(left: 24, right: 24, bottom: 15),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  CustomButton(
-                    height: 55,
-                    width: 320,
-                    text: "lbl_next".tr,
-                    onTap: () {
-                      controller.nextChooseSlot();
-                      print("next");
-                    },
+                  Obx(
+                    () => CustomButton(
+                      height: 55,
+                      width: 320,
+                      text: "lbl_next".tr,
+                      variant: controller.selectedIndex.isNotEmpty
+                          ? ButtonVariant.FillBlue400
+                          : ButtonVariant.FillGray300,
+                      onTap: () {
+                        if (controller.selectedIndex.isNotEmpty) {
+                          controller.nextChooseSlot();
+                        }
+                      },
+                    ),
                   )
                 ]))));
   }

@@ -3,13 +3,13 @@ import 'package:intl/intl.dart';
 class CourtModel {
   String _id;
   String _ownerId;
-  String _districtId;
+  String _districtName;
   String _name;
   String _address;
   DateTime _openAt;
   DateTime _closeAt;
 
-  CourtModel(this._id, this._ownerId, this._districtId, this._name,
+  CourtModel(this._id, this._ownerId, this._districtName, this._name,
       this._address, this._openAt, this._closeAt);
 
   DateTime get closeAt => _closeAt;
@@ -36,10 +36,10 @@ class CourtModel {
     _name = value;
   }
 
-  String get districtId => _districtId;
+  String get districtId => _districtName;
 
   set districtId(String value) {
-    _districtId = value;
+    _districtName = value;
   }
 
   String get ownerId => _ownerId;
@@ -57,7 +57,7 @@ class CourtModel {
   factory CourtModel.fromJson(Map<String, dynamic> json) => CourtModel(
         json["id"],
         json["ownerId"],
-        json["districtId"],
+        json["districtName"],
         json["name"],
         json["address"],
         DateFormat("hh:mm:ss").parse(json["openAt"]),

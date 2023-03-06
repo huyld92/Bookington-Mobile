@@ -1,16 +1,18 @@
 
 
 import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/data/models/booking_model.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/models/payment_model.dart';
 
 class PaymentController extends GetxController {
   Rx<PaymentModel> paymentModelObj = PaymentModel().obs;
 
   RxString selectedPayment = "Momo".obs;
-  RxString voucherTitile = ''.obs;
+  RxString voucherTitle = ''.obs;
 
   @override
   void onReady() {
+    loadData();
     super.onReady();
   }
 
@@ -20,8 +22,7 @@ class PaymentController extends GetxController {
   }
 
   getBack(){
-    print("payment back");
-    Get.back();
+     Get.back();
   }
 
   void changePaymentMethod(value) {
@@ -37,12 +38,20 @@ class PaymentController extends GetxController {
     Get.toNamed(AppRoutes.chooseVoucherScreen, arguments: voucher)?.then((result) {
       // print("result type: ${result["id"].runtimeType}");
       if (result["id"] != null) {
-        voucherTitile.value = result["id"];
+        voucherTitle.value = result["id"];
       }
     });
   }
 
   void choosePayment(String s) {
     selectedPayment.value = s;
+  }
+
+  void loadData() {
+     Map<String, dynamic> arg = Get.arguments;
+     if (arg["listBooking"]!=null) {
+       List<BookingModel>? listBooking = arg["listBooking"];
+       paymentModelObj.value.listBooking?.value = listBooking!;
+      }
   }
 }

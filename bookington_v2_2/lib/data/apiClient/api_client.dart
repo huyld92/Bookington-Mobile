@@ -73,6 +73,13 @@ class ApiClient extends GetConnect {
     return response;
   }
 
+  static Future<http.Response> resendOtp(String phone) async {
+    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=${phone}');
+    http.Response response = await http.get(url);
+
+    return response;
+  }
+
   static Future<http.Response> getProfile(String sysToken) async {
     var headers = {'Authorization': 'Bearer $sysToken'};
     var url = Uri.parse(AppUrl.getProfileByIDEndPoint);
@@ -122,7 +129,7 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAllProvince() async {
     var url = Uri.parse(AppUrl.getAllProvinceEndPoint);
-     String? sysToken = PrefUtils.getAccessToken();
+    String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
@@ -131,7 +138,7 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response>  getDistrictById(String id) async {
+  static Future<http.Response> getDistrictById(String id) async {
     var url = Uri.parse("${AppUrl.getDistrictByIdProvinceEndPoint}?id=$id");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
@@ -142,7 +149,7 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response>  getCourtDetails(String id) async {
+  static Future<http.Response> getCourtDetails(String id) async {
     var url = Uri.parse(AppUrl.getCourtDetailsEndPoint + id);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
@@ -153,7 +160,8 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response>  updateProfile(String userID, String fullName, String date) async {
+  static Future<http.Response> updateProfile(
+      String userID, String fullName, String date) async {
     var url = Uri.parse(AppUrl.updateProfile + userID);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
@@ -178,11 +186,65 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static  Future<http.Response> resendOtp(String phone) async {
-    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=${phone}');
-    http.Response response = await http.get(url);
+  static Future<http.Response> getAvailableSubCourt(
+      String courtId, String playDate, String startTime) async {
+    var url = Uri.parse(AppUrl.getAvailableSubCourtEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, String> body = {
+      "courtId": courtId,
+      "playDate": playDate,
+      "startTime": startTime,
+      "endTime": "23:59:59.0000000"
+    };
+    print('body choose court: ${body}');
+
+    http.Response response =
+        await http.post(url, body: jsonEncode(body), headers: headers);
 
     return response;
+  }
 
+  static Future<http.Response> getAvailableSlot(
+      String subCourtId, String playDate) async {
+    var url = Uri.parse('${AppUrl.getAvailableSlotEndPoint}');
+    String? sysToken = PrefUtils.getAccessToken();
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, String> body = {
+      "subCourtId": subCourtId,
+      "playDate": playDate,
+    };
+    print('urlL: ${body}');
+
+    http.Response response =
+        await http.post(url, body: jsonEncode(body), headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> createNewBooking(
+      List<Map<String, String>> listSlotBooking) async {
+    var url = Uri.parse(AppUrl.createNewBookingEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.post(url,
+        body: jsonEncode(listSlotBooking), headers: headers);
+
+    return response;
   }
 }

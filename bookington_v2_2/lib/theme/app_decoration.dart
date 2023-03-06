@@ -11,7 +11,6 @@ class AppDecoration {
         color: ColorConstant.red500,
       );
 
-
   static BoxDecoration get fillBlue50 => BoxDecoration(
         color: ColorConstant.blue50,
       );
@@ -79,7 +78,7 @@ class AppDecoration {
             blurRadius: getHorizontalSize(
               2.00,
             ),
-            offset: Offset(
+            offset: const Offset(
               0,
               -8,
             ),
@@ -93,6 +92,9 @@ class BorderRadiusStyle {
 
   static Border border2Gray500 =
       Border.all(color: ColorConstant.gray500, width: 2);
+
+  static Border borderB2Gray500 =
+      Border(bottom: BorderSide(color: ColorConstant.gray500, width: 2));
 
   static Border border2Red500 =
       Border.all(color: ColorConstant.red500, width: 2);

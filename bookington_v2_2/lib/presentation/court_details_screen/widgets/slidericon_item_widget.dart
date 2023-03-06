@@ -73,7 +73,7 @@ class SlidericonItemWidget extends StatelessWidget {
                         bottom: 40,
                       ),
                       child: Text(
-                        controller.courtDetailsModelObj.value.address + ", " + controller.courtDetailsModelObj.value.districtName,
+                        "${controller.courtDetailsModelObj.value.address}, ${controller.courtDetailsModelObj.value.districtName}",
                          overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeMedium14Gray300.copyWith(

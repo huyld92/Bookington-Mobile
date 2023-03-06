@@ -178,29 +178,35 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           },
                         )
                       ])),
-              Padding(
-                  padding: getPadding(top: 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
-                            height: 40,
-                            width: 40,
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgNotFound)),
-                        Padding(
-                            padding: getPadding(left: 16, top: 10, bottom: 7),
-                            child: Text("lbl_change_password".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeSemiBold14)),
-                        const Spacer(),
-                        CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
-                            height: getSize(20.00),
-                            width: getSize(20.00),
-                            margin: getMargin(top: 10, bottom: 10))
-                      ])),
+              InkWell(
+                onTap: () {
+                  controller.test();
+                },
+                child: Padding(
+                    padding: getPadding(top: 10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomIconButton(
+                              height: 40,
+                              width: 40,
+                              child: CustomImageView(
+                                  svgPath: ImageConstant.imgNotFound)),
+                          Padding(
+                              padding: getPadding(left: 16, top: 10, bottom: 7),
+                              child: Text("Test".tr,
+                              // child: Text("lbl_change_password".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeSemiBold14)),
+                          const Spacer(),
+                          CustomImageView(
+                              svgPath: ImageConstant.imgArrowright,
+                              height: getSize(20.00),
+                              width: getSize(20.00),
+                              margin: getMargin(top: 10, bottom: 10))
+                        ])),
+              ),
               Padding(
                 padding: getPadding(top: 10),
                 child:

@@ -1,3 +1,5 @@
+import 'package:bookington_v2_2/presentation/%20favourite_court_screen/binding/%20favourite_court_binding.dart';
+import 'package:bookington_v2_2/presentation/%20favourite_court_screen/favourite_court_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_court_binding.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/choose_court_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/binding/choose_slot_binding.dart';
@@ -40,6 +42,8 @@ import '../core/app_export.dart';
 class AppRoutes {
   static String initialRoute = '/initialRoute';
 
+  static const String favouriteScreen = '/favourite_screen';
+
   static const String splashScreen = '/splash_screen';
 
   static const String loginScreen = '/login_screen';
@@ -80,6 +84,14 @@ class AppRoutes {
 
   static List<GetPage> pages = [
 
+    GetPage(
+      // name: initialRoute,
+      name: favouriteScreen,
+      page: () => const FavouriteCourtScreen(),
+      bindings: [
+        FavouriteCourtBinding(),
+      ],
+    ),
     GetPage(
       // name: initialRoute,
       name: chooseCourtScreen,
@@ -231,8 +243,8 @@ class AppRoutes {
 
 
     GetPage(
-      name: initialRoute,
-      // name: searchScreen,
+      // name: initialRoute,
+      name: searchScreen,
       page: () => const SearchScreen(),
       bindings: [
         SearchBinding(),
@@ -242,8 +254,8 @@ class AppRoutes {
 
 
     GetPage(
-      // name: initialRoute,
-      name: splashScreen,
+      name: initialRoute,
+      // name: splashScreen,
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),

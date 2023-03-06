@@ -132,11 +132,11 @@ class SearchController extends GetxController  with StateMixin {
   }
 
   courtDetailsScreen(int index) {
-    // Map<String,String> params = {
-    //   "id": listSearchMode[index].id,
-    // };
-    PrefUtils.setString("courtId", listSearchMode[index].id);
-    Get.toNamed(AppRoutes.courtDetailsScreen);
+    Map<String,String> arg = {
+      "courtId": listSearchMode[index].id,
+    };
+    // PrefUtils.setString("courtId", listSearchMode[index].id);
+    Get.toNamed(AppRoutes.courtDetailsScreen,arguments: arg);
 
    }
 }

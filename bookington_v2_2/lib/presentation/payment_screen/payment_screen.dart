@@ -8,7 +8,6 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 
-// enum SingingCharacter { Momo }
 
 class PaymentScreen extends GetWidget<PaymentController> {
   const PaymentScreen({super.key});
@@ -455,7 +454,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                     width: getHorizontalSize(32.00),
                                     radius: BorderRadius.circular(
                                         getHorizontalSize(4.00))),
-                                controller.voucherTitile.value.isEmpty ?
+                                controller.voucherTitle.value.isEmpty ?
                                 Padding(
                                     padding:
                                         getPadding(left: 12, top: 2, bottom: 2),
@@ -469,7 +468,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                   padding: getPadding(left: 5, right: 5),
                                   decoration: BoxDecoration(
                                       border: BorderRadiusStyle.border2Red500),
-                                  child: Text(' ${controller.voucherTitile.value}%',
+                                  child: Text(' ${controller.voucherTitle.value}%',
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeBold18Red500),

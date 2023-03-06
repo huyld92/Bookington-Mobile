@@ -45,11 +45,8 @@ class EditProfileController extends GetxController {
                   .parseUTC(jsonResult["dateOfBirth"])
                   .toLocal()
                   .toString();
-
-              print('date: $dateValue');
-              selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
-              print('selectedDate: $selectedDate');
-            } catch (error) {
+               selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
+             } catch (error) {
               print(error.toString());
               selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
             }

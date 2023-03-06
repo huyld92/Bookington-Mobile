@@ -8,17 +8,16 @@ import 'package:bookington_v2_2/presentation/search_page/models/search_model.dar
 import 'package:intl/intl.dart';
 
 class CourtDetailsController extends GetxController {
-
   Rx<CourtDetailsModel> courtDetailsModelObj = CourtDetailsModel(
-      "1",
-      "Phu Tho",
-      4.9,
-      "Quận 11",
-      "123, Ly Thuong Kiet",
-      100000,
-      10,
-      DateFormat("kk:mm").parse("09:00"),
-      DateFormat("kk:mm").parse("21:00"),
+    "1",
+    "Phu Tho",
+    4.9,
+    "Quận 11",
+    "123, Ly Thuong Kiet",
+    100000,
+    10,
+    DateFormat("kk:mm").parse("09:00"),
+    DateFormat("kk:mm").parse("21:00"),
   ).obs;
 
   // RxString radioGroup = "".obs;
@@ -32,12 +31,14 @@ class CourtDetailsController extends GetxController {
   }
 
   loadData() {
-    // Map<String, String?> params = Get.parameters;
-    if (PrefUtils.getString("courtId") != null) {
-      getCourtDetails(PrefUtils.getString("courtId")!);
-      print('id: ${PrefUtils.getString("courtId")}');
-    } else {
-      print('NUlll');
+    try {
+      Map<String, String> arg = Get.arguments;
+      if (arg["courtId"] != null) {
+        getCourtDetails(arg["courtId"]!);
+        print('courtId: ${arg["courtId"]}');
+      }
+    } on Exception catch (e) {
+      getBack();
     }
   }
 
@@ -77,6 +78,7 @@ class CourtDetailsController extends GetxController {
             CourtModel.fromJson(jsonDecode(result.body)["result"]);
         courtDetailsModelObj.value.id = court.id;
         courtDetailsModelObj.value.name = court.name;
+        courtDetailsModelObj.value.districtName = court.districtId;
         courtDetailsModelObj.value.address = court.address;
         courtDetailsModelObj.value.openAt = court.openAt;
         courtDetailsModelObj.value.closeAt = court.closeAt;
@@ -85,26 +87,16 @@ class CourtDetailsController extends GetxController {
         print('ERRRRRRRRR');
       }
     });
-    print('AAAAAAAAAA');
-    // courtDetailsModelObj ??
-    //     CourtDetailsModel(
-    //       "1",
-    //       "Phu Tho",
-    //       4.9,
-    //       "Quận 11",
-    //       "123, Ly Thuong Kiet",
-    //       100000,
-    //       10,
-    //       DateFormat("kk:mm").parse("09:00"),
-    //       DateFormat("kk:mm").parse("21:00"),);
   }
 
   void chooseCourtScreen() {
-    Get.toNamed(AppRoutes.chooseCourtScreen);
+    Map<String, String> arg = Get.arguments;
+    Get.toNamed(AppRoutes.chooseCourtScreen, arguments: arg);
   }
 
   getBack() {
+    PrefUtils.remove("courtId");
     Get.back();
-    print("back Court detail");
+    print("back from Court detail");
   }
 }

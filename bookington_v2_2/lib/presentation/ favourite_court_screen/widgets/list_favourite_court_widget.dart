@@ -1,17 +1,17 @@
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/%20favourite_court_screen/controller/%20favourite_court_controller.dart';
+import 'package:bookington_v2_2/presentation/%20favourite_court_screen/model/favorite_model.dart';
 
-import '../controller/search_controller.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
-class ListRectangleItemWidget extends StatelessWidget {
-  ListRectangleItemWidget(this._searchModel, this._index, {super.key});
+class ListFavouriteCourtWidget extends StatelessWidget {
+  ListFavouriteCourtWidget(this._favoriteModel, this._index, {super.key});
 
   final int _index;
-  final SearchModel _searchModel;
+  final FavoriteModel _favoriteModel;
 
-  var controller = Get.find<SearchController>();
+  var controller = Get.find<FavouriteCourtController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,7 @@ class ListRectangleItemWidget extends StatelessWidget {
         controller.courtDetailsScreen(_index);
       },
       child: Container(
+        margin: getMargin(top: 15, left: 15,right: 15),
         decoration: AppDecoration.fillGray300.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder16,
         ),
@@ -56,7 +57,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                       child: Container(
                     width: 220,
                     child: Text(
-                      _searchModel.name,
+                      _favoriteModel.name,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeBold20,
@@ -69,7 +70,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                       top: 5,
                     ),
                     child: Text(
-                      "${_searchModel.districtName}, ${_searchModel.provinceName}",
+                      "${_favoriteModel.districtName}, ${_favoriteModel.provinceName}",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeRegular14.copyWith(
@@ -105,7 +106,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                             left: 4,
                           ),
                           child: Text(
-                            _searchModel.ratingStar.toString(),
+                            _favoriteModel.ratingStar.toString(),
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: AppStyle.txtManropeSemiBold14.copyWith(
@@ -140,7 +141,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "${_searchModel.moneyPerHour}VND",
+                          "${_favoriteModel.moneyPerHour}VND",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeBold20,

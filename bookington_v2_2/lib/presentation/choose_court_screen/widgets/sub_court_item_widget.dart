@@ -45,15 +45,13 @@ class SubCourtItemWidget extends StatelessWidget {
                 // IconButtonVariant.OutlineBluegray50,
                 child: CustomImageView(
                   svgPath: ImageConstant.imgBadmintonCourt,
-                  color: controller.subCourtList.value[index-1].isActive
+                  color: controller.subCourtList.value[index-1].isAvailable
                       ? (controller.subCourtList.value[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
                       : ColorConstant.gray500,
                 ),
                 onTap: () {
-                  if (controller.subCourtList.value[index-1].isActive) {
-                    print("Choose Court");
-                    controller.selectCourt(index-1);
-
+                  if (controller.subCourtList.value[index-1].isAvailable) {
+                     controller.selectCourt(index-1);
                   }
 
                 },
@@ -61,7 +59,7 @@ class SubCourtItemWidget extends StatelessWidget {
               Text(
                 "Court " + "${index}",
                 style: TextStyle(
-                    color: controller.subCourtList.value[index-1].isActive
+                    color: controller.subCourtList.value[index-1].isAvailable
                         ? (controller.subCourtList.value[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
                         : ColorConstant.gray500),
               ),
