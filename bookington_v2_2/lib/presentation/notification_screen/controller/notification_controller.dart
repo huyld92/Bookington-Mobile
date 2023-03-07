@@ -1,20 +1,34 @@
+import 'dart:convert';
+
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/notification_screen/models/notification_model.dart';
+import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/notification_model.dart';
 
 class NotificationController extends GetxController {
-  Rx<NotificationModel> notificationModelObj = NotificationModel().obs;
+  RxList<NotificationModel> listNotificationModel = <NotificationModel>[].obs;
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    loadData();
+    super.onInit();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  loadData() {
+    queryNotifications();
+  }
+
+  queryNotifications() {
+    Map<String, dynamic> arg = Get.arguments;
+    listNotificationModel.value = arg["listNotification"];
+    print('$arg["listNotification"]');
   }
 
   getBack() {
-    Get.back();
+    Get.back(result: "notify screen back");
+  }
+
+  void readNotification(int index) {
+    listNotificationModel[index].isRead = true;
+    listNotificationModel.refresh();
   }
 }

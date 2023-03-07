@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/models/edit_profile_model.dart';
+import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -101,6 +102,9 @@ class EditProfileController extends GetxController {
             print("edit: $jsonResult");
             fullNameController.text = jsonResult["fullName"];
             PrefUtils.setString("fullName", fullNameController.text);
+            HomeController homeController = Get.find();
+            homeController.homeModelObj.value.fullName = fullName;
+            homeController.homeModelObj.refresh();
             Get.snackbar(
               'Edit profile',
               "Edit profile successful",

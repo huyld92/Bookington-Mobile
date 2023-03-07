@@ -32,9 +32,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: getSize(70.00),
-                  width: getSize(70.00),
-                  child: Stack(alignment: Alignment.bottomRight, children: [
+                height: getSize(70.00),
+                width: getSize(70.00),
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
                     CustomImageView(
                         svgPath: ImageConstant.imgUser,
                         height: getSize(70.00),
@@ -58,7 +60,9 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         controller.editProfileScreen();
                       },
                     )
-                  ])),
+                  ],
+                ),
+              ),
               Padding(
                 padding: getPadding(top: 8),
                 child: Obx(
@@ -75,6 +79,35 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeMedium14Gray500)),
+              GestureDetector(
+                onTap: () {
+                  controller.editProfileScreen();
+                },
+                child: Padding(
+                    padding: getPadding(top: 10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomIconButton(
+                              height: 40,
+                              width: 40,
+                              child: CustomImageView(
+                                  svgPath: ImageConstant.imgFavorite)),
+                          Padding(
+                              padding: getPadding(left: 16, top: 10, bottom: 7),
+                              child: Text("lbl_my_favorites".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeSemiBold14)),
+                          const Spacer(),
+                          CustomImageView(
+                              svgPath: ImageConstant.imgArrowright,
+                              height: getSize(20.00),
+                              width: getSize(20.00),
+                              margin: getMargin(top: 10))
+                        ])),
+              ),
+
               Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -195,7 +228,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           Padding(
                               padding: getPadding(left: 16, top: 10, bottom: 7),
                               child: Text("Test".tr,
-                              // child: Text("lbl_change_password".tr,
+                                  // child: Text("lbl_change_password".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtManropeSemiBold14)),

@@ -1,14 +1,16 @@
+import 'package:bookington_v2_2/data/models/notification_model.dart';
+import 'package:intl/intl.dart';
+
 import '../controller/notification_controller.dart';
-import '../models/notification_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class NotificationItemWidget extends StatelessWidget {
-  NotificationItemWidget(this.notificationItemModelObj);
+  NotificationItemWidget(this.notificationModel, this.index, {super.key});
 
-  NotificationItemModel notificationItemModelObj;
-
+  NotificationModel notificationModel;
+  int index;
   var controller = Get.find<NotificationController>();
 
   @override
@@ -25,92 +27,112 @@ class NotificationItemWidget extends StatelessWidget {
         bottom: 12,
       ),
       decoration: AppDecoration.fillBlue50,
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: getPadding(
-                top: 3,
-              ),
-              child: Text(
-                "12:40 pm".tr,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.left,
-                style: AppStyle.txtManropeRegular11.copyWith(
-                  letterSpacing: getHorizontalSize(
-                    0.3,
+      child: InkWell(
+        onTap: () {
+          controller.readNotification(index);
+        },
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: getPadding(
+                  top: 3,
+                ),
+                child: Text(
+                  DateFormat("dd-MM-yyyy").format(notificationModel.createAt),
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: AppStyle.txtManropeRegular11.copyWith(
+                    letterSpacing: getHorizontalSize(
+                      0.3,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                CustomImageView(
-                  svgPath: ImageConstant.imgNotFound,
-                  height: getSize(
-                    48,
-                  ),
-                  width: getSize(
-                    48,
-                  ),
-                  radius: BorderRadius.circular(
-                    getHorizontalSize(
-                      24,
-                    ),
-                  ),
-                  margin: getMargin(
-                    bottom: 1,
-                  ),
-                ),
-                Container(
-                  width: getHorizontalSize(
-                    215,
-                  ),
-                  margin: getMargin(
-                    left: 14,
-                    top: 2,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Super Offer".tr,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtManropeMedium18.copyWith(
-                          letterSpacing: getHorizontalSize(
-                            0.5,
-                          ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Stack(children: [
+                    CustomImageView(
+                      svgPath: ImageConstant.imgNotFound,
+                      height: getSize(
+                        48,
+                      ),
+                      width: getSize(
+                        48,
+                      ),
+                      radius: BorderRadius.circular(
+                        getHorizontalSize(
+                          24,
                         ),
                       ),
-                      Padding(
-                        padding: getPadding(
-                          top: 5,
+                      margin: getMargin(
+                        bottom: 1,
+                      ),
+                    ),
+                   notificationModel.isRead ? SizedBox():Positioned(
+                      top: 0,
+                      right: 30,
+                      child: Container(
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(
+                          color: ColorConstant.red500,
+                          shape: BoxShape.circle,
+                          border: Border.all(width: 1.5, color: Colors.white),
                         ),
-                        child: Text(
-                          "Get 50% off in our first booking".tr,
+                      ),
+                    )
+                  ]),
+                  Container(
+                    width: getHorizontalSize(
+                      215,
+                    ),
+                    margin: getMargin(
+                      left: 14,
+                      top: 2,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          notificationModel.content,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeRegular14.copyWith(
+                          style: AppStyle.txtManropeMedium18.copyWith(
                             letterSpacing: getHorizontalSize(
-                              0.3,
+                              0.5,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        // Padding(
+                        //   padding: getPadding(
+                        //     top: 5,
+                        //   ),
+                        //   child: Text(
+                        //     "Get 50% off in our first booking".tr,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     textAlign: TextAlign.left,
+                        //     style: AppStyle.txtManropeRegular14.copyWith(
+                        //       letterSpacing: getHorizontalSize(
+                        //         0.3,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

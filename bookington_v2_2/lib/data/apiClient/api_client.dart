@@ -247,4 +247,17 @@ class ApiClient extends GetConnect {
 
     return response;
   }
+
+  static Future<http.Response> queryNotifications(String userID, int pageNumber, int maxPageSize) async {
+    var url = Uri.parse("${AppUrl.queryNotificationsEndPoint}?UserId=$userID&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
 }

@@ -32,8 +32,7 @@ class SearchScreen extends GetWidget<SearchController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                    child: Obx(
-                  () => SingleChildScrollView(
+                    child: SingleChildScrollView(
                     child: Padding(
                       padding: getPadding(
                         left: 10,
@@ -167,15 +166,12 @@ class SearchScreen extends GetWidget<SearchController> {
                               ],
                             ),
                           ),
-                          controller.listSearchMode.isNotEmpty
-                              ? SearchResultWidget(controller)
-                              : SearchEmptyWidget(),
+                          SearchResultWidget(controller),
                         ],
                       ),
                     ),
                   ),
-                ),
-                ),
+                 ),
               ],
             ),
           ),

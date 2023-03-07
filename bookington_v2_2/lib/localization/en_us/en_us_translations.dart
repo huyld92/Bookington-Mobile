@@ -42,6 +42,7 @@ final Map<String, String> enUs = {
   'lbl_confirm_payment': 'Confirm Payment',
   'lbl_general': 'General',
   'lbl_report': 'Report',
+  'lbl_manage_account': 'My Favorites',
   'lbl_change_password': 'Change Password',
   'lbl_settings': 'Settings',
   'lbl_my_favorites': 'My Favorites',

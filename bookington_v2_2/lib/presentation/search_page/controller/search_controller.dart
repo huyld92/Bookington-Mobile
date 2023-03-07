@@ -7,7 +7,7 @@ import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:flutter/material.dart';
 
-class SearchController extends GetxController  with StateMixin {
+class SearchController extends GetxController  with StateMixin, ScrollMixin {
   TextEditingController searchController = TextEditingController();
 
   Rx<String> totalCount = "0".obs;
@@ -82,10 +82,23 @@ class SearchController extends GetxController  with StateMixin {
     ApiClient.searchCourt(pageNumber, courtModel).then((result) {
       if (result.statusCode == 200) {
         final jsonResult = jsonDecode(result.body);
-        listSearchMode.value =
-            SearchModel.listFromJson(jsonResult["result"]).obs;
-         totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
+        totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
+        if (totalCount.value == '0') {
 
+           change(null, status: RxStatus.empty());
+        }
+        // else if (getFirstData && emptyRepositories) {
+        //   lastPage = true;
+        // }
+        else {
+          // getFirstData = true;
+           listSearchMode.value =
+              SearchModel.listFromJson(jsonResult["result"]).obs;
+          change(listSearchMode, status: RxStatus.success());
+        }
+        // Future.delayed(Duration(seconds: 1), () {
+        //   change(listSearchMode, status: RxStatus.success());
+        //  });
         listSearchMode.refresh();
       }
     }
@@ -97,8 +110,7 @@ class SearchController extends GetxController  with StateMixin {
     if (selectedDistrict.value.districtName.isEmpty) {
       selectedDistrict.value.districtName = "Choose district";
     }
-    change(null, status: RxStatus.success());
-  }
+   }
 
   void getListProvince() {
     ApiClient.getAllProvince().then((result) {
@@ -139,4 +151,18 @@ class SearchController extends GetxController  with StateMixin {
     Get.toNamed(AppRoutes.courtDetailsScreen,arguments: arg);
 
    }
-}
+
+  @override
+  Future<void> onEndScroll() async {
+    print('onEndScroll');
+
+  }
+
+  @override
+  Future<void> onTopScroll() async {
+    print('onTopScroll');
+  }
+
+
+
+ }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/models/profile_model.dart';
 import 'package:flutter/material.dart';
@@ -73,29 +74,17 @@ class ProfileController extends GetxController {
   }
 
   void test() {
-    List<String> listSlotId = ["4", "3" ];
-    String playDate = "2023-03-06";
-    Map<String, String> body = {};
-    List<Map<String, String>> listSlotBooking = [];
-    for (String id in listSlotId) {
-      Map<String, String> clone = {"refSlot": id, "playDate": playDate};
-      listSlotBooking.add(clone);
-    }
-    print(listSlotBooking);
-    ApiClient.createNewBooking(listSlotBooking)
+    String userID = "e53ae5d8-6ae1-403f-b0f7-e342db54026b";
+    int pageNumber=1;
+    int maxPageSize=10;
+     ApiClient.queryNotifications(userID,pageNumber,maxPageSize)
         .then((result) {
       print('statusCode: ${result.statusCode}');
-      if (result.statusCode == 201) {
+      if (result.statusCode == 200) {
         var jsonResult = jsonDecode(result.body);
-        List<BookingModel> listBooking =
-        BookingModel.listFromJson(jsonResult["result"]);
-        print('BookingModel: $BookingModel');
-        // Map<String,dynamic> arg = {
-        //   "listSlotId":listSlotId,
-        //   "refOrder":refOrder,
-        //   "playDate":playDate.value
-        // };
-        // Get.toNamed(AppRoutes.paymentScreen,arguments: arg);
+        List<NotificationModel> listNotify =
+        NotificationModel.listFromJson(jsonResult["result"]);
+        print('BookingModel: $listNotify');
       } else {
         print(result.headers);
       }

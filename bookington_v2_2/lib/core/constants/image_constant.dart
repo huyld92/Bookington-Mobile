@@ -73,6 +73,9 @@ class ImageConstant {
   static String imgCancel = 'assets/images/img_cancel.svg';
 
 
+  static String imgReadAll = 'assets/images/img_read_all.svg';
+
+
 
 
   static String imgPhoThoCourt = 'assets/images/img_phutho_court.png';

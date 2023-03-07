@@ -100,7 +100,7 @@ class HomeScreen extends GetWidget<HomeController> {
                       ),
                       child: Center(
                         child: Text(
-                          "3",
+                         controller.totalUnread.value.toString(),
                           style: AppStyle.txtManropeSemiBold10White,
                         ),
                       ),

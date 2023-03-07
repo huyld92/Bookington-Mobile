@@ -9,7 +9,7 @@ class SearchEmptyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
           width: size.width,
-          padding: getPadding(top:50,left: 41, right: 41),
+          padding: getPadding(top:20,left: 41, right: 41),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

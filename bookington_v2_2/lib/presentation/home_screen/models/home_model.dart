@@ -1,11 +1,11 @@
- import 'package:get/get.dart';
+ import 'package:bookington_v2_2/data/models/notification_model.dart';
+import 'package:get/get.dart';
 import 'home_item_model.dart';
 
 class HomeModel {
-  String fullName;
+  late String fullName;
+  late List<NotificationModel> listNotification;
 
-
-  HomeModel(this.fullName);
 
   RxList<HomeItemModel> homeItemList = RxList.filled(3, HomeItemModel());
 
