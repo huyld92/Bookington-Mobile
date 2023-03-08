@@ -32,25 +32,30 @@ class TransactionScreen extends GetWidget<TransactionController> {
               },
             ),
             centerTitle: true,
-            title: AppbarTitle(text: "lbl_transaction".tr)),
+            title: AppbarTitle(text: "lbl_transaction".tr),
+        actions: [
+          CustomImageView(
+            margin: getMargin(right: 20),
+            height: 32,
+            svgPath: ImageConstant.imgFilter,
+          )
+        ],
+        ),
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(color: ColorConstant.whiteA700),
           padding: getPadding(top: 10.0 ),
           child: Column(
             children: [
-              Container(
-                height: 70,
-                color: Colors.amberAccent,
-              ),
-              Expanded(
-                child:  ListView.builder(
-                    itemCount: controller.listTransaction.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (BuildContext context, int index) {
-                      TransactionModelScreen model = controller.listTransaction[index];
-                      return  TransactionItemWidget(model,index);
-                    }),
+              Obx(() => Expanded(
+                  child:  ListView.builder(
+                      itemCount: controller.listTransactionObj.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (BuildContext context, int index) {
+                        TransactionModel model = controller.listTransactionObj[index];
+                        return  TransactionItemWidget(model,index);
+                      }),
+                ),
               ),
 
             ],

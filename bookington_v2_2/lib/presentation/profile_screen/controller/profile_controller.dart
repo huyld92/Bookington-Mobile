@@ -5,10 +5,6 @@ import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/models/profile_model.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import '../../../data/models/booking_model.dart';
 
 class ProfileController extends GetxController {
   late Rx<ProfileModel> profileModelObj;
@@ -36,7 +32,14 @@ class ProfileController extends GetxController {
       String? fullName = PrefUtils.getString("fullName");
       String? phoneNumber = PrefUtils.getString("phoneNumber");
       profileModelObj = ProfileModel(fullName!, phoneNumber!).obs;
+      // getBalance();
     }
+  }
+
+  Future<void> getBalance() async {
+    // PrefUtils.clearPreferencesData();
+    // print('logout');
+    // Get.offAllNamed(AppRoutes.loginScreen);
   }
 
   Future<void> logout() async {
@@ -70,7 +73,7 @@ class ProfileController extends GetxController {
   }
 
   void favouriteCourt() {
-    Get.toNamed(AppRoutes.transactionScreen);
+    Get.toNamed(AppRoutes.favouriteScreen);
   }
 
   void test() {

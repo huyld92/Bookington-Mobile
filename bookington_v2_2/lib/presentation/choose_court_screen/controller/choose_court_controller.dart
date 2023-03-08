@@ -19,17 +19,7 @@ class ChooseCourtController extends GetxController {
     super.onInit();
   }
 
-  void loadData() {
-    // subCourtList.add(ChooseCourtModel("1", false, false));
-    // subCourtList.add(ChooseCourtModel("2", true, false));
-    // subCourtList.add(ChooseCourtModel("3", true, false));
-    // subCourtList.add(ChooseCourtModel("4", true, false));
-    // subCourtList.add(ChooseCourtModel("5", false, false));
-    // subCourtList.add(ChooseCourtModel("6", true, false));
-    // subCourtList.add(ChooseCourtModel("7", true, false));
-    // subCourtList.add(ChooseCourtModel("8", true, false));
-    // subCourtList.add(ChooseCourtModel("9", true, false));
-    // subCourtList.add(ChooseCourtModel("10", false, false));
+  void loadData() { 
     getAvailableSubCourt();
   }
 
@@ -39,14 +29,9 @@ class ChooseCourtController extends GetxController {
       Map<String, String> arg = Get.arguments;
       if (arg["courtId"] != null) {
         courtId = arg["courtId"]!;
-        print('courtId: ${arg["courtId"]}');
-      } else {
-        print('NUlll');
-      }
-      // String playDate = DateFormat("yyy-MM-dd").format(selectedDate.value);
-      String playDate = "2023-03-06";
-      // String startTime = '13:45:42.0000000'; //'13:45:42.0000000';
-      String startTime =
+       }
+      String playDate = DateFormat("yyy-MM-dd").format(selectedDate.value);
+       String startTime =
           DateFormat("HH:mm").format(selectedTime.value); //'13:45:42.0000000';
       ApiClient.getAvailableSubCourt(courtId, playDate, startTime)
           .then((result) {

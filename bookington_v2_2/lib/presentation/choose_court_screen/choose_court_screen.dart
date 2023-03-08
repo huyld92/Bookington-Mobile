@@ -99,7 +99,8 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                           svgPath: ImageConstant.imgClock,
                           color: ColorConstant.blue500),
                       label: Text(
-                        DateFormat("HH:mm").format(controller.selectedTime.value),
+                        DateFormat("HH:mm")
+                            .format(controller.selectedTime.value),
                         style: AppStyle.txtManropeSemiBold20BlueA400,
                       ),
                     ),

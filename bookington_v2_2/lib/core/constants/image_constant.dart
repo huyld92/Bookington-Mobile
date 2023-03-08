@@ -20,6 +20,8 @@ class ImageConstant {
 
   static String imgUser = 'assets/images/img_user.svg';
 
+  static String imgWallet = 'assets/images/img_wallet.svg';
+
   static String imgCalendar = 'assets/images/img_calendar.svg';
 
   static String imgNext = 'assets/images/img_next.svg';

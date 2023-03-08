@@ -7,7 +7,7 @@ import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:intl/intl.dart';
 
 class ChooseSlotController extends GetxController {
-  late RxList<bool> listSelected;
+  late RxList<bool> listSelected = <bool>[].obs;
 
   RxList<SlotModel> slotList = <SlotModel>[].obs;
   String courtID = "";
@@ -43,6 +43,7 @@ class ChooseSlotController extends GetxController {
 
   void selectSlot(int index) {
     listSelected[index] = !listSelected[index];
+    // listSelected.value = listSelected;
     listSelected.refresh();
   }
 

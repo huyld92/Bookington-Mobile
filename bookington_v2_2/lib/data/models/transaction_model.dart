@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TransactionModel {
   String _id;
   String _refFrom;
@@ -55,12 +57,13 @@ class TransactionModel {
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       TransactionModel(
         json["id"],
-        json["_refFrom"],
-        json["_fromUsername"],
-        json["_refTo"],
-        json["_toUsername"],
-        json["_createAt"],
-        json["_amount"],
+        json["refFrom"],
+        json["fromUsername"]??"a",
+        json["refTo"],
+        json["toUsername"]??"b",
+        DateFormat("yyyy-MM-dd")
+          .parseUTC(json["createAt"]),
+        json["amount"],
       );
 
   static List<TransactionModel> listNameFromJson(list) =>
