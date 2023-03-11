@@ -4,9 +4,10 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/booking_model.dart';
 import 'package:bookington_v2_2/data/models/slot_model.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:intl/intl.dart';
 
-class ChooseSlotController extends GetxController {
+class ChooseSlotController extends GetxController with StateMixin {
   late RxList<bool> listSelected = <bool>[].obs;
 
   RxList<SlotModel> slotList = <SlotModel>[].obs;
@@ -26,7 +27,10 @@ class ChooseSlotController extends GetxController {
   }
 
   void loadData() {
+    change(null, status: RxStatus.loading());
+
     try {
+
       Map<String, String> arg = Get.arguments;
       if (arg["id"] != null) {
         courtID = arg["id"]!;
@@ -36,10 +40,15 @@ class ChooseSlotController extends GetxController {
       } else {
         getBack();
       }
+      change(null, status: RxStatus.success());
+
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        change(null, status: RxStatus.success());
+      });
     } catch (e) {
       e.printError();
-    }
-  }
+     }
+   }
 
   void selectSlot(int index) {
     listSelected[index] = !listSelected[index];
@@ -55,10 +64,13 @@ class ChooseSlotController extends GetxController {
           var jsonResult = jsonDecode(result.body);
           slotList.value =
               SlotModel.listFromJson(jsonResult["result"]["slots"]);
-          listSelected = RxList.filled(slotList.length, false);
+          listSelected.value = RxList.filled(slotList.length, false);
           slotList.refresh();
           listSelected.refresh();
-        } else {
+        } else if(result.statusCode == 401 || result.statusCode == 403){
+          ProfileController profileController = Get.find();
+          profileController.logout();
+        }else {
           print(result.headers);
         }
       });
@@ -93,7 +105,10 @@ class ChooseSlotController extends GetxController {
           };
           print('listBooking: $listBooking');
           Get.toNamed(AppRoutes.paymentScreen,arguments: arg);
-        } else {
+        } else if(result.statusCode == 401 || result.statusCode == 403){
+          ProfileController profileController = Get.find();
+          profileController.logout();
+        }else {
           print(result.headers);
         }
       });

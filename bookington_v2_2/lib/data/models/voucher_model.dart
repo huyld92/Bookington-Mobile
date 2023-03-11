@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 
 class VoucherModel {
   String _id;
@@ -10,7 +11,8 @@ class VoucherModel {
   int _usages;
   int _max_quantity;
   DateTime _start_date;
-  DateTime _end_date ;
+  DateTime _end_date;
+
   DateTime _create_at;
   bool _is_active;
 
@@ -29,8 +31,7 @@ class VoucherModel {
       this._create_at,
       this._is_active);
 
-  bool get
-  is_active => _is_active;
+  bool get is_active => _is_active;
 
   set is_active(bool value) {
     _is_active = value;
@@ -108,5 +109,22 @@ class VoucherModel {
     _id = value;
   }
 
+  factory VoucherModel.fromJson(Map<String, dynamic> json) => VoucherModel(
+        json["id"],
+        json["create_by"],
+        json["ref_court"],
+        json["voucher_code"],
+        json["title"],
+        json["description"],
+        json["discount"],
+        json["usages"],
+        json["max_quantity"],
+        DateFormat("kk:mm").parse(json["start_date"]),
+        DateFormat("kk:mm").parse(json["end_date"]),
+        DateFormat("kk:mm").parse(json["create_at"]),
+        json["is_active"],
+      );
 
+  static List<VoucherModel> listFromJson(list) => List<VoucherModel>.from(
+      list.map((dynamic x) => VoucherModel.fromJson(x)));
 }

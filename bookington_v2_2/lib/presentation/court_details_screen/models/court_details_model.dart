@@ -27,6 +27,18 @@ class CourtDetailsModel {
       this._openAt,
       this._closeAt);
 
+  CourtDetailsModel.empty(){
+    this._id="";
+    this._name="";
+    this._ratingStar= 0.0;
+    this._districtName="";
+    this._address="";
+    this._moneyPerHour=0;
+    this._numberOfSubCourt=0;
+    this._openAt= DateFormat("kk:mm").parse("00:00");
+     this._closeAt=DateFormat("kk:mm").parse("00:00");
+  }
+
   String get id => _id;
 
   set id(String value) {

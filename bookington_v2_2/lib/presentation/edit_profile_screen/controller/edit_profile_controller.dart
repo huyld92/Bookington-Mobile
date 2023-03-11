@@ -4,6 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/models/edit_profile_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -46,11 +47,14 @@ class EditProfileController extends GetxController {
                   .parseUTC(jsonResult["dateOfBirth"])
                   .toLocal()
                   .toString();
-               selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
-             } catch (error) {
+              selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
+            } catch (error) {
               print(error.toString());
               selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
             }
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
+            ProfileController profileController = Get.find();
+            profileController.logout();
           } else {
             print('EDIT PROFILE headers: ${result.headers}');
           }
@@ -78,7 +82,6 @@ class EditProfileController extends GetxController {
       errorInvalidText: 'Enter valid date range',
       fieldLabelText: 'Date',
       fieldHintText: 'Month/Date/Year',
-
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
@@ -94,7 +97,7 @@ class EditProfileController extends GetxController {
       String fullName = fullNameController.text;
 
       String date = selectedDate.value.toString();
-       ApiClient.updateProfile(userID, fullName, date).then(
+      ApiClient.updateProfile(userID, fullName, date).then(
         (result) {
           print(result.statusCode);
           if (result.statusCode == 200) {
@@ -114,6 +117,9 @@ class EditProfileController extends GetxController {
               icon: CustomImageView(
                   width: 16, height: 16, svgPath: ImageConstant.imgNotify),
             );
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
+            ProfileController profileController = Get.find();
+            profileController.logout();
           } else {
             print('${result}');
             Get.snackbar(

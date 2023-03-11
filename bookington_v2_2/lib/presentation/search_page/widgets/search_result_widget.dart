@@ -83,7 +83,7 @@ class SearchResultWidget extends StatelessWidget {
                   ),
                 ),
               ],
-            )),
+            ),),
       ),
 
       onLoading: Padding(

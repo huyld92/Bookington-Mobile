@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
- import 'package:bookington_v2_2/data/models/district_model.dart';
+import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:flutter/material.dart';
 
-class SearchController extends GetxController  with StateMixin, ScrollMixin {
+class SearchController extends GetxController with StateMixin, ScrollMixin {
   TextEditingController searchController = TextEditingController();
 
   Rx<String> totalCount = "0".obs;
@@ -34,11 +35,9 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
 
   @override
   void onInit() {
-
     print('Init');
     loadData();
     super.onInit();
-
   }
 
   @override
@@ -55,16 +54,14 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
     searchController.dispose();
   }
 
-  void loadData() async{
-
+  void loadData() async {
     searchByName(1);
     getListProvince();
     dictrict.add(DistrictModel("-1", "Choose district"));
     province.add(ProvinceModel("-1", "Choose province"));
-
   }
 
-  void searchByName(int pageNumber) async{
+  void searchByName(int pageNumber) async {
     change(null, status: RxStatus.loading());
 
     listSearchMode.clear();
@@ -84,15 +81,14 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
         final jsonResult = jsonDecode(result.body);
         totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
         if (totalCount.value == '0') {
-
-           change(null, status: RxStatus.empty());
+          change(null, status: RxStatus.empty());
         }
         // else if (getFirstData && emptyRepositories) {
         //   lastPage = true;
         // }
         else {
           // getFirstData = true;
-           listSearchMode.value =
+          listSearchMode.value =
               SearchModel.listFromJson(jsonResult["result"]).obs;
           change(listSearchMode, status: RxStatus.success());
         }
@@ -100,9 +96,11 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
         //   change(listSearchMode, status: RxStatus.success());
         //  });
         listSearchMode.refresh();
+      } else if(result.statusCode == 401 || result.statusCode == 403){
+        ProfileController profileController = Get.find();
+        profileController.logout();
       }
-    }
-    );
+    });
 
     if (selectedProvince.value.provinceName.isEmpty) {
       selectedProvince.value.provinceName = "Choose province";
@@ -110,7 +108,7 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
     if (selectedDistrict.value.districtName.isEmpty) {
       selectedDistrict.value.districtName = "Choose district";
     }
-   }
+  }
 
   void getListProvince() {
     ApiClient.getAllProvince().then((result) {
@@ -124,6 +122,9 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
         //     jsonResult.map((e) => e[""].obs);
         province.add(ProvinceModel("-1", "Choose province"));
         province.refresh();
+      }else if(result.statusCode == 401 || result.statusCode == 403){
+        ProfileController profileController = Get.find();
+        profileController.logout();
       }
     });
   }
@@ -138,31 +139,29 @@ class SearchController extends GetxController  with StateMixin, ScrollMixin {
         //     jsonResult.map((e) => e[""].obs);
         dictrict.add(DistrictModel("-1", "Choose district"));
         dictrict.refresh();
+      }else if(result.statusCode == 401 || result.statusCode == 403){
+        ProfileController profileController = Get.find();
+        profileController.logout();
       }
     });
     selectedDistrict.value = DistrictModel("-1", "Choose district");
   }
 
   courtDetailsScreen(int index) {
-    Map<String,String> arg = {
+    Map<String, String> arg = {
       "courtId": listSearchMode[index].id,
     };
     // PrefUtils.setString("courtId", listSearchMode[index].id);
-    Get.toNamed(AppRoutes.courtDetailsScreen,arguments: arg);
-
-   }
+    Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
+  }
 
   @override
   Future<void> onEndScroll() async {
     print('onEndScroll');
-
   }
 
   @override
   Future<void> onTopScroll() async {
     print('onTopScroll');
   }
-
-
-
- }
+}

@@ -45,7 +45,8 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     PrefUtils.clearPreferencesData();
     print('logout');
-    Get.offAllNamed(AppRoutes.loginScreen);
+    Map<String,bool> arg= {"timeOut":true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
   Future<void> editProfileScreen() async {
@@ -76,6 +77,10 @@ class ProfileController extends GetxController {
     Get.toNamed(AppRoutes.favouriteScreen);
   }
 
+  void walletScreen() {
+    Get.toNamed(AppRoutes.walletScreen);
+  }
+
   void test() {
     String userID = "e53ae5d8-6ae1-403f-b0f7-e342db54026b";
     int pageNumber=1;
@@ -92,6 +97,5 @@ class ProfileController extends GetxController {
         print(result.headers);
       }
     });
-
    }
 }

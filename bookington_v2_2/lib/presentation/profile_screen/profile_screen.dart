@@ -128,7 +128,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                 //Wallet
                 GestureDetector(
                   onTap: () {
-                    controller.editProfileScreen();
+                    controller.walletScreen();
                   },
                   child: Padding(
                     padding: getPadding(top: 10),

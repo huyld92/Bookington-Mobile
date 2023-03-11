@@ -39,4 +39,6 @@ class AppUrl {
 
   static const String queryNotificationsEndPoint=  "$baseUrl/notifications";
 
+  static const String getAllVoucherOfCourtEndPoint=  "$baseUrl/vouchers/court";
+
 }

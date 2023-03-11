@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 class ColorConstant {
   static Color blueGray90059 = fromHex('#59353535');
 
+  static Color blueA700 = fromHex('#2962FF');
+
   static Color blueA400 = fromHex('#0d6efd');
 
   static Color blueGray1000f = fromHex('#0fc5c7d3');
+
+  static Color blueGray100 = fromHex('#CFD8DC');
 
   static Color blueGray500 = fromHex('#74778b');
 
@@ -53,6 +57,8 @@ class ColorConstant {
   static Color yellow700 = fromHex('#fabe3c');
 
   static Color red500 = fromHex('#F44336');
+
+  static Color red700 = fromHex('#D32F2F');
 
   static Color red50 = fromHex('#FFEBEE');
 

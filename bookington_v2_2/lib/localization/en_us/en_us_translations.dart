@@ -81,6 +81,8 @@ final Map<String, String> enUs = {
   'lbl_cancel': 'Cancel',
   'lbl_favourite': 'Favourite',
   'lbl_showing_all': 'Showing all',
+  'lbl_view_all': 'View all',
+  'lbl_available_balance': 'Available Balance',
 
 
   'msg_network_err': 'Network Error',

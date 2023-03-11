@@ -94,14 +94,14 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
             ),
           ),
           Container(
-              margin: getMargin(left: 20, right: 20),
-              width: getHorizontalSize(360),
-              height: getVerticalSize(400),
-              decoration: AppDecoration.fillWhiteA700.copyWith(
-                border: BorderRadiusStyle.borderBlack2,
-              ),
-              child: Obx(
-                () => GridView.builder(
+            margin: getMargin(left: 20, right: 20),
+            width: getHorizontalSize(360),
+            height: getVerticalSize(400),
+            decoration: AppDecoration.fillWhiteA700.copyWith(
+              border: BorderRadiusStyle.borderBlack2,
+            ),
+            child:  controller.obx(
+                  (state) => Obx(() => GridView.builder(
                     padding: getPadding(top: 5, left: 5, right: 5),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisExtent: getVerticalSize(95.00),
@@ -114,8 +114,36 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     itemCount: controller.slotList.length,
                     itemBuilder: (BuildContext ctx, index) {
                       return SlotItemWidget(index);
-                    }),
-              )),
+                    }),),
+                onLoading: Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: Container(
+                    height: 150,
+                    width: 50,
+                    padding: getPadding(top: 50),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: getPadding(right: 10),
+                            child: const CircularProgressIndicator(),
+                          ),
+                          Padding(
+                            padding: getPadding(top: 20),
+                            child: Text("loading....",
+                                style: AppStyle.txtManropeSemiBold16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                onEmpty: Dialog(
+                  child: Text("EMPTY"),
+                )
+            ),
+          ),
           Container(
             padding: getPadding(left: 10, right: 10),
             margin: getMargin(left: 16, right: 20, top: 5),
@@ -166,7 +194,9 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                   height: 55,
                   width: 320,
                   text: "lbl_next".tr,
-                  variant: controller.listSelected.contains(true)?ButtonVariant.FillBlue400:ButtonVariant.FillGray300,
+                  variant: controller.listSelected.contains(true)
+                      ? ButtonVariant.FillBlue400
+                      : ButtonVariant.FillGray300,
                   onTap: () {
                     if (controller.listSelected.contains(true)) {
                       controller.nextPaymentScreen();

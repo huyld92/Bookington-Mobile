@@ -38,7 +38,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
             title: AppbarTitle(text: "lbl_court_details".tr)),
         // backgroundColor: ColorConstant.blueGray50,
         backgroundColor: ColorConstant.whiteA700,
-        body: SizedBox(
+        body: controller.obx(
+                (state) =>  SizedBox(
           width: size.width,
           child: SingleChildScrollView(
             child: Padding(
@@ -758,7 +759,29 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
               ),
             ),
           ),
+        ), onLoading: Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          height: 150,
+          width: 50,
+          padding: getPadding(top: 50),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: getPadding(right: 10),
+                  child: const CircularProgressIndicator(),
+                ),
+                Padding(
+                  padding: getPadding(top: 20),
+                  child: Text("loading....",
+                      style: AppStyle.txtManropeSemiBold16),
+                ),
+              ],
+            ),),
         ),
+      )),
         bottomNavigationBar: Container(
           width: size.width,
           padding: getPadding(

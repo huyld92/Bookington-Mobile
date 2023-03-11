@@ -18,24 +18,46 @@ class TransactionItemWidget extends StatelessWidget {
         print('transaction detail');
       },
       child: Container(
-        color: index % 2 == 0 ? ColorConstant.gray300 : ColorConstant.whiteA700,
+        // color: index % 2 == 0 ? ColorConstant.gray300 : ColorConstant.whiteA700,
         padding: getPadding(all: 10),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Reson", style: AppStyle.txtManropeBold16),
-                Text("- ${model.amount}", style: AppStyle.txtManropeBold16)
+                Padding(
+                    padding: getPadding(top: 1),
+                    child: Text("Reason".tr,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeMedium16Black900)),
+                Padding(
+                    padding: getPadding(bottom: 1),
+                    child: Text("-${model.amount}".tr,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeMedium16Red700))
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(DateFormat("dd-MM-yyyy").format(model.createAt), style: AppStyle.txtManropeSemiBold14),
+                Padding(
+                    padding: getPadding(top: 10),
+                    child: Text(DateFormat("dd-MM-yyyy").format(model.createAt),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeRegular14)),
                 // Text("Payment", style: AppStyle.txtManropeSemiBold14) //type
               ],
             ),
+
+            Padding(
+                padding: getPadding(top: 10),
+                child: Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100)),
           ],
         ),
       ),

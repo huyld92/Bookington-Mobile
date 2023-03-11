@@ -21,26 +21,13 @@ class ApiClient extends GetConnect {
         .toList();
   }
 
-  static Future<dynamic> loginWithPhone(String phone, String password) async {
+  static Future<http.Response> loginWithPhone(String phone, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(AppUrl.loginEndPoint);
     Map body = {'phone': phone, 'password': password};
     http.Response response =
         await http.post(url, body: jsonEncode(body), headers: headers);
-
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      final jsonResult = jsonDecode(response.body);
-      if (!jsonResult['isError']) {
-        return jsonResult;
-      } else {
-        final jsonResult = jsonDecode(response.body);
-        return jsonResult;
-      }
-    } else {
-      return jsonDecode(response.body);
-    }
+    return response;
   }
 
   static Future<http.Response> register(
@@ -248,12 +235,29 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> queryNotifications(String userID, int pageNumber, int maxPageSize) async {
-    var url = Uri.parse("${AppUrl.queryNotificationsEndPoint}?UserId=$userID&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+  static Future<http.Response> queryNotifications(
+      String userID, int pageNumber, int maxPageSize) async {
+    var url = Uri.parse(
+        "${AppUrl.queryNotificationsEndPoint}?UserId=$userID&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
       'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> getAllVoucherOfCourt(String courtID) async {
+
+     var url = Uri.parse(
+    "${AppUrl.getAllVoucherOfCourtEndPoint}?courtId=$courtID");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+    "Authorization": "Bearer $sysToken",
+    'Content-Type': 'application/json',
     };
 
     http.Response response = await http.get(url, headers: headers);

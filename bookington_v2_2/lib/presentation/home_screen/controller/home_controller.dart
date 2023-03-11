@@ -4,6 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
+import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 
 class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj = HomeModel().obs;
@@ -17,9 +18,12 @@ class HomeController extends GetxController with StateMixin {
   }
 
   loadData() {
+    change(null, status: RxStatus.loading());
+
     checkLogin();
 
     queryNotifications();
+    change(null, status: RxStatus.success());
   }
 
   queryNotifications() {
@@ -39,6 +43,9 @@ class HomeController extends GetxController with StateMixin {
             listNotification.where((notify) => notify.isRead == false).length;
 
         print('totalUnread: $totalUnread');
+      } else if (result.statusCode == 401 || result.statusCode == 403) {
+        ProfileController profileController = Get.find();
+        profileController.logout();
       } else {
         print(result.headers);
       }

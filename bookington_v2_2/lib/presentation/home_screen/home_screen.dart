@@ -100,7 +100,7 @@ class HomeScreen extends GetWidget<HomeController> {
                       ),
                       child: Center(
                         child: Text(
-                         controller.totalUnread.value.toString(),
+                          controller.totalUnread.value.toString(),
                           style: AppStyle.txtManropeSemiBold10White,
                         ),
                       ),
@@ -110,120 +110,147 @@ class HomeScreen extends GetWidget<HomeController> {
           ],
           styleType: Style.bgFillGray50,
         ),
-        body: SizedBox(
-            width: size.width,
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  width: double.infinity,
-                  height: 120,
-                  child: CustomImageView(
+        body: controller.obx(
+          (state) => SizedBox(
+              width: size.width,
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     width: double.infinity,
                     height: 120,
-                    imagePath: ImageConstant.imgMomoAds,
-                  ),
-                ),
-                //Recommend see more
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  width: double.infinity,
-                  // height: 120,
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "lbl_recommend".tr,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtManropeBold18.copyWith(
-                          letterSpacing: getHorizontalSize(
-                            0.20,
-                          ),
-                          height: getVerticalSize(
-                            1.02,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      InkWell(
-                        child: Row(
-                          children: [
-                            Text(
-                              "lbl_see_more".tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeBold14Blue500.copyWith(
-                                letterSpacing: getHorizontalSize(
-                                  0.20,
-                                ),
-                                height: getVerticalSize(
-                                  1.10,
-                                ),
-                              ),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgNext,
-                              height: getSize(
-                                16.00,
-                              ),
-                              width: getSize(
-                                16.00,
-                              ),
-                              margin: getMargin(
-                                left: 8,
-                                top: 1,
-                                bottom: 2,
-                              ),
-                              color: ColorConstant.blue500,
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          print("onTap see more");
-                          controller.goRecommendScreen();
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    margin: getMargin(left: 20),
-                    height: getVerticalSize(
-                      430.00,
+                    child: CustomImageView(
+                      width: double.infinity,
+                      height: 120,
+                      imagePath: ImageConstant.imgMomoAds,
                     ),
-                    child: Obx(
-                      () => ListView.separated(
-                        padding: getPadding(
-                          top: 10,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        separatorBuilder: (context, index) {
-                          return SizedBox(
+                  ),
+                  //Recommend see more
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    width: double.infinity,
+                    // height: 120,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "lbl_recommend".tr,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtManropeBold18.copyWith(
+                            letterSpacing: getHorizontalSize(
+                              0.20,
+                            ),
                             height: getVerticalSize(
-                              24.00,
+                              1.02,
                             ),
-                          );
-                        },
-                        itemCount:
-                            controller.homeModelObj.value.homeItemList.length,
-                        itemBuilder: (context, index) {
-                          HomeItemModel model =
-                              controller.homeModelObj.value.homeItemList[index];
-                          return CourtItemWidget(
-                            model,
-                          );
-                        },
+                          ),
+                        ),
+                        const Spacer(),
+                        InkWell(
+                          child: Row(
+                            children: [
+                              Text(
+                                "lbl_see_more".tr,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style:
+                                    AppStyle.txtManropeBold14Blue500.copyWith(
+                                  letterSpacing: getHorizontalSize(
+                                    0.20,
+                                  ),
+                                  height: getVerticalSize(
+                                    1.10,
+                                  ),
+                                ),
+                              ),
+                              CustomImageView(
+                                svgPath: ImageConstant.imgNext,
+                                height: getSize(
+                                  16.00,
+                                ),
+                                width: getSize(
+                                  16.00,
+                                ),
+                                margin: getMargin(
+                                  left: 8,
+                                  top: 1,
+                                  bottom: 2,
+                                ),
+                                color: ColorConstant.blue500,
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            print("onTap see more");
+                            controller.goRecommendScreen();
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: getMargin(left: 20),
+                      height: getVerticalSize(
+                        430.00,
+                      ),
+                      child: Obx(
+                        () => ListView.separated(
+                          padding: getPadding(
+                            top: 10,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              height: getVerticalSize(
+                                24.00,
+                              ),
+                            );
+                          },
+                          itemCount:
+                              controller.homeModelObj.value.homeItemList.length,
+                          itemBuilder: (context, index) {
+                            HomeItemModel model = controller
+                                .homeModelObj.value.homeItemList[index];
+                            return CourtItemWidget(
+                              model,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
+                ],
+              )),
+          onLoading: Dialog(
+            backgroundColor: Colors.transparent,
+            child: Container(
+              height: 150,
+              width: 50,
+              padding: getPadding(top: 50),
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: getPadding(right: 10),
+                      child: const CircularProgressIndicator(),
+                    ),
+                    Padding(
+                      padding: getPadding(top: 20),
+                      child: Text("loading....",
+                          style: AppStyle.txtManropeSemiBold16),
+                    ),
+                  ],
                 ),
-              ],
-            )),
+              ),
+            ),
+          ),
+        ),
         bottomNavigationBar: CustomBottomBar(
           onChanged: (BottomBarEnum type) {
             Get.toNamed(getCurrentRoute(type));

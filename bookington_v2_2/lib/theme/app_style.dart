@@ -162,6 +162,15 @@ class AppStyle {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle txtManropeSemiBold30BlueA700 = TextStyle(
+    color: ColorConstant.blueA700,
+    fontSize: getFontSize(
+      30,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle txtManropeSemiBold16 = TextStyle(
     color: ColorConstant.blueGray500,
     fontSize: getFontSize(
@@ -407,6 +416,15 @@ class AppStyle {
     fontWeight: FontWeight.w500,
   );
 
+ static TextStyle txtManropeMedium14Blue500 = TextStyle(
+    color: ColorConstant.blue500,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle txtManropeMedium14Gray300 = TextStyle(
     color: ColorConstant.gray300,
     fontSize: getFontSize(
@@ -429,6 +447,60 @@ class AppStyle {
     color: ColorConstant.gray900,
     fontSize: getFontSize(
       18,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16 = TextStyle(
+    color: ColorConstant.gray900,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16Black900 = TextStyle(
+    color: ColorConstant.black900,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16Red700 = TextStyle(
+    color: ColorConstant.red700,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16Green600 = TextStyle(
+    color: ColorConstant.green500,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16blueA700 = TextStyle(
+    color: ColorConstant.blueA700,
+    fontSize: getFontSize(
+      16,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w500,
+  );
+
+  static TextStyle txtManropeMedium16Bluegray500 = TextStyle(
+    color: ColorConstant.blueGray500,
+    fontSize: getFontSize(
+      16,
     ),
     fontFamily: 'Manrope',
     fontWeight: FontWeight.w500,

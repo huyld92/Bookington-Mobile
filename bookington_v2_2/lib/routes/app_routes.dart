@@ -36,6 +36,8 @@ import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_bindin
 import 'package:bookington_v2_2/presentation/splash_screen/splash_screen.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/binding/transaction_binding.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/transaction_screen.dart';
+import 'package:bookington_v2_2/presentation/wallet_screen/binding/wallet_binding.dart';
+import 'package:bookington_v2_2/presentation/wallet_screen/wallet_screen.dart';
 
 import '../core/app_export.dart';
 
@@ -81,6 +83,8 @@ class AppRoutes {
   static const String historyScreen = '/history_screen';
 
   static const String transactionScreen = '/transaction_screen';
+
+  static const String walletScreen = '/wallet_screen';
 
   static List<GetPage> pages = [
 
@@ -268,6 +272,15 @@ class AppRoutes {
       page: () => const TransactionScreen(),
       bindings: [
         TransactionBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: walletScreen,
+      page: () => const WalletScreen(),
+      bindings: [
+        WalletBinding(),
       ],
     ),
   ];

@@ -1,6 +1,4 @@
-
-
-class SubCourtModel{
+class SubCourtModel {
   String _id;
   String _parent_court_id;
   String _court_type_id;
