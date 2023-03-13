@@ -22,6 +22,7 @@ dependencies:
   permission_handler: ^10.2.0
   flutter_datetime_picker: ^1.5.1
   geolocator: ^9.0.2
+  geocoding: ^2.0.5
   signalr_flutter: ^0.2.0
 
 dev_dependencies:

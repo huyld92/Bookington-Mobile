@@ -86,7 +86,7 @@ class LoginController extends GetxController with StateMixin {
             onPressed: () {
               Get.back();
             },
-          ));
+          ),);
     }
   }
 }
