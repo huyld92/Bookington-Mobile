@@ -4,6 +4,7 @@ import 'package:bookington_v2_2/presentation/choose_voucher_screen/controller/vo
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class ListVoucherItemWidget extends GetView<VoucherController> {
   ListVoucherItemWidget(this.model, this.index, {super.key});
 

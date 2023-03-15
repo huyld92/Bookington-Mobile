@@ -74,7 +74,7 @@ final Map<String, String> enUs = {
   'lbl_selecting': 'Selecting',
   'lbl_can_book': 'Can book',
   'lbl_booked': 'Booked',
-  'lbl_cash_on_hand': 'Cash on hand',
+  'lbl_cash': 'Cash',
   'lbl_choose_voucher': 'Choose voucher',
   'lbl_enter_voucher': 'Enter voucher',
   'lbl_apply': 'Apply',

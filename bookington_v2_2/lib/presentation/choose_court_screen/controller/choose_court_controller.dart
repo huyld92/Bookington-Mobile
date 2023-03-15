@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ChooseCourtController extends GetxController with StateMixin {
-  var selectedDate = DateTime.now().obs;
+  var selectedDate =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
+          .obs;
   var selectedTime = DateTime.now().obs;
   RxString selectedIndex = "".obs;
 
@@ -50,14 +52,15 @@ class ChooseCourtController extends GetxController with StateMixin {
           } else {
             change(null, status: RxStatus.success());
           }
-        }else if(result.statusCode == 401 || result.statusCode == 403){
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
           ProfileController profileController = Get.find();
-          profileController.logout();
+          Map<String, bool> arg = {"timeOut": true};
+
+          profileController.logout(arg);
         } else {
           print(result.headers);
         }
         change(null, status: RxStatus.success());
-
       });
     } catch (error) {
       print(error.toString());
@@ -76,7 +79,7 @@ class ChooseCourtController extends GetxController with StateMixin {
   presentDatePicker() async {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate.value,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -95,9 +98,22 @@ class ChooseCourtController extends GetxController with StateMixin {
     }
   }
 
-  void timePicker(DateTime date) {
-    selectedTime.value = date;
-    getAvailableSubCourt();
+  void timePicker(DateTime time) {
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
+    if (date.isAtSameMomentAs(selectedDate.value)) {
+      if (now.isAfter(time)) {
+        Get.defaultDialog(
+            title: "Error pick time",
+            content: Text("Cannot select previous time"));
+      } else {
+        selectedTime.value = time;
+        getAvailableSubCourt();
+      }
+    } else {
+      selectedTime.value = time;
+      getAvailableSubCourt();
+    }
   }
 
   void nextChooseSlot() {
@@ -113,7 +129,6 @@ class ChooseCourtController extends GetxController with StateMixin {
   }
 
   getBack() {
-    print("Choose court back");
-    Get.back();
+     Get.back();
   }
 }

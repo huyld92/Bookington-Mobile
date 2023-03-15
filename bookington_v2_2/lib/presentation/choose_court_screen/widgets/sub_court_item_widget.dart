@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SubCourtItemWidget extends StatelessWidget {
-  SubCourtItemWidget(this.index);
+  SubCourtItemWidget(this.index, {super.key});
 
    int index;
 
@@ -45,22 +45,22 @@ class SubCourtItemWidget extends StatelessWidget {
                 // IconButtonVariant.OutlineBluegray50,
                 child: CustomImageView(
                   svgPath: ImageConstant.imgBadmintonCourt,
-                  color: controller.subCourtList.value[index-1].isAvailable
-                      ? (controller.subCourtList.value[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
+                  color: controller.subCourtList[index-1].isAvailable
+                      ? (controller.subCourtList[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
                       : ColorConstant.gray500,
                 ),
                 onTap: () {
-                  if (controller.subCourtList.value[index-1].isAvailable) {
+                  if (controller.subCourtList[index-1].isAvailable) {
                      controller.selectCourt(index-1);
                   }
 
                 },
               ),
               Text(
-                "Court " + "${index}",
+                "Court $index",
                 style: TextStyle(
-                    color: controller.subCourtList.value[index-1].isAvailable
-                        ? (controller.subCourtList.value[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
+                    color: controller.subCourtList[index-1].isAvailable
+                        ? (controller.subCourtList[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
                         : ColorConstant.gray500),
               ),
             ]),),

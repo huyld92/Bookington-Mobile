@@ -54,7 +54,9 @@ class EditProfileController extends GetxController {
             }
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             ProfileController profileController = Get.find();
-            profileController.logout();
+            Map<String, bool> arg = {"timeOut": true};
+
+            profileController.logout(arg);
           } else {
             print('EDIT PROFILE headers: ${result.headers}');
           }
@@ -119,9 +121,10 @@ class EditProfileController extends GetxController {
             );
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             ProfileController profileController = Get.find();
-            profileController.logout();
+            Map<String, bool> arg = {"timeOut": true};
+            profileController.logout(arg);
           } else {
-            print('${result}');
+            print('$result');
             Get.snackbar(
               'Edit profile',
               "Edit profile failed",

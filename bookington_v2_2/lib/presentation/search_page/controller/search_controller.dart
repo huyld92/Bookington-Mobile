@@ -41,15 +41,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   @override
-  void onReady() {
-    print('redy');
-    super.onReady();
-  }
-
-  @override
   void onClose() {
-    print('close');
-
     super.onClose();
     searchController.dispose();
   }
@@ -98,7 +90,8 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         listSearchMode.refresh();
       } else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
-        profileController.logout();
+        Map<String, bool> arg = {"timeOut": true};
+        profileController.logout(arg);
       }
     });
 
@@ -117,14 +110,15 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         List jsonResult = jsonDecode(result.body)["result"];
 
         province.value =
-            ProvinceModel.listNameFromJson(jsonDecode(result.body)["result"]);
+            ProvinceModel.listNameFromJson(jsonResult);
         // jsonResult.map((e) => e["provinceName"].toString()).toList();
         //     jsonResult.map((e) => e[""].obs);
         province.add(ProvinceModel("-1", "Choose province"));
         province.refresh();
       }else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
-        profileController.logout();
+        Map<String, bool> arg = {"timeOut": true};
+        profileController.logout(arg);
       }
     });
   }
@@ -141,7 +135,9 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         dictrict.refresh();
       }else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
-        profileController.logout();
+
+        Map<String, bool> arg = {"timeOut": true};
+        profileController.logout(arg);
       }
     });
     selectedDistrict.value = DistrictModel("-1", "Choose district");

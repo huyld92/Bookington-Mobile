@@ -29,9 +29,11 @@ class DistrictModel{
   @override
   bool operator ==(Object other) {
     other as DistrictModel;
-    if (other.id == this._id) {
+    if (other.id == _id) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
+
 }

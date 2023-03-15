@@ -693,7 +693,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                     ),
                     child: Obx(
                       () => ListView.separated(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         separatorBuilder: (context, index) {
                           return SizedBox(

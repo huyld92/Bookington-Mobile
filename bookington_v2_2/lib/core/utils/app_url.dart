@@ -41,4 +41,6 @@ class AppUrl {
 
   static const String getAllVoucherOfCourtEndPoint=  "$baseUrl/vouchers/court";
 
+  static const String getBalanceEndPoint=  "$baseUrl/userbalances/self";
+
 }

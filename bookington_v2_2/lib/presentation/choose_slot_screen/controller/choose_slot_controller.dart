@@ -5,7 +5,7 @@ import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/booking_model.dart';
 import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
 
 class ChooseSlotController extends GetxController with StateMixin {
   late RxList<bool> listSelected = <bool>[].obs;
@@ -19,11 +19,6 @@ class ChooseSlotController extends GetxController with StateMixin {
   void onInit() {
     loadData();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   void loadData() {
@@ -69,8 +64,9 @@ class ChooseSlotController extends GetxController with StateMixin {
           listSelected.refresh();
         } else if(result.statusCode == 401 || result.statusCode == 403){
           ProfileController profileController = Get.find();
-          profileController.logout();
-        }else {
+          Map<String, bool> arg = {"timeOut": true};
+          profileController.logout(arg);
+        } else {
           print(result.headers);
         }
       });
@@ -107,8 +103,13 @@ class ChooseSlotController extends GetxController with StateMixin {
           Get.toNamed(AppRoutes.paymentScreen,arguments: arg);
         } else if(result.statusCode == 401 || result.statusCode == 403){
           ProfileController profileController = Get.find();
-          profileController.logout();
-        }else {
+          Map<String, bool> arg = {"timeOut": true};
+
+          profileController.logout(arg);
+        } else if(result.statusCode == 500){
+          print('error 500');
+          Get.defaultDialog(title: "Error 500", content: Text("This slot cannot be selected"));
+        } else {
           print(result.headers);
         }
       });

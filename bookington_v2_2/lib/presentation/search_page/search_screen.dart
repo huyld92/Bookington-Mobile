@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 import 'widgets/search_result_widget.dart';
-import 'widgets/search_empty_widget.dart';
 
 // ignore_for_file: must_be_immutable
 class SearchScreen extends GetWidget<SearchController> {
@@ -94,7 +93,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                             bottom: 15),
                                         margin: getMargin(all: 10),
                                         child: DropdownButton<ProvinceModel>(
-                                          underline: SizedBox(),
+                                          underline: const SizedBox(),
                                           isExpanded: true,
                                           items: controller.province.map(
                                               (ProvinceModel
@@ -130,7 +129,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
                                         child: DropdownButton<DistrictModel>(
-                                          underline: SizedBox(),
+                                          underline: const SizedBox(),
                                           isExpanded: true,
                                           items: controller.dictrict.map(
                                               (DistrictModel

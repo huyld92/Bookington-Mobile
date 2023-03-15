@@ -86,11 +86,12 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         ),
                         Padding(
                             padding: getPadding(top: 4),
-                            child: Text("2.000.000d",
-                                // controller.profileModelObj.value.phomeNumber,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold16)),
+                            child: Obx(() => Text("${controller.balance}đ",
+                                  // controller.profileModelObj.value.phomeNumber,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeBold16),
+                            )),
                       ],
                     )
                   ],

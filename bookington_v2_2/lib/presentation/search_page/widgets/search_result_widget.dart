@@ -66,7 +66,8 @@ class SearchResultWidget extends StatelessWidget {
                 Padding(
                   padding: getPadding(bottom: 20),
                   child: ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
+                    controller: controller.scroll,
+                    // physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
                       return SizedBox(

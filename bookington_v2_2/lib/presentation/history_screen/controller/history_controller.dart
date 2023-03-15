@@ -26,4 +26,8 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
     tabcontroller.dispose();
     super.onClose();
   }
+
+  void filter() {
+
+  }
 }

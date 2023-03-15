@@ -74,7 +74,8 @@ class VoucherController extends GetxController {
         VoucherModel.fromJson(jsonDecode(result.body)["result"]);
       } else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
-        profileController.logout();
+        Map<String, bool> arg = {"timeOut": true};
+        profileController.logout(arg);
       }else {
         print('ERRRRRRRRR');
       }

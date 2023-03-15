@@ -25,6 +25,7 @@ class LoginController extends GetxController with StateMixin {
   @override
   void onReady() async {
     loadData();
+
     super.onReady();
   }
 
@@ -56,8 +57,7 @@ class LoginController extends GetxController with StateMixin {
       Get.defaultDialog(title: "Login Failed!", middleText: error.toString());
       print("Login controller: " + error.toString());
     } finally {
-      // change(null, status: RxStatus.success());
-      Future.delayed(const Duration(milliseconds: 1500), () {
+       Future.delayed(const Duration(milliseconds: 1000), () {
         change(null, status: RxStatus.success());
       });
     }
@@ -74,19 +74,21 @@ class LoginController extends GetxController with StateMixin {
 
   void loadData() {
     var arg = Get.arguments;
-    if (arg["timeOut"] != null) {
+    if (arg != null) {
       Get.defaultDialog(
           title: "Session Expired",
           content: Center(
             child: Text("Please login again.",
                 style: AppStyle.txtManropeSemiBold14),
           ),
-          cancel: TextButton(
-            child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
-            onPressed: () {
-              Get.back();
-            },
-          ),);
+          // cancel: TextButton(
+          //   child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+          //   onPressed: () {
+          //     Get.back();
+          //   },
+          // ),
+        );
+      print('session ok');
     }
   }
 }

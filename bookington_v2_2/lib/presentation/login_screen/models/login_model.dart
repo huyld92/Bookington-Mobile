@@ -65,12 +65,12 @@ class LoginModel {
 
   Map<String, dynamic> toJson() =>
       {
-        "userID": this._userID,
-        "phoneNumber": this._phoneNumber,
-        "fullName": this._fullName,
-        "role": this._role,
-        "sysToken": this._sysToken,
-        "sysTokenExpires": this._sysTokenExpires,
+        "userID": _userID,
+        "phoneNumber": _phoneNumber,
+        "fullName": _fullName,
+        "role": _role,
+        "sysToken": _sysToken,
+        "sysTokenExpires": _sysTokenExpires,
       };
 
 }

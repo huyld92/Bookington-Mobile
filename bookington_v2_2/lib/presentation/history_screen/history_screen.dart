@@ -53,9 +53,19 @@ class HistoryScreen extends GetWidget<HistoryController> {
             ),
 
             Container(
-              height: 40,
-              color: Colors.cyanAccent,
-              child: Text("Filter"),
+              margin: getMargin(left: 20, right: 20),
+               height: 40,
+               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("13-12-2022 to 13-03-2023",style: AppStyle.txtManropeSemiBold16Gray900,),
+                  GestureDetector(
+                      onTap: (){
+                        controller.filter();
+                      },
+                      child: Text("Filter", style: AppStyle.txtManropeSemiBold16Blue500,))
+                ],
+              )
             ),
             // tab bar view here
             Expanded(

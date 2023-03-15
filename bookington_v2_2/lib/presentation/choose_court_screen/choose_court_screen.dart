@@ -15,7 +15,6 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
 
   @override
   Widget build(BuildContext context) {
-    // List<bool> _selections = List.generate(length, (_) => false);
 
     return SafeArea(
       bottom: false,
@@ -158,7 +157,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                     ),
                   ),
                 ),
-                onEmpty: Dialog(
+                onEmpty: const Dialog(
                   child: Text("EMPTY"),
                 )
             ),

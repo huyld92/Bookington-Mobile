@@ -14,10 +14,13 @@ class MessagesItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        controller.getChatScreen();
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             height: getVerticalSize(
               60,
             ),
@@ -184,9 +187,6 @@ class MessagesItemWidget extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
-        controller.getChatScreen();
-      },
     );
   }
 }
