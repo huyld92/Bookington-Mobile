@@ -12,7 +12,6 @@ class HomeController extends GetxController with StateMixin {
 
   @override
   void onInit() async {
-    print('homeee controller init');
     loadData();
     super.onInit();
   }
@@ -41,12 +40,9 @@ class HomeController extends GetxController with StateMixin {
         homeModelObj.value.listNotification = listNotification;
         totalUnread.value =
             listNotification.where((notify) => notify.isRead == false).length;
-
-        print('totalUnread: $totalUnread');
       } else if (result.statusCode == 401 || result.statusCode == 403) {
         ProfileController profileController = Get.find();
         Map<String, bool> arg = {"timeOut": true};
-
         profileController.logout(arg);
       } else {
         print(result.headers);
@@ -80,7 +76,6 @@ class HomeController extends GetxController with StateMixin {
       "listNotification": homeModelObj.value.listNotification
     };
     Get.toNamed(AppRoutes.notificationScreen, arguments: arg)?.then((value) {
-      print(value);
       loadData();
     });
   }

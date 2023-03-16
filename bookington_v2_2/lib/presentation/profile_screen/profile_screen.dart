@@ -85,13 +85,14 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           ),
                         ),
                         Padding(
-                            padding: getPadding(top: 4),
-                            child: Obx(() => Text("${controller.balance}đ",
-                                  // controller.profileModelObj.value.phomeNumber,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold16),
-                            )),
+                          padding: getPadding(top: 4),
+                          child: Obx(
+                            () => Text("${controller.balance}đ",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtManropeBold16),
+                          ),
+                        ),
                       ],
                     )
                   ],
@@ -126,6 +127,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 margin: getMargin(top: 10))
                           ])),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 //Wallet
                 GestureDetector(
                   onTap: () {
@@ -158,6 +163,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                     ),
                   ),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 //favorite
                 GestureDetector(
                   onTap: () {
@@ -188,6 +197,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 margin: getMargin(top: 10))
                           ])),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 // Align(
                 //     alignment: Alignment.centerLeft,
                 //     child: Padding(
@@ -224,6 +237,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             },
                           )
                         ])),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
 
                 GestureDetector(
                   onTap: () {
@@ -255,6 +272,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                     ),
                   ),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 // Align(
                 //     alignment: Alignment.centerLeft,
                 //     child: Padding(
@@ -294,6 +315,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 margin: getMargin(top: 10, bottom: 10))
                           ])),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 Padding(
                   padding: getPadding(top: 10),
                   child: Row(
@@ -318,6 +343,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                             margin: getMargin(top: 10, bottom: 10))
                       ]),
                 ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
                 GestureDetector(
                   onTap: () {
                     Get.defaultDialog(
@@ -352,7 +381,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
                               margin: getMargin(top: 10, bottom: 10))
                         ]),
                   ),
-                )
+                ),
+                Divider(
+                    height: getVerticalSize(1),
+                    thickness: getVerticalSize(1),
+                    color: ColorConstant.blueGray100),
               ],
             ),
           ),

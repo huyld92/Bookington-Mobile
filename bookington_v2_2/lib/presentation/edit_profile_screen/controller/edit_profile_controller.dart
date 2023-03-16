@@ -55,7 +55,6 @@ class EditProfileController extends GetxController {
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             ProfileController profileController = Get.find();
             Map<String, bool> arg = {"timeOut": true};
-
             profileController.logout(arg);
           } else {
             print('EDIT PROFILE headers: ${result.headers}');
@@ -87,8 +86,7 @@ class EditProfileController extends GetxController {
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
-      print("Date picked: " + pickedDate.toString());
-    }
+     }
   }
 
   void updateProfile() {
@@ -104,8 +102,7 @@ class EditProfileController extends GetxController {
           print(result.statusCode);
           if (result.statusCode == 200) {
             final jsonResult = (jsonDecode(result.body)["result"]);
-            print("edit: $jsonResult");
-            fullNameController.text = jsonResult["fullName"];
+             fullNameController.text = jsonResult["fullName"];
             PrefUtils.setString("fullName", fullNameController.text);
             HomeController homeController = Get.find();
             homeController.homeModelObj.value.fullName = fullName;
@@ -124,8 +121,7 @@ class EditProfileController extends GetxController {
             Map<String, bool> arg = {"timeOut": true};
             profileController.logout(arg);
           } else {
-            print('$result');
-            Get.snackbar(
+             Get.snackbar(
               'Edit profile',
               "Edit profile failed",
               colorText: ColorConstant.black900,

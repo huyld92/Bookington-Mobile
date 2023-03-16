@@ -15,7 +15,6 @@ import 'package:bookington_v2_2/presentation/history_screen/history_screen.dart'
 import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
-import 'package:bookington_v2_2/presentation/login_screen/login_screen2.dart';
 import 'package:bookington_v2_2/presentation/login_screen/login_screen.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/binding/message_chat_binding.dart';
 import 'package:bookington_v2_2/presentation/message_chat_screen/message_chat_screen.dart';

@@ -14,8 +14,6 @@ class LoginController extends GetxController with StateMixin {
 
   Rx<bool> isShowPassword = false.obs;
 
-  var loginProcess = false.obs;
-
   @override
   void onInit() async {
     change(null, status: RxStatus.success());
@@ -25,7 +23,6 @@ class LoginController extends GetxController with StateMixin {
   @override
   void onReady() async {
     loadData();
-
     super.onReady();
   }
 
@@ -34,11 +31,9 @@ class LoginController extends GetxController with StateMixin {
 
     try {
       change(null, status: RxStatus.loading());
-      loginProcess(true);
 
       ApiClient.loginWithPhone(phone, password).then((result) {
         print(result.statusCode);
-
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
           LoginModel loginModel = LoginModel.fromJson(jsonResult["result"]);
@@ -57,7 +52,8 @@ class LoginController extends GetxController with StateMixin {
       Get.defaultDialog(title: "Login Failed!", middleText: error.toString());
       print("Login controller: " + error.toString());
     } finally {
-       Future.delayed(const Duration(milliseconds: 1000), () {
+      // change(null, status: RxStatus.success());
+      Future.delayed(const Duration(milliseconds: 1500), () {
         change(null, status: RxStatus.success());
       });
     }
@@ -76,19 +72,18 @@ class LoginController extends GetxController with StateMixin {
     var arg = Get.arguments;
     if (arg != null) {
       Get.defaultDialog(
-          title: "Session Expired",
-          content: Center(
-            child: Text("Please login again.",
-                style: AppStyle.txtManropeSemiBold14),
-          ),
-          // cancel: TextButton(
-          //   child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
-          //   onPressed: () {
-          //     Get.back();
-          //   },
-          // ),
-        );
-      print('session ok');
+        title: "Session Expired",
+        content: Center(
+          child:
+              Text("Please login again.", style: AppStyle.txtManropeSemiBold14),
+        ),
+        cancel: TextButton(
+          child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      );
     }
   }
 }

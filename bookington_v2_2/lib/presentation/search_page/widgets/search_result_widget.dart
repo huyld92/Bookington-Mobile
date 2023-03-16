@@ -19,72 +19,64 @@ class SearchResultWidget extends StatelessWidget {
       (state) => SizedBox(
         width: size.width,
         child: Padding(
-            padding: getPadding(
-              left: 0,
-              top: 0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: getPadding(
-                    top: 20,
-                    right: 0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: getPadding(
-                          left: 10,
-                          bottom: 5,
-                        ),
-                        child: Text(
-                          "${"lbl_result".tr}(${controller.totalCount.value})",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeBold18,
-                        ),
-                      ),
-                      CustomImageView(
-                        margin: getMargin(right: 10, bottom: 5),
-                        svgPath: ImageConstant.imgFilter,
-                        height: getSize(
-                          28.00,
-                        ),
-                        width: getSize(
-                          28.00,
-                        ),
-                        onTap: () {
-                          print('Filter');
-                        },
-                      ),
-                    ],
-                  ),
+          padding: getPadding(
+            left: 0,
+            top: 0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: getPadding(
+                  top: 20,
+                  right: 0,
                 ),
-                Padding(
-                  padding: getPadding(bottom: 20),
-                  child: ListView.separated(
-                    controller: controller.scroll,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: getVerticalSize(
-                          20.00,
-                        ),
-                      );
-                    },
-                    itemCount: controller.listSearchMode.length,
-                    itemBuilder: (context, index) {
-                      SearchModel model = controller.listSearchMode[index];
-                      return ListRectangleItemWidget(model, index);
-                    },
-                  ),
+                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: getPadding(
+                        left: 10,
+                        bottom: 5,
+                      ),
+                      child: Text(
+                        "${"lbl_result".tr}(${controller.totalCourt.value})",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeBold18,
+                      ),
+                    ),
+                    CustomImageView(
+                      margin: getMargin(right: 10, bottom: 5),
+                      svgPath: ImageConstant.imgFilter,
+                      height: getSize(
+                        28.00,
+                      ),
+                      width: getSize(
+                        28.00,
+                      ),
+                      onTap: () {
+                        print('Filter');
+                      },
+                    ),
+                  ],
+              ),),
+              SizedBox(
+                height: 440,
+                child: ListView.builder(
+                   controller: controller.scroll,
+                  shrinkWrap: true,
+                  itemCount: controller.listSearchMode.length,
+                  itemBuilder: (context, index) {
+                    SearchModel model = controller.listSearchMode[index];
+                    return ListRectangleItemWidget(model, index);
+                  },
                 ),
-              ],
-            ),),
+              ),
+            ],
+          ),
+        ),
       ),
 
       onLoading: Padding(
@@ -92,18 +84,17 @@ class SearchResultWidget extends StatelessWidget {
         child: Center(
             child: Column(
           children: [
-             Padding(
-               padding: getPadding(right: 10),
-               child: const CircularProgressIndicator(),
-             ),
+            Padding(
+              padding: getPadding(right: 10),
+              child: const CircularProgressIndicator(),
+            ),
             Padding(
               padding: getPadding(top: 20),
-              child: Text("loading....",style: AppStyle.txtManropeSemiBold16),
+              child: Text("loading....", style: AppStyle.txtManropeSemiBold16),
             ),
           ],
         )),
       ),
-
       // Center(child: CircularProgressIndicator()),
       onEmpty: SearchEmptyWidget(),
     );

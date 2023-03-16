@@ -1,5 +1,3 @@
-
-
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/booking_model.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/models/payment_model.dart';
@@ -8,7 +6,7 @@ class PaymentController extends GetxController {
   Rx<PaymentModel> paymentModelObj = PaymentModel().obs;
 
   RxString selectedPayment = "Momo".obs;
-  RxString voucherTitle = ''.obs;
+  RxString voucherID = ''.obs;
 
   @override
   void onReady() {
@@ -21,8 +19,8 @@ class PaymentController extends GetxController {
     super.onClose();
   }
 
-  getBack(){
-     Get.back();
+  getBack() {
+    Get.back();
   }
 
   void changePaymentMethod(value) {
@@ -34,13 +32,11 @@ class PaymentController extends GetxController {
   }
 
   void chooseVoucher() {
-    Map<String,String> voucher = {'id':'3'};
-    Get.toNamed(AppRoutes.chooseVoucherScreen, arguments: voucher)?.then((result) {
-      // print("result type: ${result["id"].runtimeType}");
-      if (result["id"] != null) {
-        voucherTitle.value = result["id"];
-      }
-    });
+    Map<String, String> voucher = {'id': '3'};
+    Get.toNamed(AppRoutes.chooseVoucherScreen, arguments: voucher)
+        ?.then((result) {
+       voucherID.value = result["id"] ?? "";
+     });
   }
 
   void choosePayment(String s) {
@@ -48,10 +44,10 @@ class PaymentController extends GetxController {
   }
 
   void loadData() {
-     Map<String, dynamic> arg = Get.arguments;
-     if (arg["listBooking"]!=null) {
-       List<BookingModel>? listBooking = arg["listBooking"];
-       paymentModelObj.value.listBooking?.value = listBooking!;
-      }
+    // Map<String, dynamic> arg = Get.arguments;
+    // if (arg["listBooking"]!=null) {
+    //   List<BookingModel>? listBooking = arg["listBooking"];
+    //   paymentModelObj.value.listBooking?.value = listBooking!;
+    //  }
   }
 }

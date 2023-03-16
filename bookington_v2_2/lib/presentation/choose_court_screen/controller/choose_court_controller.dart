@@ -23,6 +23,7 @@ class ChooseCourtController extends GetxController with StateMixin {
   }
 
   void loadData() {
+    print('selectedTime" ${DateTime.now().timeZoneName}');
     getAvailableSubCourt();
   }
 
@@ -55,7 +56,6 @@ class ChooseCourtController extends GetxController with StateMixin {
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           ProfileController profileController = Get.find();
           Map<String, bool> arg = {"timeOut": true};
-
           profileController.logout(arg);
         } else {
           print(result.headers);
@@ -93,8 +93,24 @@ class ChooseCourtController extends GetxController with StateMixin {
       fieldHintText: 'Month/Date/Year',
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
-      selectedDate.value = pickedDate;
-      getAvailableSubCourt();
+      DateTime now = DateTime.now();
+      DateTime date = DateTime(now.year, now.month, now.day);
+      if (pickedDate.isAtSameMomentAs(date)) {
+        if (now.isAfter(selectedTime.value)) {
+          print('after');
+          Get.defaultDialog(
+              title: "Error pick date",
+              content: Text("Cannot select previous time"));
+        } else {
+          print('else after');
+          selectedDate.value = pickedDate;
+          getAvailableSubCourt();
+        }
+      } else {
+        print('else');
+        selectedDate.value = pickedDate;
+        getAvailableSubCourt();
+      }
     }
   }
 

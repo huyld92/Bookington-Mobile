@@ -139,7 +139,7 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     ),
                   ),
                 ),
-                onEmpty: const Dialog(
+                onEmpty: Dialog(
                   child: Text("EMPTY"),
                 )
             ),

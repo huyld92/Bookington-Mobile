@@ -33,105 +33,10 @@ class PaymentScreen extends GetWidget<PaymentController> {
         body: SingleChildScrollView(
           child: Container(
             width: size.width,
-            padding: getPadding(left: 18, right: 18),
+            padding: getPadding(left: 18, right: 18, bottom: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // Container(
-                //   padding: getPadding(all: 10),
-                //   decoration: AppDecoration.fillGray200.copyWith(
-                //       borderRadius: BorderRadiusStyle.roundedBorder16),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       CustomImageView(
-                //         imagePath: ImageConstant.imgPhoThoCourt,
-                //         height: getSize(110.00),
-                //         width: getSize(110.00),
-                //         radius: BorderRadius.circular(
-                //           getHorizontalSize(16.00),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: getPadding(left: 16, top: 10, bottom: 9),
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           mainAxisAlignment: MainAxisAlignment.start,
-                //           children: [
-                //             Text("Phu Tho Court",
-                //                 overflow: TextOverflow.ellipsis,
-                //                 textAlign: TextAlign.left,
-                //                 style: AppStyle.txtManropeBold20),
-                //             Padding(
-                //                 padding: getPadding(top: 5),
-                //                 child: Text("District 11, HCM city".tr,
-                //                     overflow: TextOverflow.ellipsis,
-                //                     textAlign: TextAlign.left,
-                //                     style: AppStyle.txtManropeSemiBold14
-                //                         .copyWith(
-                //                             letterSpacing:
-                //                                 getHorizontalSize(0.20)))),
-                //             Padding(
-                //                 padding: getPadding(top: 5),
-                //                 child: Row(children: [
-                //                   CustomImageView(
-                //                       svgPath: ImageConstant.imgStar,
-                //                       height: getSize(12.00),
-                //                       width: getSize(12.00),
-                //                       margin: getMargin(top: 2, bottom: 2)),
-                //                   Padding(
-                //                       padding: getPadding(left: 4),
-                //                       child: Text("4.9",
-                //                           overflow: TextOverflow.ellipsis,
-                //                           textAlign: TextAlign.left,
-                //                           style: AppStyle.txtManropeSemiBold14
-                //                               .copyWith(
-                //                                   letterSpacing:
-                //                                       getHorizontalSize(
-                //                                           0.20)))),
-                //                   Padding(
-                //                       padding: getPadding(left: 8, bottom: 1),
-                //                       child: Text("(100 reviews)".tr,
-                //                           overflow: TextOverflow.ellipsis,
-                //                           textAlign: TextAlign.left,
-                //                           style: AppStyle.txtManropeSemiBold12
-                //                               .copyWith(
-                //                                   letterSpacing:
-                //                                       getHorizontalSize(
-                //                                           0.20)))),
-                //                 ])),
-                //             Padding(
-                //               padding: getPadding(top: 5, bottom: 0),
-                //               child: Row(
-                //                 crossAxisAlignment: CrossAxisAlignment.end,
-                //                 mainAxisAlignment: MainAxisAlignment.start,
-                //                 children: [
-                //                   Text("100,000".tr,
-                //                       overflow: TextOverflow.ellipsis,
-                //                       textAlign: TextAlign.left,
-                //                       style: AppStyle.txtManropeBold20Blue500),
-                //                   Padding(
-                //                     padding: getPadding(top: 5),
-                //                     child: Text(
-                //                       "lbl_hour".tr,
-                //                       overflow: TextOverflow.ellipsis,
-                //                       textAlign: TextAlign.left,
-                //                       style: AppStyle.txtManropeSemiBold10
-                //                           .copyWith(
-                //                         letterSpacing: getHorizontalSize(0.20),
-                //                       ),
-                //                     ),
-                //                   )
-                //                 ],
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-
                 //info booking
                 Padding(
                   padding: getPadding(top: 10),
@@ -245,41 +150,6 @@ class PaymentScreen extends GetWidget<PaymentController> {
                             ],
                           ),
                         ),
-                        //to
-                        // Padding(
-                        //   padding: getPadding(
-                        //     top: 20,
-                        //   ),
-                        //   child: Row(
-                        //     mainAxisAlignment:
-                        //         MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       Padding(
-                        //         padding: getPadding(
-                        //           top: 1,
-                        //         ),
-                        //         child: Text(
-                        //           "lbl_to".tr,
-                        //           overflow: TextOverflow.ellipsis,
-                        //           textAlign: TextAlign.left,
-                        //           style: AppStyle
-                        //               .txtManropeSemiBold16Gray900
-                        //               .copyWith(
-                        //             letterSpacing: getHorizontalSize(
-                        //               0.20,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       Text(
-                        //         "12:00".tr,
-                        //         overflow: TextOverflow.ellipsis,
-                        //         textAlign: TextAlign.left,
-                        //         style: AppStyle.txtManropeBold18,
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                         Padding(
                           padding: getPadding(
                             top: 19,
@@ -423,56 +293,52 @@ class PaymentScreen extends GetWidget<PaymentController> {
                     controller.chooseVoucher();
                   },
                   child: Container(
-                      margin: getMargin(top: 10, bottom: 5),
-                      padding:
-                          getPadding(left: 15, top: 15, right: 15, bottom: 15),
-                      decoration: AppDecoration.fillGray200.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder16),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomImageView(
-                                svgPath: ImageConstant.imgCoupon,
-                                height: getVerticalSize(32.00),
-                                width: getHorizontalSize(32.00),
-                                radius: BorderRadius.circular(
-                                    getHorizontalSize(4.00))),
-                            controller.voucherTitle.value.isEmpty
-                                ? Padding(
-                                    padding:
-                                        getPadding(left: 12, top: 2, bottom: 2),
-                                    child: Text("lbl_voucher".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeBold18))
-                                : Container(
-                                    // margin:
-                                    //     getMargin(left: 10, top: 2, bottom: 2),
-                                    padding: getPadding(left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                        border:
-                                            BorderRadiusStyle.border2Red500),
-                                    child: Text(
-                                        ' ${controller.voucherTitle.value}%',
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeBold18Red500),
-                                  ),
-                            Container(
-                              padding: getPadding(left: 120),
-                              child: CustomImageView(
-                                height: getVerticalSize(32.00),
-                                width: getHorizontalSize(32.00),
-                                svgPath: ImageConstant.imgArrowright,
-                                onTap: () {
-                                  print("arrow right");
-                                },
-                              ),
-                            )
-                          ])),
+                    margin: getMargin(top: 10, bottom: 5),
+                    padding:
+                        getPadding(left: 15, top: 15, right: 15, bottom: 15),
+                    decoration: AppDecoration.fillGray200.copyWith(
+                        borderRadius: BorderRadiusStyle.roundedBorder16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => Row(
+                            children: [
+                              CustomImageView(
+                                  svgPath: ImageConstant.imgCoupon,
+                                  height: getVerticalSize(32.00),
+                                  width: getHorizontalSize(32.00),
+                                  radius: BorderRadius.circular(
+                                      getHorizontalSize(4.00))),
+                              controller.voucherID.value.isEmpty
+                                  ? Padding(
+                                      padding: getPadding(
+                                          left: 12, top: 2, bottom: 2),
+                                      child: Text("lbl_voucher".tr,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: AppStyle.txtManropeBold18))
+                                  : Padding(
+                                      padding: getPadding(
+                                          left: 12, top: 2, bottom: 2),
+                                      child: Text("lbl_voucher_applied".tr,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: AppStyle.txtManropeBold18)),
+                            ],
+                          ),
+                        ),
+                        CustomImageView(
+                          height: getVerticalSize(32.00),
+                          width: getHorizontalSize(32.00),
+                          svgPath: ImageConstant.imgArrowright,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 //momo
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     controller.choosePayment("Momo");
                   },
@@ -484,29 +350,30 @@ class PaymentScreen extends GetWidget<PaymentController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomImageView(
-                            svgPath: ImageConstant.imgMomo,
-                            height: getVerticalSize(32.00),
-                            width: getHorizontalSize(32.00),
-                            radius:
-                                BorderRadius.circular(getHorizontalSize(4.00))),
-                        Padding(
-                            padding: getPadding(left: 12, top: 2, bottom: 2),
-                            child: Text("lbl_momo".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18)),
-                        Padding(
-                          padding: getPadding(left: 160),
-                          child: Obx(
-                            () => Radio<String>(
-                              value: "Momo",
-                              groupValue: controller.selectedPayment.value,
-                              onChanged: (value) {
-                                print("momo payment");
-                                controller.changePaymentMethod(value);
-                              },
-                            ),
+                        Row(
+                          children: [
+                            CustomImageView(
+                                svgPath: ImageConstant.imgMomo,
+                                height: getVerticalSize(32.00),
+                                width: getHorizontalSize(32.00),
+                                radius: BorderRadius.circular(
+                                    getHorizontalSize(4.00))),
+                            Padding(
+                                padding:
+                                    getPadding(left: 12, top: 2, bottom: 2),
+                                child: Text("lbl_momo".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeBold18)),
+                          ],
+                        ),
+                        Obx(
+                          () => Radio<String>(
+                            value: "Momo",
+                            groupValue: controller.selectedPayment.value,
+                            onChanged: (value) {
+                              controller.changePaymentMethod(value);
+                            },
                           ),
                         )
                       ],
@@ -514,7 +381,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                   ),
                 ),
                 // cash
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     controller.choosePayment("Cash");
                   },
@@ -526,29 +393,31 @@ class PaymentScreen extends GetWidget<PaymentController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomImageView(
-                            svgPath: ImageConstant.imgCashOnHand,
-                            height: getVerticalSize(32.00),
-                            width: getHorizontalSize(32.00),
-                            radius:
-                                BorderRadius.circular(getHorizontalSize(4.00))),
-                        Padding(
-                            padding: getPadding(left: 12, top: 2, bottom: 2),
-                            child: Text("lbl_cash".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18)),
-                        Padding(
-                          padding: getPadding(left: 95),
-                          child: Obx(
-                            () => Radio<String>(
-                              value: "Cash on hand",
-                              groupValue: controller.selectedPayment.value,
-                              onChanged: (value) {
-                                print("cash on hand payment");
-                                controller.changePaymentMethod(value);
-                              },
-                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CustomImageView(
+                                svgPath: ImageConstant.imgCashOnHand,
+                                height: getVerticalSize(32.00),
+                                width: getHorizontalSize(32.00),
+                                radius: BorderRadius.circular(
+                                    getHorizontalSize(4.00))),
+                            Padding(
+                                padding:
+                                    getPadding(left: 12, top: 2, bottom: 2),
+                                child: Text("lbl_cash".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeBold18)),
+                          ],
+                        ),
+                        Obx(
+                          () => Radio<String>(
+                            value: "Cash",
+                            groupValue: controller.selectedPayment.value,
+                            onChanged: (value) {
+                              controller.changePaymentMethod(value);
+                            },
                           ),
                         )
                       ],
@@ -590,10 +459,10 @@ class PaymentScreen extends GetWidget<PaymentController> {
                   text: "lbl_confirm_payment".tr,
                   onTap: () {
                     print("Confirm Payment");
-                    // Get.defaultDialog(
-                    //   title: "",
-                    //   content: PaymentSuccessfulDialog(controller),
-                    // );
+                    Get.defaultDialog(
+                      title: "",
+                      content: PaymentSuccessfulDialog(controller),
+                    );
                   },
                 )
               ],

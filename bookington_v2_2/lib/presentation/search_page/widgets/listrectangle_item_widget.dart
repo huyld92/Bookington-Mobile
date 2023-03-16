@@ -20,6 +20,7 @@ class ListRectangleItemWidget extends StatelessWidget {
         controller.courtDetailsScreen(_index);
       },
       child: Container(
+        margin: getMargin(bottom: 20),
         decoration: AppDecoration.fillGray300.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder16,
         ),

@@ -21,8 +21,7 @@ class ApiClient extends GetConnect {
         .toList();
   }
 
-  static Future<http.Response> loginWithPhone(
-      String phone, String password) async {
+  static Future<http.Response> loginWithPhone(String phone, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(AppUrl.loginEndPoint);
     Map body = {'phone': phone, 'password': password};
@@ -62,7 +61,7 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> resendOtp(String phone) async {
-    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=$phone');
+    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=${phone}');
     http.Response response = await http.get(url);
 
     return response;
@@ -190,7 +189,7 @@ class ApiClient extends GetConnect {
       "startTime": startTime,
       "endTime": "23:59:59.0000000"
     };
-    print('body choose court: $body');
+    print('body choose court: ${body}');
 
     http.Response response =
         await http.post(url, body: jsonEncode(body), headers: headers);
@@ -200,7 +199,7 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAvailableSlot(
       String subCourtId, String playDate) async {
-    var url = Uri.parse(AppUrl.getAvailableSlotEndPoint);
+    var url = Uri.parse('${AppUrl.getAvailableSlotEndPoint}');
     String? sysToken = PrefUtils.getAccessToken();
 
     Map<String, String> headers = {
@@ -212,7 +211,7 @@ class ApiClient extends GetConnect {
       "subCourtId": subCourtId,
       "playDate": playDate,
     };
-    print('urlL: $body');
+    print('urlL: ${body}');
 
     http.Response response =
         await http.post(url, body: jsonEncode(body), headers: headers);
@@ -253,7 +252,7 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAllVoucherOfCourt(String courtID) async {
     var url =
-        Uri.parse("${AppUrl.getAllVoucherOfCourtEndPoint}?courtId=$courtID");
+    Uri.parse("${AppUrl.getAllVoucherOfCourtEndPoint}?courtId=$courtID");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
@@ -264,13 +263,12 @@ class ApiClient extends GetConnect {
 
     return response;
   }
-
-  static Future<http.Response> getBalance() async {
-    var url = Uri.parse(AppUrl.getBalanceEndPoint);
+    static Future<http.Response> getBalance() async {
+      var url = Uri.parse(AppUrl.getBalanceEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
-      "Authorization": "Bearer $sysToken",
-      'Content-Type': 'application/json',
+    "Authorization": "Bearer $sysToken",
+    'Content-Type': 'application/json',
     };
 
     http.Response response = await http.get(url, headers: headers);

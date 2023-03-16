@@ -1,13 +1,19 @@
 import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/core/utils/size_utils.dart';
+import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/controller/choose_slot_controller.dart';
+import 'package:bookington_v2_2/widgets/custom_button.dart';
 
 import 'package:flutter/material.dart';
- import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../theme/app_decoration.dart';
+import '../../../theme/app_style.dart';
 
 // ignore: must_be_immutable
 class SlotItemWidget extends StatelessWidget {
-  SlotItemWidget(this.index, {super.key});
+  SlotItemWidget(this.index);
 
   int index;
 

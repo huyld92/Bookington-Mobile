@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 import 'widgets/search_result_widget.dart';
+import 'widgets/search_empty_widget.dart';
 
 // ignore_for_file: must_be_immutable
 class SearchScreen extends GetWidget<SearchController> {
@@ -32,7 +33,7 @@ class SearchScreen extends GetWidget<SearchController> {
               children: [
                 Expanded(
                     child: SingleChildScrollView(
-                    child: Padding(
+                      child: Padding(
                       padding: getPadding(
                         left: 10,
                         right: 10,
@@ -52,7 +53,7 @@ class SearchScreen extends GetWidget<SearchController> {
                             child: Column(
                               children: [
                                 Container(
-                                  width: getVerticalSize(360),
+                                  width: getVerticalSize(360),height: getHorizontalSize(40),
                                   margin: getMargin(left: 10, right: 10),
                                   decoration: BoxDecoration(
                                       borderRadius:
@@ -65,13 +66,16 @@ class SearchScreen extends GetWidget<SearchController> {
                                       hintText: 'lbl_search_for_court'.tr,
                                       prefixIcon: const Icon(Icons.search),
                                       fillColor: ColorConstant.whiteA700,
-                                      contentPadding: getPadding(all: 16),
+                                      contentPadding: getPadding(all: 5),
                                       border: InputBorder.none,
                                     ),
+                                    style: AppStyle.txtManropeRegular14,
                                     textInputAction: TextInputAction.search,
                                     onSubmitted: (value) {
+                                      FocusManager.instance.primaryFocus?.unfocus();
                                       controller.searchByName(1);
                                     },
+
                                   ),
                                 ),
                                 Row(
@@ -79,7 +83,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                     Obx(
                                       () => Container(
                                         width: getVerticalSize(160),
-                                        height: getVerticalSize(55),
+                                        height: getVerticalSize(40),
                                         decoration: BoxDecoration(
                                           border:
                                               BorderRadiusStyle.border2Gray500,
@@ -87,13 +91,13 @@ class SearchScreen extends GetWidget<SearchController> {
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
                                         padding: getPadding(
-                                            top: 15,
+                                            top: 5,
                                             left: 5,
                                             right: 5,
-                                            bottom: 15),
+                                            bottom: 5),
                                         margin: getMargin(all: 10),
                                         child: DropdownButton<ProvinceModel>(
-                                          underline: const SizedBox(),
+                                          underline: SizedBox(),
                                           isExpanded: true,
                                           items: controller.province.map(
                                               (ProvinceModel
@@ -102,7 +106,9 @@ class SearchScreen extends GetWidget<SearchController> {
                                                 ProvinceModel>(
                                               value: dropDownStringItem,
                                               child: Text(dropDownStringItem
-                                                  .provinceName),
+                                                  .provinceName,
+                                                style: AppStyle.txtManropeRegular14,
+                                              ),
                                             );
                                           }).toList(),
                                           onChanged: (value) => controller
@@ -115,13 +121,13 @@ class SearchScreen extends GetWidget<SearchController> {
                                     Obx(
                                       () => Container(
                                         width: getVerticalSize(160),
-                                        height: getVerticalSize(55),
+                                        height: getVerticalSize(40),
                                         margin: getPadding(top: 10, bottom: 10),
                                         padding: getPadding(
-                                            top: 15,
+                                            top: 5,
                                             left: 5,
                                             right: 5,
-                                            bottom: 15),
+                                            bottom: 5),
                                         decoration: BoxDecoration(
                                           border:
                                               BorderRadiusStyle.border2Gray500,
@@ -129,16 +135,18 @@ class SearchScreen extends GetWidget<SearchController> {
                                               BorderRadiusStyle.roundedBorder16,
                                         ),
                                         child: DropdownButton<DistrictModel>(
-                                          underline: const SizedBox(),
+                                          underline: SizedBox(),
                                           isExpanded: true,
-                                          items: controller.dictrict.map(
+                                          items: controller.district.map(
                                               (DistrictModel
                                                   dropDownStringItem) {
                                             return DropdownMenuItem<
                                                 DistrictModel>(
                                               value: dropDownStringItem,
                                               child: Text(dropDownStringItem
-                                                  .districtName),
+                                                  .districtName,
+                                                style: AppStyle.txtManropeRegular14,
+                                              ),
                                             );
                                           }).toList(),
                                           // onChanged: (value) => print(value),
@@ -152,15 +160,15 @@ class SearchScreen extends GetWidget<SearchController> {
                                   ],
                                 ),
                                 CustomButton(
-                                  height: 50,
+                                  height: 40,
                                   width: 355,
                                   margin: getMargin(left: 10, right: 10),
+                                  padding: ButtonPadding.PaddingAll8,
                                   text: "lbl_search".tr,
                                   onTap: () {
-                                    print("search");
+                                     FocusManager.instance.primaryFocus?.unfocus();
                                     controller.searchByName(1);
-                                    // controller.nextPaymentScreen();
-                                  },
+                                   },
                                 )
                               ],
                             ),
@@ -177,7 +185,6 @@ class SearchScreen extends GetWidget<SearchController> {
           bottomNavigationBar: CustomBottomBar(
             onChanged: (BottomBarEnum type) {
               Get.toNamed(getCurrentRoute(type));
-              // Get.toNamed(getCurrentRoute(type),id : 3);
             },
           ),
         ),

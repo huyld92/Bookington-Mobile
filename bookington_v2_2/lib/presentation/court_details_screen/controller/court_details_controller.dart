@@ -28,15 +28,14 @@ class CourtDetailsController extends GetxController with StateMixin{
       }
       change(null, status: RxStatus.success());
 
-    } on Exception catch (e) {
-      print(e.toString());
+    } on Exception {
       getBack();
     }
   }
 
   getCourtDetails(String id) {
     ApiClient.getCourtDetails(id).then((result) {
-      print('status courtdetails: ${result.statusCode}');
+      print('status courtdetails: ' + result.statusCode.toString());
 
       if (result.statusCode == 200) {
         CourtModel court =
@@ -47,12 +46,9 @@ class CourtDetailsController extends GetxController with StateMixin{
         courtDetailsModelObj.value.address = court.address;
         courtDetailsModelObj.value.openAt = court.openAt;
         courtDetailsModelObj.value.closeAt = court.closeAt;
-        print('court model: ${courtDetailsModelObj.value.toString()}');
-      } else if(result.statusCode == 401 || result.statusCode == 403){
-
+      } else if(result.statusCode == 401 || result.statusCode == 401){
         ProfileController profileController = Get.find();
         Map<String, bool> arg = {"timeOut": true};
-
         profileController.logout(arg);
       }else {
         print('ERRRRRRRRR');
@@ -67,6 +63,5 @@ class CourtDetailsController extends GetxController with StateMixin{
 
   getBack() {
     Get.back();
-    print("back from Court detail");
-  }
+   }
 }

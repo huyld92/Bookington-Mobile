@@ -46,12 +46,15 @@ class VoucherScreen extends GetWidget<VoucherController> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            border: BorderRadiusStyle.border2Gray500),
+                            border: BorderRadiusStyle.border2Gray500,
+                          borderRadius: BorderRadiusStyle.roundedBorder10
+                        ),
                         child: CustomTextFormField(
                           controller: controller.voucherController,
                           shape: TextFormFieldShape.RoundedBorder10,
                           width: 250,
                           hintText: "Enter code voucher",
+                          fontStyle: TextFormFieldFontStyle.ManropeMedium14,
                           suffix: CustomImageView(
                             width: 16,
                             margin: getMargin(all: 10),

@@ -105,7 +105,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(
+                              Container(
                                   width: getHorizontalSize(218.00),
                                   child: Text("asdasdsad".tr,
                                       maxLines: null,
@@ -237,7 +237,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
+                                    Container(
                                       width: 210,
                                       child: Padding(
                                         padding: EdgeInsets.only(

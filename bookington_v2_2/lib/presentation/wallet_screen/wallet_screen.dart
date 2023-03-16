@@ -65,7 +65,7 @@ class WalletScreen extends GetWidget<WalletController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Obx(
-                              () => Text("${controller.balance}đ".tr,
+                              () => Text("${controller.balance}đ",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtManropeSemiBold30BlueA700),

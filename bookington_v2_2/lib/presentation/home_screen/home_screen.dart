@@ -99,9 +99,10 @@ class HomeScreen extends GetWidget<HomeController> {
                         border: Border.all(width: 1.5, color: Colors.white),
                       ),
                       child: Center(
-                        child: Text(
-                          controller.totalUnread.value.toString(),
-                          style: AppStyle.txtManropeSemiBold10White,
+                        child: Obx(() => Text(
+                            controller.totalUnread.value.toString(),
+                            style: AppStyle.txtManropeSemiBold10White,
+                          ),
                         ),
                       ),
                     ))

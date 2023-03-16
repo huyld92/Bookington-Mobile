@@ -10,53 +10,58 @@ import 'package:flutter/material.dart';
 
 class SearchController extends GetxController with StateMixin, ScrollMixin {
   TextEditingController searchController = TextEditingController();
+  ScrollController scrollController = ScrollController();
 
-  Rx<String> totalCount = "0".obs;
 
   late RxList<SearchModel> listSearchMode = <SearchModel>[].obs;
 
   late RxList<ProvinceModel> province = <ProvinceModel>[].obs;
 
-  late RxList<DistrictModel> dictrict = <DistrictModel>[].obs;
+  late RxList<DistrictModel> district = <DistrictModel>[].obs;
   final selectedProvince = ProvinceModel("-1", "Choose province").obs;
   final selectedDistrict = DistrictModel("-1", "Choose district").obs;
+  RxInt pageNumber = 1.obs;
+  Rx<String> totalCourt = "0".obs;
 
   onSelectedProvince(ProvinceModel value) {
     selectedProvince.value = value;
     getDistrictById(value.id);
 
-    print('province value: ' + "${value.id}-" + value.provinceName);
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   onSelectedDistrict(DistrictModel value) {
+    FocusManager.instance.primaryFocus?.unfocus();
     selectedDistrict.value = value;
-    print('selectedDistrict:  ' + "${value.id}-" + value.districtName);
-  }
+   }
 
   @override
   void onInit() {
-    print('Init');
-    loadData();
+     loadData();
     super.onInit();
   }
 
+
   @override
   void onClose() {
-    super.onClose();
     searchController.dispose();
+    super.onDelete();
   }
 
   void loadData() async {
+    // addItems();
     searchByName(1);
     getListProvince();
-    dictrict.add(DistrictModel("-1", "Choose district"));
+    district.add(DistrictModel("-1", "Choose district"));
     province.add(ProvinceModel("-1", "Choose province"));
   }
 
   void searchByName(int pageNumber) async {
     change(null, status: RxStatus.loading());
-
-    listSearchMode.clear();
+    if(pageNumber == 0) {
+      this.pageNumber.value = 1;
+      pageNumber = 1;
+     }
     // default value
     if (selectedProvince.value.provinceName == "Choose province") {
       selectedProvince.value.provinceName = "";
@@ -71,22 +76,19 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     ApiClient.searchCourt(pageNumber, courtModel).then((result) {
       if (result.statusCode == 200) {
         final jsonResult = jsonDecode(result.body);
-        totalCount = jsonResult["pagination"]["totalCount"].toString().obs;
-        if (totalCount.value == '0') {
+        totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
+        if (totalCourt.value == '0') {
           change(null, status: RxStatus.empty());
         }
-        // else if (getFirstData && emptyRepositories) {
-        //   lastPage = true;
-        // }
         else {
-          // getFirstData = true;
-          listSearchMode.value =
+          if(pageNumber==1){
+           listSearchMode.value =
               SearchModel.listFromJson(jsonResult["result"]).obs;
+          } else{
+            listSearchMode.addAll(SearchModel.listFromJson(jsonResult["result"]));
+          }
           change(listSearchMode, status: RxStatus.success());
         }
-        // Future.delayed(Duration(seconds: 1), () {
-        //   change(listSearchMode, status: RxStatus.success());
-        //  });
         listSearchMode.refresh();
       } else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
@@ -105,14 +107,12 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
 
   void getListProvince() {
     ApiClient.getAllProvince().then((result) {
-      print('status coe: ' + result.statusCode.toString());
+      print('status coe: ${result.statusCode}');
       if (result.statusCode == 200) {
         List jsonResult = jsonDecode(result.body)["result"];
 
         province.value =
             ProvinceModel.listNameFromJson(jsonResult);
-        // jsonResult.map((e) => e["provinceName"].toString()).toList();
-        //     jsonResult.map((e) => e[""].obs);
         province.add(ProvinceModel("-1", "Choose province"));
         province.refresh();
       }else if(result.statusCode == 401 || result.statusCode == 403){
@@ -124,18 +124,17 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   void getDistrictById(String id) {
-    dictrict.clear();
+    district.clear();
     ApiClient.getDistrictById(id).then((result) {
-      print('status coe: ' + result.statusCode.toString());
+      print('status coe: ${result.statusCode}');
       if (result.statusCode == 200) {
-        dictrict.value =
+        district.value =
             DistrictModel.listNameFromJson(jsonDecode(result.body)["result"]);
         //     jsonResult.map((e) => e[""].obs);
-        dictrict.add(DistrictModel("-1", "Choose district"));
-        dictrict.refresh();
+        district.add(DistrictModel("-1", "Choose district"));
+        district.refresh();
       }else if(result.statusCode == 401 || result.statusCode == 403){
         ProfileController profileController = Get.find();
-
         Map<String, bool> arg = {"timeOut": true};
         profileController.logout(arg);
       }
@@ -151,13 +150,31 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
   }
 
+  // addItems() async {
+  //   scrollController.addListener(() {
+  //     print(scrollController.position.maxScrollExtent);
+  //     if (scrollController.position.maxScrollExtent == scrollController.position.pixels) {
+  //        if(listSearchMode.length < int.parse(totalCourt.value)){
+  //          pageNumber.value++;
+  //          print('pageNumber: $pageNumber');
+  //          searchByName(pageNumber.value);
+  //        }
+  //     }
+  //   });
+  // }
+
   @override
   Future<void> onEndScroll() async {
-    print('onEndScroll');
+    if(listSearchMode.length < int.parse(totalCourt.value)){
+      pageNumber.value++;
+      print('pageNumber: $pageNumber');
+      searchByName(pageNumber.value);
+    }
   }
 
   @override
   Future<void> onTopScroll() async {
-    print('onTopScroll');
+
   }
+
 }

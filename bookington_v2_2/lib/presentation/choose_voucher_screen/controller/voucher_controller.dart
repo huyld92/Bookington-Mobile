@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:bookington_v2_2/data/apiClient/api_client.dart';
-import 'package:bookington_v2_2/data/models/voucher_model.dart';
-import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:bookington_v2_2/data/models/voucher_model.dart';
+ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -58,7 +56,7 @@ class VoucherController extends GetxController {
   @override
   void onInit() {
     var voucher = Get.arguments;
-    if (voucher['id'] != null) {
+    if (voucher['courtID'] != null) {
       selectedVoucher.value = voucher['id'];
       String courtID = voucher['courtID'];
       loadData(courtID);
@@ -67,22 +65,31 @@ class VoucherController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    voucherController.dispose();
+    super.onClose();
+  }
   void loadData(String courtID) {
-    ApiClient.getAllVoucherOfCourt(courtID).then((result) {
-      if (result.statusCode == 200) {
-        VoucherModel voucher =
-        VoucherModel.fromJson(jsonDecode(result.body)["result"]);
-      } else if(result.statusCode == 401 || result.statusCode == 403){
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-        profileController.logout(arg);
-      }else {
-        print('ERRRRRRRRR');
-      }
-    });
+    //
+    // ApiClient.getAllVoucherOfCourt(courtID).then((result) {
+    //   if (result.statusCode == 200) {
+    //     VoucherModel voucher =
+    //     VoucherModel.fromJson(jsonDecode(result.body)["result"]);
+    //   } else if(result.statusCode == 401 || result.statusCode == 403){
+    //     ProfileController profileController = Get.find();
+    //     profileController.logout();
+    //   }else {
+    //     print('ERRRRRRRRR');
+    //   }
+    // });
+
   }
 
   void getBack() {
+    if(selectedVoucher.value == "-1"){
+      selectedVoucher.value = "";
+    }
     Map<String, String> backValue = {
       'id': selectedVoucher.value,
     };

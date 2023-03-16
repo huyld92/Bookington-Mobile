@@ -39,6 +39,7 @@ final Map<String, String> enUs = {
   'lbl_to': 'To',
   'lbl_total_hours': 'Total hours',
   'lbl_voucher': 'Vouchers',
+  'lbl_voucher_applied': 'Voucher has been applied',
   'lbl_confirm_payment': 'Confirm Payment',
   'lbl_setting_and_legal': 'Setting and legal',
   'lbl_report': 'Report',
