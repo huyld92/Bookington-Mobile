@@ -2,7 +2,7 @@ class ImageConstant {
 
   static String imgNotFound = 'assets/images/img_not_found.svg';
 
-  static String imgLogo = 'assets/images/img_bookinton_logo.svg';
+  static String imgLogo = 'assets/images/img_bookington_logo.svg';
 
   static String imgHideEye = 'assets/images/img_hide_eye.svg';
 
@@ -32,13 +32,13 @@ class ImageConstant {
 
   static String imgFavorite = 'assets/images/img_favorite.svg';
 
-  static String imgLocationBlue = 'img_location_blue.svg';
+  static String imgLocationBlue = 'assets/images/img_location_blue.svg';
 
   static String imgEdit = 'assets/images/img_edit.svg';
 
-  static String imgArrowright = 'assets/images/img_arrowright_.svg';
+  static String imgArrowRight = 'assets/images/img_arrow_right_.svg';
 
-  static String imgArrowleft = 'assets/images/img_arrowleft.svg';
+  static String imgArrowLeft = 'assets/images/img_arrow_left.svg';
 
   static String imgSetting = 'assets/images/img_setting.svg';
 
@@ -66,7 +66,7 @@ class ImageConstant {
 
   static String imgSuccess = 'assets/images/img_success.svg';
 
-  static String imgFailled = 'assets/images/img_failled.svg';
+  static String imgFailed = 'assets/images/img_failed.svg';
 
   static String imgCamera = 'assets/images/img_camera.svg';
 
@@ -76,7 +76,15 @@ class ImageConstant {
 
   static String imgPlus = 'assets/images/img_plus.svg';
 
+  static String imgBluePlus = 'assets/images/img_blue_plus.svg';
+
   static String imgReadAll = 'assets/images/img_read_all.svg';
+
+  static String imgResetPassword = 'assets/images/img_reset_password.svg';
+
+  static String imgShare = 'assets/images/img_share.svg';
+
+  static String imgDelete = 'assets/images/img_delete.svg';
 
 
 

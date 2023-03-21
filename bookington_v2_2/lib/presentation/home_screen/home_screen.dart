@@ -270,8 +270,8 @@ class HomeScreen extends GetWidget<HomeController> {
         return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
-      case BottomBarEnum.History:
-        return AppRoutes.historyScreen;
+      case BottomBarEnum.Bookings:
+        return AppRoutes.competitionScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:

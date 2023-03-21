@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/registration_verify_screen/models/verify_phone_number_model.dart';
+import 'package:bookington_v2_2/presentation/verify_screen/models/verify_phone_number_model.dart';
 
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -15,6 +16,8 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
 
   Rx<VerifyPhoneNumberModel> verifyPhoneNumberModelObj =
       VerifyPhoneNumberModel().obs;
+  RxBool isResetPassword = false.obs;
+
 
   Timer? _timer;
   int remainSeconds = 1;
@@ -35,7 +38,6 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
 
   @override
   void onReady(){
-    _startTimer(5);
     super.onReady();
   }
 
@@ -70,9 +72,15 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   }
 
   void loadData() {
-    if (PrefUtils.getString("rePhoneNumber") != null) {
-      phoneNumber = PrefUtils.getString("rePhoneNumber")!.substring(7);
+    Map<String, String> arg = Get.arguments;
+
+    if (arg != null) {
+      phoneNumber = arg["rePhoneNumber"]!.substring(7);
+      isResetPassword.value = arg["isResetPassword"] == "true"?true:false;
+
     }
+    _startTimer(90);
+
   }
 
   _startTimer(int seconds){

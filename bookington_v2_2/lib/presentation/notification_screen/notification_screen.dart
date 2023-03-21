@@ -24,7 +24,7 @@ class NotificationScreen extends GetWidget<NotificationController> {
             leading: AppbarImage(
               height: getVerticalSize(64),
               width: getVerticalSize(64),
-              svgPath: ImageConstant.imgArrowleft,
+              svgPath: ImageConstant.imgArrowLeft,
               margin: getMargin(left: 24),
               onTap: () {
                 controller.getBack();

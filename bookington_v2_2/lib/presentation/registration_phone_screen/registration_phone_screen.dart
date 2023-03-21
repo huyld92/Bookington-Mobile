@@ -105,8 +105,9 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                 suffixConstraints: BoxConstraints(
                                     maxHeight: getVerticalSize(28.00)),
                                 validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Please enter valid password";
+                                  if (value == null ||  (!isValidPassword(value,
+                                      isRequired: true))) {
+                                    return "The password at least 6 characters";
                                   }
                                   return null;
                                 },

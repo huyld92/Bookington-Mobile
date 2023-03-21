@@ -27,7 +27,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
           leading: AppbarImage(
             height: getSize(64.00),
             width: getSize(64.00),
-            svgPath: ImageConstant.imgArrowleft,
+            svgPath: ImageConstant.imgArrowLeft,
             margin: getMargin(left: 24),
             onTap: () {
               controller.getBack();

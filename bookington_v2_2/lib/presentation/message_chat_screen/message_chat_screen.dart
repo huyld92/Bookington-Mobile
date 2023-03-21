@@ -27,7 +27,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
             leading: AppbarImage(
               height: getSize(32.00),
               width: getSize(32.00),
-              svgPath: ImageConstant.imgArrowleft,
+              svgPath: ImageConstant.imgArrowLeft,
               margin: getMargin(left: 10),
               onTap: () {
                 controller.getBack();

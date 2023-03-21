@@ -20,6 +20,8 @@ class ColorConstant {
 
   static Color blue400 = fromHex('#42A5F5');
 
+  static Color blue300 = fromHex('#64B5F6');
+
   static Color blueGray50 = fromHex('#edeef1');
 
   static Color blue50 = fromHex('#d1e7fe');

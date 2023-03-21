@@ -2,7 +2,6 @@ import 'package:bookington_v2_2/core/app_export.dart';
   import 'package:flutter/material.dart';
 
 class HistoryController extends GetxController with GetSingleTickerProviderStateMixin,ScrollMixin {
-  // late TabController group125Controller =  Get.put(TabController(vsync: this, length: 3));
 
   final List<Tab> historyTabs = <Tab>[
     const Tab(text: 'UpComing'),
@@ -10,20 +9,20 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
     const Tab(text: 'Canceled'),
   ];
 
-  late TabController tabcontroller;
+  late TabController tabController;
 
   RxList listBooking = RxList.filled(10,"aaa");
 
   @override
   void onInit() {
-    tabcontroller = TabController(vsync: this, length: historyTabs.length);
-
+    tabController = TabController(vsync: this, length: historyTabs.length);
+    print(tabController.toString());
     super.onInit();
   }
 
   @override
   void onClose() {
-    tabcontroller.dispose();
+    tabController.dispose();
     super.onClose();
   }
 
@@ -32,14 +31,17 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
   }
 
   @override
-  Future<void> onEndScroll() {
-    // TODO: implement onEndScroll
-    throw UnimplementedError();
+  Future<void> onEndScroll() async {
+   // if(tabcontroller.)
   }
 
   @override
   Future<void> onTopScroll() {
     // TODO: implement onTopScroll
     throw UnimplementedError();
+  }
+
+  void getBack() {
+    Get.back();
   }
 }

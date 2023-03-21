@@ -2,7 +2,16 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-class MapUtil {
+class MapUtils {
+  MapUtils() {
+    getCurrentPosition();
+  }
+
+  Future<void> init() async {
+    getCurrentPosition();
+    print('CurrentPosition Initialized');
+  }
+
   static Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -29,19 +38,22 @@ class MapUtil {
     return true;
   }
 
-  static Future<void> getCurrentPosition() async {
+  static Future<Map<String, String?>> getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
-    if (!hasPermission) return;
+    Map<String, String?> positionAddress = {
+      "districtName": null,
+      "provinceName": null,
+    };
+    if (!hasPermission) {
+      return positionAddress;
+    }
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
-      print("location: ${position.toString()}");
-
-      Map<String, String?> positionAddress =
-          await _getAddressFromLatLng(position);
-      print(positionAddress.toString());
+      positionAddress = await _getAddressFromLatLng(position);
     }).catchError((e) {
       print(e);
     });
+    return positionAddress;
   }
 
   static Future<Map<String, String?>> _getAddressFromLatLng(

@@ -23,7 +23,7 @@ class ChooseCourtController extends GetxController with StateMixin {
   }
 
   void loadData() {
-    print('selectedTime" ${DateTime.now().timeZoneName}');
+    print('selectedTime" ${DateTime.now().toUtc()}');
     getAvailableSubCourt();
   }
 

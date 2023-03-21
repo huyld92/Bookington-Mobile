@@ -5,7 +5,7 @@ class AppUrl {
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
-  static const String smsEndPoint =  "$baseUrl/sms/sent/";
+  // static const String sendOtpEndPoint =  "$baseUrl/sms/sent/";
 
   static const String verifyEndPoint =  "$baseUrl/accounts/verify";
 

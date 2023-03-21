@@ -86,4 +86,8 @@ class LoginController extends GetxController with StateMixin {
       );
     }
   }
+
+  void forgotPassword() {
+    Get.toNamed(AppRoutes.phoneSendOtpScreen);
+  }
 }

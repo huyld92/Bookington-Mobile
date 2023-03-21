@@ -190,7 +190,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                         child: GestureDetector(
                                           child: Text('lbl_forgot_password'.tr),
                                           onTap: () {
-                                            print('Forgot password');
+                                            controller.forgotPassword();
                                           },
                                         ),
                                       ),

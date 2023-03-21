@@ -27,7 +27,7 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
             leading: AppbarImage(
               height: getVerticalSize(64),
               width: getVerticalSize(64),
-              svgPath: ImageConstant.imgArrowleft,
+              svgPath: ImageConstant.imgArrowLeft,
               margin: getMargin(left: 24),
               onTap: () {
                 controller.getBack();
@@ -45,13 +45,68 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Container(
+                      margin: getMargin(bottom: 20),
+                      child: Obx(
+                        () => controller.isResetPassword.value
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      width: 32,
+                                      height: 32,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: ColorConstant.gray300,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "1",
+                                          style: AppStyle.txtManropeBold14,
+                                        ),
+                                      )),
+                                  Container(
+                                      width: 32,
+                                      height: 32,
+                                      margin: getMargin(left: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: ColorConstant.blue300,
+                                      ),
+                                      child: Center(
+                                        child: Text("2",
+                                            style: AppStyle
+                                                .txtManropeBold14WhiteA700),
+                                      )),
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    margin: getMargin(left: 20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: ColorConstant.gray300,
+                                    ),
+                                    child: Center(
+                                      child: Text("3",
+                                          style: AppStyle.txtManropeBold14),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                      )),
+
                   Padding(
-                      padding: getPadding(left: 1, top: 34),
-                      child: Text("msg_verification".tr,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeExtraBold24
-                              .copyWith(height: getVerticalSize(0.95)))),
+                    padding: getPadding(left: 1, top: 34),
+                    child: Text(
+                      "msg_verification".tr,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: AppStyle.txtManropeExtraBold24.copyWith(
+                        height: getVerticalSize(0.95),
+                      ),
+                    ),
+                  ),
                   Container(
                       width: getHorizontalSize(305.00),
                       margin: getMargin(left: 1, top: 7),
@@ -156,42 +211,47 @@ class VerifyPhoneNumberScreen extends GetWidget<VerifyPhoneNumberController> {
                   Align(
                       alignment: Alignment.center,
                       child: Padding(
-                          padding: getPadding(left: 5, top: 15,right: 5),
+                          padding: getPadding(left: 5, top: 15, right: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Obx(
-                                    () => InkWell(
+                                () => InkWell(
                                   onTap: () {
                                     if (!controller.isResend.value) {
                                       controller.resendOtp();
                                     }
                                   },
-                                  child: Text("lbl_resend_code".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: controller.isResend.value
-                                          ? AppStyle.txtManropeSemiBold16Gray500
-                                              .copyWith(
-                                                  letterSpacing:
-                                                      getHorizontalSize(0.20),
-                                                  height: getVerticalSize(1.10))
-                                          : AppStyle.txtManropeSemiBold16Blue500
-                                              .copyWith(
-                                                  letterSpacing:
-                                                      getHorizontalSize(0.20),
-                                                  height:
-                                                      getVerticalSize(1.10),),),
-                                ),),
-                               Obx(
-                                () => Text(controller.time.value,
+                                  child: Text(
+                                    "lbl_resend_code".tr,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle.txtManropeSemiBold16Blue500
-                                        .copyWith(
+                                    style: controller.isResend.value
+                                        ? AppStyle.txtManropeSemiBold16Gray500
+                                            .copyWith(
+                                                letterSpacing:
+                                                    getHorizontalSize(0.20),
+                                                height: getVerticalSize(1.10))
+                                        : AppStyle.txtManropeSemiBold16Blue500
+                                            .copyWith(
                                             letterSpacing:
                                                 getHorizontalSize(0.20),
-                                            height: getVerticalSize(1.10),),),
+                                            height: getVerticalSize(1.10),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                              Obx(
+                                () => Text(
+                                  controller.time.value,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeSemiBold16Blue500
+                                      .copyWith(
+                                    letterSpacing: getHorizontalSize(0.20),
+                                    height: getVerticalSize(1.10),
+                                  ),
+                                ),
                               ),
                             ],
                           ))),

@@ -1,17 +1,25 @@
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/binding/%20favourite_court_binding.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/favourite_court_screen.dart';
-import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_court_binding.dart';
+import 'package:bookington_v2_2/presentation/change_password_screen/binding/change_password_binding.dart';
+import 'package:bookington_v2_2/presentation/change_password_screen/change_password_screen.dart';
+ import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_court_binding.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/choose_court_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/binding/choose_slot_binding.dart';
 import 'package:bookington_v2_2/presentation/choose_slot_screen/choose_slot_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_voucher_screen/binding/voucher_binding.dart';
 import 'package:bookington_v2_2/presentation/choose_voucher_screen/voucher_screen.dart';
+import 'package:bookington_v2_2/presentation/competition_details/binding/competition_details_binding.dart';
+import 'package:bookington_v2_2/presentation/competition_details/competition_details.dart';
+import 'package:bookington_v2_2/presentation/competition_screen/binding/competition_binding.dart';
+import 'package:bookington_v2_2/presentation/competition_screen/competition_screen.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/binding/court_details_binding.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/court_details_screen.dart';
+import 'package:bookington_v2_2/presentation/create_new_password_screen/binding/create_new_password_binding.dart';
+import 'package:bookington_v2_2/presentation/create_new_password_screen/create_new_password_screen.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:bookington_v2_2/presentation/history_screen/binding/history_binding.dart';
-import 'package:bookington_v2_2/presentation/history_screen/history_screen.dart';
+import 'package:bookington_v2_2/presentation/history_screen/history_booking_screen.dart';
 import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';
@@ -24,12 +32,14 @@ import 'package:bookington_v2_2/presentation/notification_screen/binding/notific
 import 'package:bookington_v2_2/presentation/notification_screen/notification_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
+import 'package:bookington_v2_2/presentation/phone_send_otp_screen/binding/phone_send_otp_binding.dart';
+import 'package:bookington_v2_2/presentation/phone_send_otp_screen/phone_send_otp_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
 import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
-import 'package:bookington_v2_2/presentation/registration_verify_screen/binding/verify_phone_number_binding.dart';
-import 'package:bookington_v2_2/presentation/registration_verify_screen/verify_phone_number_screen.dart';
+import 'package:bookington_v2_2/presentation/verify_screen/binding/verify_phone_number_binding.dart';
+import 'package:bookington_v2_2/presentation/verify_screen/verify_phone_number_screen.dart';
 import 'package:bookington_v2_2/presentation/search_page/binding/search_binding.dart';
 import 'package:bookington_v2_2/presentation/search_page/search_screen.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_binding.dart';
@@ -80,11 +90,21 @@ class AppRoutes {
 
   static const String messageChatScreen = '/message_chat_screen';
 
-  static const String historyScreen = '/history_screen';
+  static const String historyBookingScreen = '/history_booking_screen';
 
   static const String transactionScreen = '/transaction_screen';
 
   static const String walletScreen = '/wallet_screen';
+
+  static const String changePasswordScreen = '/change_password_screen';
+
+  static const String phoneSendOtpScreen = '/phone_send_otp_screen';
+
+  static const String createNewPasswordScreen = '/create_new_password_screen';
+
+  static const String competitionScreen = '/competition_screen';
+
+  static const String competitionDetailsScreen = '/competition_details_screen';
 
   static List<GetPage> pages = [
 
@@ -96,6 +116,16 @@ class AppRoutes {
         FavouriteCourtBinding(),
       ],
     ),
+
+    GetPage(
+      // name: initialRoute,
+      name: changePasswordScreen,
+      page: () =>  ChangePasswordScreen(),
+      bindings: [
+        ChangePasswordBinding(),
+      ],
+    ),
+
     GetPage(
       // name: initialRoute,
       name: chooseCourtScreen,
@@ -125,10 +155,37 @@ class AppRoutes {
 
     GetPage(
       // name: initialRoute,
+      name: competitionDetailsScreen,
+      page: () => const CompetitionDetailsScreen(),
+      bindings: [
+        CompetitionDetailsBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: competitionScreen,
+      page: () => const CompetitionScreen(),
+      bindings: [
+        CompetitionBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
       name: courtDetailsScreen,
       page: () => const CourtDetailsScreen(),
       bindings: [
         CourtDetailsBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: createNewPasswordScreen,
+      page: () => CreateNewPasswordScreen(),
+      bindings: [
+        CreateNewPasswordBinding(),
       ],
     ),
 
@@ -144,8 +201,8 @@ class AppRoutes {
 
     GetPage(
       // name: initialRoute,
-      name: historyScreen,
-      page: () => const HistoryScreen(),
+      name: historyBookingScreen,
+      page: () => const HistoryBookingScreen(),
       bindings: [
         HistoryBinding(),
       ],
@@ -204,6 +261,15 @@ class AppRoutes {
       page: () => const PaymentScreen(),
       bindings: [
         PaymentBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: phoneSendOtpScreen,
+      page: () => PhoneSendOtpScreen(),
+      bindings: [
+        PhoneSendOtpBinding(),
       ],
     ),
 

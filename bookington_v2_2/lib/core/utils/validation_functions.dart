@@ -13,9 +13,9 @@ bool isValidPassword(String? inputString, {bool isRequired = false}) {
   }
 
   if (inputString != null) {
-    const pattern =
-        r'^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$';
-
+    // const pattern =
+    //     r'^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$';
+    const pattern = r'^.{6,}$';
     final regExp = RegExp(pattern);
 
     isInputStringValid = regExp.hasMatch(inputString);

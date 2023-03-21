@@ -75,7 +75,6 @@ class SearchScreen extends GetWidget<SearchController> {
                                       FocusManager.instance.primaryFocus?.unfocus();
                                       controller.searchByName(1);
                                     },
-
                                   ),
                                 ),
                                 Row(
@@ -97,7 +96,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                             bottom: 5),
                                         margin: getMargin(all: 10),
                                         child: DropdownButton<ProvinceModel>(
-                                          underline: SizedBox(),
+                                          underline: const SizedBox(),
                                           isExpanded: true,
                                           items: controller.province.map(
                                               (ProvinceModel
@@ -201,8 +200,8 @@ String getCurrentRoute(BottomBarEnum type) {
       return AppRoutes.messagesScreen;
     case BottomBarEnum.Search:
       return AppRoutes.searchScreen;
-    case BottomBarEnum.History:
-      return AppRoutes.historyScreen;
+    case BottomBarEnum.Bookings:
+      return AppRoutes.competitionScreen;
     case BottomBarEnum.Profile:
       return AppRoutes.profileScreen;
     default:

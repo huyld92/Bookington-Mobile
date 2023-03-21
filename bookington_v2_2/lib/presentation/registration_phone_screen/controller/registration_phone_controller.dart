@@ -40,10 +40,10 @@ class RegistrationPhoneController extends GetxController {
     //       title: "send otp Failed!", middleText: error.toString());
     // }
 
-    PrefUtils.setString("rePhoneNumber", txtPhoneController.text);
+    Map<String,String> arg = {"rePhoneNumber":txtPhoneController.text,"isResetPassword":"false"};
     txtPasswordController.clear();
     txtPasswordConfirm.clear();
-    Get.toNamed(AppRoutes.verifyPhoneNumberScreen);
+    Get.toNamed(AppRoutes.verifyPhoneNumberScreen, arguments: arg);
   }
 
   loginScreen() {

@@ -42,8 +42,8 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> sendSms(String phone) async {
-    var url = Uri.parse(AppUrl.smsEndPoint + phone);
+  static Future<http.Response> sendOtp(String phone) async {
+    var url = Uri.parse(AppUrl.resendOtpEndPoint + phone);
 
     http.Response response = await http.post(url);
     return response;
@@ -81,6 +81,8 @@ class ApiClient extends GetConnect {
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
+    print('districtNameAPI:${searchValue.districtName}');
+
     var url = Uri.parse(
         "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     http.Response response = await http.get(url, headers: header);

@@ -25,8 +25,8 @@ class CustomBottomBar extends StatelessWidget {
     ),
     BottomMenuModel(
       icon: ImageConstant.imgHistory,
-      title: "lbl_history".tr,
-      type: BottomBarEnum.History,
+      title: "lbl_bookings".tr,
+      type: BottomBarEnum.Bookings,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUserProfile,
@@ -157,7 +157,7 @@ enum BottomBarEnum {
   Home,
   Message,
   Search,
-  History,
+  Bookings,
   Profile,
 }
 

@@ -43,6 +43,15 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle txtManropeBold14WhiteA700 = TextStyle(
+    color: ColorConstant.whiteA700,
+    fontSize: getFontSize(
+      14,
+    ),
+    fontFamily: 'Manrope',
+    fontWeight: FontWeight.w700,
+  );
+
 
   static TextStyle txtManropeBold14Blue500 = TextStyle(
     color: ColorConstant.blue500,

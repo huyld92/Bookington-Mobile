@@ -22,7 +22,7 @@ class WalletScreen extends GetWidget<WalletController> {
           leading: AppbarImage(
               height: getSize(64),
               width: getSize(64),
-              svgPath: ImageConstant.imgArrowleft,
+              svgPath: ImageConstant.imgArrowLeft,
               margin: getMargin(left: 16, top: 12, bottom: 17),
               onTap: () {
                 controller.getBack();

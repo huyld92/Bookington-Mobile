@@ -121,7 +121,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                     style: AppStyle.txtManropeSemiBold14)),
                             const Spacer(),
                             CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
+                                svgPath: ImageConstant.imgArrowRight,
                                 height: getSize(20.00),
                                 width: getSize(20.00),
                                 margin: getMargin(top: 10))
@@ -155,7 +155,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 style: AppStyle.txtManropeSemiBold14)),
                         const Spacer(),
                         CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
+                            svgPath: ImageConstant.imgArrowRight,
                             height: getSize(20.00),
                             width: getSize(20.00),
                             margin: getMargin(top: 10))
@@ -191,7 +191,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                     style: AppStyle.txtManropeSemiBold14)),
                             const Spacer(),
                             CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
+                                svgPath: ImageConstant.imgArrowRight,
                                 height: getSize(20.00),
                                 width: getSize(20.00),
                                 margin: getMargin(top: 10))
@@ -228,7 +228,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                   style: AppStyle.txtManropeSemiBold14)),
                           const Spacer(),
                           CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
+                            svgPath: ImageConstant.imgArrowRight,
                             height: getSize(20.00),
                             width: getSize(20.00),
                             margin: getMargin(top: 10, bottom: 10),
@@ -264,7 +264,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 style: AppStyle.txtManropeSemiBold14)),
                         const Spacer(),
                         CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
+                            svgPath: ImageConstant.imgArrowRight,
                             height: getSize(20.00),
                             width: getSize(20.00),
                             margin: getMargin(top: 10)),
@@ -309,7 +309,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                     style: AppStyle.txtManropeSemiBold14)),
                             const Spacer(),
                             CustomImageView(
-                                svgPath: ImageConstant.imgArrowright,
+                                svgPath: ImageConstant.imgArrowRight,
                                 height: getSize(20.00),
                                 width: getSize(20.00),
                                 margin: getMargin(top: 10, bottom: 10))
@@ -337,7 +337,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 style: AppStyle.txtManropeSemiBold14)),
                         const Spacer(),
                         CustomImageView(
-                            svgPath: ImageConstant.imgArrowright,
+                            svgPath: ImageConstant.imgArrowRight,
                             height: getSize(20.00),
                             width: getSize(20.00),
                             margin: getMargin(top: 10, bottom: 10))
@@ -375,7 +375,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                   style: AppStyle.txtManropeSemiBold14Red500)),
                           const Spacer(),
                           CustomImageView(
-                              svgPath: ImageConstant.imgArrowright,
+                              svgPath: ImageConstant.imgArrowRight,
                               height: getSize(20.00),
                               width: getSize(20.00),
                               margin: getMargin(top: 10, bottom: 10))
@@ -408,8 +408,8 @@ class ProfileScreen extends GetWidget<ProfileController> {
         return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
-      case BottomBarEnum.History:
-        return AppRoutes.historyScreen;
+      case BottomBarEnum.Bookings:
+        return AppRoutes.competitionScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:

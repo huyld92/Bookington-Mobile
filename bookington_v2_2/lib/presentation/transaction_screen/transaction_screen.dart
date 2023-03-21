@@ -15,8 +15,6 @@ class TransactionScreen extends GetWidget<TransactionController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      bottom: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -25,7 +23,7 @@ class TransactionScreen extends GetWidget<TransactionController> {
             leading: AppbarImage(
               height: getSize(64.00),
               width: getSize(64.00),
-              svgPath: ImageConstant.imgArrowleft,
+              svgPath: ImageConstant.imgArrowLeft,
               margin: getMargin(left: 24),
               onTap: () {
                 controller.getBack();

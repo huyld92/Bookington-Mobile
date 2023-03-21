@@ -91,7 +91,16 @@ class BorderRadiusStyle {
   static Border borderBlack2 = Border.all(color: Colors.black, width: 2);
 
   static Border border2Gray500 =
-      Border.all(color: ColorConstant.gray500, width: 2);
+      Border.all(color: ColorConstant.gray500, width: 2 );
+
+  static Border border1Gray300 =
+  Border.all(color: ColorConstant.gray300, width: 1 );
+
+  static Border border2Gray500LR =
+  Border(
+    left: BorderSide(color: ColorConstant.gray500, width: 2),
+     right: BorderSide(color: ColorConstant.gray500, width: 2),
+  );
 
   static Border borderB2Gray500 =
       Border(bottom: BorderSide(color: ColorConstant.gray500, width: 2));
