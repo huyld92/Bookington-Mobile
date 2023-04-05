@@ -1,10 +1,13 @@
+import 'package:intl/intl.dart';
+
 class BookingModel {
+
   String _id;
   String _refSlot;
   String _refOrder;
   String _bookBy;
-  String _bookAt;
-  String _playDate;
+  DateTime _bookAt;
+  DateTime _playDate;
   double _price;
 
   BookingModel(this._id, this._refSlot, this._refOrder, this._bookBy,
@@ -34,15 +37,15 @@ class BookingModel {
     _bookBy = value;
   }
 
-  String get bookAt => _bookAt;
+  DateTime get bookAt => _bookAt;
 
-  set bookAt(String value) {
+  set bookAt(DateTime value) {
     _bookAt = value;
   }
 
-  String get playDate => _playDate;
+  DateTime get playDate => _playDate;
 
-  set playDate(String value) {
+  set playDate(DateTime value) {
     _playDate = value;
   }
 
@@ -52,15 +55,23 @@ class BookingModel {
     _price = value;
   }
 
-  factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
+  factory BookingModel.fromJson(Map<String, dynamic> json) {
+    var dateValue = DateFormat("yyyy-MM-dd")
+        .parseUTC(json["playDate"])
+        .toLocal()
+        .toString();
+    DateTime playDate = DateFormat("yyyy-MM-dd").parse(dateValue);
+
+    return BookingModel(
         json["id"],
         json["refSlot"],
         json["refOrder"],
         json["bookBy"],
-        json["bookAt"],
-        json["playDate"],
+        DateFormat("dd-MM-yyyy").parse(json["bookAt"]),
+      playDate,
         json["price"]*1.0,
       );
+  }
 
   static List<BookingModel> listFromJson(list) =>
       List<BookingModel>.from(list.map((x) => BookingModel.fromJson(x)));

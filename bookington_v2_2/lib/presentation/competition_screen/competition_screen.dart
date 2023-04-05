@@ -4,9 +4,9 @@ import 'package:bookington_v2_2/data/models/team_model.dart';
 import 'package:bookington_v2_2/presentation/competition_screen/controller/competition_controller.dart';
 import 'package:bookington_v2_2/presentation/competition_screen/widgets/competition_widget.dart';
 import 'package:bookington_v2_2/presentation/competition_screen/widgets/team_widget.dart';
- import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class CompetitionScreen extends GetWidget<CompetitionController> {
   const CompetitionScreen({super.key});
@@ -31,6 +31,7 @@ class CompetitionScreen extends GetWidget<CompetitionController> {
         body: TabBarView(
           controller: controller.tabController,
           children: [
+            // Competition tab
             Container(
               padding: getPadding(all: 20),
               height: 500,
@@ -49,6 +50,7 @@ class CompetitionScreen extends GetWidget<CompetitionController> {
                     ),
                   ]),
             ),
+            //Team Tab
             Container(
               padding: getPadding(all: 20),
               height: 500,
@@ -68,38 +70,15 @@ class CompetitionScreen extends GetWidget<CompetitionController> {
             ),
           ],
         ),
-
-        bottomNavigationBar: CustomBottomBar(
-          onChanged: (BottomBarEnum type) {
-            Get.toNamed(getCurrentRoute(type));
-          },
-        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-controller.createButton();
+            controller.createButton();
           },
-
-          child: CustomImageView(svgPath: ImageConstant.imgBluePlus,),
+          child: CustomImageView(
+            svgPath: ImageConstant.imgBluePlus,
+          ),
         ),
       ),
     );
-  }
-}
-
-///Handling route based on bottom click actions
-String getCurrentRoute(BottomBarEnum type) {
-  switch (type) {
-    case BottomBarEnum.Home:
-      return AppRoutes.homeScreen;
-    case BottomBarEnum.Message:
-      return AppRoutes.messagesScreen;
-    case BottomBarEnum.Search:
-      return AppRoutes.searchScreen;
-    case BottomBarEnum.Bookings:
-      return AppRoutes.competitionScreen;
-    case BottomBarEnum.Profile:
-      return AppRoutes.profileScreen;
-    default:
-      return "/";
   }
 }

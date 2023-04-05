@@ -30,13 +30,18 @@ class LoginScreen extends GetWidget<LoginController> {
                 width: size.width,
                 height: size.height - 22,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: const Alignment(-0.2, 0.46),
-                        end: const Alignment(0.72, 0.86),
-                        colors: [
-                      ColorConstant.blue500,
-                      ColorConstant.blue400
-                    ])),
+                  // gradient: LinearGradient(
+                  //   begin: const Alignment(-0.2, 0.46),
+                  //   end: const Alignment(0.72, 0.86),
+                  //   colors: [ColorConstant.blue500, ColorConstant.blue400],
+                  // ),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      ImageConstant.imgBadminton,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -44,7 +49,7 @@ class LoginScreen extends GetWidget<LoginController> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            height: 320,
+                            height: getSize(320),
                             child: Center(
                                 child: Text(
                               "Bookington",
@@ -52,7 +57,7 @@ class LoginScreen extends GetWidget<LoginController> {
                             )),
                           ),
                           Container(
-                            height: 455,
+                            height: getSize(450),
                             padding: getPadding(
                                 left: 20, top: 31, right: 20, bottom: 31),
                             decoration: AppDecoration.fillWhiteA700.copyWith(
@@ -72,7 +77,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                           style: AppStyle.txtManropeBold24),
                                     ),
                                     SizedBox(
-                                        height: 80,
+                                        height: getSize(80),
                                         width: getHorizontalSize(358.00),
                                         // BorderRadiusStyle.roundedBorder8),
                                         child: Column(
@@ -111,7 +116,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                               )
                                             ])),
                                     SizedBox(
-                                      height: 80,
+                                      height: getSize(80),
                                       width: getHorizontalSize(358.00),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,

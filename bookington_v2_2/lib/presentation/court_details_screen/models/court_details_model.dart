@@ -8,6 +8,7 @@ import 'listrectangle4224_item_model.dart';
 class CourtDetailsModel {
   late String _id;
   late String _name;
+  late String _ownerPhoneNumber;
   late double _ratingStar;
   late String _districtName;
   late String _address;
@@ -19,6 +20,7 @@ class CourtDetailsModel {
   CourtDetailsModel(
       this._id,
       this._name,
+      this._ownerPhoneNumber,
       this._ratingStar,
       this._districtName,
       this._address,
@@ -30,6 +32,7 @@ class CourtDetailsModel {
   CourtDetailsModel.empty(){
     _id="";
     _name="";
+    _ownerPhoneNumber="";
     _ratingStar= 0.0;
     _districtName="";
     _address="";
@@ -43,12 +46,18 @@ class CourtDetailsModel {
 
   set id(String value) {
     _id = value;
-  } // CourtImage courtPicture;
+  }
 
   String get name => _name;
 
   set name(String value) {
     _name = value;
+  }
+
+  String get ownerPhoneNumber => _ownerPhoneNumber;
+
+  set ownerPhoneNumber(String value) {
+    _ownerPhoneNumber = value;
   }
 
   double get ratingStar => _ratingStar;
@@ -96,6 +105,7 @@ class CourtDetailsModel {
   factory CourtDetailsModel.fromJson(Map<String, dynamic> json) => CourtDetailsModel(
     json["id"],
     json["name"],
+    json["ownerId"],
     json["ratingStar"].toDouble(),
     json["districtName"],
     json["provinceName"],

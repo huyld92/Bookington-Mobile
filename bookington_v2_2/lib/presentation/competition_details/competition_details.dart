@@ -1,5 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/matches_model.dart';
+import 'package:bookington_v2_2/data/models/match_model.dart';
 import 'package:bookington_v2_2/presentation/competition_details/controller/competition_details_controller.dart';
 import 'package:bookington_v2_2/presentation/competition_details/widgets/matches_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
@@ -62,9 +62,9 @@ class CompetitionDetailsScreen extends GetWidget<CompetitionDetailsController> {
                               itemCount: controller.listMatches.length,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
-                                MatchesModel model =
+                                MatchModel model =
                                 controller.listMatches[index];
-                                return MatchesWidget(model);
+                                return MatchWidget(model);
                               }),
                         ),
                       ]),

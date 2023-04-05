@@ -5,7 +5,9 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
+import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'widgets/slot_item_widget.dart';
 
@@ -55,16 +57,16 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                               children: [
                                 CustomImageView(
                                     svgPath: ImageConstant.imgCalendar,
-                                    height: getVerticalSize(35.00),
+                                    height: getVerticalSize(32.00),
                                     width: getHorizontalSize(32.00),
                                     margin: getMargin(bottom: 2)),
                                 Padding(
-                                  padding: getPadding(top: 8, left: 21),
+                                  padding: getPadding(top: 5, left: 21),
                                   child: Obx(() => Text(
-                                      controller.playDate.value,
+                                      DateFormat("dd-MM-yyyy").format(controller.playDate.value),
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold20)),
+                                      style: AppStyle.txtManropeBold18)),
                                 )
                               ])),
                       Padding(
@@ -72,17 +74,17 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                           child: Row(children: [
                             CustomImageView(
                                 svgPath: ImageConstant.imgClock,
-                                height: getSize(40.00),
-                                width: getSize(40.00)),
+                                height: getSize(32.00),
+                                width: getSize(32.00)),
                             Padding(
                                 padding:
-                                    getPadding(left: 21, top: 8, bottom: 6),
+                                    getPadding(left: 21, top: 5, bottom: 6),
                                 child: Obx(
                                   () => Text(controller.courtName.value,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold20),
-                                ))
+                                      style: AppStyle.txtManropeBold18,
+                                ))),
                           ]))
                     ])),
           ),
@@ -115,7 +117,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     itemBuilder: (BuildContext ctx, index) {
                       return SlotItemWidget(index);
                     }),),
-                onLoading: Dialog(
+                onLoading:
+                 Dialog(
                   backgroundColor: Colors.transparent,
                   child: Container(
                     height: 150,
@@ -139,8 +142,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     ),
                   ),
                 ),
-                onEmpty: Dialog(
-                  child: Text("EMPTY"),
+                onEmpty: const Dialog(
+                  child: Center(child: Text("EMPTY")),
                 )
             ),
           ),
@@ -152,8 +155,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
               children: [
                 Container(
                   margin: getMargin(left: 5, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.blue500,
                 ),
                 Text(
@@ -162,8 +165,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                 ),
                 Container(
                   margin: getMargin(left: 10, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.black900,
                 ),
                 Text(
@@ -172,8 +175,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                 ),
                 Container(
                   margin: getMargin(left: 10, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.gray500,
                 ),
                 Text(

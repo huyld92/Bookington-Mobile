@@ -19,41 +19,48 @@ class CourtDetailsController extends GetxController with StateMixin{
 
   loadData() {
     try {
-      change(null, status: RxStatus.loading());
-
     Map<String, String> arg = Get.arguments;
       if (arg["courtId"] != null) {
         getCourtDetails(arg["courtId"]!);
         print('courtId: ${arg["courtId"]}');
       }
-      change(null, status: RxStatus.success());
 
     } on Exception {
       getBack();
     }
   }
 
-  getCourtDetails(String id) {
-    ApiClient.getCourtDetails(id).then((result) {
-      print('status courtdetails: ' + result.statusCode.toString());
+  getCourtDetails(String id) async {
+    change(null, status: RxStatus.loading());
 
-      if (result.statusCode == 200) {
-        CourtModel court =
-            CourtModel.fromJson(jsonDecode(result.body)["result"]);
-        courtDetailsModelObj.value.id = court.id;
-        courtDetailsModelObj.value.name = court.name;
-        courtDetailsModelObj.value.districtName = court.districtId;
-        courtDetailsModelObj.value.address = court.address;
-        courtDetailsModelObj.value.openAt = court.openAt;
-        courtDetailsModelObj.value.closeAt = court.closeAt;
-      } else if(result.statusCode == 401 || result.statusCode == 401){
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-        profileController.logout(arg);
-      }else {
-        print('ERRRRRRRRR');
-      }
-    });
+    try {
+      await ApiClient.getCourtDetails(id).then((result) {
+        print('status court details: ${result.statusCode}');
+
+        if (result.statusCode == 200) {
+          CourtModel court =
+              CourtModel.fromJson(jsonDecode(result.body)["result"]);
+          courtDetailsModelObj.value.id = court.id;
+          courtDetailsModelObj.value.name = court.name;
+          courtDetailsModelObj.value.ownerPhoneNumber = "0907077707";
+          courtDetailsModelObj.value.districtName = court.districtId;
+          courtDetailsModelObj.value.address = court.address;
+          courtDetailsModelObj.value.openAt = court.openAt;
+          courtDetailsModelObj.value.closeAt = court.closeAt;
+         } else if(result.statusCode == 401 || result.statusCode == 403){
+          ProfileController profileController = Get.find();
+          Map<String, bool> arg = {"timeOut": true};
+          profileController.logout(arg);
+        } else {
+          print('ERRRRRRRRR');
+        }
+      });
+    } finally {
+      Future.delayed(const Duration(milliseconds: 1000), () {
+         change(null, status: RxStatus.success());
+      });
+    }
+
   }
 
   void chooseCourtScreen() {
@@ -64,4 +71,8 @@ class CourtDetailsController extends GetxController with StateMixin{
   getBack() {
     Get.back();
    }
+
+  void favorite() {
+
+  }
 }

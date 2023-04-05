@@ -9,7 +9,7 @@ class CourtModel {
   DateTime _openAt;
   DateTime _closeAt;
 
-  CourtModel(this._id, this._ownerId, this._districtName, this._name,
+  CourtModel(this._id, this._name, this._ownerId, this._districtName,
       this._address, this._openAt, this._closeAt);
 
   DateTime get closeAt => _closeAt;
@@ -56,9 +56,9 @@ class CourtModel {
 
   factory CourtModel.fromJson(Map<String, dynamic> json) => CourtModel(
         json["id"],
+        json["name"],
         json["ownerId"],
         json["districtName"],
-        json["name"],
         json["address"],
         DateFormat("hh:mm:ss").parse(json["openAt"]),
         DateFormat("hh:mm:ss").parse(json["closeAt"]),

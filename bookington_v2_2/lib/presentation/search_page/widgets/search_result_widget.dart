@@ -1,5 +1,6 @@
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/widgets/search_empty_widget.dart';
+import 'package:bookington_v2_2/widgets/loading_widget.dart';
 
 import '../controller/search_controller.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class SearchResultWidget extends StatelessWidget {
                         28.00,
                       ),
                       onTap: () {
-                        print('Filter');
+                        controller.filterDialog();
                       },
                     ),
                   ],
@@ -78,23 +79,7 @@ class SearchResultWidget extends StatelessWidget {
           ),
         ),
       ),
-
-      onLoading: Padding(
-        padding: getPadding(top: 50),
-        child: Center(
-            child: Column(
-          children: [
-            Padding(
-              padding: getPadding(right: 10),
-              child: const CircularProgressIndicator(),
-            ),
-            Padding(
-              padding: getPadding(top: 20),
-              child: Text("loading....", style: AppStyle.txtManropeSemiBold16),
-            ),
-          ],
-        )),
-      ),
+      onLoading: const LoadingWidget(),
       // Center(child: CircularProgressIndicator()),
       onEmpty: SearchEmptyWidget(),
     );

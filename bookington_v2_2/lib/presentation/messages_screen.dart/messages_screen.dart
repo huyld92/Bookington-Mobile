@@ -40,7 +40,7 @@ class MessagesScreen extends GetWidget<MessagesController> {
                     .searchController,
                 focusNode: FocusNode(),
                 decoration: InputDecoration(
-                  hintText: 'lbl_search_for_court'.tr,
+                  hintText: 'Search'.tr,
                   prefixIcon: const Icon(Icons.search),
                   fillColor: ColorConstant
                       .whiteA700,
@@ -104,8 +104,8 @@ class MessagesScreen extends GetWidget<MessagesController> {
         return AppRoutes.messageChatScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
-      case BottomBarEnum.Bookings:
-        return AppRoutes.competitionScreen;
+      case BottomBarEnum.Forum:
+        return AppRoutes.forumScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:

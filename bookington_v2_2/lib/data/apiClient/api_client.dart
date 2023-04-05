@@ -222,15 +222,14 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> createNewBooking(
-      List<Map<String, String>> listSlotBooking) async {
-    var url = Uri.parse(AppUrl.createNewBookingEndPoint);
+      List<Map<String, String>> listSlotBooking,String courtId) async {
+    var url = Uri.parse("${AppUrl.createNewBookingEndPoint}?courtId=$courtId");
     String? sysToken = PrefUtils.getAccessToken();
 
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
       'Content-Type': 'application/json',
     };
-
     http.Response response = await http.post(url,
         body: jsonEncode(listSlotBooking), headers: headers);
 
@@ -274,6 +273,42 @@ class ApiClient extends GetConnect {
     };
 
     http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> changePassword(String userId, String oldPassword, String newPassword, String confirmPassword) async {
+    var url = Uri.parse(AppUrl.changePasswordEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    Map<String, String> body = {
+      "userId": userId,
+      'oldPassword': oldPassword,
+      'newPassword': newPassword,
+      'confirmPassword': confirmPassword,
+    };
+
+    http.Response response = await http.put(url, headers: headers, body: body);
+
+    return response;
+  }
+
+  static Future<http.Response> checkout(String voucherCode, String orderId) async {
+    var url = Uri.parse(AppUrl.checkoutEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    Map<String, String> body = {
+      "voucherCode": voucherCode,
+      'orderId': orderId,
+    };
+
+    http.Response response = await http.post(url, headers: headers, body: jsonEncode(body));
 
     return response;
   }

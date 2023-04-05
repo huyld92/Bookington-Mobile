@@ -1,7 +1,7 @@
 
 
 
-class MatchesModel{
+class MatchModel{
 
   String id;
   String  host_by;
@@ -11,7 +11,7 @@ class MatchesModel{
   String matchCode;
   bool isPaymentSplitted;
 
-  MatchesModel(
+  MatchModel(
       this.id,
       this.host_by,
       this.ref_booking,

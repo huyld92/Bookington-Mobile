@@ -15,6 +15,7 @@ class ChooseCourtController extends GetxController with StateMixin {
   RxString selectedIndex = "".obs;
 
   RxList<ChooseCourtModel> subCourtList = <ChooseCourtModel>[].obs;
+  String courtId = "";
 
   @override
   void onInit() {
@@ -31,7 +32,6 @@ class ChooseCourtController extends GetxController with StateMixin {
     try {
       change(null, status: RxStatus.loading());
 
-      String courtId = "";
       Map<String, String> arg = Get.arguments;
       if (arg["courtId"] != null) {
         courtId = arg["courtId"]!;
@@ -68,8 +68,8 @@ class ChooseCourtController extends GetxController with StateMixin {
   }
 
   void selectCourt(int index) {
-    for (ChooseCourtModel slot in subCourtList) {
-      slot.isSelected = false;
+    for (ChooseCourtModel subCourt in subCourtList) {
+      subCourt.isSelected = false;
     }
     selectedIndex.value = index.toString();
     subCourtList[index].isSelected = true;
@@ -96,21 +96,15 @@ class ChooseCourtController extends GetxController with StateMixin {
       DateTime now = DateTime.now();
       DateTime date = DateTime(now.year, now.month, now.day);
       if (pickedDate.isAtSameMomentAs(date)) {
-        if (now.isAfter(selectedTime.value)) {
-          print('after');
-          Get.defaultDialog(
-              title: "Error pick date",
-              content: Text("Cannot select previous time"));
-        } else {
-          print('else after');
-          selectedDate.value = pickedDate;
-          getAvailableSubCourt();
-        }
-      } else {
-        print('else');
         selectedDate.value = pickedDate;
+        selectedTime.value = now;
+        getAvailableSubCourt();
+      } else {
+        selectedDate.value = pickedDate;
+        selectedTime.value = DateFormat("KK:mm").parse("00:00");
         getAvailableSubCourt();
       }
+      selectedIndex.value = "";
     }
   }
 
@@ -121,24 +115,28 @@ class ChooseCourtController extends GetxController with StateMixin {
       if (now.isAfter(time)) {
         Get.defaultDialog(
             title: "Error pick time",
-            content: Text("Cannot select previous time"));
+            content: Text("msg_cannot_select_previous_time".tr));
       } else {
         selectedTime.value = time;
         getAvailableSubCourt();
       }
     } else {
       selectedTime.value = time;
+
       getAvailableSubCourt();
     }
+    selectedIndex.value = "";
+
   }
 
   void nextChooseSlot() {
     if (selectedIndex.isNotEmpty) {
       int index = int.parse(selectedIndex.value);
       Map<String, String> arg = {
-        "id": subCourtList[index].id,
+        "courtId": courtId,
+        "subCourtId": subCourtList[index].id,
         "name": subCourtList[index].name,
-        "playDate": DateFormat('yyyy-MM-dd').format(selectedDate.value),
+        "playDate": DateFormat('dd-MM-yyyy').format(selectedDate.value),
       };
       Get.toNamed(AppRoutes.chooseSlotScreen, arguments: arg);
     }

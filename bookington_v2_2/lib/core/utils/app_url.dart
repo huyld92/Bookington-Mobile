@@ -1,7 +1,8 @@
 
 class AppUrl {
-  // static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
-  static const String baseUrl = "https://10.0.2.2:7179";
+  static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
+  // static const String baseUrl = "https://10.0.2.2:7179";
+  // static const String baseUrl = "https://192.168.1.127:7179";
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
@@ -10,6 +11,8 @@ class AppUrl {
   static const String verifyEndPoint =  "$baseUrl/accounts/verify";
 
   static const String resendOtpEndPoint =  "$baseUrl/auth/resend-otp";
+
+  static const String changePasswordEndPoint =  "$baseUrl/accounts/change-password";
 
   static const String signUpEndPoint=  "$baseUrl/accounts/signUp";
 
@@ -42,5 +45,7 @@ class AppUrl {
   static const String getAllVoucherOfCourtEndPoint=  "$baseUrl/vouchers/court";
 
   static const String getBalanceEndPoint=  "$baseUrl/userbalances/self";
+
+  static const String checkoutEndPoint=  "$baseUrl/orders/checkout";
 
 }

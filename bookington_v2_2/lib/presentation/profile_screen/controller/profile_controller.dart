@@ -6,7 +6,7 @@ import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/models/profile_model.dart';
 import 'package:intl/intl.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends GetxController with StateMixin {
   late Rx<ProfileModel> profileModelObj;
   RxString balance = "".obs;
 
@@ -16,42 +16,47 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  void loadProfile() {
+  Future<void> loadProfile() async {
     if (PrefUtils.getAccessToken() == null) {
       Get.toNamed(AppRoutes.loginScreen);
     } else {
       String? fullName = PrefUtils.getString("fullName");
       String? phoneNumber = PrefUtils.getString("phoneNumber");
       profileModelObj = ProfileModel(fullName!, phoneNumber!).obs;
-      getBalance();
-      // getBalance();
-    }
+      await getBalance();
+     }
   }
 
   Future<void> getBalance() async {
     try {
-      ApiClient.getBalance().then(
+      change(null, status: RxStatus.loading());
+
+      await ApiClient.getBalance().then(
         (result) {
-          print('statusCode: ${result.statusCode}');
+          print('getBalance statusCode: ${result.statusCode}');
           if (result.statusCode == 200) {
             var jsonResult = jsonDecode(result.body);
             final formatCurrency = NumberFormat("#,###");
             balance.value =
-                formatCurrency.format(jsonResult["result"]["balance"]);
-            print('balance:$balance');
+                formatCurrency.format(jsonResult["result"]["balance"] ?? 0.0);
+           } else if (result.statusCode == 401 || result.statusCode == 403) {
+            ProfileController profileController = Get.find();
+            Map<String, bool> arg = {"timeOut": true};
+            profileController.logout(arg);
           } else {
-            print(result.headers);
+            print("getBalance:${result.headers}");
           }
         },
       );
     } catch (e) {
       print(e.toString());
+    } finally{
+      change(null, status: RxStatus.success());
     }
   }
 
   Future<void> logout(Map<String, bool>? arg) async {
     PrefUtils.clearPreferencesData();
-    print('logout');
 
     if (arg != null) {
       Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
@@ -92,38 +97,24 @@ class ProfileController extends GetxController {
     Get.toNamed(AppRoutes.walletScreen);
   }
 
-  Future<void> test() async {}
-
-  Future<void> initPlatformState() async {
-//     String? sysToken = PrefUtils.getAccessToken();
-//     Map<String, String> headers = {"Authorization": "Bearer $sysToken","accept": "text/plain"};
-//     SignalR signalR = SignalR('https://10.0.2.2:5000',
-//         "/notificationHub",
-//         hubMethods: ["ReceiveNotifications"],
-//         headers: headers,
-//          statusChangeCallback: (status) => print("status: $status"),
-//         hubCallback: (methodName, message) =>
-//             print('MethodName = $methodName, Message = $message') );
-//     print(signalR.baseUrl + signalR.hubName);
-// signalR.reconnect();
-//     await signalR.connect();
+  void changePassword() {
+    Get.toNamed(AppRoutes.changePasswordScreen);
   }
 
-// void test() {
-//   String userID = "e53ae5d8-6ae1-403f-b0f7-e342db54026b";
-//   int pageNumber=1;
-//   int maxPageSize=10;
-//    ApiClient.queryNotifications(userID,pageNumber,maxPageSize)
-//       .then((result) {
-//     print('statusCode: ${result.statusCode}');
-//     if (result.statusCode == 200) {
-//       var jsonResult = jsonDecode(result.body);
-//       List<NotificationModel> listNotify =
-//       NotificationModel.listFromJson(jsonResult["result"]);
-//       print('BookingModel: $listNotify');
-//     } else {
-//       print(result.headers);
-//     }
-//   });
-//  }
+  void bookingHistory() {
+    Get.toNamed(AppRoutes.historyBookingScreen);
+  }
+
+  void myMatch() {
+    Get.toNamed(AppRoutes.myMatchScreen);
+  }
+
+  void changeAccount() {
+    Get.toNamed(AppRoutes.changeAccountScreen);
+  }
+
+  void reportScreen() {
+    Get.toNamed(AppRoutes.reportScreen);
+
+  }
 }

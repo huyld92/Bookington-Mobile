@@ -74,11 +74,9 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
   void loadData() {
     Map<String, String> arg = Get.arguments;
 
-    if (arg != null) {
       phoneNumber = arg["rePhoneNumber"]!.substring(7);
       isResetPassword.value = arg["isResetPassword"] == "true"?true:false;
 
-    }
     _startTimer(90);
 
   }
@@ -90,7 +88,6 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
     _timer = Timer.periodic(duration, (Timer timer) {
       if(remainSeconds==0){
         time.value = '00.00';
-        print('renaub 0');
         isResend.value = false;
         timer.cancel();
       }else{
@@ -110,8 +107,6 @@ class VerifyPhoneNumberController extends GetxController with CodeAutoFill {
     _startTimer(90);
      try {
       String? phoneNumber = PrefUtils.getString("rePhoneNumber");
-      print("cootp: " + otpController.value.text);
-
       var response =
           await ApiClient.resendOtp(phoneNumber!);
 

@@ -7,7 +7,6 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
 // ignore_for_file: must_be_immutable
 class PaymentSuccessfulDialog extends StatelessWidget {
   PaymentSuccessfulDialog(this.controller, {super.key});
-
   PaymentController controller;
 
   @override
@@ -26,10 +25,10 @@ class PaymentSuccessfulDialog extends StatelessWidget {
           CustomImageView(
             svgPath: ImageConstant.imgSuccess,
             height: getVerticalSize(
-              180.00,
+              150.00,
             ),
             width: getHorizontalSize(
-              185.00,
+              150.00,
             ),
             margin: getMargin(
               top: 8,
@@ -40,57 +39,61 @@ class PaymentSuccessfulDialog extends StatelessWidget {
               top: 34,
             ),
             child: Text(
-              "lbl_payment_succesfull".tr,
+              "lbl_payment_successful".tr,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.left,
-              style: AppStyle.txtManropeBold22Blue500,
+              style: AppStyle.txtManropeBold20Blue500,
             ),
           ),
           //msg successful
-          // Container(
-          //   width: getHorizontalSize(
-          //     263.00,
-          //   ),
-          //   margin: getMargin(
-          //     top: 14,
-          //   ),
-          //   child: Text(
-          //     "msg_successfully".tr,
-          //     maxLines: null,
-          //     textAlign: TextAlign.center,
-          //     style: AppStyle.txtManropeRegular18.copyWith(
-          //       letterSpacing: getHorizontalSize(
-          //         0.20,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          Row( mainAxisAlignment: MainAxisAlignment.center,
+          Container(
+            width: getHorizontalSize(
+              263.00,
+            ),
+            margin: getMargin(
+              top: 14,
+            ),
+            child: Obx(() => Text(
+                // controller.resultMessage.value,
+              "Payment for booking: ${controller.paymentModelObj.value.courtName} court",
+                maxLines: 3,
+                textAlign: TextAlign.center,
+                style: AppStyle.txtManropeRegular18.copyWith(
+                  letterSpacing: getHorizontalSize(
+                    0.20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Column( mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
                 height: 50,
-                 width: 110,
-                 text: "Back Home".tr,
-                margin: getMargin(
-                  top: 29,
-                ),
-                variant: ButtonVariant.FillGray300,
-                onTap: () {
-                  controller.getBackHome();
-                  print("Back home");
-                },
-              ),
-              CustomButton(
-                height: 50,
-                width: 110,
+                width: 220,
                 text: "lbl_view_booking".tr,
                 margin: getMargin(
                   left: 3.2,
                   top: 29,
                 ),
-                variant: ButtonVariant.FillBlue400,
+                variant: ButtonVariant.FillBlue500,
+                fontStyle: ButtonFontStyle.ManropeBold14WhiteA700,
                 onTap: () {
-                  print("View booking");
+                  controller.viewBooking();
+                },
+              ),
+              CustomButton(
+                height: 50,
+                 width: 220,
+                 text: "Back Home".tr,
+                margin: getMargin(
+                  top: 10,
+                ),
+                fontStyle: ButtonFontStyle.ManropeBold14,
+                variant: ButtonVariant.FillGray300,
+                onTap: () {
+                  controller.getBackHome();
+                  // print("Back home");
                 },
               ),
             ],

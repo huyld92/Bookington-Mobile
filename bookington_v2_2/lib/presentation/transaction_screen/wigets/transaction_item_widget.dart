@@ -1,5 +1,6 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/transaction_model.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/controller/transaction_controller.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/models/transaction_model_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ class TransactionItemWidget extends StatelessWidget {
 
   int index;
   TransactionModel model;
-
+TransactionController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,6 +32,13 @@ class TransactionItemWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: AppStyle.txtManropeMedium16Black900)),
+                controller.checkAddBanlance(model.refTo) ?
+                Padding(
+                    padding: getPadding(bottom: 1),
+                    child: Text("+${model.amount}".tr,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeMedium16Green600)):
                 Padding(
                     padding: getPadding(bottom: 1),
                     child: Text("-${model.amount}".tr,

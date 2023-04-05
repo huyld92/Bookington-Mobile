@@ -210,13 +210,9 @@ class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
                                 text: "lbl_save".tr,
                                 margin: getMargin(top: 20),
                                 onTap: () async {
-                                  // if (_formKey.currentState!.validate()) {
-                                  //   controller.login(
-                                  //       controller
-                                  //           .txtOldPasswordController.text,
-                                  //       controller
-                                  //           .txtPasswordController.text);
-                                  // }
+                                  if (_formKey.currentState!.validate()) {
+                                    controller.changePassword();
+                                  }
                                 },
                               ),
                             ],

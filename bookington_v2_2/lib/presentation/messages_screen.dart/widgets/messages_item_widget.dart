@@ -127,7 +127,7 @@ class MessagesItemWidget extends StatelessWidget {
                           "Thank you for coming! your bo.....".tr,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeRegular14.copyWith(
+                          style: AppStyle.txtManropeRegular12.copyWith(
                             letterSpacing: getHorizontalSize(
                               0.3,
                             ),

@@ -7,6 +7,7 @@ import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore_for_file: must_be_immutable
 class HistoryBookingScreen extends GetWidget<HistoryController> {
@@ -14,7 +15,6 @@ class HistoryBookingScreen extends GetWidget<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    CustomBottomBar.selectedIndex = 3.obs;
 
     return SafeArea(
       child: Scaffold(
@@ -70,16 +70,80 @@ class HistoryBookingScreen extends GetWidget<HistoryController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                                margin: getMargin(all: 20),
-                                padding: getPadding(left: 20, right: 20),
+                                margin: getMargin(all: 10),
+                                padding: getPadding(left: 5, right: 5),
                                 decoration: BoxDecoration(
                                   border: BorderRadiusStyle.border2Gray500,
                                 ),
-                                height: 40,
+                                height: 60,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("13-12-2022 to 13-03-2023",style: AppStyle.txtManropeSemiBold16Gray900,),
+                                    Obx(
+                                          () => Container(
+                                        margin: getMargin(all: 5),
+                                        child: TextButton.icon(
+                                          style: TextButton.styleFrom(
+                                            textStyle: TextStyle(
+                                                color:
+                                                ColorConstant.black900),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadiusStyle
+                                                  .circleBorder23,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            controller.presentDatePicker();
+                                          },
+                                          icon: CustomImageView(
+                                              height: 32,
+                                              width: 32,
+                                              svgPath:
+                                              ImageConstant.imgCalendar,
+                                              color: ColorConstant.blue500),
+                                          label: Text(
+                                            DateFormat('dd-MM-yyyy').format(
+                                                controller
+                                                    .selectedDate.value),
+                                            style: AppStyle
+                                                .txtManropeSemiBold14Blue500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Obx(
+                                          () => Container(
+                                        margin: getMargin(all: 5),
+                                        child: TextButton.icon(
+                                          style: TextButton.styleFrom(
+                                            textStyle: TextStyle(
+                                                color:
+                                                ColorConstant.black900),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadiusStyle
+                                                  .circleBorder23,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            controller.presentDatePicker();
+                                          },
+                                          icon: CustomImageView(
+                                              height: 32,
+                                              width: 32,
+                                              svgPath:
+                                              ImageConstant.imgCalendar,
+                                              color: ColorConstant.blue500),
+                                          label: Text(
+                                            DateFormat('dd-MM-yyyy').format(
+                                                controller
+                                                    .selectedDate.value),
+                                            style: AppStyle
+                                                .txtManropeSemiBold14Blue500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
                                     GestureDetector(
                                         onTap: (){
                                           controller.filter();
@@ -111,16 +175,6 @@ class HistoryBookingScreen extends GetWidget<HistoryController> {
                       ),
                     ),
 
-                    // second tab bar view widget
-                    Center(
-                      child: Text(
-                        'Canceled',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

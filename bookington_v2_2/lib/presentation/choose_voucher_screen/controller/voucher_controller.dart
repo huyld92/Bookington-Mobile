@@ -51,7 +51,7 @@ class VoucherController extends GetxController {
         DateFormat("dd/MM/yyyy").parse("12/12/2022"),
         true),
   ].obs;
-  RxString selectedVoucher = "1".obs;
+  RxString selectedVoucher = "".obs;
 
   @override
   void onInit() {

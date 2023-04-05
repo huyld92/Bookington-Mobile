@@ -51,4 +51,16 @@ class TransactionController extends GetxController with StateMixin,ScrollMixin{
   @override
   Future<void> onTopScroll() async {
   }
+
+  checkAddBanlance(String refTo) {
+    String userID = PrefUtils.getString("userID") ?? "";
+
+     print('userId=$userID\nrefUser:$refTo');
+    if (userID != null) {
+      if(userID == refTo){
+        return true;
+      }
+    }
+    return false;
+  }
 }

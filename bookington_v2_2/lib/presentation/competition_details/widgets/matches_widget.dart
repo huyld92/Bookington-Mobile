@@ -1,18 +1,18 @@
 
 
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/matches_model.dart';
+import 'package:bookington_v2_2/data/models/match_model.dart';
 import 'package:bookington_v2_2/presentation/competition_details/controller/competition_details_controller.dart';
 import 'package:bookington_v2_2/theme/app_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class MatchesWidget extends StatelessWidget{
+class MatchWidget extends StatelessWidget{
 
-  MatchesWidget(this.matchesModel, {super.key});
+  MatchWidget(this.matchesModel, {super.key});
 
-  MatchesModel  matchesModel;
+  MatchModel  matchesModel;
   CompetitionDetailsController controller = Get.find();
   @override
   Widget build(BuildContext context) {

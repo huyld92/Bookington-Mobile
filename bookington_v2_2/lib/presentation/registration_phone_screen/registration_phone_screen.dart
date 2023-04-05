@@ -25,8 +25,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
         backgroundColor: ColorConstant.whiteA700,
         body: GestureDetector(
           onTap: () {
-            print('focus register');
-            FocusScope.of(context).requestFocus(FocusNode());
+             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Form(
             key: _formKey,

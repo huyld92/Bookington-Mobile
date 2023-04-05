@@ -57,13 +57,14 @@ class SlidericonItemWidget extends StatelessWidget {
                       padding: getPadding(
                         bottom: 1,
                       ),
-                      child: Text(
-                        controller.courtDetailsModelObj.value.name,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
-                          height: getVerticalSize(
-                            0.95,
+                      child:  Obx(() => Text(
+                          controller.courtDetailsModelObj.value.name,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
+                            height: getVerticalSize(
+                              0.95,
+                            ),
                           ),
                         ),
                       ),
@@ -72,17 +73,18 @@ class SlidericonItemWidget extends StatelessWidget {
                       padding: getPadding(
                         bottom: 40,
                       ),
-                      child: Text(
-                        "${controller.courtDetailsModelObj.value.address}, ${controller.courtDetailsModelObj.value.districtName}",
-                         overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                        style: AppStyle.txtManropeMedium14Gray300.copyWith(
-                          height: getVerticalSize(
-                            1.10,
+                      child:  Obx(() => Text(
+                          "${controller.courtDetailsModelObj.value.address}, ${controller.courtDetailsModelObj.value.districtName}",
+                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtManropeMedium14Gray300.copyWith(
+                            height: getVerticalSize(
+                              1.10,
+                            ),
                           ),
+                          softWrap: true,
+                          maxLines: 2,
                         ),
-                        softWrap: true,
-                        maxLines: 2,
                       ),
                     ),
                   ],

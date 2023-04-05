@@ -270,8 +270,8 @@ class HomeScreen extends GetWidget<HomeController> {
         return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
-      case BottomBarEnum.Bookings:
-        return AppRoutes.competitionScreen;
+      case BottomBarEnum.Forum:
+        return AppRoutes.forumScreen;
       case BottomBarEnum.Profile:
         return AppRoutes.profileScreen;
       default:
@@ -279,13 +279,4 @@ class HomeScreen extends GetWidget<HomeController> {
     }
   }
 
-  // /Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-      case AppRoutes.homeScreen:
-        return const HomeScreen();
-      default:
-        return const HomeScreen();
-    }
-  }
 }

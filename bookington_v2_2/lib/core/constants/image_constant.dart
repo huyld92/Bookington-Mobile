@@ -86,8 +86,24 @@ class ImageConstant {
 
   static String imgDelete = 'assets/images/img_delete.svg';
 
+  static String imgMatch = 'assets/images/img_match.svg';
+
+  static String imgReport = 'assets/images/img_report.svg';
+
+  static String imgTransaction = 'assets/images/img_transaction.svg';
+
+  static String imgPadlock = 'assets/images/img_padlock.svg';
+
+  static String imgMatchBox = 'assets/images/img_match_box.svg';
+
+  static String imgAddMember = 'assets/images/img_add_member.svg';
+
+  static String imgChangeAccount = 'assets/images/img_change_account.svg';
 
 
+
+
+  static String imgBadminton = 'assets/images/img_badminton.jpg';
 
   static String imgPhoThoCourt = 'assets/images/img_phutho_court.png';
 

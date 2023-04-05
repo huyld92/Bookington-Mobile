@@ -111,7 +111,9 @@ class CustomTextFormField extends StatelessWidget {
 
   _setFontStyle() {
     switch (fontStyle) {
-      case TextFormFieldFontStyle.ManropeRegular16:
+      case TextFormFieldFontStyle.ManropeRegular14:
+        return AppStyle.txtManropeRegular14;
+        case TextFormFieldFontStyle.ManropeRegular16:
         return TextStyle(
           color: ColorConstant.blueGray500,
           fontSize: getFontSize(
@@ -231,4 +233,5 @@ enum TextFormFieldVariant {
 enum TextFormFieldFontStyle {
   ManropeMedium14,
   ManropeRegular16,
+  ManropeRegular14,
 }

@@ -1,4 +1,6 @@
+import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/widgets/payment_successful_dialog.dart';
+import 'package:intl/intl.dart';
 
 import 'controller/payment_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,11 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 
+// ignore: must_be_immutable
 class PaymentScreen extends GetWidget<PaymentController> {
-  const PaymentScreen({super.key});
+  PaymentScreen({super.key});
+
+  final formatCurrency = NumberFormat("#,###");
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +82,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                "12/12/2022".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
+                              Obx(
+                                () => Text(
+                                  DateFormat("dd-MM-yyyy").format(controller
+                                      .paymentModelObj.value.playDate),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeBold18,
+                                ),
                               ),
                             ],
                           ),
@@ -109,11 +117,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                "Court 1".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
+                              Obx(
+                                () => Text(
+                                  controller.paymentModelObj.value.courtName ??
+                                      "Court",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeBold18,
+                                ),
                               ),
                             ],
                           ),
@@ -141,11 +152,13 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                "10:00".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
+                              Obx(
+                                () => Text(
+                                   DateFormat("HH:mm").format(controller.paymentModelObj.value.listSlotBooking[0].startTime),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeBold18,
+                                ),
                               ),
                             ],
                           ),
@@ -173,11 +186,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                "2 Hours",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
+                              Obx(
+                                () => Text(
+                                  controller.paymentModelObj.value.totalHours ??
+                                      "0",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtManropeBold18,
+                                ),
                               ),
                             ],
                           ),
@@ -202,66 +218,49 @@ class PaymentScreen extends GetWidget<PaymentController> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: getPadding(
-                            top: 0,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
+                        Obx(
+                          () => ListView.builder(
+                            // controller: controller.scroll,
+                            shrinkWrap: true,
+                            itemCount: controller
+                                .paymentModelObj.value.listSlotBooking.length,
+                            itemBuilder: (context, index) {
+                              SlotModel model = controller
+                                  .paymentModelObj.value.listSlotBooking[index];
+                              return Padding(
                                 padding: getPadding(
-                                  top: 1,
+                                  top: 0,
                                 ),
-                                child: Text(
-                                  "10:00 To 11:00".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeRegular16.copyWith(
-                                    letterSpacing: getHorizontalSize(
-                                      0.20,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: getPadding(
+                                        top: 1,
+                                      ),
+                                      child: Text(
+                                        "${DateFormat("HH:mm").format(model.startTime)} To ${DateFormat("HH:mm").format(model.endTime)}",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeRegular16
+                                            .copyWith(
+                                          letterSpacing: getHorizontalSize(
+                                            0.20,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "100,000 VND".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: getPadding(
-                            top: 10,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: getPadding(
-                                  top: 1,
-                                ),
-                                child: Text(
-                                  "11:00 To 12:00".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeRegular16.copyWith(
-                                    letterSpacing: getHorizontalSize(
-                                      0.20,
+                                    Text(
+                                      formatCurrency.format(model.price),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold18,
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                "100,000 VND".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeBold18,
-                              ),
-                            ],
+                              );
+                            },
                           ),
                         ),
                         const Divider(
@@ -269,16 +268,18 @@ class PaymentScreen extends GetWidget<PaymentController> {
                         ),
                         Align(
                           alignment: Alignment.bottomRight,
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Total   ',
-                              style: AppStyle.txtManropeRegular16,
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: '200,000 VND',
-                                  style: AppStyle.txtManropeBold18Red500,
-                                ),
-                              ],
+                          child: Obx(
+                            () => RichText(
+                              text: TextSpan(
+                                text: 'Total   ',
+                                style: AppStyle.txtManropeRegular16,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: '${formatCurrency.format(controller.totalAmount.value)} VND',
+                                    style: AppStyle.txtManropeBold18Red500,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -405,12 +406,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                             Padding(
                                 padding:
                                     getPadding(left: 12, top: 2, bottom: 2),
-                                child: Text(
-                                    // "lbl_cash".tr +
-                                        "Balance: ${controller.balance}",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtManropeBold18)),
+                                child: Obx(
+                                  () => Text(
+                                      // "lbl_cash".tr +
+                                      "Balance: ${controller.balance}",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold18),
+                                )),
                           ],
                         ),
                         Obx(
@@ -449,8 +452,10 @@ class PaymentScreen extends GetWidget<PaymentController> {
                       ),
                       Padding(
                         padding: getPadding(all: 10),
-                        child: Text("200,000 VND",
-                            style: AppStyle.txtManropeBold18),
+                        child: Obx(
+                          () => Text("${formatCurrency.format(controller.totalAmount.value)} VND",
+                              style: AppStyle.txtManropeBold18),
+                        ),
                       ),
                     ],
                   ),
@@ -460,11 +465,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                   width: 330,
                   text: "lbl_confirm_payment".tr,
                   onTap: () {
-                    print("Confirm Payment");
-                    Get.defaultDialog(
-                      title: "",
-                      content: PaymentSuccessfulDialog(controller),
-                    );
+                    controller.confirmPayment();
                   },
                 )
               ],
@@ -473,9 +474,5 @@ class PaymentScreen extends GetWidget<PaymentController> {
         ),
       ),
     );
-  }
-
-  onTapArrowleft1() {
-    // Get.back();
   }
 }

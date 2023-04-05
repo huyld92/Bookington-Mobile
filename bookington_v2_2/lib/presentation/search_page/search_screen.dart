@@ -2,13 +2,14 @@ import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
 import 'controller/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 import 'widgets/search_result_widget.dart';
-import 'widgets/search_empty_widget.dart';
 
 // ignore_for_file: must_be_immutable
 class SearchScreen extends GetWidget<SearchController> {
@@ -32,8 +33,8 @@ class SearchScreen extends GetWidget<SearchController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
+                  child: SingleChildScrollView(
+                    child: Padding(
                       padding: getPadding(
                         left: 10,
                         right: 10,
@@ -53,7 +54,8 @@ class SearchScreen extends GetWidget<SearchController> {
                             child: Column(
                               children: [
                                 Container(
-                                  width: getVerticalSize(360),height: getHorizontalSize(40),
+                                  width: getVerticalSize(360),
+                                  height: getHorizontalSize(40),
                                   margin: getMargin(left: 10, right: 10),
                                   decoration: BoxDecoration(
                                       borderRadius:
@@ -72,92 +74,180 @@ class SearchScreen extends GetWidget<SearchController> {
                                     style: AppStyle.txtManropeRegular14,
                                     textInputAction: TextInputAction.search,
                                     onSubmitted: (value) {
-                                      FocusManager.instance.primaryFocus?.unfocus();
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
                                       controller.searchByName(1);
                                     },
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Obx(
-                                      () => Container(
-                                        width: getVerticalSize(160),
-                                        height: getVerticalSize(40),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              BorderRadiusStyle.border2Gray500,
-                                          borderRadius:
-                                              BorderRadiusStyle.roundedBorder16,
-                                        ),
-                                        padding: getPadding(
-                                            top: 5,
-                                            left: 5,
-                                            right: 5,
-                                            bottom: 5),
-                                        margin: getMargin(all: 10),
-                                        child: DropdownButton<ProvinceModel>(
-                                          underline: const SizedBox(),
-                                          isExpanded: true,
-                                          items: controller.province.map(
-                                              (ProvinceModel
-                                                  dropDownStringItem) {
-                                            return DropdownMenuItem<
-                                                ProvinceModel>(
-                                              value: dropDownStringItem,
-                                              child: Text(dropDownStringItem
-                                                  .provinceName,
-                                                style: AppStyle.txtManropeRegular14,
+                                // Row(
+                                //   children: [
+                                //     Obx(
+                                //       () => Container(
+                                //         width: getVerticalSize(160),
+                                //         height: getVerticalSize(40),
+                                //         decoration: BoxDecoration(
+                                //           border:
+                                //               BorderRadiusStyle.border2Gray500,
+                                //           borderRadius:
+                                //               BorderRadiusStyle.roundedBorder16,
+                                //         ),
+                                //         padding: getPadding(
+                                //             top: 5,
+                                //             left: 5,
+                                //             right: 5,
+                                //             bottom: 5),
+                                //         margin: getMargin(all: 10),
+                                //         child: DropdownButton<ProvinceModel>(
+                                //           underline: const SizedBox(),
+                                //           isExpanded: true,
+                                //           items: controller.province.map(
+                                //               (ProvinceModel
+                                //                   dropDownStringItem) {
+                                //             return DropdownMenuItem<
+                                //                 ProvinceModel>(
+                                //               value: dropDownStringItem,
+                                //               child: Text(dropDownStringItem
+                                //                   .provinceName,
+                                //                 style: AppStyle.txtManropeRegular14,
+                                //               ),
+                                //             );
+                                //           }).toList(),
+                                //           onChanged: (value) => controller
+                                //               .onSelectedProvince(value!),
+                                //           value:
+                                //               controller.selectedProvince.value,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     Obx(
+                                //       () => Container(
+                                //         width: getVerticalSize(160),
+                                //         height: getVerticalSize(40),
+                                //         margin: getPadding(top: 10, bottom: 10),
+                                //         padding: getPadding(
+                                //             top: 5,
+                                //             left: 5,
+                                //             right: 5,
+                                //             bottom: 5),
+                                //         decoration: BoxDecoration(
+                                //           border:
+                                //               BorderRadiusStyle.border2Gray500,
+                                //           borderRadius:
+                                //               BorderRadiusStyle.roundedBorder16,
+                                //         ),
+                                //         child: DropdownButton<DistrictModel>(
+                                //           underline: SizedBox(),
+                                //           isExpanded: true,
+                                //           items: controller.district.map(
+                                //               (DistrictModel
+                                //                   dropDownStringItem) {
+                                //             return DropdownMenuItem<
+                                //                 DistrictModel>(
+                                //               value: dropDownStringItem,
+                                //               child: Text(dropDownStringItem
+                                //                   .districtName,
+                                //                 style: AppStyle.txtManropeRegular14,
+                                //               ),
+                                //             );
+                                //           }).toList(),
+                                //           // onChanged: (value) => print(value),
+                                //           onChanged: (value) => controller
+                                //               .onSelectedDistrict(value!),
+                                //           value:
+                                //               controller.selectedDistrict.value,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                Container(
+                                  margin: getMargin(left: 10, right: 10),
+
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Obx(
+                                          () => Container(
+                                            margin: getMargin(all: 5),
+                                            decoration: BoxDecoration(
+                                                border: BorderRadiusStyle
+                                                    .border1Gray300
+                                            ),
+                                            child: TextButton.icon(
+                                              style: TextButton.styleFrom(
+                                                textStyle: TextStyle(
+                                                    color:
+                                                        ColorConstant.black900),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadiusStyle
+                                                      .circleBorder23,
+                                                ),
                                               ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) => controller
-                                              .onSelectedProvince(value!),
-                                          value:
-                                              controller.selectedProvince.value,
-                                        ),
-                                      ),
-                                    ),
-                                    Obx(
-                                      () => Container(
-                                        width: getVerticalSize(160),
-                                        height: getVerticalSize(40),
-                                        margin: getPadding(top: 10, bottom: 10),
-                                        padding: getPadding(
-                                            top: 5,
-                                            left: 5,
-                                            right: 5,
-                                            bottom: 5),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              BorderRadiusStyle.border2Gray500,
-                                          borderRadius:
-                                              BorderRadiusStyle.roundedBorder16,
-                                        ),
-                                        child: DropdownButton<DistrictModel>(
-                                          underline: SizedBox(),
-                                          isExpanded: true,
-                                          items: controller.district.map(
-                                              (DistrictModel
-                                                  dropDownStringItem) {
-                                            return DropdownMenuItem<
-                                                DistrictModel>(
-                                              value: dropDownStringItem,
-                                              child: Text(dropDownStringItem
-                                                  .districtName,
-                                                style: AppStyle.txtManropeRegular14,
+                                              onPressed: () {
+                                                controller.presentDatePicker();
+                                              },
+                                              icon: CustomImageView(
+                                                  height: 32,
+                                                  width: 32,
+                                                  svgPath:
+                                                      ImageConstant.imgCalendar,
+                                                  color: ColorConstant.blue500),
+                                              label: Text(
+                                                DateFormat('dd-MM-yyyy').format(
+                                                    controller
+                                                        .selectedDate.value),
+                                                style: AppStyle
+                                                    .txtManropeSemiBold20BlueA400,
                                               ),
-                                            );
-                                          }).toList(),
-                                          // onChanged: (value) => print(value),
-                                          onChanged: (value) => controller
-                                              .onSelectedDistrict(value!),
-                                          value:
-                                              controller.selectedDistrict.value,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
+                                        Obx(
+                                          () => Container(
+
+                                            margin: getMargin(all: 5),
+                                            decoration: BoxDecoration(
+                                                border: BorderRadiusStyle
+                                                    .border1Gray300
+                                            ),
+                                            child: TextButton.icon(
+                                              style: TextButton.styleFrom(
+                                                textStyle: TextStyle(
+                                                    color: ColorConstant.black900),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadiusStyle
+                                                      .circleBorder23,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                DatePicker.showTimePicker(context,
+                                                    showTitleActions: true,
+                                                    showSecondsColumn: false,
+                                                    onConfirm: (date) {
+                                                  controller.timePicker(date);
+                                                },
+                                                    currentTime: controller
+                                                        .selectedTime.value,
+                                                    locale: LocaleType.vi);
+                                              },
+                                              icon: CustomImageView(
+                                                  height: 32,
+                                                  width: 32,
+                                                  svgPath: ImageConstant.imgClock,
+                                                  color: ColorConstant.blue500),
+                                              label: Text(
+                                                DateFormat("HH:mm").format(
+                                                    controller.selectedTime.value),
+                                                style: AppStyle
+                                                    .txtManropeSemiBold20BlueA400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
                                 ),
+
                                 CustomButton(
                                   height: 40,
                                   width: 355,
@@ -165,9 +255,10 @@ class SearchScreen extends GetWidget<SearchController> {
                                   padding: ButtonPadding.PaddingAll8,
                                   text: "lbl_search".tr,
                                   onTap: () {
-                                     FocusManager.instance.primaryFocus?.unfocus();
-                                    controller.searchByName(1);
-                                   },
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    controller.searchAction();
+                                  },
                                 )
                               ],
                             ),
@@ -177,7 +268,7 @@ class SearchScreen extends GetWidget<SearchController> {
                       ),
                     ),
                   ),
-                 ),
+                ),
               ],
             ),
           ),
@@ -200,20 +291,11 @@ String getCurrentRoute(BottomBarEnum type) {
       return AppRoutes.messagesScreen;
     case BottomBarEnum.Search:
       return AppRoutes.searchScreen;
-    case BottomBarEnum.Bookings:
-      return AppRoutes.competitionScreen;
+    case BottomBarEnum.Forum:
+      return AppRoutes.forumScreen;
     case BottomBarEnum.Profile:
       return AppRoutes.profileScreen;
     default:
       return "/";
-  }
-}
-
-Widget getCurrentPage(String currentRoute) {
-  switch (currentRoute) {
-    case AppRoutes.searchScreen:
-      return const SearchScreen();
-    default:
-      return const SearchScreen();
   }
 }

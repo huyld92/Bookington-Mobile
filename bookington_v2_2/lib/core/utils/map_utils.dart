@@ -9,8 +9,7 @@ class MapUtils {
 
   Future<void> init() async {
     getCurrentPosition();
-    print('CurrentPosition Initialized');
-  }
+   }
 
   static Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;

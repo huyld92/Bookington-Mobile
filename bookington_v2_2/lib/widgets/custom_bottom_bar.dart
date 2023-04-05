@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
@@ -24,9 +26,9 @@ class CustomBottomBar extends StatelessWidget {
       type: BottomBarEnum.Search,
     ),
     BottomMenuModel(
-      icon: ImageConstant.imgHistory,
-      title: "lbl_bookings".tr,
-      type: BottomBarEnum.Bookings,
+      icon: ImageConstant.imgMatch,
+      title: "lbl_forum".tr,
+      type: BottomBarEnum.Forum,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUserProfile,
@@ -157,7 +159,7 @@ enum BottomBarEnum {
   Home,
   Message,
   Search,
-  Bookings,
+  Forum,
   Profile,
 }
 

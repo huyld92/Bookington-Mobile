@@ -1,17 +1,14 @@
-
-
 import 'dart:convert';
 
+import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/transaction_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
-import 'package:bookington_v2_2/routes/app_routes.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class WalletController extends GetxController with StateMixin{
+class WalletController extends GetxController with StateMixin {
   RxList<TransactionModel> listTransactionObj = <TransactionModel>[].obs;
-RxString balance = "".obs;
+  RxString balance = "".obs;
 
   @override
   void onInit() {
@@ -19,60 +16,60 @@ RxString balance = "".obs;
     super.onInit();
   }
 
-  void loadData() {
+  Future<void> loadData() async {
     change(null, status: RxStatus.loading());
-    print('here');
-    getBalance();
-    getListTransaction();
-    Future.delayed(const Duration(milliseconds: 500), () {
-      change(null, status: RxStatus.success());
-    });
+    await getBalance();
+    await getListTransaction();
+    change(null, status: RxStatus.success());
   }
 
   Future<void> getBalance() async {
     try {
-      ApiClient.getBalance().then((result) {
-        print('statusCode: ${result.statusCode}');
-        if (result.statusCode == 200) {
-          var jsonResult = jsonDecode(result.body);
-          final formatCurrency = NumberFormat("#,###");
-          balance.value = formatCurrency.format(jsonResult["result"]["balance"]);
-        } else {
-          print(result.headers);
-        }
-      },
+      ApiClient.getBalance().then(
+        (result) {
+          print('getBalance statusCode: ${result.statusCode}');
+          if (result.statusCode == 200) {
+            var jsonResult = jsonDecode(result.body);
+            final formatCurrency = NumberFormat("#,###");
+            balance.value =
+                formatCurrency.format(jsonResult["result"]["balance"]);
+          } else {
+            print(result.headers);
+          }
+        },
       );
     } catch (e) {
       print(e.toString());
     }
   }
 
-  void getListTransaction(){
-    ApiClient.getTransactionHistory().then((result) {
-      print('statusCode: ${result.statusCode}');
-      if (result.statusCode == 200) {
-        List<TransactionModel> listTransaction =
-        TransactionModel.listNameFromJson(
-            jsonDecode(result.body)["result"]);
-        listTransactionObj.value = listTransaction;
+  Future<void> getListTransaction() async {
+    ApiClient.getTransactionHistory().then(
+      (result) {
+        print('getListTransaction statusCode: ${result.statusCode}');
+        if (result.statusCode == 200) {
+          List<TransactionModel> listTransaction =
+              TransactionModel.listNameFromJson(
+                  jsonDecode(result.body)["result"]);
+          listTransactionObj.value = listTransaction;
+          listTransactionObj.refresh();
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          ProfileController profileController = Get.find();
+          Map<String, bool> arg = {"timeOut": true};
 
-        listTransactionObj.refresh();
-      } else if(result.statusCode == 401 || result.statusCode == 403){
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-
-        profileController.logout(arg);
-      }else {
-        print('errror');
-      }
-    },);
+          profileController.logout(arg);
+        } else {
+          print('errror');
+        }
+      },
+    );
   }
 
   void getBack() {
     Get.back();
   }
 
-  void transationScreen() {
+  void transactionScreen() {
     Get.toNamed(AppRoutes.transactionScreen);
   }
 }

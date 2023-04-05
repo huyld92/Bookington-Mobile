@@ -91,7 +91,7 @@ class WalletScreen extends GetWidget<WalletController> {
                                     style: AppStyle.txtManropeBold18),
                                 GestureDetector(
                                   onTap: () {
-                                    controller.transationScreen();
+                                    controller.transactionScreen();
                                   },
                                   child: Padding(
                                       padding: getPadding(bottom: 4),

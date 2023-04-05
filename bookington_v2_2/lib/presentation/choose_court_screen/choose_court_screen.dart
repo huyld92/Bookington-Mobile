@@ -44,7 +44,8 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
               border: BorderRadiusStyle.borderBlack2,
               borderRadius: BorderRadiusStyle.circleBorder5,
             ),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Obx(
                 () => TextButton.icon(
                   style: TextButton.styleFrom(
@@ -158,7 +159,7 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                     ),
                   ),
                 ),
-                onEmpty: Dialog(
+                onEmpty: const Dialog(
                   child: Text("EMPTY"),
                 )
             ),
@@ -168,11 +169,11 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
             margin: getMargin(left: 16, right: 20, top: 10),
             height: 50,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: getMargin(left: 10, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.blue400,
                 ),
                 Text(
@@ -181,8 +182,8 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                 ),
                 Container(
                   margin: getMargin(left: 10, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.black900,
                 ),
                 Text(
@@ -191,8 +192,8 @@ class ChooseCourtScreen extends GetWidget<ChooseCourtController> {
                 ),
                 Container(
                   margin: getMargin(left: 10, right: 10),
-                  height: 20,
-                  width: 40,
+                  height: getVerticalSize(15),
+                  width: getHorizontalSize(30),
                   color: ColorConstant.gray500,
                 ),
                 Text(

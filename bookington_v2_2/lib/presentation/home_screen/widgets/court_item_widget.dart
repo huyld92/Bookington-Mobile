@@ -119,7 +119,7 @@ class CourtItemWidget extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  "100.000 VND".tr,
+                                  "20.000 VND".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(

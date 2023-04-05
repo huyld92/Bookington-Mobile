@@ -1,5 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/matches_model.dart';
+import 'package:bookington_v2_2/data/models/match_model.dart';
 import 'package:flutter/material.dart';
 
 class CompetitionDetailsController extends GetxController
@@ -11,8 +11,8 @@ class CompetitionDetailsController extends GetxController
   ];
   late TabController tabController;
   RxString appbarTitle = "Details".obs;
-  RxList<MatchesModel> listMatches = RxList.filled(4,
-      MatchesModel("id", "host_by", "ref_booking", 12, 6, "matchCode", false));
+  RxList<MatchModel> listMatches = RxList.filled(4,
+      MatchModel("id", "host_by", "ref_booking", 12, 6, "matchCode", false));
 
   @override
   void onInit() {

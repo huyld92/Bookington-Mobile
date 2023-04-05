@@ -32,8 +32,8 @@ class LoginController extends GetxController with StateMixin {
     try {
       change(null, status: RxStatus.loading());
 
-      ApiClient.loginWithPhone(phone, password).then((result) {
-        print(result.statusCode);
+      await ApiClient.loginWithPhone(phone, password).then((result) {
+        print("loginWithPhone status code: ${result.statusCode}");
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
           LoginModel loginModel = LoginModel.fromJson(jsonResult["result"]);
@@ -42,6 +42,9 @@ class LoginController extends GetxController with StateMixin {
           PrefUtils.setString("fullName", loginModel.fullName);
           PrefUtils.setString("phoneNumber", loginModel.phoneNumber);
           Get.offNamed(AppRoutes.homeScreen);
+        } else if (result.statusCode == 500) {
+          Get.defaultDialog(
+              title: "Login Failed!", middleText: "Cannot connect to server!");
         } else {
           final jsonResult = jsonDecode(result.body);
           String errorMessage = jsonResult["Message"];
@@ -49,13 +52,10 @@ class LoginController extends GetxController with StateMixin {
         }
       });
     } catch (error) {
-      Get.defaultDialog(title: "Login Failed!", middleText: error.toString());
-      print("Login controller: " + error.toString());
+      Get.defaultDialog(
+          title: "Login Failed!", middleText: "Cannot connect to server!");
     } finally {
-      // change(null, status: RxStatus.success());
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        change(null, status: RxStatus.success());
-      });
+      change(null, status: RxStatus.success());
     }
   }
 
@@ -70,20 +70,38 @@ class LoginController extends GetxController with StateMixin {
 
   void loadData() {
     var arg = Get.arguments;
+    print('arg: ${arg.toString()}');
     if (arg != null) {
-      Get.defaultDialog(
-        title: "Session Expired",
-        content: Center(
-          child:
-              Text("Please login again.", style: AppStyle.txtManropeSemiBold14),
-        ),
-        cancel: TextButton(
-          child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-      );
+      if (arg["timeOut"] != null && arg["timeOut"]) {
+        print('loadData timeout');
+        Get.defaultDialog(
+          title: "Session Expired",
+          content: Center(
+            child: Text("Please login again.",
+                style: AppStyle.txtManropeSemiBold14),
+          ),
+          cancel: TextButton(
+            child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        );
+      } else if (arg["isChangePassword"] != null && arg["isChangePassword"]) {
+        Get.defaultDialog(
+          title: "Change Password successfully",
+          content: Center(
+            child: Text("Please login again.",
+                style: AppStyle.txtManropeSemiBold14),
+          ),
+          cancel: TextButton(
+            child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        );
+      }
     }
   }
 
