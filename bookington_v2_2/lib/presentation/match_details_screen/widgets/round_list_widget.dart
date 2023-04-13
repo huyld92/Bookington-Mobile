@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/match_details_screen/controller/match_details_controller.dart';
 import 'package:bookington_v2_2/presentation/match_details_screen/model/round_model.dart';
@@ -31,13 +33,13 @@ class RoundLisWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Member 1"),
+                        const Text("Member 1"),
                         RichText(
                           text: TextSpan(
                               // text: " 29",
                               children: [
-                                TextSpan(text: "  21"),
-                                TextSpan(text: "  21"),
+                                const TextSpan(text: "  21"),
+                                const TextSpan(text: "  21"),
                                 TextSpan(text: "  2", style: AppStyle.txtManropeBold16),
                               ],
                               style: AppStyle.txtManropeSemiBold16),
@@ -51,13 +53,13 @@ class RoundLisWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Member 2"),
+                        const Text("Member 2"),
                         RichText(
                           text: TextSpan(
                             // text: " 29",
                               children: [
-                                TextSpan(text: "  10"),
-                                TextSpan(text: "  19"),
+                                const TextSpan(text: "  10"),
+                                const TextSpan(text: "  19"),
                                 TextSpan(text: "  0", style: AppStyle.txtManropeBold16),
                               ],
                               style: AppStyle.txtManropeSemiBold16),

@@ -1,64 +1,80 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:intl/intl.dart';
 
 class VoucherModel {
-  String _id;
-  String _create_by;
-  String _ref_court;
-  String _voucher_code;
-  String _title;
-  String _description;
-  double _discount;
-  int _usages;
-  int _max_quantity;
-  DateTime _start_date;
-  DateTime _end_date;
-
-  DateTime _create_at;
-  bool _is_active;
+  late String _id;
+  late String _createBy;
+  late String _refCourt;
+  late String _voucherCode;
+  late String _title;
+  late String _description;
+  late double _discount;
+  late int _usages;
+  late int _maxQuantity;
+  late DateTime _startDate;
+  late DateTime _endDate;
+  late DateTime _createAt;
+  late bool _isActive;
 
   VoucherModel(
       this._id,
-      this._create_by,
-      this._ref_court,
-      this._voucher_code,
+      this._createBy,
+      this._refCourt,
+      this._voucherCode,
       this._title,
       this._description,
       this._discount,
       this._usages,
-      this._max_quantity,
-      this._start_date,
-      this._end_date,
-      this._create_at,
-      this._is_active);
-
-  bool get is_active => _is_active;
-
-  set is_active(bool value) {
-    _is_active = value;
+      this._maxQuantity,
+      this._startDate,
+      this._endDate,
+      this._createAt,
+      this._isActive);
+  VoucherModel.empty(){
+    _id = "";
+    _createBy = "";
+    _refCourt = "";
+    _voucherCode = "";
+    _title = "";
+    _description = "";
+    _discount = 0.0;
+    _usages = 0;
+    _maxQuantity = 0;
+    _startDate = DateTime.now();
+    _endDate = DateTime.now();
+    _createAt = DateTime.now();
+    _isActive = false;
   }
 
-  DateTime get create_at => _create_at;
+  bool get isActive => _isActive;
 
-  set create_at(DateTime value) {
-    _create_at = value;
+  set isActive(bool value) {
+    _isActive = value;
   }
 
-  DateTime get end_date => _end_date;
+  DateTime get createAt => _createAt;
 
-  set end_date(DateTime value) {
-    _end_date = value;
+  set createAt(DateTime value) {
+    _createAt = value;
   }
 
-  DateTime get start_date => _start_date;
+  DateTime get endDate => _endDate;
 
-  set start_date(DateTime value) {
-    _start_date = value;
+  set endDate(DateTime value) {
+    _endDate = value;
   }
 
-  int get max_quantity => _max_quantity;
+  DateTime get startDate => _startDate;
 
-  set max_quantity(int value) {
-    _max_quantity = value;
+  set startDate(DateTime value) {
+    _startDate = value;
+  }
+
+  int get maxQuantity => _maxQuantity;
+
+  set maxQuantity(int value) {
+    _maxQuantity = value;
   }
 
   int get usages => _usages;
@@ -85,22 +101,22 @@ class VoucherModel {
     _title = value;
   }
 
-  String get voucher_code => _voucher_code;
+  String get voucherCode => _voucherCode;
 
-  set voucher_code(String value) {
-    _voucher_code = value;
+  set voucherCode(String value) {
+    _voucherCode = value;
   }
 
-  String get ref_court => _ref_court;
+  String get refCourt => _refCourt;
 
-  set ref_court(String value) {
-    _ref_court = value;
+  set refCourt(String value) {
+    _refCourt = value;
   }
 
-  String get create_by => _create_by;
+  String get createBy => _createBy;
 
-  set create_by(String value) {
-    _create_by = value;
+  set createBy(String value) {
+    _createBy = value;
   }
 
   String get id => _id;
@@ -111,18 +127,18 @@ class VoucherModel {
 
   factory VoucherModel.fromJson(Map<String, dynamic> json) => VoucherModel(
         json["id"],
-        json["create_by"],
-        json["ref_court"],
-        json["voucher_code"],
+        json["createBy"],
+        json["refCourt"],
+        json["voucherCode"],
         json["title"],
         json["description"],
-        json["discount"],
+        json["discount"]*1.0,
         json["usages"],
-        json["max_quantity"],
-        DateFormat("kk:mm").parse(json["start_date"]),
-        DateFormat("kk:mm").parse(json["end_date"]),
-        DateFormat("kk:mm").parse(json["create_at"]),
-        json["is_active"],
+        json["maxQuantity"],
+        DateFormat("yyyy-MM-ddTHH:mm:ss").parse(json["startDate"]),
+        DateFormat("yyyy-MM-ddTHH:mm:ss").parse(json["endDate"]),
+        DateFormat("yyyy-MM-ddTHH:mm:ss").parse(json["createAt"]),
+        json["isActive"],
       );
 
   static List<VoucherModel> listFromJson(list) => List<VoucherModel>.from(

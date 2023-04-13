@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -25,7 +27,7 @@ class WalletController extends GetxController with StateMixin {
 
   Future<void> getBalance() async {
     try {
-      ApiClient.getBalance().then(
+      await ApiClient.getBalance().then(
         (result) {
           print('getBalance statusCode: ${result.statusCode}');
           if (result.statusCode == 200) {
@@ -44,7 +46,7 @@ class WalletController extends GetxController with StateMixin {
   }
 
   Future<void> getListTransaction() async {
-    ApiClient.getTransactionHistory().then(
+    await ApiClient.getTransactionHistory().then(
       (result) {
         print('getListTransaction statusCode: ${result.statusCode}');
         if (result.statusCode == 200) {

@@ -1,7 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/account_model.dart';
-import 'package:bookington_v2_2/presentation/change_accoungt_screen/models/change_account_model.dart';
-import 'package:intl/intl.dart';
+import 'package:bookington_v2_2/presentation/change_account_screen/models/change_account_model.dart';
 
 class ChangeAccountController extends GetxController {
   RxList<ChangeAccountModel> listAccountModel = RxList.filled(

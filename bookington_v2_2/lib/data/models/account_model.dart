@@ -1,7 +1,11 @@
 
 
 
+// ignore_for_file: unnecessary_getters_setters
+
 import 'dart:convert';
+
+import 'package:intl/intl.dart';
 
 AccountModel accountRespFromJson(String str) => AccountModel.fromJson(json.decode(str));
 
@@ -9,16 +13,21 @@ String accountRespToJson(AccountModel data) => json.encode(data.toJson());
 
 class AccountModel {
   late String _id;
-  late String _roleId;
   late String _phone;
-  late String _password;
   late String _fullName;
   late DateTime _dateOfBirth;
-  late DateTime _createAt;
-  late bool _isActive;
+  late String _imgBase;
 
-  AccountModel(this._id, this._roleId, this._phone, this._password,
-      this._fullName, this._dateOfBirth, this._createAt, this._isActive);
+  AccountModel(this._id, this._phone,
+      this._fullName, this._dateOfBirth, this._imgBase);
+
+  AccountModel.empty(){
+    _id = "";
+    _phone = "";
+    _fullName = "";
+    _dateOfBirth = DateTime.now();
+    _imgBase = "";
+  }
 
   String get id => _id;
 
@@ -26,19 +35,6 @@ class AccountModel {
     _id = value;
   }
 
-  String get roleId => _roleId;
-
-  bool get isActive => _isActive;
-
-  set isActive(bool value) {
-    _isActive = value;
-  }
-
-  DateTime get createAt => _createAt;
-
-  set createAt(DateTime value) {
-    _createAt = value;
-  }
 
   DateTime get dateOfBirth => _dateOfBirth;
 
@@ -52,41 +48,32 @@ class AccountModel {
     _fullName = value;
   }
 
-  String get password => _password;
-
-  set password(String value) {
-    _password = value;
-  }
-
   String get phone => _phone;
 
   set phone(String value) {
     _phone = value;
   }
 
-  set roleId(String value) {
-    _roleId = value;
+  String get imgBase => _imgBase;
+
+  set imgBase(String value) {
+    _imgBase = value;
   }
 
+
   factory AccountModel.fromJson(Map<String, dynamic> json) => AccountModel(
-      json["id"],
-      json["role_id"],
+      json["id"]?? "aaa",
       json["phone"],
-      json["password"],
-      json["full_name"],
-      json["date_of_birth"],
-      json["create_at"],
-      json["is_active"]);
+      json["fullName"],
+      DateFormat("dd-MM-yyyy").parse(json["dateOfBirth"]),
+      json["file"]["content"],
+  );
 
 
   Map<String, dynamic> toJson() => {
         "id": _id,
-        "role_id": _roleId,
         "phone": _phone,
-        "password": _password,
         "full_name": _fullName,
         "date_of_birth": _dateOfBirth,
-        "create_at": _createAt,
-        "is_active": _isActive,
       };
 }

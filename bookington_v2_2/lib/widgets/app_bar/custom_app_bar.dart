@@ -4,7 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 // ignore: must_be_immutable
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   CustomAppBar(
-      {required this.height,
+      {super.key, required this.height,
       this.styleType,
       this.leadingWidth,
       this.leading,

@@ -74,7 +74,7 @@ class NotificationItemWidget extends StatelessWidget {
                         bottom: 1,
                       ),
                     ),
-                   notificationModel.isRead ? SizedBox():Positioned(
+                   notificationModel.isRead ? const SizedBox():Positioned(
                       top: 0,
                       right: 30,
                       child: Container(

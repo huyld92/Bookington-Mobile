@@ -4,6 +4,8 @@
 
 
 
+// ignore_for_file: unnecessary_getters_setters
+
 class CommentModel{
   String _id ;
   String _commentWriterId ;

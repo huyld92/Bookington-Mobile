@@ -1,30 +1,59 @@
+// ignore_for_file: avoid_print, unused_local_variable
+
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/models/profile_model.dart';
 import 'package:intl/intl.dart';
 
 class ProfileController extends GetxController with StateMixin {
-  late Rx<ProfileModel> profileModelObj;
-  RxString balance = "".obs;
+  late Rx<ProfileModel> profileModelObj = ProfileModel.empty().obs;
+  Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
   void onInit() {
-    loadProfile();
+    loadData();
     super.onInit();
   }
 
-  Future<void> loadProfile() async {
-    if (PrefUtils.getAccessToken() == null) {
-      Get.toNamed(AppRoutes.loginScreen);
-    } else {
-      String? fullName = PrefUtils.getString("fullName");
-      String? phoneNumber = PrefUtils.getString("phoneNumber");
-      profileModelObj = ProfileModel(fullName!, phoneNumber!).obs;
-      await getBalance();
-     }
+  Future<void> loadData() async {
+    await getProfile();
+    await getBalance();
+    bytesImage.value = const Base64Decoder().convert(profileModelObj.value.accountModel.imgBase);
+
+  }
+
+  Future<void> getProfile() async {
+    change(null, status: RxStatus.loading());
+    try {
+      if (PrefUtils.getString("sysToken") == null) {
+        Get.offAllNamed(AppRoutes.loginScreen);
+      } else {
+        String sysToken = PrefUtils.getAccessToken() ?? "-1";
+        await ApiClient.getProfile(sysToken).then(
+          (result) {
+            if (result.statusCode == 200) {
+              final jsonResult = (jsonDecode(result.body)["result"]);
+              AccountModel accountModel = AccountModel.fromJson(jsonResult);
+              profileModelObj.value.accountModel = accountModel;
+            } else if (result.statusCode == 401 || result.statusCode == 403) {
+              logout(null);
+            } else {
+              Logger.log(
+                  "ProfileController error at getProfile: ${result.statusCode}");
+            }
+          },
+        );
+      }
+    } on Exception catch (e) {
+      Logger.log("ProfileController error at getProfile: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
+    }
   }
 
   Future<void> getBalance() async {
@@ -33,31 +62,30 @@ class ProfileController extends GetxController with StateMixin {
 
       await ApiClient.getBalance().then(
         (result) {
-          print('getBalance statusCode: ${result.statusCode}');
           if (result.statusCode == 200) {
             var jsonResult = jsonDecode(result.body);
             final formatCurrency = NumberFormat("#,###");
-            balance.value =
-                formatCurrency.format(jsonResult["result"]["balance"] ?? 0.0);
-           } else if (result.statusCode == 401 || result.statusCode == 403) {
-            ProfileController profileController = Get.find();
+
+            profileModelObj.value.balance =
+                formatCurrency.format(jsonResult["result"]["balance"]) ?? "0.0";
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
             Map<String, bool> arg = {"timeOut": true};
-            profileController.logout(arg);
+            logout(arg);
           } else {
-            print("getBalance:${result.headers}");
+            Logger.log(
+                "ProfileController error at getBalance: ${result.statusCode}");
           }
         },
       );
     } catch (e) {
-      print(e.toString());
-    } finally{
+      Logger.log("ProfileController error at getBalance: ${e.toString()}");
+    } finally {
       change(null, status: RxStatus.success());
     }
   }
 
-  Future<void> logout(Map<String, bool>? arg) async {
+  void logout(Map<String, bool>? arg) async {
     PrefUtils.clearPreferencesData();
-
     if (arg != null) {
       Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
     } else {
@@ -68,11 +96,7 @@ class ProfileController extends GetxController with StateMixin {
   Future<void> editProfileScreen() async {
     Get.toNamed(AppRoutes.editProfileScreen)?.then(
       (value) {
-        profileModelObj.update(
-          (profile) {
-            profile?.fullName = PrefUtils.getString("fullName")!;
-          },
-        );
+        loadData();
       },
     );
   }
@@ -115,6 +139,5 @@ class ProfileController extends GetxController with StateMixin {
 
   void reportScreen() {
     Get.toNamed(AppRoutes.reportScreen);
-
   }
 }

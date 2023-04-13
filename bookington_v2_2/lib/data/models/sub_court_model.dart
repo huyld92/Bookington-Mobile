@@ -1,36 +1,38 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class SubCourtModel {
   String _id;
-  String _parent_court_id;
-  String _court_type_id;
-  DateTime _create_at;
-  bool _is_active;
-  bool _is_deleted;
+  String _parentCourtId;
+  String _courtTypeId;
+  DateTime _createAt;
+  bool _isActive;
+  bool _isDeleted;
 
-  SubCourtModel(this._id, this._parent_court_id, this._court_type_id,
-      this._create_at, this._is_active, this._is_deleted);
+  SubCourtModel(this._id, this._parentCourtId, this._courtTypeId,
+      this._createAt, this._isActive, this._isDeleted);
 
-  bool get is_deleted => _is_deleted;
+  bool get isDeleted => _isDeleted;
 
-  set is_deleted(bool value) {
-    _is_deleted = value;
+  set isDeleted(bool value) {
+    _isDeleted = value;
   }
 
-  DateTime get create_at => _create_at;
+  DateTime get createAt => _createAt;
 
-  set create_at(DateTime value) {
-    _create_at = value;
+  set createAt(DateTime value) {
+    _createAt = value;
   }
 
-  String get court_type_id => _court_type_id;
+  String get courtTypeId => _courtTypeId;
 
-  set court_type_id(String value) {
-    _court_type_id = value;
+  set courtTypeId(String value) {
+    _courtTypeId = value;
   }
 
-  String get parent_court_id => _parent_court_id;
+  String get parentCourtId => _parentCourtId;
 
-  set parent_court_id(String value) {
-    _parent_court_id = value;
+  set parentCourtId(String value) {
+    _parentCourtId = value;
   }
 
   String get id => _id;
@@ -39,9 +41,9 @@ class SubCourtModel {
     _id = value;
   }
 
-  bool get is_active => _is_active;
+  bool get isActive => _isActive;
 
-  set is_active(bool value) {
-    _is_active = value;
+  set isActive(bool value) {
+    _isActive = value;
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class ReportModel {
   late String _id;
   late String _refCourt;

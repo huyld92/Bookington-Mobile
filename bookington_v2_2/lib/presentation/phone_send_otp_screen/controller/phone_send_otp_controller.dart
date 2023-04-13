@@ -1,9 +1,7 @@
 
 
-import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:flutter/material.dart';
 
 class PhoneSendOtpController extends GetxController with StateMixin{

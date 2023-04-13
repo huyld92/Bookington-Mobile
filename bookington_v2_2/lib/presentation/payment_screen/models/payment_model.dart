@@ -4,24 +4,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class PaymentModel {
-  late String courtName="";
-  late DateTime created= DateTime.now();
-  late DateTime playDate= DateTime.now();
-  late String from="";
-  late String totalHours="";
-  late String orderId = "";
+
+  List<BookingModel> listBooking = <BookingModel>[].obs;
   List<SlotModel> listSlotBooking = <SlotModel>[].obs;
   // List<BookingModel>? listBooking;
 
   PaymentModel(
-      this.courtName, this.created, this.from, this.totalHours);
+      this.listBooking, this.listSlotBooking );
 
   PaymentModel.empty();
 
-  factory PaymentModel.fromJson(Map<String, dynamic> json) => PaymentModel(
-        json["courtName"],
-        DateFormat("dd-MM-yyyy").parse(json["created"]),
-        json["from"],
-        json["totalHours"],
-      );
 }

@@ -5,7 +5,6 @@ import 'package:bookington_v2_2/presentation/competition_screen/controller/compe
 import 'package:bookington_v2_2/presentation/competition_screen/widgets/competition_widget.dart';
 import 'package:bookington_v2_2/presentation/competition_screen/widgets/team_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
-import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class CompetitionScreen extends GetWidget<CompetitionController> {

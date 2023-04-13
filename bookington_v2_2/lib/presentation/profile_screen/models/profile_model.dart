@@ -1,18 +1,26 @@
+import 'package:bookington_v2_2/data/models/account_model.dart';
+import 'package:intl/intl.dart';
+
 class ProfileModel {
-  String _fullName;
-  String _phomeNumber;
+  late AccountModel _accountModel;
+  late String _balance;
 
-  ProfileModel(this._fullName, this._phomeNumber);
+  ProfileModel();
 
-  String get phomeNumber => _phomeNumber;
-
-  set phomeNumber(String value) {
-    _phomeNumber = value;
+  ProfileModel.empty(){
+    _accountModel = AccountModel.empty();
+    _balance = "";
   }
 
-  String get fullName => _fullName;
+  String get balance => _balance;
 
-  set fullName(String value) {
-    _fullName = value;
+  set balance(String value) {
+    _balance = value;
+  }
+
+  AccountModel get accountModel => _accountModel;
+
+  set accountModel(AccountModel value) {
+    _accountModel = value;
   }
 }

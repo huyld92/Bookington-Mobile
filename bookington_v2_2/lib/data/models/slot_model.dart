@@ -1,14 +1,16 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:intl/intl.dart';
 
 class SlotModel {
-  String _id;
+  String _slotId;
   DateTime _startTime;
   DateTime _endTime;
   double _price;
   bool _isAvailable;
 
   SlotModel(
-      this._id, this._startTime, this._endTime, this._price, this._isAvailable);
+      this._slotId, this._startTime, this._endTime, this._price, this._isAvailable);
 
   bool get isActive => _isAvailable;
 
@@ -34,10 +36,10 @@ class SlotModel {
     _startTime = value;
   }
 
-  String get id => _id;
+  String get id => _slotId;
 
   set id(String value) {
-    _id = value;
+    _slotId = value;
   }
 
   factory SlotModel.fromJson(Map<String, dynamic> json) =>

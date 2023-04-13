@@ -16,159 +16,296 @@ class ProfileScreen extends GetWidget<ProfileController> {
   @override
   Widget build(BuildContext context) {
     CustomBottomBar.selectedIndex = 4.obs;
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorConstant.gray50,
-        appBar: CustomAppBar(
-          height: getVerticalSize(80.00),
-          leadingWidth: 64,
-          centerTitle: true,
-          title: AppbarTitle(text: "lbl_profile".tr),
-        ),
-        body: controller.obx(
-          (state) => SingleChildScrollView(
-            child: Container(
-              width: size.width,
-              padding: getPadding(left: 24, right: 24, bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              CustomImageView(
-                                  svgPath: ImageConstant.imgUser,
-                                  height: getSize(70.00),
-                                  width: getSize(70.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(35.00)),
-                                  alignment: Alignment.center),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: getPadding(top: 8),
-                                child: Obx(
-                                  () => Text(
-                                      controller.profileModelObj.value.fullName,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold16.copyWith(
-                                          letterSpacing: getHorizontalSize(0.20))),
-                                ),
+    return controller.obx(
+      (state) {
+        return SafeArea(
+          child: Scaffold(
+            backgroundColor: ColorConstant.gray50,
+            appBar: CustomAppBar(
+              height: getVerticalSize(80.00),
+              leadingWidth: 64,
+              centerTitle: true,
+              title: AppbarTitle(text: "lbl_profile".tr),
+            ),
+            body: SingleChildScrollView(
+              child: Container(
+                width: size.width,
+                padding: getPadding(left: 24, right: 24, bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Obx(() => Container(
+                              padding: getPadding(right: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadiusStyle.circleBorder23
                               ),
-                              Padding(
-                                padding: getPadding(top: 4),
-                                child: Obx(
-                                  () => Text("${controller.balance}đ",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold16),
+                              child: Image.memory(controller.bytesImage.value,
+                                  width: getSize(70), height: getSize(70)),
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: getPadding(top: 8),
+                                  child: Obx(
+                                    () => Text(
+                                        controller.profileModelObj.value
+                                            .accountModel.fullName,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeBold16
+                                            .copyWith(
+                                                letterSpacing:
+                                                    getHorizontalSize(0.20))),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      CustomImageView(
-                        width: 32,
-                        height: 32,
-                        svgPath: ImageConstant.imgChangeAccount,
-                        color: ColorConstant.blue400,
-                        onTap: () {
-                          controller.changeAccount();
-
-                        },
-                      ),
-                    ],
-                  ),
-                  //manage
-                  GestureDetector(
-                    onTap: () {
-                      controller.editProfileScreen();
-                    },
-                    child: Padding(
-                        padding: getPadding(top: 10),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomIconButton(
-                                  height: 40,
-                                  width: 40,
-                                  child: CustomImageView(
-                                      svgPath: ImageConstant.imgUserProfile)),
-                              Padding(
-                                  padding:
-                                      getPadding(left: 16, top: 10, bottom: 7),
-                                  child: Text("lbl_manage_your_account".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeSemiBold14)),
-                              const Spacer(),
-                              CustomImageView(
+                                Padding(
+                                  padding: getPadding(top: 4),
+                                  child: Obx(
+                                    () => Text(
+                                        "${controller.profileModelObj.value.balance}đ",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeBold16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        CustomImageView(
+                          width: 32,
+                          height: 32,
+                          svgPath: ImageConstant.imgChangeAccount,
+                          color: ColorConstant.blue400,
+                          onTap: () {
+                            controller.changeAccount();
+                          },
+                        ),
+                      ],
+                    ),
+                    //manage
+                    GestureDetector(
+                      onTap: () {
+                        controller.editProfileScreen();
+                      },
+                      child: Padding(
+                          padding: getPadding(top: 10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomIconButton(
+                                    height: 40,
+                                    width: 40,
+                                    child: CustomImageView(
+                                        svgPath: ImageConstant.imgUserProfile)),
+                                Padding(
+                                    padding: getPadding(
+                                        left: 16, top: 10, bottom: 7),
+                                    child: Text("lbl_manage_your_account".tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeSemiBold14)),
+                                const Spacer(),
+                                CustomImageView(
                                   svgPath: ImageConstant.imgArrowRight,
                                   height: getSize(20.00),
                                   width: getSize(20.00),
                                   margin: getMargin(top: 10),
-
-                              ),
-                            ])),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  //Wallet
-                  GestureDetector(
-                    onTap: () {
-                      controller.walletScreen();
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomIconButton(
-                            height: 40,
-                            width: 40,
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgWallet),
-                          ),
-                          Padding(
-                              padding: getPadding(left: 16, top: 10, bottom: 7),
-                              child: Text("lbl_wallet".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeSemiBold14)),
-                          const Spacer(),
-                          CustomImageView(
-                              svgPath: ImageConstant.imgArrowRight,
-                              height: getSize(20.00),
-                              width: getSize(20.00),
-                              margin: getMargin(top: 10))
-                        ],
+                                ),
+                              ])),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    //Wallet
+                    GestureDetector(
+                      onTap: () {
+                        controller.walletScreen();
+                      },
+                      child: Padding(
+                        padding: getPadding(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomIconButton(
+                              height: 40,
+                              width: 40,
+                              child: CustomImageView(
+                                  svgPath: ImageConstant.imgWallet),
+                            ),
+                            Padding(
+                                padding:
+                                    getPadding(left: 16, top: 10, bottom: 7),
+                                child: Text("lbl_wallet".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeSemiBold14)),
+                            const Spacer(),
+                            CustomImageView(
+                                svgPath: ImageConstant.imgArrowRight,
+                                height: getSize(20.00),
+                                width: getSize(20.00),
+                                margin: getMargin(top: 10))
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  //favorite
-                  GestureDetector(
-                    onTap: () {
-                      controller.favouriteCourt();
-                    },
-                    child: Padding(
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    //favorite
+                    GestureDetector(
+                      onTap: () {
+                        controller.favouriteCourt();
+                      },
+                      child: Padding(
+                          padding: getPadding(top: 10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomIconButton(
+                                    height: 40,
+                                    width: 40,
+                                    child: CustomImageView(
+                                        svgPath: ImageConstant.imgFavorite)),
+                                Padding(
+                                    padding: getPadding(
+                                        left: 16, top: 10, bottom: 7),
+                                    child: Text("lbl_my_favorites".tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeSemiBold14)),
+                                const Spacer(),
+                                CustomImageView(
+                                    svgPath: ImageConstant.imgArrowRight,
+                                    height: getSize(20.00),
+                                    width: getSize(20.00),
+                                    margin: getMargin(top: 10))
+                              ])),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        controller.reportScreen();
+                      },
+                      child: Padding(
+                          padding: getPadding(top: 10),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomIconButton(
+                                    height: 40,
+                                    width: 40,
+                                    child: CustomImageView(
+                                        svgPath: ImageConstant.imgReport)),
+                                Padding(
+                                    padding: getPadding(
+                                        left: 16, top: 10, bottom: 7),
+                                    child: Text("lbl_report".tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: AppStyle.txtManropeSemiBold14)),
+                                const Spacer(),
+                                CustomImageView(
+                                  svgPath: ImageConstant.imgArrowRight,
+                                  height: getSize(20.00),
+                                  width: getSize(20.00),
+                                  margin: getMargin(top: 10, bottom: 10),
+                                )
+                              ])),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+
+                    GestureDetector(
+                      onTap: () {
+                        controller.transactionScreen();
+                      },
+                      child: Padding(
+                        padding: getPadding(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomIconButton(
+                                height: 40,
+                                width: 40,
+                                child: CustomImageView(
+                                    svgPath: ImageConstant.imgTransaction)),
+                            Padding(
+                                padding:
+                                    getPadding(left: 16, top: 10, bottom: 9),
+                                child: Text("lbl_transaction".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeSemiBold14)),
+                            const Spacer(),
+                            CustomImageView(
+                                svgPath: ImageConstant.imgArrowRight,
+                                height: getSize(20.00),
+                                width: getSize(20.00),
+                                margin: getMargin(top: 10)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        controller.bookingHistory();
+                      },
+                      child: Padding(
+                        padding: getPadding(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomIconButton(
+                                height: 40,
+                                width: 40,
+                                child: CustomImageView(
+                                    svgPath: ImageConstant.imgHistory)),
+                            Padding(
+                                padding:
+                                    getPadding(left: 16, top: 10, bottom: 7),
+                                child: Text("lbl_booking_history".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeSemiBold14)),
+                            const Spacer(),
+                            CustomImageView(
+                                svgPath: ImageConstant.imgArrowRight,
+                                height: getSize(20.00),
+                                width: getSize(20.00),
+                                margin: getMargin(top: 10, bottom: 10))
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        controller.myMatch();
+                      },
+                      child: Padding(
                         padding: getPadding(top: 10),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -177,11 +314,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                   height: 40,
                                   width: 40,
                                   child: CustomImageView(
-                                      svgPath: ImageConstant.imgFavorite)),
+                                      svgPath: ImageConstant.imgMatchBox)),
                               Padding(
                                   padding:
-                                      getPadding(left: 16, top: 10, bottom: 7),
-                                  child: Text("lbl_my_favorites".tr,
+                                      getPadding(left: 16, top: 12, bottom: 7),
+                                  child: Text("lbl_my_match".tr,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeSemiBold14)),
@@ -190,18 +327,19 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                   svgPath: ImageConstant.imgArrowRight,
                                   height: getSize(20.00),
                                   width: getSize(20.00),
-                                  margin: getMargin(top: 10))
-                            ])),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                   GestureDetector(
-                     onTap: () {
-                       controller.reportScreen();
-                     },
-                     child: Padding(
+                                  margin: getMargin(top: 10, bottom: 10))
+                            ]),
+                      ),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        controller.changePassword();
+                      },
+                      child: Padding(
                         padding: getPadding(top: 10),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -210,219 +348,81 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                   height: 40,
                                   width: 40,
                                   child: CustomImageView(
-                                      svgPath: ImageConstant.imgReport)),
+                                      svgPath: ImageConstant.imgPadlock)),
                               Padding(
                                   padding:
-                                      getPadding(left: 16, top: 10, bottom: 7),
-                                  child: Text("lbl_report".tr,
+                                      getPadding(left: 16, top: 12, bottom: 7),
+                                  child: Text("lbl_change_password".tr,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeSemiBold14)),
                               const Spacer(),
                               CustomImageView(
-                                svgPath: ImageConstant.imgArrowRight,
-                                height: getSize(20.00),
-                                width: getSize(20.00),
-                                margin: getMargin(top: 10, bottom: 10),
-
-                              )
-                            ])),
-                   ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-
-                  GestureDetector(
-                    onTap: () {
-                      controller.transactionScreen();
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomIconButton(
-                              height: 40,
-                              width: 40,
-                              child: CustomImageView(
-                                  svgPath: ImageConstant.imgTransaction)),
-                          Padding(
-                              padding: getPadding(left: 16, top: 10, bottom: 9),
-                              child: Text("lbl_transaction".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeSemiBold14)),
-                          const Spacer(),
-                          CustomImageView(
-                              svgPath: ImageConstant.imgArrowRight,
-                              height: getSize(20.00),
-                              width: getSize(20.00),
-                              margin: getMargin(top: 10)),
-                        ],
+                                  svgPath: ImageConstant.imgArrowRight,
+                                  height: getSize(20.00),
+                                  width: getSize(20.00),
+                                  margin: getMargin(top: 10, bottom: 10))
+                            ]),
                       ),
                     ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  GestureDetector(
-                    onTap: () {
-                      controller.bookingHistory();
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomIconButton(
-                              height: 40,
-                              width: 40,
-                              child: CustomImageView(
-                                  svgPath: ImageConstant.imgHistory)),
-                          Padding(
-                              padding: getPadding(left: 16, top: 10, bottom: 7),
-                              child: Text("lbl_booking_history".tr,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeSemiBold14)),
-                          const Spacer(),
-                          CustomImageView(
-                              svgPath: ImageConstant.imgArrowRight,
-                              height: getSize(20.00),
-                              width: getSize(20.00),
-                              margin: getMargin(top: 10, bottom: 10))
-                        ],
-                      ),
-                    ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  GestureDetector(
-                    onTap: () {
-                      controller.myMatch();
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomIconButton(
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        Get.defaultDialog(
+                          title: "",
+                          content: LogOutPopUpDialog(controller),
+                        );
+                      },
+                      child: Padding(
+                        padding: getPadding(top: 10),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomIconButton(
                                 height: 40,
                                 width: 40,
                                 child: CustomImageView(
-                                    svgPath: ImageConstant.imgMatchBox)),
-                            Padding(
-                                padding:
-                                    getPadding(left: 16, top: 12, bottom: 7),
-                                child: Text("lbl_my_match".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtManropeSemiBold14)),
-                            const Spacer(),
-                            CustomImageView(
-                                svgPath: ImageConstant.imgArrowRight,
-                                height: getSize(20.00),
-                                width: getSize(20.00),
-                                margin: getMargin(top: 10, bottom: 10))
-                          ]),
-                    ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  GestureDetector(
-                    onTap: () {
-                      controller.changePassword();
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomIconButton(
-                                height: 40,
-                                width: 40,
-                                child: CustomImageView(
-                                    svgPath: ImageConstant.imgPadlock)),
-                            Padding(
-                                padding:
-                                    getPadding(left: 16, top: 12, bottom: 7),
-                                child: Text("lbl_change_password".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtManropeSemiBold14)),
-                            const Spacer(),
-                            CustomImageView(
-                                svgPath: ImageConstant.imgArrowRight,
-                                height: getSize(20.00),
-                                width: getSize(20.00),
-                                margin: getMargin(top: 10, bottom: 10))
-                          ]),
-                    ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                  GestureDetector(
-                    onTap: () {
-                      Get.defaultDialog(
-                        title: "",
-                        content: LogOutPopUpDialog(controller),
-                      );
-                    },
-                    child: Padding(
-                      padding: getPadding(top: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomIconButton(
-                              height: 40,
-                              width: 40,
-                              child: CustomImageView(
-                                svgPath: ImageConstant.imgLogout,
-                                color: ColorConstant.red500,
+                                  svgPath: ImageConstant.imgLogout,
+                                  color: ColorConstant.red500,
+                                ),
                               ),
-                            ),
-                            Padding(
-                                padding:
-                                    getPadding(left: 16, top: 12, bottom: 7),
-                                child: Text("lbl_logout".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style:
-                                        AppStyle.txtManropeSemiBold14Red500)),
-                            const Spacer(),
-                            CustomImageView(
-                                svgPath: ImageConstant.imgArrowRight,
-                                height: getSize(20.00),
-                                width: getSize(20.00),
-                                margin: getMargin(top: 10, bottom: 10))
-                          ]),
+                              Padding(
+                                  padding:
+                                      getPadding(left: 16, top: 12, bottom: 7),
+                                  child: Text("lbl_logout".tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style:
+                                          AppStyle.txtManropeSemiBold14Red500)),
+                              const Spacer(),
+                              CustomImageView(
+                                  svgPath: ImageConstant.imgArrowRight,
+                                  height: getSize(20.00),
+                                  width: getSize(20.00),
+                                  margin: getMargin(top: 10, bottom: 10))
+                            ]),
+                      ),
                     ),
-                  ),
-                  Divider(
-                      height: getVerticalSize(1),
-                      thickness: getVerticalSize(1),
-                      color: ColorConstant.blueGray100),
-                ],
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                  ],
+                ),
               ),
             ),
+            bottomNavigationBar: CustomBottomBar(
+              onChanged: (BottomBarEnum type) {
+                Get.toNamed(getCurrentRoute(type));
+              },
+            ),
           ),
-          onLoading: const LoadingWidget(),
-
-        ),
-        bottomNavigationBar: CustomBottomBar(
-          onChanged: (BottomBarEnum type) {
-            Get.toNamed(getCurrentRoute(type));
-          },
-        ),
-      ),
+        );
+      },
+      onLoading: const LoadingWidget(),
     );
   }
 

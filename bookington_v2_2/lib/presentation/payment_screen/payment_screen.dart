@@ -1,5 +1,5 @@
 import 'package:bookington_v2_2/data/models/slot_model.dart';
-import 'package:bookington_v2_2/presentation/payment_screen/widgets/payment_successful_dialog.dart';
+import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:intl/intl.dart';
 
 import 'controller/payment_controller.dart';
@@ -18,6 +18,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
+    return controller.obx((state) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
@@ -33,7 +34,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                 controller.getBack();
               }),
           title:
-              AppbarTitle(text: "lbl_payment".tr, margin: getMargin(left: 16)),
+          AppbarTitle(text: "lbl_payment".tr, margin: getMargin(left: 16)),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -83,13 +84,15 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                  DateFormat("dd-MM-yyyy").format(controller
-                                      .paymentModelObj.value.playDate),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18,
-                                ),
+                                    () =>
+                                    Text(
+                                      DateFormat("dd-MM-yyyy").format(controller
+                                          .paymentModelObj.value.listBooking[0]
+                                          .playDate),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold18,
+                                    ),
                               ),
                             ],
                           ),
@@ -118,13 +121,15 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                  controller.paymentModelObj.value.courtName ??
-                                      "Court",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18,
-                                ),
+                                    () =>
+                                    Text(
+                                      controller.paymentModelObj.value
+                                          .listBooking[0].playDate.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      maxLines: 1,
+                                      style: AppStyle.txtManropeBold18,
+                                    ),
                               ),
                             ],
                           ),
@@ -153,12 +158,15 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                   DateFormat("HH:mm").format(controller.paymentModelObj.value.listSlotBooking[0].startTime),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18,
-                                ),
+                                    () =>
+                                    Text(
+                                      DateFormat("HH:mm").format(
+                                          controller.paymentModelObj.value
+                                              .listSlotBooking[0].startTime),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold18,
+                                    ),
                               ),
                             ],
                           ),
@@ -187,13 +195,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                 ),
                               ),
                               Obx(
-                                () => Text(
-                                  controller.paymentModelObj.value.totalHours ??
-                                      "0",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeBold18,
-                                ),
+                                    () =>
+                                    Text(
+                                      controller.paymentModelObj.value
+                                          .listBooking[0].price.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppStyle.txtManropeBold18,
+                                    ),
                               ),
                             ],
                           ),
@@ -219,49 +228,55 @@ class PaymentScreen extends GetWidget<PaymentController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Obx(
-                          () => ListView.builder(
-                            // controller: controller.scroll,
-                            shrinkWrap: true,
-                            itemCount: controller
-                                .paymentModelObj.value.listSlotBooking.length,
-                            itemBuilder: (context, index) {
-                              SlotModel model = controller
-                                  .paymentModelObj.value.listSlotBooking[index];
-                              return Padding(
-                                padding: getPadding(
-                                  top: 0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
+                              () =>
+                              ListView.builder(
+                                // controller: controller.scroll,
+                                shrinkWrap: true,
+                                itemCount: controller
+                                    .paymentModelObj.value.listSlotBooking
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  SlotModel model = controller
+                                      .paymentModelObj.value
+                                      .listSlotBooking[index];
+                                  return Padding(
+                                    padding: getPadding(
+                                      top: 0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: getPadding(
-                                        top: 1,
-                                      ),
-                                      child: Text(
-                                        "${DateFormat("HH:mm").format(model.startTime)} To ${DateFormat("HH:mm").format(model.endTime)}",
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeRegular16
-                                            .copyWith(
-                                          letterSpacing: getHorizontalSize(
-                                            0.20,
+                                      children: [
+                                        Padding(
+                                          padding: getPadding(
+                                            top: 1,
+                                          ),
+                                          child: Text(
+                                            "${DateFormat("HH:mm").format(model
+                                                .startTime)} To ${DateFormat(
+                                                "HH:mm").format(
+                                                model.endTime)}",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: AppStyle.txtManropeRegular16
+                                                .copyWith(
+                                              letterSpacing: getHorizontalSize(
+                                                0.20,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        Text(
+                                          formatCurrency.format(model.price),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: AppStyle.txtManropeBold18,
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      formatCurrency.format(model.price),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold18,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                              ),
                         ),
                         const Divider(
                           thickness: 2,
@@ -269,18 +284,20 @@ class PaymentScreen extends GetWidget<PaymentController> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Obx(
-                            () => RichText(
-                              text: TextSpan(
-                                text: 'Total   ',
-                                style: AppStyle.txtManropeRegular16,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '${formatCurrency.format(controller.totalAmount.value)} VND',
-                                    style: AppStyle.txtManropeBold18Red500,
+                                () =>
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Total   ',
+                                    style: AppStyle.txtManropeRegular16,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: '${formatCurrency.format(
+                                            controller.totalAmount.value)} VND',
+                                        style: AppStyle.txtManropeBold18Red500,
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
                           ),
                         )
                       ],
@@ -296,38 +313,39 @@ class PaymentScreen extends GetWidget<PaymentController> {
                   child: Container(
                     margin: getMargin(top: 10, bottom: 5),
                     padding:
-                        getPadding(left: 15, top: 15, right: 15, bottom: 15),
+                    getPadding(left: 15, top: 15, right: 15, bottom: 15),
                     decoration: AppDecoration.fillGray200.copyWith(
                         borderRadius: BorderRadiusStyle.roundedBorder16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Obx(
-                          () => Row(
-                            children: [
-                              CustomImageView(
-                                  svgPath: ImageConstant.imgCoupon,
-                                  height: getVerticalSize(32.00),
-                                  width: getHorizontalSize(32.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(4.00))),
-                              controller.voucherID.value.isEmpty
-                                  ? Padding(
+                              () =>
+                              Row(
+                                children: [
+                                  CustomImageView(
+                                      svgPath: ImageConstant.imgCoupon,
+                                      height: getVerticalSize(32.00),
+                                      width: getHorizontalSize(32.00),
+                                      radius: BorderRadius.circular(
+                                          getHorizontalSize(4.00))),
+                                  controller.voucher.value.id.isEmpty
+                                      ? Padding(
                                       padding: getPadding(
                                           left: 12, top: 2, bottom: 2),
                                       child: Text("lbl_voucher".tr,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtManropeBold18))
-                                  : Padding(
+                                      : Padding(
                                       padding: getPadding(
                                           left: 12, top: 2, bottom: 2),
                                       child: Text("lbl_voucher_applied".tr,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtManropeBold18)),
-                            ],
-                          ),
+                                ],
+                              ),
                         ),
                         CustomImageView(
                           height: getVerticalSize(32.00),
@@ -405,25 +423,27 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                     getHorizontalSize(4.00))),
                             Padding(
                                 padding:
-                                    getPadding(left: 12, top: 2, bottom: 2),
+                                getPadding(left: 12, top: 2, bottom: 2),
                                 child: Obx(
-                                  () => Text(
-                                      // "lbl_cash".tr +
-                                      "Balance: ${controller.balance}",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeBold18),
+                                      () =>
+                                      Text(
+                                        // "lbl_cash".tr +
+                                          "Balance: ${controller.balance}",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: AppStyle.txtManropeBold18),
                                 )),
                           ],
                         ),
                         Obx(
-                          () => Radio<String>(
-                            value: "Cash",
-                            groupValue: controller.selectedPayment.value,
-                            onChanged: (value) {
-                              controller.changePaymentMethod(value);
-                            },
-                          ),
+                              () =>
+                              Radio<String>(
+                                value: "Cash",
+                                groupValue: controller.selectedPayment.value,
+                                onChanged: (value) {
+                                  controller.changePaymentMethod(value);
+                                },
+                              ),
                         )
                       ],
                     ),
@@ -453,8 +473,10 @@ class PaymentScreen extends GetWidget<PaymentController> {
                       Padding(
                         padding: getPadding(all: 10),
                         child: Obx(
-                          () => Text("${formatCurrency.format(controller.totalAmount.value)} VND",
-                              style: AppStyle.txtManropeBold18),
+                              () =>
+                              Text("${formatCurrency.format(
+                                  controller.total.value)} VND",
+                                  style: AppStyle.txtManropeBold18),
                         ),
                       ),
                     ],
@@ -465,7 +487,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                   width: 330,
                   text: "lbl_confirm_payment".tr,
                   onTap: () {
-                    controller.confirmPayment();
+                    controller.checkout();
                   },
                 )
               ],
@@ -473,6 +495,9 @@ class PaymentScreen extends GetWidget<PaymentController> {
           ),
         ),
       ),
+    );
+  },
+  onLoading: const LoadingWidget()
     );
   }
 }

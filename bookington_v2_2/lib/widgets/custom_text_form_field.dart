@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 

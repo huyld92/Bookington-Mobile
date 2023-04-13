@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/voucher_model.dart';
 import 'package:bookington_v2_2/presentation/choose_voucher_screen/controller/voucher_controller.dart';
@@ -35,7 +37,7 @@ class ListVoucherItemWidget extends GetView<VoucherController> {
                 Padding(
                   padding: getPadding(left: 12, top: 2, bottom: 2),
                   child: Text(
-                      'EXP: ${DateFormat("dd.MM.yyyy").format(model.end_date)}',
+                      'EXP: ${DateFormat("dd.MM.yyyy").format(model.endDate)}',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtManropeBold18),

@@ -1,10 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/presentation/history_screen/models/booking_history_model.dart';
 import 'package:flutter/material.dart';
 
 class UpComingWidget extends StatelessWidget {
   UpComingWidget(this.model, {super.key});
 
-  late String model;
+  late BookingHistoryScreenModel model;
 
   @override
   Widget build(BuildContext context) {

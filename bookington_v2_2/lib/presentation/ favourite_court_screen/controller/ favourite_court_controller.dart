@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/model/favorite_model.dart';
 import 'package:intl/intl.dart';
@@ -12,21 +14,21 @@ class FavouriteCourtController extends GetxController {
   }
 
   void loadData() {
-    listFavoriteMode.add(new FavoriteModel("1", "PHu", 4.9, "Quận 11",
+    listFavoriteMode.add(FavoriteModel("1", "PHu", 4.9, "Quận 11",
         "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
         DateFormat("hh:mm").parse("13:00")));
-    listFavoriteMode.add(new FavoriteModel("1", "PHu", 4.9, "Quận 11",
-        "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
-        DateFormat("hh:mm").parse("13:00")));
-
-    listFavoriteMode.add(new FavoriteModel("1", "PHu", 4.9, "Quận 11",
+    listFavoriteMode.add(FavoriteModel("1", "PHu", 4.9, "Quận 11",
         "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
         DateFormat("hh:mm").parse("13:00")));
 
-    listFavoriteMode.add(new FavoriteModel("1", "PHu", 4.9, "Quận 11",
+    listFavoriteMode.add(FavoriteModel("1", "PHu", 4.9, "Quận 11",
         "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
         DateFormat("hh:mm").parse("13:00")));
-    listFavoriteMode.add(new FavoriteModel("1", "PHu", 4.9, "Quận 11",
+
+    listFavoriteMode.add(FavoriteModel("1", "PHu", 4.9, "Quận 11",
+        "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
+        DateFormat("hh:mm").parse("13:00")));
+    listFavoriteMode.add(FavoriteModel("1", "PHu", 4.9, "Quận 11",
         "123 Lý Thường Kiệt", 10000, 5, DateFormat("hh:mm").parse("12:00"),
         DateFormat("hh:mm").parse("13:00")));
   }

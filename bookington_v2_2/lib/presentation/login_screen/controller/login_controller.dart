@@ -17,30 +17,24 @@ class LoginController extends GetxController with StateMixin {
   @override
   void onInit() async {
     change(null, status: RxStatus.success());
+    txtPhoneController.text = "0111111131";
+    txtPasswordController.text = "customer";
+    loadData();
+
     super.onInit();
   }
 
-  @override
-  void onReady() async {
-    loadData();
-    super.onReady();
-  }
 
   Future<void> login(String phone, String password) async {
     refreshText();
-
     try {
       change(null, status: RxStatus.loading());
-
       await ApiClient.loginWithPhone(phone, password).then((result) {
-        print("loginWithPhone status code: ${result.statusCode}");
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
           LoginModel loginModel = LoginModel.fromJson(jsonResult["result"]);
           PrefUtils.setAccessToken(loginModel.sysToken);
           PrefUtils.setString("userID", loginModel.userID);
-          PrefUtils.setString("fullName", loginModel.fullName);
-          PrefUtils.setString("phoneNumber", loginModel.phoneNumber);
           Get.offNamed(AppRoutes.homeScreen);
         } else if (result.statusCode == 500) {
           Get.defaultDialog(
@@ -52,6 +46,7 @@ class LoginController extends GetxController with StateMixin {
         }
       });
     } catch (error) {
+      Logger.log(error);
       Get.defaultDialog(
           title: "Login Failed!", middleText: "Cannot connect to server!");
     } finally {
@@ -61,7 +56,7 @@ class LoginController extends GetxController with StateMixin {
 
   void refreshText() {
     // txtPhoneController.clear();
-    txtPasswordController.clear();
+    // txtPasswordController.clear();
   }
 
   void registrationPhoneScreen() {
@@ -69,39 +64,48 @@ class LoginController extends GetxController with StateMixin {
   }
 
   void loadData() {
-    var arg = Get.arguments;
-    print('arg: ${arg.toString()}');
-    if (arg != null) {
-      if (arg["timeOut"] != null && arg["timeOut"]) {
-        print('loadData timeout');
-        Get.defaultDialog(
-          title: "Session Expired",
-          content: Center(
-            child: Text("Please login again.",
-                style: AppStyle.txtManropeSemiBold14),
-          ),
-          cancel: TextButton(
-            child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-        );
-      } else if (arg["isChangePassword"] != null && arg["isChangePassword"]) {
-        Get.defaultDialog(
-          title: "Change Password successfully",
-          content: Center(
-            child: Text("Please login again.",
-                style: AppStyle.txtManropeSemiBold14),
-          ),
-          cancel: TextButton(
-            child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-        );
+    try {
+      change(null, status: RxStatus.loading());
+      var arg = Get.arguments;
+      if (arg != null) {
+        if (arg["timeOut"] != null && arg["timeOut"]) {
+          print('????????????????????????????????');
+          Get.defaultDialog(
+            title: "Session Expired",
+            content: Center(
+              child: Text("Please login again.",
+                  style: AppStyle.txtManropeSemiBold14),
+            ),
+            cancel: TextButton(
+              child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          );
+        } else if (arg["isChangePassword"] != null && arg["isChangePassword"]) {
+          print('isChangePassword');
+          Get.defaultDialog(
+            title: "Change Password successfully",
+            content: Center(
+              child: Text("Please login again.",
+                  style: AppStyle.txtManropeSemiBold14),
+            ),
+            cancel: TextButton(
+              child: Text("OK", style: AppStyle.txtManropeSemiBold16Blue500),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          );
+        } else {
+          print('else');
+        }
       }
+    } on Exception catch (e) {
+      Logger.log(e);
+    } finally{
+      change(null, status: RxStatus.success());
     }
   }
 

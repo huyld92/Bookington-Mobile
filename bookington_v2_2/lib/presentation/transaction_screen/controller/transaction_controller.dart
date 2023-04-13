@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -56,10 +58,8 @@ class TransactionController extends GetxController with StateMixin,ScrollMixin{
     String userID = PrefUtils.getString("userID") ?? "";
 
      print('userId=$userID\nrefUser:$refTo');
-    if (userID != null) {
-      if(userID == refTo){
-        return true;
-      }
+    if(userID == refTo){
+      return true;
     }
     return false;
   }

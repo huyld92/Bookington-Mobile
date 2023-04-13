@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/transaction_model.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/controller/transaction_controller.dart';
-import 'package:bookington_v2_2/presentation/transaction_screen/models/transaction_model_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -48,7 +48,7 @@ class LoginScreen extends GetWidget<LoginController> {
                     Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: getSize(320),
                             child: Center(
                                 child: Text(
@@ -106,9 +106,10 @@ class LoginScreen extends GetWidget<LoginController> {
                                                             getVerticalSize(
                                                                 32.00)),
                                                 validator: (value) {
-                                                  if (value == null ||
-                                                      (!isValidPhone(value,
-                                                          isRequired: true))) {
+                                                  if (value == null
+                                                      // ||  (!isValidPhone(value,
+                                                      //     isRequired: true))
+                                                  ) {
                                                     return "Please enter valid phone";
                                                   }
                                                   return null;

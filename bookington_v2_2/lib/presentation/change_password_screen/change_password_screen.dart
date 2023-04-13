@@ -6,7 +6,6 @@ import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:bookington_v2_2/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
   ChangePasswordScreen({super.key});
@@ -38,7 +37,7 @@ class ChangePasswordScreen extends GetWidget<ChangePasswordController> {
           ),
           body: controller.obx(
             (state) => SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 width: size.width,
                 height: size.height - 22,
                 child: Column(

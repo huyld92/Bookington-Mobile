@@ -1,67 +1,20 @@
 import 'dart:convert';
 
- import 'package:bookington_v2_2/data/models/voucher_model.dart';
- import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/voucher_model.dart';
+import 'package:bookington_v2_2/widgets/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 
-class VoucherController extends GetxController {
+class VoucherController extends GetxController with StateMixin {
   TextEditingController voucherController = TextEditingController();
-  RxList<VoucherModel> listVoucherMode = [
-    VoucherModel(
-        "1",
-        "2",
-        "3",
-        "AAAAAAAA",
-        "Voucher 1",
-        "_description",
-        10,
-        20,
-        10,
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("15/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        true),
-    VoucherModel(
-        "2",
-        "2",
-        "3",
-        "BBBBBBB",
-        "Voucher 2",
-        "_description",
-        10,
-        20,
-        10,
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("15/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        true),
-    VoucherModel(
-        "3",
-        "2",
-        "3",
-        "CCCCCC",
-        "Voucher 3",
-        "_description",
-        10,
-        20,
-        10,
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("15/12/2022"),
-        DateFormat("dd/MM/yyyy").parse("12/12/2022"),
-        true),
-  ].obs;
+  RxList<VoucherModel> listVoucherMode =  [VoucherModel.empty()].obs;
   RxString selectedVoucher = "".obs;
+  String courtId = "";
 
   @override
   void onInit() {
-    var voucher = Get.arguments;
-    if (voucher['courtID'] != null) {
-      selectedVoucher.value = voucher['id'];
-      String courtID = voucher['courtID'];
-      loadData(courtID);
-    }
-
+    loadData();
     super.onInit();
   }
 
@@ -70,30 +23,52 @@ class VoucherController extends GetxController {
     voucherController.dispose();
     super.onClose();
   }
-  void loadData(String courtID) {
-    //
-    // ApiClient.getAllVoucherOfCourt(courtID).then((result) {
-    //   if (result.statusCode == 200) {
-    //     VoucherModel voucher =
-    //     VoucherModel.fromJson(jsonDecode(result.body)["result"]);
-    //   } else if(result.statusCode == 401 || result.statusCode == 403){
-    //     ProfileController profileController = Get.find();
-    //     profileController.logout();
-    //   }else {
-    //     print('ERRRRRRRRR');
-    //   }
-    // });
 
+  Future<void> loadData() async {
+    Map<String, String> arg = Get.arguments;
+    if (arg["courtId"] != null) {
+      courtId = arg["courtId"]!;
+      selectedVoucher.value = arg['voucherId']!;
+    }
+     await getAllVoucherOfCourt();
+  }
+
+  Future<void> getAllVoucherOfCourt() async {
+    change(null, status: RxStatus.loading());
+    try {
+      await ApiClient.getAllVoucherOfCourt(courtId).then((result) {
+        if (result.statusCode == 200) {
+          listVoucherMode.value =
+              VoucherModel.listFromJson(jsonDecode(result.body)["result"]);
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+          Logger.log(
+              "VoucherController error at getAllVoucherOfCourt: ${result.statusCode}");
+        }
+      });
+    } on Exception catch (e) {
+      Logger.log(
+          "VoucherController error at getAllVoucherOfCourt: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
+    }
   }
 
   void getBack() {
-    if(selectedVoucher.value == "-1"){
-      selectedVoucher.value = "";
+    VoucherModel voucher = VoucherModel.empty();
+    if (selectedVoucher.value != "-1") {
+       for(VoucherModel v in listVoucherMode){
+        if(v.id == selectedVoucher.value){
+          voucher = v;
+          break;
+        }
+      }
     }
-    Map<String, String> backValue = {
-      'id': selectedVoucher.value,
+    Map<String, dynamic> backValue = {
+      'voucher': voucher,
     };
-    Get.back(result: backValue);
+     Get.back(result: backValue);
   }
 
   void changeVoucher(int index) {
@@ -102,5 +77,11 @@ class VoucherController extends GetxController {
     } else {
       selectedVoucher.value = listVoucherMode[index].id;
     }
+  }
+
+  void logout() {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 }

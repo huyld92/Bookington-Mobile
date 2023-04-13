@@ -4,7 +4,6 @@ import 'package:bookington_v2_2/presentation/competition_details/controller/comp
 import 'package:bookington_v2_2/presentation/competition_details/widgets/matches_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
-import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class CompetitionDetailsScreen extends GetWidget<CompetitionDetailsController> {
@@ -45,10 +44,10 @@ class CompetitionDetailsScreen extends GetWidget<CompetitionDetailsController> {
             body: TabBarView(
               controller: controller.tabController,
               children: [
-                Center(
+                const Center(
                   child: Text("Details"),
                 ),
-                Center(
+                const Center(
                   child: Text("Teams"),
                 ),
                 Container(

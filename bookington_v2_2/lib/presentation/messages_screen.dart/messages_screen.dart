@@ -8,6 +8,8 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore_for_file: must_be_immutable
 class MessagesScreen extends GetWidget<MessagesController> {
+  const MessagesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     CustomBottomBar.selectedIndex = 1.obs;

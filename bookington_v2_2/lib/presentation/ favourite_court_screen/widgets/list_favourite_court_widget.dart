@@ -54,7 +54,7 @@ class ListFavouriteCourtWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Flexible(
-                      child: Container(
+                      child: SizedBox(
                     width: 220,
                     child: Text(
                       _favoriteModel.name,

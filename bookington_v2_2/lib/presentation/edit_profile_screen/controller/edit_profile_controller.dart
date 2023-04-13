@@ -8,10 +8,11 @@ import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_c
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class EditProfileController extends GetxController {
+class EditProfileController extends GetxController with StateMixin {
   TextEditingController phoneController = TextEditingController();
 
   TextEditingController fullNameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   var selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
 
@@ -28,40 +29,53 @@ class EditProfileController extends GetxController {
     super.onClose();
     phoneController.dispose();
     fullNameController.dispose();
+    descriptionController.dispose();
   }
 
-  void loadProfile() {
-    if (PrefUtils.getString("sysToken") == null) {
-      Get.offNamed(AppRoutes.loginScreen);
-    } else {
-      String sysToken = PrefUtils.getAccessToken() ?? "-1";
-      ApiClient.getProfile(sysToken).then(
-        (result) {
-          print(result.statusCode);
-          if (result.statusCode == 200) {
-            final jsonResult = (jsonDecode(result.body)["result"]);
-            phoneController.text = jsonResult["phone"];
-            fullNameController.text = jsonResult["fullName"];
-            try {
-              var dateValue = DateFormat("yyyy-MM-dd")
-                  .parseUTC(jsonResult["dateOfBirth"])
-                  .toLocal()
-                  .toString();
-              selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
-            } catch (error) {
-              print(error.toString());
-              selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
+  Future<void> loadProfile() async {
+    change(null, status: RxStatus.loading());
+    try {
+      if (PrefUtils.getString("sysToken") == null) {
+        Get.offNamed(AppRoutes.loginScreen);
+      } else {
+        String sysToken = PrefUtils.getAccessToken() ?? "-1";
+        await ApiClient.getProfile(sysToken).then(
+          (result) {
+            if (result.statusCode == 200) {
+              final jsonResult = (jsonDecode(result.body)["result"]);
+              phoneController.text = jsonResult["phone"];
+              fullNameController.text = jsonResult["fullName"];
+              try {
+                var dateValue = DateFormat("yyyy-MM-dd")
+                    .parseUTC(jsonResult["dateOfBirth"])
+                    .toLocal()
+                    .toString();
+                selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
+              } catch (error) {
+                Logger.log(
+                    "EditProfileController error at loadProfile: ${error.toString()}");
+                selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
+              }
+            } else if (result.statusCode == 401 || result.statusCode == 403) {
+              logout();
+            } else {
+              Logger.log(
+                  "EditProfileController error at loadProfile: ${result.statusCode}");
             }
-          } else if (result.statusCode == 401 || result.statusCode == 403) {
-            ProfileController profileController = Get.find();
-            Map<String, bool> arg = {"timeOut": true};
-            profileController.logout(arg);
-          } else {
-            print('EDIT PROFILE headers: ${result.headers}');
-          }
-        },
-      );
+          },
+        );
+      }
+    } on Exception catch (e) {
+      Logger.log("EditProfileController error at loadProfile: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
     }
+  }
+
+  Future<void> logout() async {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
   getBack() {
@@ -86,53 +100,61 @@ class EditProfileController extends GetxController {
     );
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
-     }
+    }
   }
 
-  void updateProfile() {
-    if (PrefUtils.getString("userID") == null) {
-      Get.offNamed(AppRoutes.loginScreen);
-    } else {
-      String userID = PrefUtils.getString("userID") ?? "-1";
-      String fullName = fullNameController.text;
+  Future<void> updateProfile() async {
+    try {
+      if (PrefUtils.getString("userID") == null) {
+        Get.offNamed(AppRoutes.loginScreen);
+      } else {
+        String userID = PrefUtils.getString("userID") ?? "-1";
+        String fullName = fullNameController.text;
 
-      String date = selectedDate.value.toString();
-      ApiClient.updateProfile(userID, fullName, date).then(
-        (result) {
-          print(result.statusCode);
-          if (result.statusCode == 200) {
-            final jsonResult = (jsonDecode(result.body)["result"]);
-             fullNameController.text = jsonResult["fullName"];
-            PrefUtils.setString("fullName", fullNameController.text);
-            HomeController homeController = Get.find();
-            homeController.homeModelObj.value.fullName = fullName;
-            homeController.homeModelObj.refresh();
-            Get.snackbar(
-              'Edit profile',
-              "Edit profile successful",
-              colorText: ColorConstant.black900,
-              duration: const Duration(seconds: 1),
-              backgroundColor: ColorConstant.whiteA700,
-              icon: CustomImageView(
-                  width: 16, height: 16, svgPath: ImageConstant.imgNotify),
-            );
-          } else if (result.statusCode == 401 || result.statusCode == 403) {
-            ProfileController profileController = Get.find();
-            Map<String, bool> arg = {"timeOut": true};
-            profileController.logout(arg);
-          } else {
-             Get.snackbar(
-              'Edit profile',
-              "Edit profile failed",
-              colorText: ColorConstant.black900,
-              // duration: const Duration(seconds: 1),
-              backgroundColor: ColorConstant.whiteA700,
-              icon: CustomImageView(
-                  width: 16, height: 16, svgPath: ImageConstant.imgNotify),
-            );
-          }
-        },
-      );
+        String date = selectedDate.value.toString();
+         await ApiClient.updateProfile(userID, fullName, date).then(
+          (result) {
+            if (result.statusCode == 200) {
+              final jsonResult = (jsonDecode(result.body)["result"]);
+              fullNameController.text = jsonResult["fullName"];
+              HomeController homeController = Get.find();
+              homeController.homeModelObj.value.accountModel.fullName =
+                  fullName;
+              homeController.homeModelObj.refresh();
+              Get.snackbar(
+                'Edit profile',
+                "Edit profile successful",
+                colorText: ColorConstant.black900,
+                duration: const Duration(seconds: 1),
+                backgroundColor: ColorConstant.whiteA700,
+                icon: CustomImageView(
+                    width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+              );
+            } else if (result.statusCode == 401 || result.statusCode == 403) {
+              ProfileController profileController = Get.find();
+              Map<String, bool> arg = {"timeOut": true};
+              profileController.logout(arg);
+            } else {
+              Logger.log(
+                  "EditProfileController error at updateProfile: ${result.statusCode}");
+
+              Get.snackbar(
+                'Edit profile',
+                "Edit profile failed",
+                colorText: ColorConstant.black900,
+                 backgroundColor: ColorConstant.whiteA700,
+                icon: CustomImageView(
+                    width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+              );
+            }
+          },
+        );
+      }
+    } on Exception catch (e) {
+      Logger.log(
+          "EditProfileController error at updateProfile: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
     }
   }
 }

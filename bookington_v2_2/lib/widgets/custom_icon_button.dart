@@ -1,10 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class CustomIconButton extends StatelessWidget {
   CustomIconButton(
-      {this.shape,
+      {super.key, this.shape,
         this.padding,
         this.variant,
         this.alignment,
@@ -47,7 +49,7 @@ class CustomIconButton extends StatelessWidget {
       padding: margin ?? EdgeInsets.zero,
       child: IconButton(
         iconSize: getSize(height ?? 0),
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         icon: Container(
           alignment: Alignment.center,
           width: getSize(width ?? 0),

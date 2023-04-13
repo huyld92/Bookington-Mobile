@@ -1,8 +1,6 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/competition_model.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/controller/forum_controller.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/model/forum_match_model.dart';
-import 'package:bookington_v2_2/presentation/forum_screen/widgets/forum_competition_widget.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/widgets/forum_matches_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';

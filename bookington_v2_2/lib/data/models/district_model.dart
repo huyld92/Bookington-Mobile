@@ -1,4 +1,6 @@
 
+// ignore_for_file: unnecessary_getters_setters, hash_and_equals
+
 class DistrictModel{
   late String _id;
   late String _districtName;
@@ -35,5 +37,8 @@ class DistrictModel{
       return false;
     }
   }
+
+
+
 
 }

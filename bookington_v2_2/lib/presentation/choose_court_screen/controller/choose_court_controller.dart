@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
@@ -58,13 +60,21 @@ class ChooseCourtController extends GetxController with StateMixin {
           Map<String, bool> arg = {"timeOut": true};
           profileController.logout(arg);
         } else {
-          print(result.headers);
-        }
+          Logger.log(
+              "ChooseCourtController error at getAvailableSubCourt: ${result.statusCode}");        }
         change(null, status: RxStatus.success());
       });
-    } catch (error) {
-      print(error.toString());
+    } catch (e) {
+      Logger.log(
+          "ChooseCourtController error at getAvailableSubCourt: ${e.toString()}");
     }
+  }
+
+
+  void logout()  {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
   void selectCourt(int index) {

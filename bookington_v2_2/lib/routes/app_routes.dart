@@ -1,7 +1,7 @@
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/binding/%20favourite_court_binding.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/favourite_court_screen.dart';
-import 'package:bookington_v2_2/presentation/change_accoungt_screen/biding/change_account_binding.dart';
-import 'package:bookington_v2_2/presentation/change_accoungt_screen/change_accoungt_screen.dart';
+import 'package:bookington_v2_2/presentation/change_account_screen/biding/change_account_binding.dart';
+import 'package:bookington_v2_2/presentation/change_account_screen/change_account_screen.dart';
 import 'package:bookington_v2_2/presentation/change_password_screen/binding/change_password_binding.dart';
 import 'package:bookington_v2_2/presentation/change_password_screen/change_password_screen.dart';
 import 'package:bookington_v2_2/presentation/choose_court_screen/binding/choose_court_binding.dart';
@@ -269,7 +269,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: matchDetailsScreen,
-      page: () => MatchDetailsScreen(),
+      page: () => const MatchDetailsScreen(),
       bindings: [
         MatchDetailsBinding(),
       ],
@@ -287,7 +287,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: messagesScreen,
-      page: () => MessagesScreen(),
+      page: () => const MessagesScreen(),
       bindings: [
         MessagesBinding(),
       ],
@@ -362,7 +362,7 @@ class AppRoutes {
     GetPage(
       // name: initialRoute,
       name: reportScreen,
-      page: () => ReportScreen(),
+      page: () => const ReportScreen(),
       bindings: [
         ReportBinding(),
       ],
@@ -392,7 +392,7 @@ class AppRoutes {
     GetPage(
       name: initialRoute,
       // name: splashScreen,
-      page: () => SplashScreen(),
+      page: () => const SplashScreen(),
       bindings: [
         SplashBinding(),
       ],

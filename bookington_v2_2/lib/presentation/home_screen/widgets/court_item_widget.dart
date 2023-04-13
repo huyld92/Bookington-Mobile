@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_item_model.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CourtItemWidget extends StatelessWidget {
-  CourtItemWidget(this.homeItemModelObj);
+  CourtItemWidget(this.homeItemModelObj, {super.key});
 
   HomeItemModel homeItemModelObj;
 
@@ -122,7 +124,7 @@ class CourtItemWidget extends StatelessWidget {
                                   "20.000 VND".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
+                                  style: AppStyle.txtManropeExtraBold20WhiteA700.copyWith(
                                     height: getVerticalSize(
                                       1.00,
                                     ),
@@ -135,7 +137,7 @@ class CourtItemWidget extends StatelessWidget {
                                     bottom: 2,
                                   ),
                                   child: Text(
-                                    "slot/30min".tr,
+                                    "/slot/30min".tr,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: AppStyle
@@ -150,7 +152,7 @@ class CourtItemWidget extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ),

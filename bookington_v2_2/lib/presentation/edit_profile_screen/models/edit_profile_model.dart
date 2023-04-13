@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:bookington_v2_2/data/models/account_model.dart';
 
 class EditProfileModel {

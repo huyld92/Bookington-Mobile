@@ -33,7 +33,7 @@ class SearchResultWidget extends StatelessWidget {
                   top: 20,
                   right: 0,
                 ),
-                 child: Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -62,25 +62,49 @@ class SearchResultWidget extends StatelessWidget {
                       },
                     ),
                   ],
-              ),),
+                ),
+              ),
               SizedBox(
                 height: 440,
-                child: ListView.builder(
-                   controller: controller.scroll,
-                  shrinkWrap: true,
-                  itemCount: controller.listSearchMode.length,
-                  itemBuilder: (context, index) {
-                    SearchModel model = controller.listSearchMode[index];
-                    return ListRectangleItemWidget(model, index);
-                  },
+                child: Obx(() => ListView.builder(
+                    controller: controller.scroll,
+                    shrinkWrap: true,
+                    itemCount: controller.listSearchMode.length,
+                    itemBuilder: (context, index) {
+                      SearchModel model = controller.listSearchMode[index];
+                      return ListRectangleItemWidget(model, index);
+                    },
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ),
-      onLoading: const LoadingWidget(),
-      // Center(child: CircularProgressIndicator()),
+      onLoading: Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          height: 150,
+          width: 50,
+          padding: getPadding(top: 50),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: getPadding(right: 10),
+                  child: const CircularProgressIndicator(),
+                ),
+                Padding(
+                  padding: getPadding(top: 20),
+                  child: Text("loading.... ",
+                      style: AppStyle.txtManropeSemiBold16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       onEmpty: SearchEmptyWidget(),
     );
   }

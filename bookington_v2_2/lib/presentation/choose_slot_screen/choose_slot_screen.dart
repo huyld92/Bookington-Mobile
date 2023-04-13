@@ -5,7 +5,6 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
-import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

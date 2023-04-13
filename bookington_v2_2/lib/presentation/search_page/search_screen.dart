@@ -1,5 +1,3 @@
-import 'package:bookington_v2_2/data/models/district_model.dart';
-import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -257,7 +255,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                   onTap: () {
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
-                                    controller.searchAction();
+                                    controller.searchByName(1);
                                   },
                                 )
                               ],

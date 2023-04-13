@@ -4,13 +4,15 @@ import 'controller/splash_controller.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
+  const SplashScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorConstant.blueA400,
-            body: Container(
+            body: SizedBox(
                 width: size.width,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

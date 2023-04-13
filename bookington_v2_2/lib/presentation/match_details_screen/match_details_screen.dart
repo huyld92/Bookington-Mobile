@@ -9,6 +9,8 @@ import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:flutter/material.dart';
 
 class MatchDetailsScreen extends GetWidget<MatchDetailsController> {
+  const MatchDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

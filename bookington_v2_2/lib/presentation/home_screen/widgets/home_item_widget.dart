@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import '../controller/home_controller.dart';
 import '../models/home_item_model.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,7 @@ import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 
 // ignore: must_be_immutable
 class HomeItemWidget extends StatelessWidget {
-  HomeItemWidget(this.homeItemModelObj);
+  HomeItemWidget(this.homeItemModelObj, {super.key});
 
   HomeItemModel homeItemModelObj;
 
@@ -14,7 +16,7 @@ class HomeItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: getVerticalSize(
         400.00,
       ),

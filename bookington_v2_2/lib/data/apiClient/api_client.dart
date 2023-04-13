@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -21,7 +23,8 @@ class ApiClient extends GetConnect {
         .toList();
   }
 
-  static Future<http.Response> loginWithPhone(String phone, String password) async {
+  static Future<http.Response> loginWithPhone(
+      String phone, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var url = Uri.parse(AppUrl.loginEndPoint);
     Map body = {'phone': phone, 'password': password};
@@ -61,7 +64,7 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> resendOtp(String phone) async {
-    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=${phone}');
+    var url = Uri.parse('${AppUrl.resendOtpEndPoint}?phone=$phone');
     http.Response response = await http.get(url);
 
     return response;
@@ -81,12 +84,9 @@ class ApiClient extends GetConnect {
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
-    print('districtNameAPI:${searchValue.districtName}');
-
     var url = Uri.parse(
         "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     http.Response response = await http.get(url, headers: header);
-
     return response;
   }
 
@@ -177,7 +177,8 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAvailableSubCourt(
       String courtId, String playDate, String startTime) async {
-    var url = Uri.parse(AppUrl.getAvailableSubCourtEndPoint);
+    var url = Uri.parse(
+        "${AppUrl.getAvailableSubCourtEndPoint}?CourtId=$courtId&PlayDate=$playDate&StartTime=$startTime&EndTime=23:59:59.0000000");
     String? sysToken = PrefUtils.getAccessToken();
 
     Map<String, String> headers = {
@@ -191,17 +192,17 @@ class ApiClient extends GetConnect {
       "startTime": startTime,
       "endTime": "23:59:59.0000000"
     };
-    print('body choose court: ${body}');
+    print('body choose court: $body');
 
-    http.Response response =
-        await http.post(url, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.get(url, headers: headers);
 
     return response;
   }
 
   static Future<http.Response> getAvailableSlot(
       String subCourtId, String playDate) async {
-    var url = Uri.parse('${AppUrl.getAvailableSlotEndPoint}');
+    var url = Uri.parse(
+        "${AppUrl.getAvailableSlotEndPoint}?SubCourtId=$subCourtId&PlayDate=$playDate");
     String? sysToken = PrefUtils.getAccessToken();
 
     Map<String, String> headers = {
@@ -209,27 +210,21 @@ class ApiClient extends GetConnect {
       'Content-Type': 'application/json',
     };
 
-    Map<String, String> body = {
-      "subCourtId": subCourtId,
-      "playDate": playDate,
-    };
-    print('urlL: ${body}');
-
-    http.Response response =
-        await http.post(url, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.get(url, headers: headers);
 
     return response;
   }
 
   static Future<http.Response> createNewBooking(
-      List<Map<String, String>> listSlotBooking,String courtId) async {
-    var url = Uri.parse("${AppUrl.createNewBookingEndPoint}?courtId=$courtId");
+      List<Map<String, String>> listSlotBooking) async {
+    var url = Uri.parse(AppUrl.createNewBookingEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
 
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
       'Content-Type': 'application/json',
     };
+
     http.Response response = await http.post(url,
         body: jsonEncode(listSlotBooking), headers: headers);
 
@@ -253,7 +248,7 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> getAllVoucherOfCourt(String courtID) async {
     var url =
-    Uri.parse("${AppUrl.getAllVoucherOfCourtEndPoint}?courtId=$courtID");
+        Uri.parse("${AppUrl.getAllVoucherOfCourtEndPoint}?courtId=$courtID");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
@@ -264,12 +259,13 @@ class ApiClient extends GetConnect {
 
     return response;
   }
-    static Future<http.Response> getBalance() async {
-      var url = Uri.parse(AppUrl.getBalanceEndPoint);
+
+  static Future<http.Response> getBalance() async {
+    var url = Uri.parse(AppUrl.getBalanceEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
-    "Authorization": "Bearer $sysToken",
-    'Content-Type': 'application/json',
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
     };
 
     http.Response response = await http.get(url, headers: headers);
@@ -277,7 +273,8 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> changePassword(String userId, String oldPassword, String newPassword, String confirmPassword) async {
+  static Future<http.Response> changePassword(String userId, String oldPassword,
+      String newPassword, String confirmPassword) async {
     var url = Uri.parse(AppUrl.changePasswordEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
@@ -296,7 +293,8 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> checkout(String voucherCode, String orderId) async {
+  static Future<http.Response> checkout(
+      String voucherCode, String orderId) async {
     var url = Uri.parse(AppUrl.checkoutEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
@@ -308,7 +306,38 @@ class ApiClient extends GetConnect {
       'orderId': orderId,
     };
 
-    http.Response response = await http.post(url, headers: headers, body: jsonEncode(body));
+    http.Response response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+
+    return response;
+  }
+
+  static Future<http.Response> getIncomingBookings(
+      int pageNumber, int maxPageSize) async {
+    var url = Uri.parse(
+        "${AppUrl.getIncomingBookings}?PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> getFinishedBookings(
+      int pageNumber, int maxPageSize) async {
+    var url = Uri.parse(
+        "${AppUrl.getFinishedBookings}?PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.get(url, headers: headers);
 
     return response;
   }

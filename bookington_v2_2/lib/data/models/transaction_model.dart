@@ -1,20 +1,34 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:intl/intl.dart';
 
 class TransactionModel {
-  String _id;
-  String _refFrom;
-  String _fromUsername;
-  String _refTo;
-  String _toUsername;
-  DateTime _createAt;
-  int _amount;
+  late String _id;
+  late String _refFrom;
+  late String _fromUsername;
+  late String _refTo;
+  late String _toUsername;
+  late String _reason;
+  late DateTime _createAt;
+  late double _amount;
 
   TransactionModel(this._id, this._refFrom, this._fromUsername, this._refTo,
-      this._toUsername, this._createAt, this._amount);
+      this._toUsername, this._reason, this._createAt, this._amount);
 
-  int get amount => _amount;
+  TransactionModel.empty() {
+    _id = "";
+    _refFrom = "";
+    _fromUsername = "";
+    _refTo = "";
+    _toUsername = "";
+    _reason = "";
+    _createAt = DateTime.now();
+    _amount = 0.0;
+  }
 
-  set amount(int value) {
+  double get amount => _amount;
+
+  set amount(double value) {
     _amount = value;
   }
 
@@ -25,6 +39,12 @@ class TransactionModel {
   }
 
   String get toUsername => _toUsername;
+
+  String get reason => _reason;
+
+  set reason(String value) {
+    _reason = value;
+  }
 
   set toUsername(String value) {
     _toUsername = value;
@@ -58,12 +78,12 @@ class TransactionModel {
       TransactionModel(
         json["id"],
         json["refFrom"],
-        json["fromUsername"]??"a",
+        json["fromUsername"] ?? "a",
         json["refTo"],
-        json["toUsername"]??"b",
-        DateFormat("yyyy-MM-dd")
-          .parseUTC(json["createAt"]),
-        json["amount"],
+        json["toUsername"] ?? "b",
+        json["reason"] ?? "b",
+        DateFormat("yyyy-MM-dd").parseUTC(json["createAt"]),
+        json["amount"] * 1.0,
       );
 
   static List<TransactionModel> listNameFromJson(list) =>

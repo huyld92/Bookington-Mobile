@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 class Logger {
   static LogMode _logMode = LogMode.debug;
 

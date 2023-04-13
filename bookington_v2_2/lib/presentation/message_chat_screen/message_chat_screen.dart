@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 
 import 'controller/message_chat_controller.dart';
@@ -105,7 +107,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
+                              SizedBox(
                                   width: getHorizontalSize(218.00),
                                   child: Text("asdasdsad".tr,
                                       maxLines: null,
@@ -237,7 +239,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       width: 210,
                                       child: Padding(
                                         padding: EdgeInsets.only(

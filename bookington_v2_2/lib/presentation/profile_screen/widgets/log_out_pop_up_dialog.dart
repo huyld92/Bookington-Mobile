@@ -6,7 +6,7 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
 
 // ignore_for_file: must_be_immutable
 class LogOutPopUpDialog extends StatelessWidget {
-  LogOutPopUpDialog(this.controller);
+  LogOutPopUpDialog(this.controller, {super.key});
 
   ProfileController controller;
 

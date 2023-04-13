@@ -1,13 +1,13 @@
+// ignore_for_file: avoid_print
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/controller/%20favourite_court_controller.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/model/favorite_model.dart';
 import 'package:bookington_v2_2/presentation/%20favourite_court_screen/widgets/list_favourite_court_widget.dart';
-import 'package:bookington_v2_2/presentation/search_page/widgets/listrectangle_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class FavouriteCourtScreen extends GetWidget<FavouriteCourtController> {
   const FavouriteCourtScreen({super.key});

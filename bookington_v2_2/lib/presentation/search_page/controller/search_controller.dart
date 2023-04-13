@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -63,18 +64,6 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     super.onDelete();
   }
 
-  searchAction() async {
-    pageNumber.value = 1;
-    change(null, status: RxStatus.loading());
-    await searchByName(1).whenComplete(() {
-      if (listSearchMode.isEmpty) {
-        change(null, status: RxStatus.empty());
-      } else {
-        change(null, status: RxStatus.success());
-      }
-    });
-  }
-
   Future<void> getPosition() async {
     positionAddress = await MapUtils.getCurrentPosition();
     if (positionAddress["districtName"] == null) {
@@ -84,14 +73,9 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   Future<void> loadData() async {
-    // addItems();
-    await getPosition();
-    await getListProvince().whenComplete(() async {
-      print('is complate');
-      return await searchAction();
-    });
-    // district.add(DistrictModel("-1", "Choose district"));
-    // province.add(ProvinceModel("-1", "Choose province"));
+    // await getPosition();
+    await getListProvince();
+    await searchByName(1);
   }
 
   Future<void> searchByName(int pageNumber) async {
@@ -110,92 +94,115 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         searchController.text.trim(),
         selectedDistrict.value.districtName,
         selectedProvince.value.provinceName);
-    await ApiClient.searchCourt(pageNumber, courtModel).then((result) {
-      print("selectedDistrict: ${selectedDistrict.value.districtName}");
-
-      print('Search court code: ${result.statusCode}');
-      if (result.statusCode == 200) {
-        final jsonResult = jsonDecode(result.body);
-        totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
-        if (totalCourt.value == '0') {
-          listSearchMode.clear();
-        } else {
-          if (pageNumber == 1) {
-            listSearchMode.value =
-                SearchModel.listFromJson(jsonResult["result"]).obs;
+    try {
+      await ApiClient.searchCourt(pageNumber, courtModel).then((result) {
+        if (result.statusCode == 200) {
+          final jsonResult = jsonDecode(result.body);
+          totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
+          if (totalCourt.value == '0') {
+            listSearchMode.clear();
           } else {
-            listSearchMode
-                .addAll(SearchModel.listFromJson(jsonResult["result"]));
+            if (pageNumber == 1) {
+              listSearchMode.value =
+                  SearchModel.listFromJson(jsonResult["result"]).obs;
+            } else {
+              listSearchMode
+                  .addAll(SearchModel.listFromJson(jsonResult["result"]));
+            }
           }
+          listSearchMode.refresh();
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          ProfileController profileController = Get.find();
+          Map<String, bool> arg = {"timeOut": true};
+          profileController.logout(arg);
+        } else {
+          Logger.log(
+              "SearchController error at searchByName: ${result.statusCode}");
         }
-        print('${listSearchMode.length}');
-        listSearchMode.refresh();
-      } else if (result.statusCode == 401 || result.statusCode == 403) {
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-        profileController.logout(arg);
-      }
-    });
+      });
 
-    if (selectedProvince.value.provinceName.isEmpty) {
-      selectedProvince.value.provinceName = "Choose province";
-    }
-    if (selectedDistrict.value.districtName.isEmpty) {
-      selectedDistrict.value.districtName = "Choose district";
+      if (selectedProvince.value.provinceName.isEmpty) {
+        selectedProvince.value.provinceName = "Choose province";
+      }
+      if (selectedDistrict.value.districtName.isEmpty) {
+        selectedDistrict.value.districtName = "Choose district";
+      }
+    } on Exception catch (e) {
+      Logger.log("SearchController error at searchByName: ${e.toString()}");
+    } finally {
+      if (listSearchMode.isNotEmpty) {
+        change(null, status: RxStatus.success());
+      } else {
+        change(null, status: RxStatus.empty());
+      }
     }
   }
 
   Future<void> getListProvince() async {
-    await ApiClient.getAllProvince().then((result) async {
-      print('status code getListProvince: ${result.statusCode}');
-      if (result.statusCode == 200) {
-        List jsonResult = jsonDecode(result.body)["result"];
-
-        province.value = ProvinceModel.listNameFromJson(jsonResult);
-        province.add(ProvinceModel("-1", "Choose province"));
-        province.refresh();
-        if (searchByLocation) {
-          for (ProvinceModel p in province) {
-            if (p.provinceName == positionAddress["provinceName"]) {
-              selectedProvince.value = p;
-              await getDistrictById(selectedProvince.value.id);
-              return;
+    try {
+      await ApiClient.getAllProvince().then((result) async {
+        if (result.statusCode == 200) {
+          List jsonResult = jsonDecode(result.body)["result"];
+          province.value = ProvinceModel.listNameFromJson(jsonResult);
+          province.add(ProvinceModel("-1", "Choose province"));
+          province.refresh();
+          if (searchByLocation) {
+            for (ProvinceModel p in province) {
+              if (p.provinceName == positionAddress["provinceName"]) {
+                selectedProvince.value = p;
+                await getDistrictById(selectedProvince.value.id);
+                return;
+              }
             }
           }
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+          Logger.log(
+              "SearchController error at getListProvince: ${result.statusCode}");
         }
-      } else if (result.statusCode == 401 || result.statusCode == 403) {
-      print('getListProvince tiemout');
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-        profileController.logout(arg);
-      }
-    });
+      });
+    } on Exception catch (e) {
+      Logger.log("SearchController error at getListProvince: ${e.toString()}");
+    }
   }
 
   Future<void> getDistrictById(String id) async {
-    district.clear();
-    await ApiClient.getDistrictById(id).then((result) async {
-      print('status getDistrictById: ${result.statusCode}');
-      if (result.statusCode == 200) {
-        district.value =
-            DistrictModel.listNameFromJson(jsonDecode(result.body)["result"]);
-        district.add(DistrictModel("-1", "Choose district"));
-        district.refresh();
-        if (searchByLocation) {
-          for (DistrictModel d in district) {
-            if (d.districtName == positionAddress["districtName"]) {
-              selectedDistrict.value = d;
-              return;
+    try {
+      district.clear();
+      await ApiClient.getDistrictById(id).then((result) async {
+        if (result.statusCode == 200) {
+          district.value =
+              DistrictModel.listNameFromJson(jsonDecode(result.body)["result"]);
+          district.add(DistrictModel("-1", "Choose district"));
+          district.refresh();
+          if (searchByLocation) {
+            for (DistrictModel d in district) {
+              if (d.districtName == positionAddress["districtName"]) {
+                selectedDistrict.value = d;
+                return;
+              }
             }
           }
+          selectedDistrict.value = DistrictModel("-1", "Choose district");
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          ProfileController profileController = Get.find();
+          Map<String, bool> arg = {"timeOut": true};
+          profileController.logout(arg);
+        } else {
+          Logger.log(
+              "SearchController error at getDistrictById: ${result.statusCode}");
         }
-        selectedDistrict.value = DistrictModel("-1", "Choose district");
-      } else if (result.statusCode == 401 || result.statusCode == 403) {
-        ProfileController profileController = Get.find();
-        Map<String, bool> arg = {"timeOut": true};
-        profileController.logout(arg);
-      }
-    });
+      });
+    } on Exception catch (e) {
+      Logger.log("SearchController error at getDistrictById: ${e.toString()}");
+    }
+  }
+
+  Future<void> logout() async {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
   courtDetailsScreen(int index) {
@@ -211,8 +218,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     change(null, status: RxStatus.loadingMore());
     if (listSearchMode.length < int.parse(totalCourt.value)) {
       pageNumber.value++;
-      await searchByName(pageNumber.value)
-          .whenComplete(() => change(null, status: RxStatus.success()));
+      await searchByName(pageNumber.value);
     }
   }
 
@@ -268,80 +274,75 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   void filterDialog() {
     Get.defaultDialog(
         title: "lbl_filter".tr,
-        content: Container(
-          child: Column(
-            children: [
-              Obx(
-                () => Container(
-                  width: getVerticalSize(200),
-                  height: getVerticalSize(40),
-                  decoration: BoxDecoration(
-                    border: BorderRadiusStyle.border2Gray500,
-                    borderRadius: BorderRadiusStyle.roundedBorder16,
-                  ),
-                  padding: getPadding(top: 5, left: 5, right: 5, bottom: 5),
-                  margin: getMargin(all: 10),
-                  child: DropdownButton<ProvinceModel>(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    items: province.map((ProvinceModel dropDownStringItem) {
-                      return DropdownMenuItem<ProvinceModel>(
-                        value: dropDownStringItem,
-                        child: Text(
-                          dropDownStringItem.provinceName,
-                          style: AppStyle.txtManropeRegular14,
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (value) =>
-                        onSelectedProvince(value!),
-                    value: selectedProvince.value,
-                  ),
+        content: Column(
+          children: [
+            Obx(
+              () => Container(
+                width: getVerticalSize(200),
+                height: getVerticalSize(40),
+                decoration: BoxDecoration(
+                  border: BorderRadiusStyle.border2Gray500,
+                  borderRadius: BorderRadiusStyle.roundedBorder16,
+                ),
+                padding: getPadding(top: 5, left: 5, right: 5, bottom: 5),
+                margin: getMargin(all: 10),
+                child: DropdownButton<ProvinceModel>(
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  items: province.map((ProvinceModel dropDownStringItem) {
+                    return DropdownMenuItem<ProvinceModel>(
+                      value: dropDownStringItem,
+                      child: Text(
+                        dropDownStringItem.provinceName,
+                        style: AppStyle.txtManropeRegular14,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) => onSelectedProvince(value!),
+                  value: selectedProvince.value,
                 ),
               ),
-              Obx(
-                () => Container(
-                  width: getVerticalSize(200),
-                  height: getVerticalSize(40),
-                  margin: getPadding(top: 10, bottom: 10),
-                  padding: getPadding(top: 5, left: 5, right: 5, bottom: 5),
-                  decoration: BoxDecoration(
-                    border: BorderRadiusStyle.border2Gray500,
-                    borderRadius: BorderRadiusStyle.roundedBorder16,
-                  ),
-                  child: DropdownButton<DistrictModel>(
-                    underline: SizedBox(),
-                    isExpanded: true,
-                    items: district.map((DistrictModel dropDownStringItem) {
-                      return DropdownMenuItem<DistrictModel>(
-                        value: dropDownStringItem,
-                        child: Text(
-                          dropDownStringItem.districtName,
-                          style: AppStyle.txtManropeRegular14,
-                        ),
-                      );
-                    }).toList(),
-                    // onChanged: (value) => print(value),
-                    onChanged: (value) => onSelectedDistrict(value!),
-                    value: selectedDistrict.value,
-                  ),
+            ),
+            Obx(
+              () => Container(
+                width: getVerticalSize(200),
+                height: getVerticalSize(40),
+                margin: getPadding(top: 10, bottom: 10),
+                padding: getPadding(top: 5, left: 5, right: 5, bottom: 5),
+                decoration: BoxDecoration(
+                  border: BorderRadiusStyle.border2Gray500,
+                  borderRadius: BorderRadiusStyle.roundedBorder16,
+                ),
+                child: DropdownButton<DistrictModel>(
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  items: district.map((DistrictModel dropDownStringItem) {
+                    return DropdownMenuItem<DistrictModel>(
+                      value: dropDownStringItem,
+                      child: Text(
+                        dropDownStringItem.districtName,
+                        style: AppStyle.txtManropeRegular14,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) => onSelectedDistrict(value!),
+                  value: selectedDistrict.value,
                 ),
               ),
-              CustomButton(
-                height: 40,
-                width: 355,
-                margin: getMargin(left: 10, right: 10),
-                padding: ButtonPadding.PaddingAll8,
-                text: "lbl_search".tr,
-                onTap: () {
-                  FocusManager.instance.primaryFocus
-                      ?.unfocus();
-                  searchAction();
-                  Get.back();
-                },
-              )
-            ],
-          ),
+            ),
+            CustomButton(
+              height: 40,
+              width: 355,
+              margin: getMargin(left: 10, right: 10),
+              padding: ButtonPadding.PaddingAll8,
+              text: "lbl_search".tr,
+              onTap: () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                searchByName(1);
+                Get.back();
+              },
+            )
+          ],
         ));
   }
 }

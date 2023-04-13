@@ -2,8 +2,9 @@
     package="huydd.bookington.bookington_v2_2">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="bookington_v2_2"
+        android:label="bookington_v1.1"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

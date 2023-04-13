@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:intl/intl.dart';
 
 class SearchModel {
@@ -8,6 +10,7 @@ class SearchModel {
   late String _provinceName;
   late double _moneyPerHour;
   late int _numberOfSubCourt;
+  late int _numberOfReview;
   late DateTime _openAt;
   late DateTime _closeAt;
 
@@ -19,6 +22,7 @@ class SearchModel {
       this._provinceName,
       this._moneyPerHour,
       this._numberOfSubCourt,
+      this._numberOfReview,
       this._openAt,
       this._closeAt);
 
@@ -64,6 +68,13 @@ class SearchModel {
     _numberOfSubCourt = value;
   }
 
+  int get numberOfReview => _numberOfReview;
+
+  set numberOfReview(int value) {
+    _numberOfReview = value;
+  }
+
+
   DateTime get openAt => _openAt;
 
   set openAt(DateTime value) {
@@ -84,6 +95,7 @@ class SearchModel {
         json["provinceName"],
         json["moneyPerHour"].toDouble(),
         json["numberOfSubCourt"],
+        json["numOfReview"],
         DateFormat("kk:mm").parse(json["openAt"]),
         DateFormat("kk:mm").parse(json["closeAt"]),
       );

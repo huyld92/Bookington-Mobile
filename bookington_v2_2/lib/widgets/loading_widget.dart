@@ -8,22 +8,32 @@ class LoadingWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: ColorConstant.whiteA700,
-      padding: getPadding(top: 50),
-      child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: getPadding(right: 10),
-                child: const CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: getPadding(top: 20),
-                child: Text("loading....", style: AppStyle.txtManropeSemiBold16),
-              ),
-            ],
-          )),
+    return Scaffold(
+      backgroundColor: ColorConstant.whiteA700,
+      body: Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          height: 150,
+          width: 50,
+          padding: getPadding(top: 50),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: getPadding(right: 10),
+                  child: const CircularProgressIndicator(),
+                ),
+                Padding(
+                  padding: getPadding(top: 20),
+                  child:
+                  Text("loading.... ", style: AppStyle.txtManropeSemiBold16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

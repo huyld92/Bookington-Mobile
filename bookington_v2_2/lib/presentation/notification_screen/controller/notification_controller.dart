@@ -1,7 +1,7 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print
+
 
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
 
 class NotificationController extends GetxController {
@@ -20,8 +20,7 @@ class NotificationController extends GetxController {
   queryNotifications() {
     Map<String, dynamic> arg = Get.arguments;
     listNotificationModel.value = arg["listNotification"];
-    print('$arg["listNotification"]');
-  }
+   }
 
   getBack() {
     Get.back(result: "notify screen back");

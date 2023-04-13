@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters, hash_and_equals
+
 class ProvinceModel {
   late String _id;
   late String _provinceName;

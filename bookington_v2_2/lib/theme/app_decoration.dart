@@ -41,11 +41,11 @@ class AppDecoration {
 
   static BoxDecoration get gradientGray80000Gray90096 => BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment(
+          begin: const Alignment(
             -0.5,
             0,
           ),
-          end: Alignment(
+          end: const Alignment(
             -0.5,
             1,
           ),

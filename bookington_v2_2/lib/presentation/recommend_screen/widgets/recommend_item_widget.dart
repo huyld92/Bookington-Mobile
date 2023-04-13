@@ -5,7 +5,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class RecommendItemWidget extends StatelessWidget {
-  RecommendItemWidget(this.recommendItemModelObj);
+  RecommendItemWidget(this.recommendItemModelObj, {super.key});
 
   RecommendItemModel recommendItemModelObj;
 

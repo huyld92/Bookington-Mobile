@@ -5,7 +5,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class MessagesItemWidget extends StatelessWidget {
-  MessagesItemWidget(this.messagesItemModelObj);
+  MessagesItemWidget(this.messagesItemModelObj, {super.key});
 
   MessagesItemModel messagesItemModelObj;
 
@@ -17,7 +17,7 @@ class MessagesItemWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             height: getVerticalSize(
               60,
             ),
@@ -76,7 +76,7 @@ class MessagesItemWidget extends StatelessWidget {
                           blurRadius: getHorizontalSize(
                             2,
                           ),
-                          offset: Offset(
+                          offset: const Offset(
                             0,
                             4,
                           ),

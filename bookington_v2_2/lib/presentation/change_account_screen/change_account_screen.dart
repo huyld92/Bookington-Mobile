@@ -1,7 +1,8 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/data/models/account_model.dart';
-import 'package:bookington_v2_2/presentation/change_accoungt_screen/controller/change_account_controller.dart';
-import 'package:bookington_v2_2/presentation/change_accoungt_screen/models/change_account_model.dart';
+import 'package:bookington_v2_2/presentation/change_account_screen/controller/change_account_controller.dart';
+import 'package:bookington_v2_2/presentation/change_account_screen/models/change_account_model.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:flutter/material.dart';

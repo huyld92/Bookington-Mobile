@@ -4,7 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 // ignore: must_be_immutable
 class AppbarImage extends StatelessWidget {
   AppbarImage(
-      {required this.height,
+      {super.key, required this.height,
       required this.width,
       this.imagePath,
       this.svgPath,

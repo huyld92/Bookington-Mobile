@@ -1,14 +1,24 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:intl/intl.dart';
 
 class NotificationModel {
-  String _id;
-  String _refAccount;
-  String _content;
-  DateTime _createAt;
-  bool _isRead;
+  late String _id;
+  late String _refAccount;
+  late String _content;
+  late DateTime _createAt;
+  late bool _isRead;
 
   NotificationModel(
       this._id, this._refAccount, this._content, this._createAt, this._isRead);
+
+  NotificationModel.empty() {
+    _id = "";
+    _refAccount = "";
+    _content = "";
+    _createAt = DateTime.now();
+    _isRead = false;
+  }
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(json["id"], json["refAccount"], json["content"],

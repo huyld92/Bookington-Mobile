@@ -1,12 +1,12 @@
+
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/models/court_details_model.dart';
-import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 
-class CourtDetailsController extends GetxController with StateMixin{
+class CourtDetailsController extends GetxController with StateMixin {
   Rx<CourtDetailsModel> courtDetailsModelObj = CourtDetailsModel.empty().obs;
 
   Rx<int> silderIndex = 2.obs;
@@ -19,12 +19,11 @@ class CourtDetailsController extends GetxController with StateMixin{
 
   loadData() {
     try {
-    Map<String, String> arg = Get.arguments;
+      Map<String, String> arg = Get.arguments;
       if (arg["courtId"] != null) {
         getCourtDetails(arg["courtId"]!);
         print('courtId: ${arg["courtId"]}');
       }
-
     } on Exception {
       getBack();
     }
@@ -42,27 +41,34 @@ class CourtDetailsController extends GetxController with StateMixin{
               CourtModel.fromJson(jsonDecode(result.body)["result"]);
           courtDetailsModelObj.value.id = court.id;
           courtDetailsModelObj.value.name = court.name;
-          courtDetailsModelObj.value.ownerPhoneNumber = "0907077707";
-          courtDetailsModelObj.value.districtName = court.districtId;
+          courtDetailsModelObj.value.ownerPhoneNumber = court.phone;
+          courtDetailsModelObj.value.districtName = court.districtName;
           courtDetailsModelObj.value.address = court.address;
+          courtDetailsModelObj.value.moneyPerHour = court.moneyPerHour;
+          courtDetailsModelObj.value.numberOfSubCourt = court.numberOfSubCourt;
+          courtDetailsModelObj.value.numberOfReview = court.numberOfReview;
           courtDetailsModelObj.value.openAt = court.openAt;
           courtDetailsModelObj.value.closeAt = court.closeAt;
-         } else if(result.statusCode == 401 || result.statusCode == 403){
-          ProfileController profileController = Get.find();
-          Map<String, bool> arg = {"timeOut": true};
-          profileController.logout(arg);
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
         } else {
-          print('ERRRRRRRRR');
+          Logger.log(
+              "CourtDetailsController error at getCourtDetails: ${result.statusCode}");
         }
       });
+    } catch (e) {
+      Logger.log(
+          "CourtDetailsController error at getCourtDetails: ${e.toString()}");
     } finally {
-      Future.delayed(const Duration(milliseconds: 1000), () {
-         change(null, status: RxStatus.success());
-      });
+      change(null, status: RxStatus.success());
     }
-
   }
 
+  void logout() {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
+  }
   void chooseCourtScreen() {
     Map<String, String> arg = Get.arguments;
     Get.toNamed(AppRoutes.chooseCourtScreen, arguments: arg);
@@ -70,9 +76,7 @@ class CourtDetailsController extends GetxController with StateMixin{
 
   getBack() {
     Get.back();
-   }
-
-  void favorite() {
-
   }
+
+  void favorite() {}
 }

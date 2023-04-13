@@ -67,6 +67,7 @@ final Map<String, String> enUs = {
   'lbl_no_results': 'No Results',
    'lbl_choose_slot': 'Choose Slot',
   'lbl_payment_successful': 'Payment Successful!',
+  'lbl_payment_failed': 'Payment Failed!',
   'lbl_view_booking': 'View your booking',
   'lbl_online': 'online',
   'lbl_today': 'Today',
@@ -104,6 +105,9 @@ final Map<String, String> enUs = {
   'lbl_more_account': 'More account',
   'lbl_logged': 'Logged',
   'lbl_description': 'Description',
+  'lbl_slot_30_min': '/slot/30min',
+  'lbl_back_home': 'Back Home',
+  'lbl_back': 'Back',
 
   'msg_network_err': 'Network Error',
   'msg_cannot_select_previous_time': 'Cannot select previous time',
