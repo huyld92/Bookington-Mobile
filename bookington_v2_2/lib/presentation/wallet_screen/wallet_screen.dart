@@ -1,7 +1,8 @@
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/transaction_model.dart';
-import 'package:bookington_v2_2/presentation/transaction_screen/wigets/transaction_item_widget.dart';
+import 'package:bookington_v2_2/presentation/transaction_screen/widgets/transaction_item_widget.dart';
 import 'package:bookington_v2_2/presentation/wallet_screen/controller/wallet_controller.dart';
+import 'package:bookington_v2_2/presentation/wallet_screen/widgets/wallet_transaction_empty.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
@@ -106,17 +107,22 @@ class WalletScreen extends GetWidget<WalletController> {
                                   )
                                 ])),
                         Obx(
-                          () => Expanded(
-                            child: ListView.builder(
-                              itemCount: controller.listTransactionObj.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (BuildContext context, int index) {
-                                TransactionModel model =
-                                    controller.listTransactionObj[index];
-                                return TransactionItemWidget(model, index);
-                              },
-                            ),
-                          ),
+                          () => controller.listTransactionObj.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                    itemCount:
+                                        controller.listTransactionObj.length,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      TransactionModel model =
+                                          controller.listTransactionObj[index];
+                                      return TransactionItemWidget(
+                                          model, index);
+                                    },
+                                  ),
+                                )
+                              : WalletTransactionEmpty(),
                         ),
                       ],
                     ),

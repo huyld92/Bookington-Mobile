@@ -10,7 +10,7 @@ class TransactionModel {
   late String _toUsername;
   late String _reason;
   late DateTime _createAt;
-  late double _amount;
+  late String _amount;
 
   TransactionModel(this._id, this._refFrom, this._fromUsername, this._refTo,
       this._toUsername, this._reason, this._createAt, this._amount);
@@ -23,12 +23,12 @@ class TransactionModel {
     _toUsername = "";
     _reason = "";
     _createAt = DateTime.now();
-    _amount = 0.0;
+    _amount = "";
   }
 
-  double get amount => _amount;
+  String get amount => _amount;
 
-  set amount(double value) {
+  set amount(String value) {
     _amount = value;
   }
 
@@ -74,19 +74,22 @@ class TransactionModel {
     _id = value;
   }
 
-  factory TransactionModel.fromJson(Map<String, dynamic> json) =>
-      TransactionModel(
-        json["id"],
-        json["refFrom"],
-        json["fromUsername"] ?? "a",
-        json["refTo"],
-        json["toUsername"] ?? "b",
-        json["reason"] ?? "b",
-        DateFormat("yyyy-MM-dd").parseUTC(json["createAt"]),
-        json["amount"] * 1.0,
-      );
+  factory TransactionModel.fromJson(Map<String, dynamic> json) {
+    final formatCurrency = NumberFormat("#,###");
+    return TransactionModel(
+      json["id"],
+      json["refFrom"],
+      json["fromUsername"] ?? "a",
+      json["refTo"],
+      json["toUsername"] ?? "b",
+      // json["reason"].toString(),
+      "Payment for booking",
+      DateFormat("yyyy-MM-dd").parseUTC(json["createAt"]),
+      "${formatCurrency.format(json["amount"])} đ",
+    );
+  }
 
-  static List<TransactionModel> listNameFromJson(list) =>
+  static List<TransactionModel> listFromJson(list) =>
       List<TransactionModel>.from(
           list.map((x) => TransactionModel.fromJson(x)));
 }

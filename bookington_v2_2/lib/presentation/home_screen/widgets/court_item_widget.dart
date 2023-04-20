@@ -2,16 +2,16 @@
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
-import 'package:bookington_v2_2/presentation/home_screen/models/home_item_model.dart';
+import 'package:bookington_v2_2/presentation/home_screen/models/home_court_item_model.dart';
 
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CourtItemWidget extends StatelessWidget {
-  CourtItemWidget(this.homeItemModelObj, {super.key});
+  CourtItemWidget(this.model, this.index,{super.key});
 
-  HomeItemModel homeItemModelObj;
-
+  HomeCourtItemModel model;
+  int index;
   var controller = Get.find<HomeController>();
 
   @override
@@ -20,35 +20,22 @@ class CourtItemWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerRight,
         child: Container(
-          height: getVerticalSize(
-            400.00,
-          ),
-          width: getHorizontalSize(
-            300.00,
-          ),
-          margin: getMargin(
-            right: 24,
-          ),
+          height: getVerticalSize(400.00),
+          width: getHorizontalSize(300.00),
+          margin: getMargin(right: 24),
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               CustomImageView(
                 imagePath: ImageConstant.imgPhoThoCourt,
-                height: getVerticalSize(
-                  400.00,
-                ),
-                width: getHorizontalSize(
-                  300.00,
-                ),
+                height: getVerticalSize(400.00),
+                width: getHorizontalSize(300.00),
                 radius: BorderRadius.circular(
-                  getHorizontalSize(
-                    36.00,
-                  ),
+                  getHorizontalSize(36.00),
                 ),
                 alignment: Alignment.center,
                 onTap: () {
-                  print("court details");
-  controller.goCourtDetails();
+                   controller.courtDetailsScreen(index);
                 },
               ),
               Align(
@@ -59,18 +46,10 @@ class CourtItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      width: getHorizontalSize(
-                        300.00,
-                      ),
-                      margin: getMargin(
-                        top: 172,
-                      ),
-                      padding: getPadding(
-                        left: 32,
-                        top: 23,
-                        right: 32,
-                        bottom: 23,
-                      ),
+                      width: getHorizontalSize(300.00),
+                      margin: getMargin(top: 172),
+                      padding:
+                          getPadding(left: 32, top: 23, right: 32, bottom: 23),
                       decoration:
                           AppDecoration.gradientGray80000Gray90096.copyWith(
                         borderRadius: BorderRadiusStyle.customBorderBL36,
@@ -81,30 +60,25 @@ class CourtItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: getPadding(
-                              top: 19,
-                            ),
+                            padding: getPadding(top: 19),
                             child: Text(
-                              "Phu Tho Court".tr,
+                              model.name,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
-                                height: getVerticalSize(
-                                  1.00,
-                                ),
+                              style: AppStyle.txtManropeExtraBold24WhiteA700
+                                  .copyWith(
+                                height: getVerticalSize(1.00),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: getPadding(
-                              top: 10,
-                            ),
+                            padding: getPadding(top: 10),
                             child: Text(
-                              "District 11, HCM city".tr,
+                              "${model.districtName},${model.provinceName}",
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeMedium14Gray300
-                                  .copyWith(
+                              style:
+                                  AppStyle.txtManropeMedium14Gray300.copyWith(
                                 letterSpacing: getHorizontalSize(
                                   0.20,
                                 ),
@@ -115,19 +89,16 @@ class CourtItemWidget extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: getPadding(
-                              top: 8,
-                            ),
+                            padding: getPadding(top: 8),
                             child: Row(
                               children: [
                                 Text(
-                                  "20.000 VND".tr,
+                                  model.moneyPerHour,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
-                                  style: AppStyle.txtManropeExtraBold20WhiteA700.copyWith(
-                                    height: getVerticalSize(
-                                      1.00,
-                                    ),
+                                  style: AppStyle.txtManropeExtraBold20WhiteA700
+                                      .copyWith(
+                                    height: getVerticalSize(1.00),
                                   ),
                                 ),
                                 Padding(
@@ -137,11 +108,10 @@ class CourtItemWidget extends StatelessWidget {
                                     bottom: 2,
                                   ),
                                   child: Text(
-                                    "/slot/30min".tr,
+                                    "lbl_slot_30_min".tr,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle
-                                        .txtManropeExtraBold14Gray300
+                                    style: AppStyle.txtManropeExtraBold14Gray300
                                         .copyWith(
                                       letterSpacing: getHorizontalSize(
                                         0.20,

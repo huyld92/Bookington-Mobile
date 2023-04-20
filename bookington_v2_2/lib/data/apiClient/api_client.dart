@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/app_url.dart';
+import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
@@ -78,8 +79,7 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> searchCourt(
-      int pageNumber, SearchModel searchValue) async {
-    int maxPageSize = 5;
+      int pageNumber, int maxPageSize, SearchModel searchValue) async {
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
@@ -164,8 +164,10 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> getTransactionHistory() async {
-    var url = Uri.parse(AppUrl.getTransactionEndPoint);
+  static Future<http.Response> getTransactionHistory(
+      int pageNumber, int maxPageSize) async {
+    var url = Uri.parse(
+        "${AppUrl.getTransactionEndPoint}?PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
@@ -312,6 +314,20 @@ class ApiClient extends GetConnect {
     return response;
   }
 
+  static Future<http.Response> momo( ) async {
+    var url = Uri.parse("momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NTzVSR1gyMDE5MTEyOHxjZGQ1NGM0ZS0zOTYzLTRmOTUtOTA3OC0zZDI4MWJkNzM4ZmM&v=2.3");
+    // String? sysToken = PrefUtils.getAccessToken();
+    // Map<String, String> headers = {
+    //   "Authorization": "Bearer $sysToken",
+    //   'Content-Type': 'application/json',
+    // };
+
+    http.Response response =
+        await http.post(url );
+
+    return response;
+  }
+
   static Future<http.Response> getIncomingBookings(
       int pageNumber, int maxPageSize) async {
     var url = Uri.parse(
@@ -338,6 +354,26 @@ class ApiClient extends GetConnect {
     };
 
     http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> createComment(
+      CommentRatingModel commentRatingModel) async {
+    var url = Uri.parse("${AppUrl.postComment} ");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    Map<String, String> body = {
+      "commentWriterId": commentRatingModel.commentWriterId,
+      "refCourt": commentRatingModel.refCourt,
+      "content": commentRatingModel.content,
+      "rating": commentRatingModel.rating.toString(),
+    };
+    print('url$url');
+    http.Response response = await http.post(url, body: body, headers: headers);
 
     return response;
   }

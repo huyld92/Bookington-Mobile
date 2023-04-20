@@ -1,15 +1,19 @@
-
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/models/court_details_model.dart';
+import 'package:bookington_v2_2/presentation/court_details_screen/widgets/comment_rating_widget.dart';
+import 'package:flutter/cupertino.dart';
 
 class CourtDetailsController extends GetxController with StateMixin {
   Rx<CourtDetailsModel> courtDetailsModelObj = CourtDetailsModel.empty().obs;
-
+  TextEditingController commentController = TextEditingController();
   Rx<int> silderIndex = 2.obs;
+  RxDouble rating = 0.0.obs;
+  RxInt countNumOfCharacter = 0.obs;
 
   @override
   void onInit() {
@@ -22,7 +26,6 @@ class CourtDetailsController extends GetxController with StateMixin {
       Map<String, String> arg = Get.arguments;
       if (arg["courtId"] != null) {
         getCourtDetails(arg["courtId"]!);
-        print('courtId: ${arg["courtId"]}');
       }
     } on Exception {
       getBack();
@@ -31,24 +34,12 @@ class CourtDetailsController extends GetxController with StateMixin {
 
   getCourtDetails(String id) async {
     change(null, status: RxStatus.loading());
-
     try {
       await ApiClient.getCourtDetails(id).then((result) {
-        print('status court details: ${result.statusCode}');
-
         if (result.statusCode == 200) {
           CourtModel court =
               CourtModel.fromJson(jsonDecode(result.body)["result"]);
-          courtDetailsModelObj.value.id = court.id;
-          courtDetailsModelObj.value.name = court.name;
-          courtDetailsModelObj.value.ownerPhoneNumber = court.phone;
-          courtDetailsModelObj.value.districtName = court.districtName;
-          courtDetailsModelObj.value.address = court.address;
-          courtDetailsModelObj.value.moneyPerHour = court.moneyPerHour;
-          courtDetailsModelObj.value.numberOfSubCourt = court.numberOfSubCourt;
-          courtDetailsModelObj.value.numberOfReview = court.numberOfReview;
-          courtDetailsModelObj.value.openAt = court.openAt;
-          courtDetailsModelObj.value.closeAt = court.closeAt;
+          courtDetailsModelObj.value = CourtDetailsModel(court);
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
@@ -69,6 +60,7 @@ class CourtDetailsController extends GetxController with StateMixin {
     Map<String, bool> arg = {"timeOut": true};
     Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
+
   void chooseCourtScreen() {
     Map<String, String> arg = Get.arguments;
     Get.toNamed(AppRoutes.chooseCourtScreen, arguments: arg);
@@ -79,4 +71,39 @@ class CourtDetailsController extends GetxController with StateMixin {
   }
 
   void favorite() {}
+
+  Future<void> createComment() async {
+    change(null, status: RxStatus.loading());
+    try {
+      String commentWriterId = PrefUtils.getString("userId")!;
+      String refCourt = courtDetailsModelObj.value.id;
+      String content = commentController.text;
+
+      CommentRatingModel commentRatingModel =
+          CommentRatingModel(commentWriterId, refCourt, content, rating.value);
+      await ApiClient.createComment(commentRatingModel).then((result) {
+        if (result.statusCode == 200) {
+          CourtModel court =
+              CourtModel.fromJson(jsonDecode(result.body)["result"]);
+          courtDetailsModelObj.value = CourtDetailsModel(court);
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+          Logger.log(
+              "CourtDetailsController error at createComment: ${result.statusCode}");
+        }
+      });
+    } catch (e) {
+      Logger.log(
+          "CourtDetailsController error at createComment: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
+    }
+  }
+
+  void commentAndRatingBottomSheet() {
+    Get.bottomSheet(CommentRatingWidget(), isDismissible: false).then((value) {
+      rating.value = 0.0;
+    });
+  }
 }

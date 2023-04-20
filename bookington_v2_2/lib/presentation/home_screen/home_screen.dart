@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:bookington_v2_2/presentation/home_screen/widgets/court_item_widget.dart';
 import 'package:bookington_v2_2/widgets/loading_widget.dart';
 
 import 'controller/home_controller.dart';
-import 'models/home_item_model.dart';
+import 'models/home_court_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
@@ -60,9 +56,16 @@ class HomeScreen extends GetWidget<HomeController> {
                               //     right: 10,
                               //   ),
                               // ),
-                              Obx(() => Image.memory(controller.bytesImage.value, width: 32, height: 32)),
+                              Obx(() => Container(
+                                  width: getHorizontalSize(40),
+                                  padding: getPadding(all: 5),
+                                  child: Image.memory(
+                                      controller.bytesImage.value,
+                                      width: getSize(32),
+                                      height: getSize(32)))),
                               Obx(() => Text(
-                                    controller.homeModelObj.value.accountModel.fullName,
+                                    controller.homeModelObj.value.accountModel
+                                        .fullName,
                                     style: TextStyle(
                                         color: ColorConstant.black900),
                                   )),
@@ -156,46 +159,46 @@ class HomeScreen extends GetWidget<HomeController> {
                                 ),
                               ),
                             ),
-                            const Spacer(),
-                            InkWell(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "lbl_see_more".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtManropeBold14Blue500
-                                        .copyWith(
-                                      letterSpacing: getHorizontalSize(
-                                        0.20,
-                                      ),
-                                      height: getVerticalSize(
-                                        1.10,
-                                      ),
-                                    ),
-                                  ),
-                                  CustomImageView(
-                                    svgPath: ImageConstant.imgNext,
-                                    height: getSize(
-                                      16.00,
-                                    ),
-                                    width: getSize(
-                                      16.00,
-                                    ),
-                                    margin: getMargin(
-                                      left: 8,
-                                      top: 1,
-                                      bottom: 2,
-                                    ),
-                                    color: ColorConstant.blue500,
-                                  ),
-                                ],
-                              ),
-                              onTap: () {
-                                print("onTap see more");
-                                controller.goRecommendScreen();
-                              },
-                            )
+                            // const Spacer(),
+                            // InkWell(
+                            //   child: Row(
+                            //     children: [
+                            //       Text(
+                            //         "lbl_see_more".tr,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         textAlign: TextAlign.left,
+                            //         style: AppStyle.txtManropeBold14Blue500
+                            //             .copyWith(
+                            //           letterSpacing: getHorizontalSize(
+                            //             0.20,
+                            //           ),
+                            //           height: getVerticalSize(
+                            //             1.10,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       CustomImageView(
+                            //         svgPath: ImageConstant.imgNext,
+                            //         height: getSize(
+                            //           16.00,
+                            //         ),
+                            //         width: getSize(
+                            //           16.00,
+                            //         ),
+                            //         margin: getMargin(
+                            //           left: 8,
+                            //           top: 1,
+                            //           bottom: 2,
+                            //         ),
+                            //         color: ColorConstant.blue500,
+                            //       ),
+                            //     ],
+                            //   ),
+                            //   onTap: () {
+                            //     print("onTap see more");
+                            //     controller.goRecommendScreen();
+                            //   },
+                            // )
                           ],
                         ),
                       ),
@@ -208,26 +211,22 @@ class HomeScreen extends GetWidget<HomeController> {
                           ),
                           child: Obx(
                             () => ListView.separated(
-                              padding: getPadding(
-                                top: 10,
-                              ),
+                              padding: getPadding(top: 10),
                               scrollDirection: Axis.horizontal,
                               physics: const BouncingScrollPhysics(),
                               separatorBuilder: (context, index) {
                                 return SizedBox(
-                                  height: getVerticalSize(
-                                    24.00,
-                                  ),
+                                  height: getVerticalSize(24.00),
                                 );
                               },
                               itemCount: controller
-                                  .homeModelObj.value.homeItemList.length,
+                                  .homeModelObj.value.homeCourtItemList.length,
                               itemBuilder: (context, index) {
-                                HomeItemModel model = controller
-                                    .homeModelObj.value.homeItemList[index];
-                                return CourtItemWidget(
-                                  model,
-                                );
+                                HomeCourtItemModel model = controller
+                                    .homeModelObj
+                                    .value
+                                    .homeCourtItemList[index];
+                                return CourtItemWidget(model, index);
                               },
                             ),
                           ),

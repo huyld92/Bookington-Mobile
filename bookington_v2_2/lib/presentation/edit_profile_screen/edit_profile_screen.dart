@@ -127,7 +127,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                       CustomTextFormField(
                           width: size.width,
                           maxLines: 6,
-                          focusNode: FocusNode(),
+                           focusNode: FocusNode(),
                           controller: controller.descriptionController,
                           hintText: "lbl_description".tr,
                           margin: getMargin(top: 7),

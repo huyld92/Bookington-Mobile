@@ -8,7 +8,7 @@ class SearchModel {
   late double _ratingStar;
   late String _districtName;
   late String _provinceName;
-  late double _moneyPerHour;
+  late String _moneyPerHour;
   late int _numberOfSubCourt;
   late int _numberOfReview;
   late DateTime _openAt;
@@ -56,9 +56,9 @@ class SearchModel {
     _provinceName = value;
   }
 
-  double get moneyPerHour => _moneyPerHour;
+  String get moneyPerHour => _moneyPerHour;
 
-  set moneyPerHour(double value) {
+  set moneyPerHour(String value) {
     _moneyPerHour = value;
   }
 
@@ -74,7 +74,6 @@ class SearchModel {
     _numberOfReview = value;
   }
 
-
   DateTime get openAt => _openAt;
 
   set openAt(DateTime value) {
@@ -87,18 +86,22 @@ class SearchModel {
     _closeAt = value;
   }
 
-  factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
-        json["id"],
-        json["name"],
-        json["ratingStar"].toDouble(),
-        json["districtName"],
-        json["provinceName"],
-        json["moneyPerHour"].toDouble(),
-        json["numberOfSubCourt"],
-        json["numOfReview"],
-        DateFormat("kk:mm").parse(json["openAt"]),
-        DateFormat("kk:mm").parse(json["closeAt"]),
-      );
+  factory SearchModel.fromJson(Map<String, dynamic> json) {
+    final formatCurrency = NumberFormat("#,###");
+
+    return SearchModel(
+      json["id"],
+      json["name"],
+      json["ratingStar"].toDouble(),
+      json["districtName"],
+      json["provinceName"],
+      formatCurrency.format(json["moneyPerHour"]),
+      json["numberOfSubCourt"],
+      json["numOfReview"],
+      DateFormat("kk:mm").parse(json["openAt"]),
+      DateFormat("kk:mm").parse(json["closeAt"]),
+    );
+  }
 
   static List<SearchModel> listFromJson(list) =>
       List<SearchModel>.from(list.map((dynamic x) => SearchModel.fromJson(x)));

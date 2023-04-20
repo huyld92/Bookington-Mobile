@@ -1,5 +1,4 @@
 import 'package:bookington_v2_2/data/models/account_model.dart';
-import 'package:intl/intl.dart';
 
 class ProfileModel {
   late AccountModel _accountModel;

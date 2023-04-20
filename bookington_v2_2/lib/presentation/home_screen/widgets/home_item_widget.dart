@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import '../controller/home_controller.dart';
-import '../models/home_item_model.dart';
+import '../models/home_court_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
@@ -10,7 +10,7 @@ import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 class HomeItemWidget extends StatelessWidget {
   HomeItemWidget(this.homeItemModelObj, {super.key});
 
-  HomeItemModel homeItemModelObj;
+  HomeCourtItemModel homeItemModelObj;
 
   var controller = Get.find<HomeController>();
 

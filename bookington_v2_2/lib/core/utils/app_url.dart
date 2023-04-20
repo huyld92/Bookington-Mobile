@@ -1,8 +1,8 @@
 class AppUrl {
-  static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
+  // static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
 
   // static const String baseUrl = "https://10.0.2.2:7179";
-  // static const String baseUrl = "https://192.168.1.127:7179";
+  static const String baseUrl = "https://192.168.1.127:7179";
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
@@ -54,8 +54,13 @@ class AppUrl {
   static const String checkoutEndPoint = "$baseUrl/orders/checkout";
 
   static const String getIncomingBookings =
-      "$baseUrl/booking-history/customers/finished";
+      "$baseUrl/booking-history/customers/incoming";
 
   static const String getFinishedBookings =
       "$baseUrl/booking-history/customers/finished";
+
+  static const String postComment = "$baseUrl/comments/post";
+
+  static const String notificationHub = "$baseUrl/notificationHub";
+
 }

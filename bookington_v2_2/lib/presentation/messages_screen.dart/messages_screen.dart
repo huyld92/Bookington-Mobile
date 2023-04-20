@@ -53,7 +53,6 @@ class MessagesScreen extends GetWidget<MessagesController> {
                 textInputAction: TextInputAction
                     .search,
                 onSubmitted: (value) {
-                  print('Search  messages');
                   // controller.searchByName(1);
                 },
               ),

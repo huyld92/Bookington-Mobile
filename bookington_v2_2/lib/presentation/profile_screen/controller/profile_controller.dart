@@ -8,7 +8,9 @@ import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/models/profile_model.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileController extends GetxController with StateMixin {
   late Rx<ProfileModel> profileModelObj = ProfileModel.empty().obs;
@@ -23,8 +25,8 @@ class ProfileController extends GetxController with StateMixin {
   Future<void> loadData() async {
     await getProfile();
     await getBalance();
-    bytesImage.value = const Base64Decoder().convert(profileModelObj.value.accountModel.imgBase);
-
+    bytesImage.value = const Base64Decoder()
+        .convert(profileModelObj.value.accountModel.imgBase);
   }
 
   Future<void> getProfile() async {
@@ -67,7 +69,7 @@ class ProfileController extends GetxController with StateMixin {
             final formatCurrency = NumberFormat("#,###");
 
             profileModelObj.value.balance =
-                formatCurrency.format(jsonResult["result"]["balance"]) ?? "0.0";
+                formatCurrency.format(jsonResult["result"]["balance"]);
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             Map<String, bool> arg = {"timeOut": true};
             logout(arg);
@@ -137,7 +139,21 @@ class ProfileController extends GetxController with StateMixin {
     Get.toNamed(AppRoutes.changeAccountScreen);
   }
 
-  void reportScreen() {
-    Get.toNamed(AppRoutes.reportScreen);
+  Future<void> reportScreen() async {
+    print('reportScreen');
+    var url = Uri.parse("momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NTzVSR1gyMDE5MTEyOHw5YWQzZWNmMi00Nzc3LTRkN2ItOTE2NS1lMzQ3NjFhMDEyNGE&v=2.3");
+
+    // ApiClient.momo().then((value) {
+    //   print(value.body);
+    // });
+
+
+    if (await canLaunchUrl(url)) {
+      print('can launch');
+      // Launch the url which will open Spotify
+      launchUrl(url);
+    } else {
+      print('cannot');
+    }
   }
 }

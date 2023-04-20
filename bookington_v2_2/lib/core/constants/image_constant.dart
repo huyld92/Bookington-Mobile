@@ -100,6 +100,12 @@ class ImageConstant {
 
   static String imgChangeAccount = 'assets/images/img_change_account.svg';
 
+  static String imgNotifyEmpty = 'assets/images/img_notification_bell.svg';
+
+  static String imgTransactionEmpty = 'assets/images/img_empty_transaction.svg';
+
+  static String imgSchedule = 'assets/images/img_schedule.svg';
+
 
 
 

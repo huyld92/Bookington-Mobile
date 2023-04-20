@@ -7,24 +7,31 @@ class BookingHistoryScreenModel {
   late String playDate;
   late String startTime;
   late String endTime;
+  late String totalHour;
   late String status;
 
   BookingHistoryScreenModel(BookingHistoryModel bookingHistoryModel) {
     courtName = bookingHistoryModel.courtName;
     subCourtName = bookingHistoryModel.subCourtName;
     playDate = DateFormat("dd-MM-yyyy").format(bookingHistoryModel.playDate);
-    startTime = DateFormat("hh:mm:ss").format(bookingHistoryModel.startTime);
-    endTime = DateFormat("hh:mm:ss").format(bookingHistoryModel.endTime);
+    startTime = DateFormat("HH:mm").format(bookingHistoryModel.startTime);
+    endTime = DateFormat("HH:mm").format(bookingHistoryModel.endTime);
     status = bookingHistoryModel.status;
-  }
 
-  BookingHistoryScreenModel.empty(){
+    totalHour = (((bookingHistoryModel.endTime.hour * 60 +
+                    bookingHistoryModel.endTime.minute) -
+                (bookingHistoryModel.startTime.hour * 60 -
+                    bookingHistoryModel.startTime.minute)) /
+            60).toString();
+   }
+
+  BookingHistoryScreenModel.empty() {
     courtName = "";
-    subCourtName ="";
+    subCourtName = "";
     playDate = "";
     startTime = "";
     endTime = "";
     status = "";
+    totalHour = "";
   }
-
 }

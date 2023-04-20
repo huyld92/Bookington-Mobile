@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
@@ -29,42 +27,54 @@ class WalletController extends GetxController with StateMixin {
     try {
       await ApiClient.getBalance().then(
         (result) {
-          print('getBalance statusCode: ${result.statusCode}');
           if (result.statusCode == 200) {
             var jsonResult = jsonDecode(result.body);
             final formatCurrency = NumberFormat("#,###");
             balance.value =
                 formatCurrency.format(jsonResult["result"]["balance"]);
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
+            logout();
           } else {
-            print(result.headers);
+            Logger.log(
+                "WalletController error at getBalance: ${result.statusCode}");
           }
         },
       );
     } catch (e) {
-      print(e.toString());
+      Logger.log("WalletController error at getBalance: ${e.toString()}");
     }
   }
 
   Future<void> getListTransaction() async {
-    await ApiClient.getTransactionHistory().then(
-      (result) {
-        print('getListTransaction statusCode: ${result.statusCode}');
-        if (result.statusCode == 200) {
-          List<TransactionModel> listTransaction =
-              TransactionModel.listNameFromJson(
-                  jsonDecode(result.body)["result"]);
-          listTransactionObj.value = listTransaction;
-          listTransactionObj.refresh();
-        } else if (result.statusCode == 401 || result.statusCode == 403) {
-          ProfileController profileController = Get.find();
-          Map<String, bool> arg = {"timeOut": true};
+    try {
+      int pageNumber = 1;
+      int maxPageSize = 5;
+      await ApiClient.getTransactionHistory(pageNumber, maxPageSize).then(
+        (result) {
+          if (result.statusCode == 200) {
+            List<TransactionModel> listTransaction =
+                TransactionModel.listFromJson(
+                    jsonDecode(result.body)["result"]);
+            listTransactionObj.value = listTransaction;
+            listTransactionObj.refresh();
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
+            logout();
+          } else {
+            Logger.log(
+                "WalletController error at getListTransaction: ${result.statusCode}");
+          }
+        },
+      );
+    } on Exception catch (e) {
+      Logger.log(
+          "WalletController error at getListTransaction: ${e.toString()}");
+    }
+  }
 
-          profileController.logout(arg);
-        } else {
-          print('errror');
-        }
-      },
-    );
+  void logout() async {
+    PrefUtils.clearPreferencesData();
+    Map<String, bool> arg = {"timeOut": true};
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
   void getBack() {

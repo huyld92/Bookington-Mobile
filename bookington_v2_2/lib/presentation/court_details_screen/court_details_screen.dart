@@ -218,12 +218,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                                 style: AppStyle.txtManropeBold12
                                                     .copyWith(
                                                   letterSpacing:
-                                                      getHorizontalSize(
-                                                    0.40
-                                                  ),
-                                                  height: getVerticalSize(
-                                                    1.10
-                                                  ),
+                                                      getHorizontalSize(0.40),
+                                                  height: getVerticalSize(1.10),
                                                 ),
                                               ),
                                             ),
@@ -264,8 +260,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                                     controller
                                                             .courtDetailsModelObj
                                                             .value
-                                                            .moneyPerHour
-                                                            .toString() +
+                                                            .moneyPerHour +
                                                         "lbl_slot_30_min".tr,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -340,6 +335,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           ),
                         ),
                       ),
+
                       Container(
                         width: getHorizontalSize(327.00),
                         margin: getMargin(left: 8, top: 13),
@@ -374,95 +370,6 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           ],
                         ),
                       ),
-                      // Gallery
-
-                      // Padding(
-                      //   padding: getPadding(
-                      //     left: 8,
-                      //     top: 34,
-                      //   ),
-                      //   child: Text(
-                      //     "lbl_gallery".tr,
-                      //     overflow: TextOverflow.ellipsis,
-                      //     textAlign: TextAlign.left,
-                      //     style: AppStyle.txtManropeBold18.copyWith(
-                      //       letterSpacing: getHorizontalSize(
-                      //         0.20,
-                      //       ),
-                      //       height: getVerticalSize(
-                      //         1.02,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: getPadding(
-                      //     left: 8,
-                      //     top: 13,
-                      //   ),
-                      //   child: Row(
-                      //     children: [
-                      //       CustomImageView(
-                      //         imagePath: ImageConstant.imgPhoThoCourt,
-                      //         height: getVerticalSize(
-                      //           130.00,
-                      //         ),
-                      //         width: getHorizontalSize(
-                      //           100.00,
-                      //         ),
-                      //       ),
-                      //       CustomImageView(
-                      //         imagePath: ImageConstant.imgCourt1,
-                      //         height: getVerticalSize(
-                      //           130.00,
-                      //         ),
-                      //         width: getHorizontalSize(
-                      //           100.00,
-                      //         ),
-                      //         margin: getMargin(
-                      //           left: 14,
-                      //         ),
-                      //         radius: BorderRadius.circular(
-                      //           getHorizontalSize(
-                      //             5.00,
-                      //           ),
-                      //         ),
-                      //         alignment: Alignment.center,
-                      //       ),
-                      //       Container(
-                      //         height: getVerticalSize(
-                      //           130.00,
-                      //         ),
-                      //         width: getHorizontalSize(
-                      //           100.00,
-                      //         ),
-                      //         margin: getMargin(
-                      //           left: 14,
-                      //         ),
-                      //         child: Stack(
-                      //           alignment: Alignment.center,
-                      //           children: [
-                      //             CustomImageView(
-                      //               imagePath: ImageConstant.imgPhoThoCourt,
-                      //               height: getVerticalSize(
-                      //                 130.00,
-                      //               ),
-                      //               width: getHorizontalSize(
-                      //                 100.00,
-                      //               ),
-                      //               radius: BorderRadius.circular(
-                      //                 getHorizontalSize(
-                      //                   5.00,
-                      //                 ),
-                      //               ),
-                      //               alignment: Alignment.center,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
 
                       Container(
                         height: getVerticalSize(1.00),
@@ -558,7 +465,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                             Padding(
                               padding:
                                   getPadding(left: 14, top: 15, bottom: 11),
-                              child: Obx(() => Text(
+                              child: Obx(
+                                () => Text(
                                   "${controller.courtDetailsModelObj.value.numberOfReview} ${"lbl_reviews".tr}",
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -595,25 +503,16 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                         ),
                       ),
                       Container(
-                        height: getVerticalSize(
-                          1.00,
-                        ),
-                        width: getHorizontalSize(
-                          315.00,
-                        ),
-                        margin: getMargin(
-                          left: 8,
-                          top: 24,
-                        ),
+                        height: getVerticalSize(1.00),
+                        width: getHorizontalSize(315.00),
+                        margin: getMargin(left: 8, top: 24),
                         decoration: BoxDecoration(
                           color: ColorConstant.gray300,
                         ),
                       ),
                       // button write a review
                       Container(
-                        width: getHorizontalSize(
-                          342.00,
-                        ),
+                        width: getHorizontalSize(342.00),
                         // color: Colors.black,
                         padding: getPadding(
                           top: 15,
@@ -629,7 +528,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           variant: ButtonVariant.OutlineGray300,
                           fontStyle: ButtonFontStyle.ManropeBold16,
                           onTap: () {
-                            print("Write a review");
+                            controller.commentAndRatingBottomSheet();
                           },
                         ),
                       ),
@@ -680,7 +579,6 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           text: "lbl_book_now".tr,
                           padding: ButtonPadding.PaddingAll12,
                           onTap: () {
-                            print("Book now");
                             controller.chooseCourtScreen();
                           },
                         ),

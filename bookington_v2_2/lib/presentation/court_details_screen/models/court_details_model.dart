@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_getters_setters
 
+import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'slidericon_item_model.dart';
 import 'listfive_item_model.dart';
-import 'listdate_item_model.dart';
 
 class CourtDetailsModel {
   late String _id;
@@ -13,26 +13,40 @@ class CourtDetailsModel {
   late double _ratingStar;
   late String _districtName;
   late String _address;
-  late double _moneyPerHour;
+  late String _moneyPerHour;
   late int _numberOfSubCourt;
   late int _numberOfReview;
   late DateTime _openAt;
   late DateTime _closeAt;
   late bool _isActive;
 
-  CourtDetailsModel(
-      this._id,
-      this._name,
-      this._ownerPhoneNumber,
-      this._ratingStar,
-      this._districtName,
-      this._address,
-      this._moneyPerHour,
-      this._numberOfSubCourt,
-      this._numberOfReview,
-      this._openAt,
-      this._closeAt,
-      this._isActive);
+  // CourtDetailsModel(
+  //     this._id,
+  //     this._name,
+  //     this._ownerPhoneNumber,
+  //     this._ratingStar,
+  //     this._districtName,
+  //     this._address,
+  //     this._moneyPerHour,
+  //     this._numberOfSubCourt,
+  //     this._numberOfReview,
+  //     this._openAt,
+  //     this._closeAt,
+  //     this._isActive);
+  CourtDetailsModel(CourtModel court) {
+    _id = court.id;
+    _name = court.name;
+    _ownerPhoneNumber = court.phone;
+    _districtName = court.districtName;
+    _address = court.address;
+    final formatCurrency = NumberFormat("#,###");
+    _moneyPerHour = "${formatCurrency.format(court.moneyPerHour)}d";
+    _ratingStar = court.ratingStar.toDouble();
+    _numberOfSubCourt = court.numberOfSubCourt;
+    _numberOfReview = court.numberOfReview;
+    _openAt = court.openAt;
+    _closeAt = court.closeAt;
+  }
 
   CourtDetailsModel.empty() {
     _id = "";
@@ -41,7 +55,7 @@ class CourtDetailsModel {
     _ratingStar = 0.0;
     _districtName = "";
     _address = "";
-    _moneyPerHour = 0;
+    _moneyPerHour = "0";
     _numberOfSubCourt = 0;
     _numberOfReview = 0;
     _openAt = DateFormat("kk:mm").parse("00:00");
@@ -85,9 +99,9 @@ class CourtDetailsModel {
     _address = value;
   }
 
-  double get moneyPerHour => _moneyPerHour;
+  String get moneyPerHour => _moneyPerHour;
 
-  set moneyPerHour(double value) {
+  set moneyPerHour(String value) {
     _moneyPerHour = value;
   }
 
@@ -115,31 +129,34 @@ class CourtDetailsModel {
     _closeAt = value;
   }
 
-
   bool get isActive => _isActive;
 
   set isActive(bool value) {
     _isActive = value;
   }
-  factory CourtDetailsModel.fromJson(Map<String, dynamic> json) =>
-      CourtDetailsModel(
-        json["id"],
-        json["name"],
-        json["ownerId"],
-        json["ratingStar"].toDouble(),
-        json["districtName"],
-        json["provinceName"],
-        json["moneyPerHour"].toDouble(),
-        json["numberOfSubCourt"],
-        json["numOfReview"],
-        DateFormat("kk:mm").parse(json["openAt"]),
-        DateFormat("kk:mm").parse(json["closeAt"]),
-        json["isActive"],
-      );
 
-  static List<CourtDetailsModel> listFromJson(list) =>
-      List<CourtDetailsModel>.from(
-          list.map((dynamic x) => CourtDetailsModel.fromJson(x)));
+  // factory CourtDetailsModel.fromJson(Map<String, dynamic> json) {
+  //   final formatCurrency = NumberFormat("#,###");
+  //
+  //   return CourtDetailsModel(
+  //     json["id"],
+  //     json["name"],
+  //     json["ownerId"],
+  //     json["ratingStar"].toDouble(),
+  //     json["districtName"],
+  //     json["provinceName"],
+  //     formatCurrency.format(json["moneyPerHour"]),
+  //     json["numberOfSubCourt"],
+  //     json["numOfReview"],
+  //     DateFormat("kk:mm").parse(json["openAt"]),
+  //     DateFormat("kk:mm").parse(json["closeAt"]),
+  //     json["isActive"],
+  //   );
+  // }
+  //
+  // static List<CourtDetailsModel> listFromJson(list) =>
+  //     List<CourtDetailsModel>.from(
+  //         list.map((dynamic x) => CourtDetailsModel.fromJson(x)));
 
   CourtDetailsModel.search(
     this._name,
@@ -152,11 +169,7 @@ class CourtDetailsModel {
 
   RxList<ListfiveItemModel> listfiveItemList =
       RxList.filled(5, ListfiveItemModel());
-
-  RxList<ListdateItemModel> listdateItemList =
-      RxList.filled(5, ListdateItemModel());
-
-
-
-
+  //
+  // RxList<ListdateItemModel> listdateItemList =
+  //     RxList.filled(5, ListdateItemModel());
 }

@@ -196,9 +196,10 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         height: getVerticalSize(1),
                         thickness: getVerticalSize(1),
                         color: ColorConstant.blueGray100),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         controller.reportScreen();
+                        // controller.walletScreen();
                       },
                       child: Padding(
                           padding: getPadding(top: 10),

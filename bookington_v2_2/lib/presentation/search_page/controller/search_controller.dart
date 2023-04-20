@@ -6,7 +6,6 @@ import 'package:bookington_v2_2/core/utils/map_utils.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
-import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +78,12 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   Future<void> searchByName(int pageNumber) async {
-    if (pageNumber == 0) {
+
+    if (pageNumber == 1) {
       this.pageNumber.value = 1;
-      pageNumber = 1;
+    }
+    if(pageNumber == 1 ){
+      change(null, status: RxStatus.loading());
     }
     // default value
     if (selectedProvince.value.provinceName == "Choose province") {
@@ -94,8 +96,9 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         searchController.text.trim(),
         selectedDistrict.value.districtName,
         selectedProvince.value.provinceName);
+    int maxPageSize = 5;
     try {
-      await ApiClient.searchCourt(pageNumber, courtModel).then((result) {
+      await ApiClient.searchCourt(pageNumber,maxPageSize, courtModel).then((result) {
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
           totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
@@ -112,9 +115,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
           }
           listSearchMode.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
-          ProfileController profileController = Get.find();
-          Map<String, bool> arg = {"timeOut": true};
-          profileController.logout(arg);
+          logout();
         } else {
           Logger.log(
               "SearchController error at searchByName: ${result.statusCode}");
@@ -186,9 +187,8 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
           }
           selectedDistrict.value = DistrictModel("-1", "Choose district");
         } else if (result.statusCode == 401 || result.statusCode == 403) {
-          ProfileController profileController = Get.find();
-          Map<String, bool> arg = {"timeOut": true};
-          profileController.logout(arg);
+          logout();
+
         } else {
           Logger.log(
               "SearchController error at getDistrictById: ${result.statusCode}");
@@ -199,7 +199,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     }
   }
 
-  Future<void> logout() async {
+  void logout() async {
     PrefUtils.clearPreferencesData();
     Map<String, bool> arg = {"timeOut": true};
     Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
@@ -215,6 +215,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
 
   @override
   Future<void> onEndScroll() async {
+    print(pageNumber);
     change(null, status: RxStatus.loadingMore());
     if (listSearchMode.length < int.parse(totalCourt.value)) {
       pageNumber.value++;

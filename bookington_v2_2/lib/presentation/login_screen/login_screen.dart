@@ -1,5 +1,4 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/core/utils/validation_functions.dart';
 import 'package:bookington_v2_2/presentation/login_screen/controller/login_controller.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:bookington_v2_2/widgets/custom_text_form_field.dart';

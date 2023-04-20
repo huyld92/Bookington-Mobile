@@ -22,8 +22,8 @@ import 'package:bookington_v2_2/presentation/edit_profile_screen/binding/edit_pr
 import 'package:bookington_v2_2/presentation/edit_profile_screen/edit_profile_screen.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/biding/forum_binding.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/forum_screen.dart';
-import 'package:bookington_v2_2/presentation/history_screen/binding/history_binding.dart';
-import 'package:bookington_v2_2/presentation/history_screen/history_booking_screen.dart';
+import 'package:bookington_v2_2/presentation/booking_history_screen/binding/history_binding.dart';
+import 'package:bookington_v2_2/presentation/booking_history_screen/booking_history_screen.dart';
 import 'package:bookington_v2_2/presentation/home_screen/binding/home_binding.dart';
 import 'package:bookington_v2_2/presentation/home_screen/home_screen.dart';
 import 'package:bookington_v2_2/presentation/login_screen/binding/login_binding.dart';

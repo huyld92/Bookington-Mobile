@@ -7,7 +7,7 @@ import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:bookington_v2_2/data/models/voucher_model.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/models/payment_model.dart';
-import 'package:bookington_v2_2/presentation/payment_screen/widgets/payment_successful_dialog.dart';
+import 'package:bookington_v2_2/presentation/payment_screen/widgets/payment_result_dialog.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -118,7 +118,7 @@ class PaymentController extends GetxController with StateMixin {
             Get.defaultDialog(
               barrierDismissible: false,
               title: "",
-              content: PaymentSuccessfulDialog(this),
+              content: PaymentResultDialog(this),
             );
           } else if (result.statusCode == 400) {
             Get.defaultDialog(

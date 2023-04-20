@@ -5,7 +5,6 @@ import '../controller/notification_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 
-// ignore: must_be_immutable
 class NotificationItemWidget extends StatelessWidget {
   NotificationItemWidget(this.notificationModel, this.index, {super.key});
 
@@ -16,16 +15,10 @@ class NotificationItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getVerticalSize(
-        76,
-      ),
-      width: double.maxFinite,
-      padding: getPadding(
-        left: 20,
-        top: 12,
-        right: 20,
-        bottom: 12,
-      ),
+      height: getVerticalSize(82),
+      width: size.width,
+      margin: getMargin(left: 10, right: 10, bottom: 10),
+      padding: getPadding(left:15, top: 12, right: 15, bottom: 12),
       decoration: AppDecoration.fillBlue50,
       child: InkWell(
         onTap: () {
@@ -44,7 +37,7 @@ class NotificationItemWidget extends StatelessWidget {
                   DateFormat("dd-MM-yyyy").format(notificationModel.createAt),
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: AppStyle.txtManropeRegular11.copyWith(
+                  style: AppStyle.txtManropeBold12.copyWith(
                     letterSpacing: getHorizontalSize(
                       0.3,
                     ),
@@ -59,42 +52,34 @@ class NotificationItemWidget extends StatelessWidget {
                   Stack(children: [
                     CustomImageView(
                       svgPath: ImageConstant.imgNotFound,
-                      height: getSize(
-                        48,
-                      ),
-                      width: getSize(
-                        48,
-                      ),
+                      height: getSize(48),
+                      width: getSize(48),
                       radius: BorderRadius.circular(
-                        getHorizontalSize(
-                          24,
-                        ),
+                        getHorizontalSize(24),
                       ),
-                      margin: getMargin(
-                        bottom: 1,
-                      ),
+                      margin: getMargin(bottom: 1),
                     ),
-                   notificationModel.isRead ? const SizedBox():Positioned(
-                      top: 0,
-                      right: 30,
-                      child: Container(
-                        height: 16,
-                        width: 16,
-                        decoration: BoxDecoration(
-                          color: ColorConstant.red500,
-                          shape: BoxShape.circle,
-                          border: Border.all(width: 1.5, color: Colors.white),
-                        ),
-                      ),
-                    )
+                    notificationModel.isRead
+                        ? const SizedBox()
+                        : Positioned(
+                            top: 0,
+                            right: 30,
+                            child: Container(
+                              height: 16,
+                              width: 16,
+                              decoration: BoxDecoration(
+                                color: ColorConstant.red500,
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(width: 1.5, color: Colors.white),
+                              ),
+                            ),
+                          )
                   ]),
                   Container(
-                    width: getHorizontalSize(
-                      215,
-                    ),
+                     width: getHorizontalSize(200),
                     margin: getMargin(
                       left: 14,
-                      top: 2,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,27 +89,14 @@ class NotificationItemWidget extends StatelessWidget {
                           notificationModel.content,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeMedium18.copyWith(
+                          maxLines: 3,
+                          style: AppStyle.txtManropeMedium14.copyWith(
                             letterSpacing: getHorizontalSize(
                               0.5,
                             ),
                           ),
                         ),
-                        // Padding(
-                        //   padding: getPadding(
-                        //     top: 5,
-                        //   ),
-                        //   child: Text(
-                        //     "Get 50% off in our first booking".tr,
-                        //     overflow: TextOverflow.ellipsis,
-                        //     textAlign: TextAlign.left,
-                        //     style: AppStyle.txtManropeRegular14.copyWith(
-                        //       letterSpacing: getHorizontalSize(
-                        //         0.3,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+
                       ],
                     ),
                   ),

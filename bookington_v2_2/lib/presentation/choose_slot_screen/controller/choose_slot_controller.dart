@@ -7,7 +7,6 @@ import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/booking_model.dart';
 import 'package:bookington_v2_2/data/models/slot_model.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/models/payment_model.dart';
-import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -68,13 +67,13 @@ class ChooseSlotController extends GetxController with StateMixin {
     try {
       change(null, status: RxStatus.loading());
       String strPlayDate = DateFormat("yyyy-MM-dd").format(playDate.value);
-      print('strPlayDate: $strPlayDate');
       await ApiClient.getAvailableSlot(subCourtID, strPlayDate).then((result) {
-         if (result.statusCode == 200) {
+        if (result.statusCode == 200) {
           var jsonResult = jsonDecode(result.body);
           slotList.value =
               SlotModel.listFromJson(jsonResult["result"]["slots"]);
           listSelected.value = RxList.filled(slotList.length, false);
+          validateSlot(strPlayDate);
           slotList.refresh();
           listSelected.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
@@ -92,7 +91,7 @@ class ChooseSlotController extends GetxController with StateMixin {
     }
   }
 
-  void logout()  {
+  void logout() {
     PrefUtils.clearPreferencesData();
     Map<String, bool> arg = {"timeOut": true};
     Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
@@ -126,15 +125,15 @@ class ChooseSlotController extends GetxController with StateMixin {
             List<BookingModel> listBooking =
                 BookingModel.listFromJson(jsonResult["result"]);
 
-            PaymentModel paymentModel = PaymentModel(listBooking, listSlotBooking);
+            PaymentModel paymentModel =
+                PaymentModel(listBooking, listSlotBooking);
 
             Map<String, dynamic> arg = {
               "courtId": courtId,
               "paymentModel": paymentModel,
             };
             Get.toNamed(AppRoutes.paymentScreen, arguments: arg);
-          }  else if(result.statusCode == 400) {
-            print('${jsonDecode(result.body)["Message"].toString()}');
+          } else if (result.statusCode == 400) {
             String errorMessage = jsonDecode(result.body)["Message"];
             Get.defaultDialog(
                 barrierDismissible: false,
@@ -146,7 +145,8 @@ class ChooseSlotController extends GetxController with StateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Text(errorMessage,style: AppStyle.txtManropeMedium14),
+                        child: Text(errorMessage,
+                            style: AppStyle.txtManropeMedium14),
                       ),
                       Padding(
                         padding: getPadding(top: 15),
@@ -160,16 +160,16 @@ class ChooseSlotController extends GetxController with StateMixin {
                           fontStyle: ButtonFontStyle.ManropeBold14,
                           variant: ButtonVariant.FillGray300,
                           onTap: () async {
-                            await getAvailableSlot();
                             getBack();
+                            await getAvailableSlot();
                           },
                         ),
                       ),
                     ],
-                  ),)
-            );
+                  ),
+                ));
           } else if (result.statusCode == 401 || result.statusCode == 403) {
-           logout();
+            logout();
           } else {
             "ChooseSlotController error at nextPaymentScreen: ${result.statusCode}";
           }
@@ -185,5 +185,22 @@ class ChooseSlotController extends GetxController with StateMixin {
 
   getBack() {
     Get.back();
+  }
+
+  void validateSlot(String strPlayDate) {
+    DateTime now = DateTime.now();
+    String strNow = DateFormat("yyyy-MM-dd").format(now);
+    if (strPlayDate == strNow) {
+      for (int i = 0; i < slotList.length; i++) {
+        if (now.hour > slotList[i].startTime.hour) {
+          slotList[i].isActive = false;
+        } else if (now.hour == slotList[i].startTime.hour) {
+          if (now.minute > slotList[i].startTime.minute) {
+            slotList[i].isActive = false;
+          }
+        }
+      }
+    }
+    slotList.refresh();
   }
 }

@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 
-// ignore_for_file: must_be_immutable
-class PaymentSuccessfulDialog extends StatelessWidget {
-  PaymentSuccessfulDialog(this.controller, {super.key});
+ class PaymentResultDialog extends StatelessWidget {
+  PaymentResultDialog(this.controller, {super.key});
 
   PaymentController controller;
 

@@ -203,7 +203,6 @@ class SearchScreen extends GetWidget<SearchController> {
                                         ),
                                         Obx(
                                           () => Container(
-
                                             margin: getMargin(all: 5),
                                             decoration: BoxDecoration(
                                                 border: BorderRadiusStyle
@@ -247,15 +246,15 @@ class SearchScreen extends GetWidget<SearchController> {
                                 ),
 
                                 CustomButton(
-                                  height: 40,
-                                  width: 355,
+                                  height: getSize(40),
+                                  width: getSize(355),
                                   margin: getMargin(left: 10, right: 10),
                                   padding: ButtonPadding.PaddingAll8,
                                   text: "lbl_search".tr,
                                   onTap: () {
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
-                                    controller.searchByName(1);
+                                     controller.searchByName(1);
                                   },
                                 )
                               ],

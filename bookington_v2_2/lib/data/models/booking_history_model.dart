@@ -1,9 +1,6 @@
-
-
 import 'package:intl/intl.dart';
 
-class BookingHistoryModel{
-
+class BookingHistoryModel {
   late String _courtName;
   late String _subCourtName;
   late DateTime _playDate;
@@ -14,13 +11,13 @@ class BookingHistoryModel{
   BookingHistoryModel(this._courtName, this._subCourtName, this._playDate,
       this._startTime, this._endTime, this._status);
 
-  BookingHistoryModel.empty(){
-    _courtName= "";
-    _subCourtName= "";
-    _playDate= DateTime.now();
-    _startTime= DateTime.now();
-    _endTime=  DateTime.now();
-    _status= "";
+  BookingHistoryModel.empty() {
+    _courtName = "";
+    _subCourtName = "";
+    _playDate = DateTime.now();
+    _startTime = DateTime.now();
+    _endTime = DateTime.now();
+    _status = "";
   }
 
   String get status => _status;
@@ -59,17 +56,17 @@ class BookingHistoryModel{
     _courtName = value;
   }
 
-  factory BookingHistoryModel.fromJson(Map<String, dynamic> json) => BookingHistoryModel(
-    json["courtName"],
-    json["subCourtName"],
-    DateFormat("dd-MM-yyyy").parse(json["playDate"]),
-    DateFormat("hh:mm:ss").parse(json["openAt"]),
-    DateFormat("hh:mm:ss").parse(json["closeAt"]),
-    json["isActive"],
-  );
+  factory BookingHistoryModel.fromJson(Map<String, dynamic> json) =>
+      BookingHistoryModel(
+        json["courtName"],
+        json["subCourtName"],
+        DateFormat("yyyy-MM-dd").parseUTC(json["playDate"]).toLocal(),
+         DateFormat("KK:mm").parse(json["startTime"]),
+        DateFormat("KK:mm").parse(json["endTime"]),
+        json["status"],
+      );
 
   static List<BookingHistoryModel> listFromJson(list) =>
-      List<BookingHistoryModel>.from(list.map((x) => BookingHistoryModel.fromJson(x)));
-  
-  
+      List<BookingHistoryModel>.from(
+          list.map((x) => BookingHistoryModel.fromJson(x)));
 }

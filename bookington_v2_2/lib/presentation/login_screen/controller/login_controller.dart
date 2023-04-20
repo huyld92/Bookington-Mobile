@@ -16,14 +16,13 @@ class LoginController extends GetxController with StateMixin {
 
   @override
   void onInit() async {
-    change(null, status: RxStatus.success());
+    // change(null, status: RxStatus.success());
     txtPhoneController.text = "0111111131";
     txtPasswordController.text = "customer";
     loadData();
 
     super.onInit();
   }
-
 
   Future<void> login(String phone, String password) async {
     refreshText();
@@ -65,11 +64,12 @@ class LoginController extends GetxController with StateMixin {
 
   void loadData() {
     try {
-      change(null, status: RxStatus.loading());
+      // change(null, status: RxStatus.loading());
       var arg = Get.arguments;
       if (arg != null) {
+        print("arg[""]: ${arg["timeOut"]}");
         if (arg["timeOut"] != null && arg["timeOut"]) {
-          print('????????????????????????????????');
+          print('timeOut ???????????????????????');
           Get.defaultDialog(
             title: "Session Expired",
             content: Center(
@@ -103,8 +103,8 @@ class LoginController extends GetxController with StateMixin {
         }
       }
     } on Exception catch (e) {
-      Logger.log(e);
-    } finally{
+      Logger.log(e.toString());
+    } finally {
       change(null, status: RxStatus.success());
     }
   }

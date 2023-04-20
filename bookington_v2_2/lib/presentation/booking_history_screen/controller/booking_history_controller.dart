@@ -5,11 +5,11 @@ import 'dart:convert';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/booking_history_model.dart';
-import 'package:bookington_v2_2/presentation/history_screen/models/booking_history_model.dart';
-  import 'package:flutter/material.dart';
+import 'package:bookington_v2_2/presentation/booking_history_screen/models/booking_history_model.dart';
+import 'package:flutter/material.dart';
 
-class HistoryController extends GetxController with GetSingleTickerProviderStateMixin,ScrollMixin, StateMixin {
-
+class HistoryController extends GetxController
+    with GetSingleTickerProviderStateMixin, ScrollMixin, StateMixin {
   final List<Tab> historyTabs = <Tab>[
     const Tab(text: 'UpComing'),
     const Tab(text: 'Previous'),
@@ -18,9 +18,10 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
           .obs;
   late TabController tabController;
-  RxInt pageNumber = 1.obs;
+  int pageNumber = 1;
 
-  RxList<BookingHistoryScreenModel> listBooking = RxList.empty();
+  RxList<BookingHistoryScreenModel> listUpcomingBooking = RxList.empty();
+  RxList<BookingHistoryScreenModel> listPreviousBooking = RxList.empty();
 
   @override
   void onInit() {
@@ -37,25 +38,62 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
 
   loadData() async {
     await getIncomingBookings(1);
+    await getPreviousBookings(1);
+    print(listPreviousBooking.length);
+    print(listUpcomingBooking.length);
   }
 
-  getIncomingBookings(int pageNumber) async {
+  Future<void> getIncomingBookings(int pageNumber) async {
     change(null, status: RxStatus.loading());
-    int maxPageSize = 5;
+    int maxPageSize = 20;
     if (pageNumber == 0) {
-      this.pageNumber.value = 1;
+      this.pageNumber = 1;
       pageNumber = 1;
     }
-    try{
-
-      await ApiClient.getIncomingBookings(pageNumber,maxPageSize).then((result) {
-        print('status court details: ${result.statusCode}');
-
+    try {
+      await ApiClient.getIncomingBookings(pageNumber, maxPageSize)
+          .then((result) {
         if (result.statusCode == 200) {
+          var jsonResult = jsonDecode(result.body);
           List<BookingHistoryModel> listBookingHistoryModel =
-          BookingHistoryModel.listFromJson(jsonDecode(result.body)["result"]);
-          listBooking.addAll(Iterable.castFrom(listBookingHistoryModel));
-          print(listBookingHistoryModel.asMap().toString());
+              BookingHistoryModel.listFromJson(jsonResult["result"]);
+          listUpcomingBooking = RxList.generate(
+              listBookingHistoryModel.length,
+              (index) =>
+                  BookingHistoryScreenModel(listBookingHistoryModel[index]));
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+          Logger.log(
+              "HistoryController error at getIncomingBookings: ${result.statusCode}");
+        }
+      });
+    } catch (e) {
+      Logger.log(
+          "HistoryController error at getIncomingBookings: ${e.toString()}");
+    } finally {
+      change(null, status: RxStatus.success());
+    }
+  }
+
+  Future<void> getPreviousBookings(int pageNumber) async {
+    change(null, status: RxStatus.loading());
+    int maxPageSize = 30;
+    if (pageNumber == 0) {
+      this.pageNumber = 1;
+      pageNumber = 1;
+    }
+    try {
+      await ApiClient.getFinishedBookings(pageNumber, maxPageSize)
+          .then((result) {
+        if (result.statusCode == 200) {
+          var jsonResult = jsonDecode(result.body);
+          List<BookingHistoryModel> listBookingHistoryModel =
+              BookingHistoryModel.listFromJson(jsonResult["result"]);
+          listPreviousBooking = RxList.generate(
+              listBookingHistoryModel.length,
+              (index) =>
+                  BookingHistoryScreenModel(listBookingHistoryModel[index]));
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
@@ -77,13 +115,11 @@ class HistoryController extends GetxController with GetSingleTickerProviderState
     Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 
-  void filter() {
-
-  }
+  void filter() {}
 
   @override
   Future<void> onEndScroll() async {
-   // if(tabcontroller.)
+    // if(tabcontroller.)
   }
 
   @override
