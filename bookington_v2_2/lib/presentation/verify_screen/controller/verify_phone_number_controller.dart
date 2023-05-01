@@ -65,11 +65,32 @@ class VerifyPhoneNumberController extends GetxController
     }
   }
 
+  Future<void> forgotPasswordVerifyOTP() async {
+    try {
+      String? phoneNumber = PrefUtils.getString("rePhoneNumber");
+
+      await ApiClient.forgotPasswordVerifyOtp(phoneNumber!, otpController.value.text)
+          .then((result) {
+        if (result.statusCode == 204) {
+          Get.offNamed(AppRoutes.loginScreen);
+        } else {
+          Get.defaultDialog(
+              title: "Verify otp failed!",
+              middleText: jsonDecode(result.body)["Message"]);
+        }
+      });
+    } catch (error) {
+      Get.defaultDialog(
+          title: "Verify otp error!", middleText: error.toString());
+    }
+  }
+
+
   void loadData() {
     Map<String, String> arg = Get.arguments;
     phoneNumber = arg["rePhoneNumber"]!.substring(7);
     isResetPassword.value = arg["isResetPassword"] == "true" ? true : false;
-    _startTimer(90);
+     _startTimer(90);
   }
 
   _startTimer(int seconds) {

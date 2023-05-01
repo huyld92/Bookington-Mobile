@@ -166,7 +166,11 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                   margin: getMargin(left: 10, right: 10),
                   height: getVerticalSize(15),
                   width: getHorizontalSize(30),
-                  color: ColorConstant.black900,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.whiteA700,
+                    border: BorderRadiusStyle.borderBlack2
+                  ),
+
                 ),
                 Text(
                   "lbl_can_book".tr,

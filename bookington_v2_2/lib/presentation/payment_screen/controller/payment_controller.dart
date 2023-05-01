@@ -83,6 +83,8 @@ class PaymentController extends GetxController with StateMixin {
             balance.value =
                 formatCurrency.format(jsonResult["result"]["balance"]);
           } else {
+            Get.defaultDialog(title: "Load Balance", content: Text("Cannot load balance now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+
             Logger.log(
                 "PaymentController error at getBalance: ${result.statusCode}");
           }
@@ -121,17 +123,18 @@ class PaymentController extends GetxController with StateMixin {
               content: PaymentResultDialog(this),
             );
           } else if (result.statusCode == 400) {
+             String errorMessage = jsonDecode(result.body)["Message"];
             Get.defaultDialog(
                 barrierDismissible: false,
                 title: "Your Payment failed!",
                 content: Container(
                   padding: getPadding(all: 20),
-                  height: getVerticalSize(150),
+                  height: getVerticalSize(160),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Center(
-                        child: Text("This order has already been processed!",
+                        child: Text(errorMessage,
                             style: AppStyle.txtManropeMedium14),
                       ),
                       Padding(
@@ -139,14 +142,15 @@ class PaymentController extends GetxController with StateMixin {
                         child: CustomButton(
                           height: 50,
                           width: 220,
-                          text: "lbl_back_home".tr,
+                          text: "lbl_back".tr,
                           margin: getMargin(
-                            top: 10,
+                            top: 10
                           ),
                           fontStyle: ButtonFontStyle.ManropeBold14,
                           variant: ButtonVariant.FillGray300,
                           onTap: () {
-                            getBackHome();
+                            // getBackHome();
+                            Get.back();
                           },
                         ),
                       ),
@@ -156,7 +160,9 @@ class PaymentController extends GetxController with StateMixin {
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             logout();
           } else {
-            Logger.log(
+             Get.defaultDialog(title: "Confirm Payment", content: Text("Cannot payment now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+
+             Logger.log(
                 "PaymentController error at confirmPayment: ${result.statusCode}");
           }
         },

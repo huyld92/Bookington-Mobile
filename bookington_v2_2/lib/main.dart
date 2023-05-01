@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       title: 'Bookington',
       initialBinding: InitialBindings(),
       initialRoute: AppRoutes.initialRoute,
-      getPages: AppRoutes.pages,
+       getPages: AppRoutes.pages,
     );
   }
 }

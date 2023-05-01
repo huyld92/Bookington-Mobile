@@ -6,7 +6,7 @@ import 'package:bookington_v2_2/core/utils/map_utils.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -96,8 +96,9 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         searchController.text.trim(),
         selectedDistrict.value.districtName,
         selectedProvince.value.provinceName);
-    int maxPageSize = 5;
     try {
+      int maxPageSize = 5;
+
       await ApiClient.searchCourt(pageNumber,maxPageSize, courtModel).then((result) {
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
@@ -215,8 +216,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
 
   @override
   Future<void> onEndScroll() async {
-    print(pageNumber);
-    change(null, status: RxStatus.loadingMore());
+     change(null, status: RxStatus.loadingMore());
     if (listSearchMode.length < int.parse(totalCourt.value)) {
       pageNumber.value++;
       await searchByName(pageNumber.value);

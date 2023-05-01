@@ -1,63 +1,49 @@
-
-
-
-
-
-
 // ignore_for_file: unnecessary_getters_setters
 
-class CommentModel{
-  String _id ;
-  String _commentWriterId ;
-  String _refCourt;
-  String _content;
-  double _rating;
-  DateTime _createAt;
-  bool _isActive;
+import 'package:bookington_v2_2/data/models/account_model.dart';
+import 'package:intl/intl.dart';
 
+class CommentModel {
+  late String id;
+  late AccountModel commentWriter;
+  late String refCourt;
+  late String content;
+  late double rating;
+  late DateTime createAt;
+  late bool isActive;
 
-  CommentModel(this._id, this._commentWriterId, this._refCourt, this._content,
-      this._rating, this._createAt, this._isActive);
+  CommentModel(
+      {required this.id,
+      required this.commentWriter,
+      required this.refCourt,
+      required this.content,
+      required this.rating,
+      required this.createAt,
+      required this.isActive});
 
-  bool get isActive => _isActive;
-
-  set isActive(bool value) {
-    _isActive = value;
+  factory CommentModel.fromJson(Map<String, dynamic> json) {
+    DateTime createAt = DateFormat("yyyy-MM-dd").parseUTC(json["createAt"]).toLocal();
+    return CommentModel(
+        id: json["id"],
+        commentWriter: AccountModel.fromJson(json["commentWriter"]),
+        refCourt: json["refCourt"],
+        content: json["content"],
+        rating: json["rating"] * 1.0,
+        createAt: createAt,
+        isActive: json["isActive"],
+      );
   }
 
-  DateTime get createAt => _createAt;
+  static List<CommentModel> listFromJson(list) =>
+      List<CommentModel>.from(list.map((x) => CommentModel.fromJson(x)));
 
-  set createAt(DateTime value) {
-    _createAt = value;
-  }
-
-  double get rating => _rating;
-
-  set rating(double value) {
-    _rating = value;
-  }
-
-  String get content => _content;
-
-  set content(String value) {
-    _content = value;
-  }
-
-  String get refCourt => _refCourt;
-
-  set refCourt(String value) {
-    _refCourt = value;
-  }
-
-  String get commentWriterId => _commentWriterId;
-
-  set commentWriterId(String value) {
-    _commentWriterId = value;
-  }
-
-  String get id => _id;
-
-  set id(String value) {
-    _id = value;
+  CommentModel.empty() {
+    id = "";
+    commentWriter = AccountModel.empty();
+    refCourt = "";
+    content = "";
+    rating = 0.0;
+    createAt = DateTime.now();
+    isActive = false;
   }
 }

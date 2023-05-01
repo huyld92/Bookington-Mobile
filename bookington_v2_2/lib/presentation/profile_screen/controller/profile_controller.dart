@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfileController extends GetxController with StateMixin {
   late Rx<ProfileModel> profileModelObj = ProfileModel.empty().obs;
-  Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
   void onInit() {
@@ -25,8 +24,8 @@ class ProfileController extends GetxController with StateMixin {
   Future<void> loadData() async {
     await getProfile();
     await getBalance();
-    bytesImage.value = const Base64Decoder()
-        .convert(profileModelObj.value.accountModel.imgBase);
+    change(null, status: RxStatus.success());
+
   }
 
   Future<void> getProfile() async {
@@ -115,6 +114,14 @@ class ProfileController extends GetxController with StateMixin {
     Get.toNamed(AppRoutes.transactionScreen);
   }
 
+  void orderHistoryScreen() {
+    Get.toNamed(AppRoutes.orderHistoryScreen);
+  }
+
+  void bookingHistory() {
+    Get.toNamed(AppRoutes.historyBookingScreen);
+  }
+
   void favouriteCourt() {
     Get.toNamed(AppRoutes.favouriteScreen);
   }
@@ -127,10 +134,6 @@ class ProfileController extends GetxController with StateMixin {
     Get.toNamed(AppRoutes.changePasswordScreen);
   }
 
-  void bookingHistory() {
-    Get.toNamed(AppRoutes.historyBookingScreen);
-  }
-
   void myMatch() {
     Get.toNamed(AppRoutes.myMatchScreen);
   }
@@ -141,7 +144,7 @@ class ProfileController extends GetxController with StateMixin {
 
   Future<void> reportScreen() async {
     print('reportScreen');
-    var url = Uri.parse("momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NTzVSR1gyMDE5MTEyOHw5YWQzZWNmMi00Nzc3LTRkN2ItOTE2NS1lMzQ3NjFhMDEyNGE&v=2.3");
+    var url = Uri.parse(" ");
 
     // ApiClient.momo().then((value) {
     //   print(value.body);

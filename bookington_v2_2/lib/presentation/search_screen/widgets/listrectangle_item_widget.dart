@@ -1,4 +1,4 @@
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 
 import '../controller/search_controller.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class ListRectangleItemWidget extends StatelessWidget {
                             left: 4,
                           ),
                           child:  Text(
-                              _searchModel.ratingStar.toString(),
+                              _searchModel.ratingStar.toStringAsFixed(1),
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtManropeSemiBold14.copyWith(

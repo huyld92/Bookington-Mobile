@@ -1,4 +1,5 @@
 import 'package:bookington_v2_2/presentation/home_screen/widgets/court_item_widget.dart';
+import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/loading_widget.dart';
 
 import 'controller/home_controller.dart';
@@ -24,7 +25,7 @@ class HomeScreen extends GetWidget<HomeController> {
             backgroundColor: ColorConstant.gray50,
             appBar: CustomAppBar(
               height: getVerticalSize(
-                80.00,
+                80.00
               ),
               title: Row(
                 children: [
@@ -32,37 +33,35 @@ class HomeScreen extends GetWidget<HomeController> {
                     padding: getPadding(
                       left: 24,
                       top: 10,
-                      bottom: 9,
+                      bottom: 9
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
                           padding: getPadding(
-                            top: 6,
+                            top: 6
                           ),
                           child: Row(
                             children: [
-                              // AppbarImage(
-                              //   height: getSize(
-                              //     32.00
-                              //   ),
-                              //   width: getSize(
-                              //     32.00
-                              //   ),
-                              //   svgPath: ImageConstant.imgUser,
-                              //    margin: getMargin(
-                              //     bottom: 3,
-                              //     right: 10,
-                              //   ),
-                              // ),
-                              Obx(() => Container(
-                                  width: getHorizontalSize(40),
-                                  padding: getPadding(all: 5),
-                                  child: Image.memory(
-                                      controller.bytesImage.value,
-                                      width: getSize(32),
-                                      height: getSize(32)))),
+                              if (controller.homeModelObj.value.accountModel.imgBase.isEmpty)
+                                AppbarImage(
+                                  height: getSize(32.00),
+                                  width: getSize(32.00),
+                                  svgPath: ImageConstant.imgUser,
+                                  margin: getMargin(
+                                    bottom: 3,
+                                    right: 10
+                                  ),
+                                )
+                              else
+                                Obx(() => Container(
+                                    width: getHorizontalSize(40),
+                                    padding: getPadding(all: 5),
+                                    child: Image.memory(
+                                        controller.homeModelObj.value.accountModel.imgBase,
+                                        width: getSize(32),
+                                        height: getSize(32)))),
                               Obx(() => Text(
                                     controller.homeModelObj.value.accountModel
                                         .fullName,
@@ -101,8 +100,8 @@ class HomeScreen extends GetWidget<HomeController> {
                         top: 20,
                         right: 30,
                         child: Container(
-                          height: 16,
-                          width: 16,
+                          height: getSize(18),
+                          width: getSize(18),
                           decoration: BoxDecoration(
                             color: ColorConstant.red500,
                             shape: BoxShape.circle,
@@ -112,7 +111,7 @@ class HomeScreen extends GetWidget<HomeController> {
                             child: Obx(
                               () => Text(
                                 controller.totalUnread.value.toString(),
-                                style: AppStyle.txtManropeSemiBold10White,
+                                style: AppStyle.txtManropeSemiBold8White,
                               ),
                             ),
                           ),

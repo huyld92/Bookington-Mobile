@@ -14,14 +14,7 @@ class WalletTransactionEmpty extends StatelessWidget {
                 svgPath: ImageConstant.imgTransactionEmpty,
                 height: getVerticalSize(204.00),
                 width: getHorizontalSize(255.00)),
-            Padding(
-                padding: getPadding(top: 20),
-                child: Text("lbl_oop".tr,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtManropeExtraBold20Blue500.copyWith(
-                        letterSpacing: getHorizontalSize(0.20),
-                        height: getVerticalSize(0.99)))),
+
             Padding(
                 padding: getPadding(top: 15),
                 child: Text("lbl_no_data_found".tr,

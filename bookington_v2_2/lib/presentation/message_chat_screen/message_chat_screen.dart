@@ -91,7 +91,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                     CustomButton(
                         height: 53,
                         width: 97,
-                        text: "Hia a aa a".tr,
+                        text: "Xin Chào".tr,
                         margin: getMargin(top: 15, right: 24),
                         variant: ButtonVariant.FillBlue50,
                         shape: ButtonShape.CustomBorderTL10,
@@ -109,7 +109,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                             children: [
                               SizedBox(
                                   width: getHorizontalSize(218.00),
-                                  child: Text("asdasdsad".tr,
+                                  child: Text("Tôi có để quên đồ ở sân vào ngày hôm qua".tr,
                                       maxLines: null,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeMedium14))
@@ -139,7 +139,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                                   Container(
                                       width: getHorizontalSize(154.00),
                                       margin: getMargin(top: 4),
-                                      child: Text("sadascascasc".tr,
+                                      child: Text("Chào bạn".tr,
                                           maxLines: null,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtManropeMedium14))
@@ -153,63 +153,63 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtManropeRegular12.copyWith(
                                     letterSpacing: getHorizontalSize(0.40))))),
-                    Container(
-                        width: getHorizontalSize(264.00),
-                        margin: getMargin(top: 15, right: 24),
-                        padding: getPadding(
-                            left: 16, top: 13, right: 16, bottom: 13),
-                        decoration: AppDecoration.fillBlue50.copyWith(
-                            borderRadius: BorderRadiusStyle.customBorderTL10),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  width: getHorizontalSize(222.00),
-                                  margin: getMargin(top: 4),
-                                  child: Text("dasdasdsad".tr,
-                                      maxLines: null,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeMedium14))
-                            ])),
-                    Padding(
-                        padding: getPadding(top: 5, right: 24),
-                        child: Text("12:18".tr,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtManropeRegular12.copyWith(
-                                letterSpacing: getHorizontalSize(0.40)))),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                            width: getHorizontalSize(176.00),
-                            margin: getMargin(left: 24, top: 15),
-                            padding: getPadding(
-                                left: 16, top: 13, right: 16, bottom: 13),
-                            decoration: AppDecoration.fillBluegray50.copyWith(
-                                borderRadius:
-                                    BorderRadiusStyle.customBorderTL10),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: getHorizontalSize(140.00),
-                                      margin: getMargin(top: 4),
-                                      child: Text("acsascascascas".tr,
-                                          maxLines: null,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeMedium14))
-                                ]))),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                            padding: getPadding(left: 24, top: 5, bottom: 5),
-                            child: Text("12:19".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeRegular12.copyWith(
-                                    letterSpacing: getHorizontalSize(0.40)))))
+                    // Container(
+                    //     width: getHorizontalSize(264.00),
+                    //     margin: getMargin(top: 15, right: 24),
+                    //     padding: getPadding(
+                    //         left: 16, top: 13, right: 16, bottom: 13),
+                    //     decoration: AppDecoration.fillBlue50.copyWith(
+                    //         borderRadius: BorderRadiusStyle.customBorderTL10),
+                    //     child: Column(
+                    //         mainAxisSize: MainAxisSize.min,
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Container(
+                    //               width: getHorizontalSize(222.00),
+                    //               margin: getMargin(top: 4),
+                    //               child: Text("dasdasdsad".tr,
+                    //                   maxLines: null,
+                    //                   textAlign: TextAlign.left,
+                    //                   style: AppStyle.txtManropeMedium14))
+                    //         ])),
+                    // Padding(
+                    //     padding: getPadding(top: 5, right: 24),
+                    //     child: Text("12:18".tr,
+                    //         overflow: TextOverflow.ellipsis,
+                    //         textAlign: TextAlign.left,
+                    //         style: AppStyle.txtManropeRegular12.copyWith(
+                    //             letterSpacing: getHorizontalSize(0.40)))),
+                    // Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Container(
+                    //         width: getHorizontalSize(176.00),
+                    //         margin: getMargin(left: 24, top: 15),
+                    //         padding: getPadding(
+                    //             left: 16, top: 13, right: 16, bottom: 13),
+                    //         decoration: AppDecoration.fillBluegray50.copyWith(
+                    //             borderRadius:
+                    //                 BorderRadiusStyle.customBorderTL10),
+                    //         child: Column(
+                    //             mainAxisSize: MainAxisSize.min,
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Container(
+                    //                   width: getHorizontalSize(140.00),
+                    //                   margin: getMargin(top: 4),
+                    //                   child: Text("acsascascascas".tr,
+                    //                       maxLines: null,
+                    //                       textAlign: TextAlign.left,
+                    //                       style: AppStyle.txtManropeMedium14))
+                    //             ]))),
+                    // Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Padding(
+                    //         padding: getPadding(left: 24, top: 5, bottom: 5),
+                    //         child: Text("12:19".tr,
+                    //             overflow: TextOverflow.ellipsis,
+                    //             textAlign: TextAlign.left,
+                    //             style: AppStyle.txtManropeRegular12.copyWith(
+                    //                 letterSpacing: getHorizontalSize(0.40)))))
                   ],),
             ),
           ),

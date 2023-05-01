@@ -1,8 +1,8 @@
 class AppUrl {
   // static const String baseUrl = "https://bookingtonbackend.azurewebsites.net";
 
-  // static const String baseUrl = "https://10.0.2.2:7179";
-  static const String baseUrl = "https://192.168.1.127:7179";
+  static const String baseUrl = "https://10.0.2.2:7179";
+  // static const String baseUrl = "https://192.168.1.127:7179";
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
@@ -11,6 +11,12 @@ class AppUrl {
   static const String verifyEndPoint = "$baseUrl/accounts/verify";
 
   static const String resendOtpEndPoint = "$baseUrl/auth/resend-otp";
+
+  static const String forgotPasswordVerifyEndPoint = "$baseUrl/forgot-password/verify-phone";
+
+  static const String forgotPasswordVerifyOtpEndPoint = "$baseUrl/forgot-password/verify-otp";
+
+  static const String updateNewPasswordEndPoint = "$baseUrl/forgot-password";
 
   static const String changePasswordEndPoint =
       "$baseUrl/accounts/change-password";
@@ -35,7 +41,7 @@ class AppUrl {
   static const String getCourtDetailsEndPoint = "$baseUrl/courts/";
 
   static const String getTransactionEndPoint =
-      "$baseUrl/transactionhistory/self";
+      "$baseUrl/transaction-history/self";
 
   static const String getAvailableSubCourtEndPoint =
       "$baseUrl/bookings/available-subcourts";
@@ -61,6 +67,18 @@ class AppUrl {
 
   static const String postComment = "$baseUrl/comments/post";
 
+  static const String topUpEndPoint = "$baseUrl/top-up";
+
+  static const String getListCommentsEndPoint = "$baseUrl/comments/query";
+
+  static const String getOrderHistoryEndPoint = "$baseUrl/orders/user";
+
+  static const String cancelOrderEndPoint = "$baseUrl/orders/cancel";
+
+
+
+
   static const String notificationHub = "$baseUrl/notificationHub";
+
 
 }

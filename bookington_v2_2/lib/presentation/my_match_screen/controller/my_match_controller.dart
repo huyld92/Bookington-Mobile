@@ -16,9 +16,9 @@ class MyMatchController extends GetxController
 
   late TabController tabController;
 
-  RxList<MyMatchModel> listMatchesUpcoming = RxList.filled(6, MyMatchModel());
+  RxList<MyMatchModel> listMatchesUpcoming = RxList.filled(1, MyMatchModel());
 
-  RxList<MyMatchModel> listMatchesCompletes = RxList.filled(6, MyMatchModel());
+  RxList<MyMatchModel> listMatchesCompletes = RxList.filled(1, MyMatchModel());
 
   @override
   void onInit() {

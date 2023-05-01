@@ -24,7 +24,7 @@
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
                 <data
                     android:scheme="bookington"
-                    android:host="unilinks.example.com" />
+                    android:host="payment.example.com" />
             </intent-filter>
 
             <!-- Specifies an Android theme to apply to this Activity as soon as

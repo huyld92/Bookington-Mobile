@@ -13,6 +13,7 @@ class CourtDetailsModel {
   late double _ratingStar;
   late String _districtName;
   late String _address;
+  late String _description;
   late String _moneyPerHour;
   late int _numberOfSubCourt;
   late int _numberOfReview;
@@ -39,9 +40,10 @@ class CourtDetailsModel {
     _ownerPhoneNumber = court.phone;
     _districtName = court.districtName;
     _address = court.address;
+    _description = court.description;
     final formatCurrency = NumberFormat("#,###");
     _moneyPerHour = "${formatCurrency.format(court.moneyPerHour)}d";
-    _ratingStar = court.ratingStar.toDouble();
+    _ratingStar = court.ratingStar *1.0;
     _numberOfSubCourt = court.numberOfSubCourt;
     _numberOfReview = court.numberOfReview;
     _openAt = court.openAt;
@@ -55,6 +57,7 @@ class CourtDetailsModel {
     _ratingStar = 0.0;
     _districtName = "";
     _address = "";
+    _description = "";
     _moneyPerHour = "0";
     _numberOfSubCourt = 0;
     _numberOfReview = 0;
@@ -117,6 +120,12 @@ class CourtDetailsModel {
     _numberOfReview = value;
   }
 
+  String get description => _description;
+
+  set description(String value) {
+    _description = value;
+  }
+
   DateTime get openAt => _openAt;
 
   set openAt(DateTime value) {
@@ -134,29 +143,6 @@ class CourtDetailsModel {
   set isActive(bool value) {
     _isActive = value;
   }
-
-  // factory CourtDetailsModel.fromJson(Map<String, dynamic> json) {
-  //   final formatCurrency = NumberFormat("#,###");
-  //
-  //   return CourtDetailsModel(
-  //     json["id"],
-  //     json["name"],
-  //     json["ownerId"],
-  //     json["ratingStar"].toDouble(),
-  //     json["districtName"],
-  //     json["provinceName"],
-  //     formatCurrency.format(json["moneyPerHour"]),
-  //     json["numberOfSubCourt"],
-  //     json["numOfReview"],
-  //     DateFormat("kk:mm").parse(json["openAt"]),
-  //     DateFormat("kk:mm").parse(json["closeAt"]),
-  //     json["isActive"],
-  //   );
-  // }
-  //
-  // static List<CourtDetailsModel> listFromJson(list) =>
-  //     List<CourtDetailsModel>.from(
-  //         list.map((dynamic x) => CourtDetailsModel.fromJson(x)));
 
   CourtDetailsModel.search(
     this._name,

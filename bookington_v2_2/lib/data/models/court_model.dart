@@ -12,7 +12,7 @@ class CourtModel {
   double _moneyPerHour;
   int _numberOfSubCourt;
   int _numberOfReview;
-  int _ratingStar;
+  double _ratingStar;
   DateTime _openAt;
   DateTime _closeAt;
   bool _isActive;
@@ -48,7 +48,7 @@ class CourtModel {
         json["moneyPerHour"]*1.0,
         json["numberOfSubCourt"],
         json["numOfReview"],
-        json["ratingStar"],
+        json["ratingStar"] *1.0,
         DateFormat("hh:mm:ss").parse(json["openAt"]),
         DateFormat("hh:mm:ss").parse(json["closeAt"]),
         json["isActive"],
@@ -105,9 +105,9 @@ class CourtModel {
     _numberOfReview = value;
   }
 
-  int get ratingStar => _ratingStar;
+  double get ratingStar => _ratingStar;
 
-  set ratingStar(int value) {
+  set ratingStar(double value) {
     _ratingStar = value;
   }
 

@@ -73,11 +73,13 @@ class ChooseSlotController extends GetxController with StateMixin {
           slotList.value =
               SlotModel.listFromJson(jsonResult["result"]["slots"]);
           listSelected.value = RxList.filled(slotList.length, false);
-          validateSlot(strPlayDate);
-          slotList.refresh();
+          // validateSlot(strPlayDate);
+           slotList.refresh();
           listSelected.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
+        }  else if (result.statusCode == 500){
+          print('error 500');
         } else {
           Logger.log(
               "ChooseSlotController error at getAvailableSlot: ${result.statusCode}");
@@ -170,8 +172,10 @@ class ChooseSlotController extends GetxController with StateMixin {
                 ));
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             logout();
+          }   else if (result.statusCode == 500){
+            print('error 500: ${result.body}');
           } else {
-            "ChooseSlotController error at nextPaymentScreen: ${result.statusCode}";
+            "ChooseSlotController error at nextPaymentScreen: ${result.statusCode} \n ${result.body}";
           }
         });
       }

@@ -16,12 +16,17 @@ class LoginController extends GetxController with StateMixin {
 
   @override
   void onInit() async {
-    // change(null, status: RxStatus.success());
-    txtPhoneController.text = "0111111131";
+     txtPhoneController.text = "0111111131";
     txtPasswordController.text = "customer";
-    loadData();
 
     super.onInit();
+  }
+
+  @override
+  void onReady() async {
+    loadData();
+
+    super.onReady();
   }
 
   Future<void> login(String phone, String password) async {
@@ -47,7 +52,7 @@ class LoginController extends GetxController with StateMixin {
     } catch (error) {
       Logger.log(error);
       Get.defaultDialog(
-          title: "Login Failed!", middleText: "Cannot connect to server!");
+          title: "Login error!", middleText: "Cannot connect to server!");
     } finally {
       change(null, status: RxStatus.success());
     }
@@ -63,14 +68,13 @@ class LoginController extends GetxController with StateMixin {
   }
 
   void loadData() {
+    change(null, status: RxStatus.success());
+
     try {
-      // change(null, status: RxStatus.loading());
       var arg = Get.arguments;
       if (arg != null) {
-        print("arg[""]: ${arg["timeOut"]}");
-        if (arg["timeOut"] != null && arg["timeOut"]) {
-          print('timeOut ???????????????????????');
-          Get.defaultDialog(
+         if (arg["timeOut"] != null && arg["timeOut"]) {
+           Get.defaultDialog(
             title: "Session Expired",
             content: Center(
               child: Text("Please login again.",
@@ -84,8 +88,7 @@ class LoginController extends GetxController with StateMixin {
             ),
           );
         } else if (arg["isChangePassword"] != null && arg["isChangePassword"]) {
-          print('isChangePassword');
-          Get.defaultDialog(
+           Get.defaultDialog(
             title: "Change Password successfully",
             content: Center(
               child: Text("Please login again.",
@@ -101,11 +104,11 @@ class LoginController extends GetxController with StateMixin {
         } else {
           print('else');
         }
+      } else {
+        print('ard null');
       }
     } on Exception catch (e) {
-      Logger.log(e.toString());
-    } finally {
-      change(null, status: RxStatus.success());
+      Logger.log("LoginController error at loadData: ${e.toString()}");
     }
   }
 

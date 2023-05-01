@@ -39,14 +39,25 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       children: [
                         Row(
                           children: [
+                            controller.profileModelObj.value.accountModel.imgBase.isNotEmpty?
                             Obx(() => Container(
                               padding: getPadding(right: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadiusStyle.circleBorder23
                               ),
-                              child: Image.memory(controller.bytesImage.value,
+                              child: Image.memory(controller.profileModelObj.value.accountModel.imgBase,
                                   width: getSize(70), height: getSize(70)),
-                            )),
+                            )):
+                            Container(
+                              padding: getPadding(right: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadiusStyle.circleBorder23
+                              ),
+                              child: CustomImageView(
+                                width: 48,
+                                svgPath: ImageConstant.imgUser,
+                              ),
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +119,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 Padding(
                                     padding: getPadding(
                                         left: 16, top: 10, bottom: 7),
-                                    child: Text("lbl_manage_your_account".tr,
+                                    child: Text("lbl_edit_profile".tr,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: AppStyle.txtManropeSemiBold14)),
@@ -163,74 +174,75 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         thickness: getVerticalSize(1),
                         color: ColorConstant.blueGray100),
                     //favorite
-                    GestureDetector(
-                      onTap: () {
-                        controller.favouriteCourt();
-                      },
-                      child: Padding(
-                          padding: getPadding(top: 10),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomIconButton(
-                                    height: 40,
-                                    width: 40,
-                                    child: CustomImageView(
-                                        svgPath: ImageConstant.imgFavorite)),
-                                Padding(
-                                    padding: getPadding(
-                                        left: 16, top: 10, bottom: 7),
-                                    child: Text("lbl_my_favorites".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeSemiBold14)),
-                                const Spacer(),
-                                CustomImageView(
-                                    svgPath: ImageConstant.imgArrowRight,
-                                    height: getSize(20.00),
-                                    width: getSize(20.00),
-                                    margin: getMargin(top: 10))
-                              ])),
-                    ),
-                    Divider(
-                        height: getVerticalSize(1),
-                        thickness: getVerticalSize(1),
-                        color: ColorConstant.blueGray100),
-                    InkWell(
-                      onTap: () {
-                        controller.reportScreen();
-                        // controller.walletScreen();
-                      },
-                      child: Padding(
-                          padding: getPadding(top: 10),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomIconButton(
-                                    height: 40,
-                                    width: 40,
-                                    child: CustomImageView(
-                                        svgPath: ImageConstant.imgReport)),
-                                Padding(
-                                    padding: getPadding(
-                                        left: 16, top: 10, bottom: 7),
-                                    child: Text("lbl_report".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeSemiBold14)),
-                                const Spacer(),
-                                CustomImageView(
-                                  svgPath: ImageConstant.imgArrowRight,
-                                  height: getSize(20.00),
-                                  width: getSize(20.00),
-                                  margin: getMargin(top: 10, bottom: 10),
-                                )
-                              ])),
-                    ),
-                    Divider(
-                        height: getVerticalSize(1),
-                        thickness: getVerticalSize(1),
-                        color: ColorConstant.blueGray100),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     controller.favouriteCourt();
+                    //   },
+                    //   child: Padding(
+                    //       padding: getPadding(top: 10),
+                    //       child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             CustomIconButton(
+                    //                 height: 40,
+                    //                 width: 40,
+                    //                 child: CustomImageView(
+                    //                     svgPath: ImageConstant.imgFavorite)),
+                    //             Padding(
+                    //                 padding: getPadding(
+                    //                     left: 16, top: 10, bottom: 7),
+                    //                 child: Text("lbl_my_favorites".tr,
+                    //                     overflow: TextOverflow.ellipsis,
+                    //                     textAlign: TextAlign.left,
+                    //                     style: AppStyle.txtManropeSemiBold14)),
+                    //             const Spacer(),
+                    //             CustomImageView(
+                    //                 svgPath: ImageConstant.imgArrowRight,
+                    //                 height: getSize(20.00),
+                    //                 width: getSize(20.00),
+                    //                 margin: getMargin(top: 10))
+                    //           ])),
+                    // ),
+                    // Divider(
+                    //     height: getVerticalSize(1),
+                    //     thickness: getVerticalSize(1),
+                    //     color: ColorConstant.blueGray100),
+                    //report
+                    // InkWell(
+                    //   onTap: () {
+                    //     controller.reportScreen();
+                    //     // controller.walletScreen();
+                    //   },
+                    //   child: Padding(
+                    //       padding: getPadding(top: 10),
+                    //       child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: [
+                    //             CustomIconButton(
+                    //                 height: 40,
+                    //                 width: 40,
+                    //                 child: CustomImageView(
+                    //                     svgPath: ImageConstant.imgReport)),
+                    //             Padding(
+                    //                 padding: getPadding(
+                    //                     left: 16, top: 10, bottom: 7),
+                    //                 child: Text("lbl_report".tr,
+                    //                     overflow: TextOverflow.ellipsis,
+                    //                     textAlign: TextAlign.left,
+                    //                     style: AppStyle.txtManropeSemiBold14)),
+                    //             const Spacer(),
+                    //             CustomImageView(
+                    //               svgPath: ImageConstant.imgArrowRight,
+                    //               height: getSize(20.00),
+                    //               width: getSize(20.00),
+                    //               margin: getMargin(top: 10, bottom: 10),
+                    //             )
+                    //           ])),
+                    // ),
+                    // Divider(
+                    //     height: getVerticalSize(1),
+                    //     thickness: getVerticalSize(1),
+                    //     color: ColorConstant.blueGray100),
 
                     GestureDetector(
                       onTap: () {
@@ -269,7 +281,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         color: ColorConstant.blueGray100),
                     GestureDetector(
                       onTap: () {
-                        controller.bookingHistory();
+                        controller.orderHistoryScreen();
                       },
                       child: Padding(
                         padding: getPadding(top: 10),
@@ -281,6 +293,41 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                 width: 40,
                                 child: CustomImageView(
                                     svgPath: ImageConstant.imgHistory)),
+                            Padding(
+                                padding:
+                                    getPadding(left: 16, top: 10, bottom: 9),
+                                child: Text("lbl_order_history".tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtManropeSemiBold14)),
+                            const Spacer(),
+                            CustomImageView(
+                                svgPath: ImageConstant.imgArrowRight,
+                                height: getSize(20.00),
+                                width: getSize(20.00),
+                                margin: getMargin(top: 10)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                        height: getVerticalSize(1),
+                        thickness: getVerticalSize(1),
+                        color: ColorConstant.blueGray100),
+                    GestureDetector(
+                      onTap: () {
+                        controller.bookingHistory();
+                      },
+                      child: Padding(
+                        padding: getPadding(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomIconButton(
+                                height: 40,
+                                width: 40,
+                                child: CustomImageView(
+                                    svgPath: ImageConstant.imgBooking)),
                             Padding(
                                 padding:
                                     getPadding(left: 16, top: 10, bottom: 7),

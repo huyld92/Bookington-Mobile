@@ -27,7 +27,8 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Scaffold(
-            resizeToAvoidBottomInset: false,
+            // resizeToAvoidBottomInset: false,
+
             appBar: CustomAppBar(
                 height: getVerticalSize(80.00),
                 leadingWidth: 64,
@@ -60,6 +61,15 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                           child: Stack(
                             alignment: Alignment.bottomRight,
                             children: [
+                              controller.editProfileModelObj.value.accountModel.imgBase.isNotEmpty?
+                              Obx(() => Container(
+                                padding: getPadding(right: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadiusStyle.circleBorder23
+                                ),
+                                child: Image.memory(controller.editProfileModelObj.value.accountModel.imgBase,
+                                    width: getSize(70), height: getSize(70)),
+                              )):
                               CustomImageView(
                                   svgPath: ImageConstant.imgUser,
                                   height: getSize(75.00),
@@ -117,22 +127,22 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               ),
                             ),
                       ),
-                      Padding(
-                          padding: getPadding(top: 33),
-                          child: Text("lbl_description".tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeMedium12.copyWith(
-                                  letterSpacing: getHorizontalSize(0.40)))),
-                      CustomTextFormField(
-                          width: size.width,
-                          maxLines: 6,
-                           focusNode: FocusNode(),
-                          controller: controller.descriptionController,
-                          hintText: "lbl_description".tr,
-                          margin: getMargin(top: 7),
-
-                      ),
+                      // Padding(
+                      //     padding: getPadding(top: 33),
+                      //     child: Text("lbl_description".tr,
+                      //         overflow: TextOverflow.ellipsis,
+                      //         textAlign: TextAlign.left,
+                      //         style: AppStyle.txtManropeMedium12.copyWith(
+                      //             letterSpacing: getHorizontalSize(0.40)))),
+                      // CustomTextFormField(
+                      //     width: size.width,
+                      //     maxLines: 6,
+                      //      focusNode: FocusNode(),
+                      //     controller: controller.descriptionController,
+                      //     hintText: "lbl_description".tr,
+                      //     margin: getMargin(top: 7),
+                      //
+                      // ),
                     ],
                   ),
                 ),

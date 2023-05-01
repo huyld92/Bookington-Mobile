@@ -8,7 +8,7 @@ class ProfileModel {
 
   ProfileModel.empty(){
     _accountModel = AccountModel.empty();
-    _balance = "";
+    _balance = "0";
   }
 
   String get balance => _balance;

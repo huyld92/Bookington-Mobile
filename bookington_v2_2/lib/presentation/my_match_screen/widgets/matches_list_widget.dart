@@ -36,7 +36,7 @@ class MatchesListWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Date: 12-12-2022", style: AppStyle.txtManropeSemiBold14),
+                        Text("Date: 01-03-2023", style: AppStyle.txtManropeSemiBold14),
                         Text("Time: 12:00-14:00", style: AppStyle.txtManropeSemiBold14),
                       ],
                     ),

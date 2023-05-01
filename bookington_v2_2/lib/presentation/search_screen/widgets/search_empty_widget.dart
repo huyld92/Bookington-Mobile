@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/search_page/controller/search_controller.dart';
+import 'package:bookington_v2_2/presentation/search_screen/controller/search_controller.dart';
 import 'package:flutter/material.dart';
 
 class SearchEmptyWidget extends StatelessWidget {

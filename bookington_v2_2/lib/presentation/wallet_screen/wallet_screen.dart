@@ -79,7 +79,10 @@ class WalletScreen extends GetWidget<WalletController> {
                                   height: getSize(32),
                                   width: getSize(32),
                                   margin:
-                                      getMargin(top: 10, right: 20, bottom: 5))
+                                      getMargin(top: 10, right: 20, bottom: 5),
+                              onTap: () {
+                                controller.addBalance();
+                              },)
                             ],
                           ),
                         ),

@@ -8,12 +8,12 @@ import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_court_item_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 
 class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj = HomeModel.empty().obs;
   RxInt totalUnread = 0.obs;
-  Rx<Uint8List> bytesImage = Uint8List(0).obs;
+  // Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
   void onInit() async {
@@ -27,13 +27,12 @@ class HomeController extends GetxController with StateMixin {
     await queryNotifications();
     await searchByName();
 
-    try {
-      bytesImage.value = const Base64Decoder()
-          .convert(homeModelObj.value.accountModel.imgBase);
-
-    } on Exception catch (e) {
-      Logger.log("HomeController error at loadData: ${e.toString()}");
-    }
+    // try {
+    //   bytesImage.value = const Base64Decoder()
+    //       .convert(homeModelObj.value.accountModel.imgBase);
+    // } on Exception catch (e) {
+    //   Logger.log("HomeController error at loadData: ${e.toString()}");
+    // }
     change(null, status: RxStatus.success());
   }
 

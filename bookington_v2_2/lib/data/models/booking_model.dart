@@ -65,10 +65,10 @@ class BookingModel {
     DateTime playDate = DateFormat("yyyy-MM-dd").parse(dateValue);
 
     return BookingModel(
-        json["id"],
-        json["refSlot"],
-        json["refOrder"],
-        json["bookBy"],
+        json["id"]??"",
+        json["refSlot"]??"",
+        json["refOrder"]??"",
+        json["bookBy"]??"",
         DateFormat("dd-MM-yyyy").parse(json["bookAt"]),
       playDate,
         json["price"]*1.0,

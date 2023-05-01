@@ -16,5 +16,4 @@ extension DateTimeExtension on DateTime {
     return DateFormat(pattern, locale).format(this);
   }
 
-
 }

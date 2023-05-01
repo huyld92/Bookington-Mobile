@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/presentation/edit_profile_screen/models/edit_profile_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
@@ -9,27 +11,39 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EditProfileController extends GetxController with StateMixin {
-  TextEditingController phoneController = TextEditingController();
-
   TextEditingController fullNameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   var selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
 
-  late Rx<EditProfileModel> editProfileModelObj;
+  late Rx<EditProfileModel> editProfileModelObj = EditProfileModel.empty().obs;
+  // Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
-  void onReady() {
-    loadProfile();
+  Future<void> onReady() async {
+    loadData();
+
     super.onReady();
   }
 
   @override
   void onClose() {
     super.onClose();
-    phoneController.dispose();
     fullNameController.dispose();
     descriptionController.dispose();
+  }
+
+  void loadData() async {
+    await loadProfile();
+
+    // try {
+    //    bytesImage.value = const Base64Decoder()
+    //       .convert(editProfileModelObj.value.accountModel.imgBase);
+    // } on Exception catch (e) {
+    //   bytesImage.value = Uint8List(0);
+    //   Logger.log(
+    //       "EditProfileController error at convert bytesImage: ${e.toString()}");
+    // }
   }
 
   Future<void> loadProfile() async {
@@ -43,8 +57,10 @@ class EditProfileController extends GetxController with StateMixin {
           (result) {
             if (result.statusCode == 200) {
               final jsonResult = (jsonDecode(result.body)["result"]);
-              phoneController.text = jsonResult["phone"];
+              editProfileModelObj.value.accountModel =
+                  AccountModel.fromJson(jsonResult);
               fullNameController.text = jsonResult["fullName"];
+              descriptionController.text = jsonResult["description"] ?? "";
               try {
                 var dateValue = DateFormat("yyyy-MM-dd")
                     .parseUTC(jsonResult["dateOfBirth"])
@@ -112,7 +128,8 @@ class EditProfileController extends GetxController with StateMixin {
         String fullName = fullNameController.text;
 
         String date = selectedDate.value.toString();
-         await ApiClient.updateProfile(userID, fullName, date).then(
+        String description = descriptionController.text;
+        await ApiClient.updateProfile(userID, fullName, date, description).then(
           (result) {
             if (result.statusCode == 200) {
               final jsonResult = (jsonDecode(result.body)["result"]);
@@ -142,7 +159,7 @@ class EditProfileController extends GetxController with StateMixin {
                 'Edit profile',
                 "Edit profile failed",
                 colorText: ColorConstant.black900,
-                 backgroundColor: ColorConstant.whiteA700,
+                backgroundColor: ColorConstant.whiteA700,
                 icon: CustomImageView(
                     width: 16, height: 16, svgPath: ImageConstant.imgNotify),
               );

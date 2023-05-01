@@ -7,7 +7,7 @@ import 'package:bookington_v2_2/core/utils/app_url.dart';
 import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
-import 'package:bookington_v2_2/presentation/search_page/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient extends GetConnect {
@@ -46,8 +46,27 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> sendOtp(String phone) async {
-    var url = Uri.parse(AppUrl.resendOtpEndPoint + phone);
+  static Future<http.Response> forgotPasswordVerify(String phone) async {
+    var url =
+        Uri.parse("${AppUrl.forgotPasswordVerifyEndPoint}?phoneNumber=$phone");
+
+    http.Response response = await http.post(url);
+    return response;
+  }
+
+  static Future<http.Response> forgotPasswordVerifyOtp(
+      String phone, String otp) async {
+    var url = Uri.parse(
+        "${AppUrl.forgotPasswordVerifyOtpEndPoint}?phoneNumber=$phone&otp=$otp");
+
+    http.Response response = await http.post(url);
+    return response;
+  }
+
+  static Future<http.Response> updateNewPassword(
+      String phone, String newPassword) async {
+    var url = Uri.parse(
+        "${AppUrl.updateNewPasswordEndPoint}?phoneNumber=$phone&newPassword=$newPassword");
 
     http.Response response = await http.post(url);
     return response;
@@ -150,14 +169,18 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> updateProfile(
-      String userID, String fullName, String date) async {
+      String userID, String fullName, String date, String description) async {
     var url = Uri.parse(AppUrl.updateProfile + userID);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
       "Content-Type": "application/json",
     };
-    Map<String, String> body = {"fullName": fullName, "dateOfBirth": date};
+    Map<String, String> body = {
+      "fullName": fullName,
+      "dateOfBirth": date,
+      "description": description
+    };
     http.Response response =
         await http.put(url, body: jsonEncode(body), headers: header);
 
@@ -290,7 +313,8 @@ class ApiClient extends GetConnect {
       'confirmPassword': confirmPassword,
     };
 
-    http.Response response = await http.put(url, headers: headers, body: body);
+    http.Response response =
+        await http.put(url, headers: headers, body: jsonEncode(body));
 
     return response;
   }
@@ -314,16 +338,16 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> momo( ) async {
-    var url = Uri.parse("momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NTzVSR1gyMDE5MTEyOHxjZGQ1NGM0ZS0zOTYzLTRmOTUtOTA3OC0zZDI4MWJkNzM4ZmM&v=2.3");
+  static Future<http.Response> momo() async {
+    var url = Uri.parse(
+        "momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NTzVSR1gyMDE5MTEyOHxjZGQ1NGM0ZS0zOTYzLTRmOTUtOTA3OC0zZDI4MWJkNzM4ZmM&v=2.3");
     // String? sysToken = PrefUtils.getAccessToken();
     // Map<String, String> headers = {
     //   "Authorization": "Bearer $sysToken",
     //   'Content-Type': 'application/json',
     // };
 
-    http.Response response =
-        await http.post(url );
+    http.Response response = await http.post(url);
 
     return response;
   }
@@ -339,6 +363,24 @@ class ApiClient extends GetConnect {
     };
 
     http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> topUpAmount(
+      String amount, String orderInfo) async {
+    var url = Uri.parse(AppUrl.topUpEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    Map<String, String> body = {
+      "amount": amount,
+      'orderInfo': orderInfo,
+    };
+    http.Response response =
+        await http.post(url, body: jsonEncode(body), headers: headers);
 
     return response;
   }
@@ -360,7 +402,7 @@ class ApiClient extends GetConnect {
 
   static Future<http.Response> createComment(
       CommentRatingModel commentRatingModel) async {
-    var url = Uri.parse("${AppUrl.postComment} ");
+    var url = Uri.parse(AppUrl.postComment);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
@@ -372,8 +414,51 @@ class ApiClient extends GetConnect {
       "content": commentRatingModel.content,
       "rating": commentRatingModel.rating.toString(),
     };
-    print('url$url');
-    http.Response response = await http.post(url, body: body, headers: headers);
+    http.Response response =
+        await http.post(url, body: jsonEncode(body), headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> queryComment(
+      String courtId, int pageNumber, int maxPage) async {
+    var url = Uri.parse(
+        "${AppUrl.getListCommentsEndPoint}?CourtId=$courtId&PageNumber=$pageNumber&MaxPageSize=$maxPage");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> getOrderHistory(
+      String userId, int pageNumber, int maxPage) async {
+    var url = Uri.parse(
+        "${AppUrl.getOrderHistoryEndPoint}?UserId=$userId&PageNumber=$pageNumber&MaxPageSize=$maxPage");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> cancelOrder(
+      String orderId) async {
+    var url = Uri.parse(
+        "${AppUrl.cancelOrderEndPoint}?orderId=$orderId");
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    print('url: $url');
+    http.Response response = await http.post(url, headers: headers);
 
     return response;
   }

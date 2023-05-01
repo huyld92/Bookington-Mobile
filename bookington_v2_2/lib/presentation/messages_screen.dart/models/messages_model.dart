@@ -3,5 +3,5 @@ import 'messages_item_model.dart';
 
 class MessagesModel {
   RxList<MessagesItemModel> messagesItemList =
-      RxList.generate(5, (index) => MessagesItemModel());
+      RxList.generate(1, (index) => MessagesItemModel());
 }

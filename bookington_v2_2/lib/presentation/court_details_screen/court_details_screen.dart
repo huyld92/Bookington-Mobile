@@ -1,5 +1,4 @@
 import 'package:bookington_v2_2/core/app_export.dart';
-import 'package:bookington_v2_2/presentation/court_details_screen/widgets/list_rating_item_widget.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/slidericon_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
@@ -10,7 +9,6 @@ import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:intl/intl.dart';
 
 import 'controller/court_details_controller.dart';
-import 'models/listfive_item_model.dart';
 import 'models/slidericon_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -176,11 +174,9 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                                           .copyWith(
                                                         letterSpacing:
                                                             getHorizontalSize(
-                                                          0.40,
-                                                        ),
+                                                                0.40),
                                                         height: getVerticalSize(
-                                                          1.10,
-                                                        ),
+                                                            1.10),
                                                       ),
                                                     ),
                                                   ),
@@ -229,7 +225,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                     ],
                                   )),
 
-                              //money and total subcourt
+                              //money and total sub court
                               Padding(
                                 padding: getPadding(top: 10),
                                 child: Row(
@@ -339,8 +335,16 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       Container(
                         width: getHorizontalSize(327.00),
                         margin: getMargin(left: 8, top: 13),
+                        // child: Text(
+                        //   "msg_about_phutho_court".tr,
+                        //   maxLines: null,
+                        //   textAlign: TextAlign.left,
+                        //   style: AppStyle.txtManropeRegular14.copyWith(
+                        //     height: getVerticalSize(1.10),
+                        //   ),
+                        // ),
                         child: Text(
-                          "msg_about_phutho_court".tr,
+                          controller.courtDetailsModelObj.value.description,
                           maxLines: null,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeRegular14.copyWith(
@@ -395,19 +399,24 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                 height: getVerticalSize(1.02),
                               ),
                             ),
-                            Padding(
-                              padding: getPadding(
-                                  // left: 154,
-                                  top: 4,
-                                  bottom: 3),
-                              child: Text(
-                                "msg_view_all_reviews".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style:
-                                    AppStyle.txtManropeBold12Blue500.copyWith(
-                                  letterSpacing: getHorizontalSize(0.40),
-                                  height: getVerticalSize(1.10),
+                            GestureDetector(
+                              onTap: () {
+                                controller.viewAllReviewsScreen();
+                              },
+                              child: Padding(
+                                padding: getPadding(
+                                    // left: 154,
+                                    top: 4,
+                                    bottom: 3),
+                                child: Text(
+                                  "msg_view_all_reviews".tr,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      AppStyle.txtManropeBold12Blue500.copyWith(
+                                    letterSpacing: getHorizontalSize(0.40),
+                                    height: getVerticalSize(1.10),
+                                  ),
                                 ),
                               ),
                             ),
@@ -419,8 +428,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                         child: Row(
                           children: [
                             Text(
-                              "${controller.courtDetailsModelObj.value.ratingStar}"
-                                  .tr,
+                              controller.courtDetailsModelObj.value.ratingStar.toStringAsFixed(1) ,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtManropeBold32.copyWith(
@@ -480,28 +488,28 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: getPadding(left: 8, top: 6, right: 8),
-                        child: Obx(
-                          () => ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              separatorBuilder: (context, index) {
-                                return SizedBox(
-                                  height: getVerticalSize(3.00),
-                                );
-                              },
-                              itemCount: controller.courtDetailsModelObj.value
-                                  .listfiveItemList.length,
-                              itemBuilder: (context, index) {
-                                ListfiveItemModel model = controller
-                                    .courtDetailsModelObj
-                                    .value
-                                    .listfiveItemList[index];
-                                return ListRatingItemWidget(model);
-                              }),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: getPadding(left: 8, top: 6, right: 8),
+                      //   child: Obx(
+                      //     () => ListView.separated(
+                      //         physics: const NeverScrollableScrollPhysics(),
+                      //         shrinkWrap: true,
+                      //         separatorBuilder: (context, index) {
+                      //           return SizedBox(
+                      //             height: getVerticalSize(3.00),
+                      //           );
+                      //         },
+                      //         itemCount: controller.courtDetailsModelObj.value
+                      //             .listfiveItemList.length,
+                      //         itemBuilder: (context, index) {
+                      //           ListfiveItemModel model = controller
+                      //               .courtDetailsModelObj
+                      //               .value
+                      //               .listfiveItemList[index];
+                      //           return ListRatingItemWidget(model);
+                      //         }),
+                      //   ),
+                      // ),
                       Container(
                         height: getVerticalSize(1.00),
                         width: getHorizontalSize(315.00),

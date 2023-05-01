@@ -38,24 +38,30 @@ import 'package:bookington_v2_2/presentation/my_match_screen/binding/my_match_bi
 import 'package:bookington_v2_2/presentation/my_match_screen/my_match_screen.dart';
 import 'package:bookington_v2_2/presentation/notification_screen/binding/notification_binding.dart';
 import 'package:bookington_v2_2/presentation/notification_screen/notification_screen.dart';
+import 'package:bookington_v2_2/presentation/order_details_screen/binding/order_details_binding.dart';
+import 'package:bookington_v2_2/presentation/order_details_screen/order_details_screen.dart';
+import 'package:bookington_v2_2/presentation/order_history_screen/binding/order_history_binding.dart';
+import 'package:bookington_v2_2/presentation/order_history_screen/order_history_screen.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:bookington_v2_2/presentation/payment_screen/payment_screen.dart';
 import 'package:bookington_v2_2/presentation/phone_send_otp_screen/binding/phone_send_otp_binding.dart';
 import 'package:bookington_v2_2/presentation/phone_send_otp_screen/phone_send_otp_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
-import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
-import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
+import 'package:bookington_v2_2/presentation/recommend_screen/registration_phone_screen/binding/registration_phone_binding.dart';
+import 'package:bookington_v2_2/presentation/recommend_screen/registration_phone_screen/registration_phone_screen.dart';
 import 'package:bookington_v2_2/presentation/report_screen/binding/report_binding.dart';
 import 'package:bookington_v2_2/presentation/report_screen/report_screen.dart';
 import 'package:bookington_v2_2/presentation/verify_screen/binding/verify_phone_number_binding.dart';
 import 'package:bookington_v2_2/presentation/verify_screen/verify_phone_number_screen.dart';
-import 'package:bookington_v2_2/presentation/search_page/binding/search_binding.dart';
-import 'package:bookington_v2_2/presentation/search_page/search_screen.dart';
+import 'package:bookington_v2_2/presentation/search_screen/binding/search_binding.dart';
+import 'package:bookington_v2_2/presentation/search_screen/search_screen.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:bookington_v2_2/presentation/splash_screen/splash_screen.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/binding/transaction_binding.dart';
 import 'package:bookington_v2_2/presentation/transaction_screen/transaction_screen.dart';
+import 'package:bookington_v2_2/presentation/view_all_review_screen/binding/view_all_review_binding.dart';
+import 'package:bookington_v2_2/presentation/view_all_review_screen/view_all_review_screen.dart';
 import 'package:bookington_v2_2/presentation/wallet_screen/binding/wallet_binding.dart';
 import 'package:bookington_v2_2/presentation/wallet_screen/wallet_screen.dart';
 
@@ -125,6 +131,12 @@ class AppRoutes {
   static const String changeAccountScreen = '/change_account_screen';
 
   static const String reportScreen = '/report_screen';
+
+  static const String viewAllReviewScreen = '/view_all_review_screen';
+
+  static const String orderHistoryScreen = '/order_history_screen';
+
+  static const String orderDetailsScreen = '/order_details_screen';
 
   static List<GetPage> pages = [
 
@@ -314,6 +326,26 @@ class AppRoutes {
 
     GetPage(
       // name: initialRoute,
+      name: orderDetailsScreen,
+      page: () =>  OrderDetailsScreen(),
+      bindings: [
+        OrderDetailsBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: orderHistoryScreen,
+      page: () =>  const OrderHistoryScreen(),
+      bindings: [
+        OrderHistoryBinding(),
+      ],
+      // middlewares: [RouteGuard()],
+    ),
+
+    GetPage(
+      // name: initialRoute,
       name: paymentScreen,
       page: () => PaymentScreen(),
       bindings: [
@@ -404,6 +436,15 @@ class AppRoutes {
       page: () => const TransactionScreen(),
       bindings: [
         TransactionBinding(),
+      ],
+    ),
+
+    GetPage(
+      // name: initialRoute,
+      name: viewAllReviewScreen,
+      page: () =>  ViewAllCommentScreen(),
+      bindings: [
+        ViewAllCommentReviewBinding(),
       ],
     ),
 

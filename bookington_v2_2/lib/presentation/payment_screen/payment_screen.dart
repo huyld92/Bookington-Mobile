@@ -110,7 +110,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                     top: 1,
                                   ),
                                   child: Text(
-                                    "lbl_court".tr,
+                                    "lbl_sub_court".tr,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: AppStyle.txtManropeSemiBold16Gray900
@@ -330,14 +330,14 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                         child: Text("lbl_voucher".tr,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold18))
+                                            style: AppStyle.txtManropeBold16))
                                     : Padding(
                                         padding: getPadding(
                                             left: 12, top: 2, bottom: 2),
                                         child: Text("lbl_voucher_applied".tr,
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
-                                            style: AppStyle.txtManropeBold18)),
+                                            style: AppStyle.txtManropeBold16)),
                               ],
                             ),
                           ),
@@ -350,51 +350,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                       ),
                     ),
                   ),
-                  //momo
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     controller.choosePayment("Momo");
-                  //   },
-                  //   child: Container(
-                  //     margin: getMargin(top: 10, bottom: 5),
-                  //     padding: getPadding(all: 10),
-                  //     decoration: AppDecoration.fillGray200.copyWith(
-                  //         borderRadius: BorderRadiusStyle.roundedBorder16),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: [
-                  //         Row(
-                  //           children: [
-                  //             CustomImageView(
-                  //                 svgPath: ImageConstant.imgMomo,
-                  //                 height: getVerticalSize(32.00),
-                  //                 width: getHorizontalSize(32.00),
-                  //                 radius: BorderRadius.circular(
-                  //                     getHorizontalSize(4.00))),
-                  //             Padding(
-                  //                 padding:
-                  //                     getPadding(left: 12, top: 2, bottom: 2),
-                  //                 child: Text("lbl_momo".tr,
-                  //                     overflow: TextOverflow.ellipsis,
-                  //                     textAlign: TextAlign.left,
-                  //                     style: AppStyle.txtManropeBold18)),
-                  //           ],
-                  //         ),
-                  //         Obx(
-                  //           () => Radio<String>(
-                  //             value: "Momo",
-                  //             groupValue: controller.selectedPayment.value,
-                  //             onChanged: (value) {
-                  //               controller.changePaymentMethod(value);
-                  //             },
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  // cash
-                  GestureDetector(
+                   GestureDetector(
                     onTap: () {
                       controller.choosePayment("Cash");
                     },
@@ -424,7 +380,7 @@ class PaymentScreen extends GetWidget<PaymentController> {
                                         "Balance: ${controller.balance}",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtManropeBold18),
+                                        style: AppStyle.txtManropeBold16),
                                   )),
                             ],
                           ),

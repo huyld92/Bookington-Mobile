@@ -1,8 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
-import 'package:bookington_v2_2/presentation/profile_screen/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordController extends GetxController with StateMixin {
@@ -41,18 +42,26 @@ class ChangePasswordController extends GetxController with StateMixin {
               userID, oldPassword, newPassword, confirmPassword)
           .then((result) {
         print('statusCode: ${result.statusCode}');
-        if (result.statusCode == 200) {
-          ProfileController profileController = Get.find();
+        if (result.statusCode == 204) {
           Map<String, bool> arg = {"isChangePassword": true};
-          profileController.logout(arg);
+          logout(arg);
         } else if (result.statusCode == 401 || result.statusCode == 403) {
-          ProfileController profileController = Get.find();
           Map<String, bool> arg = {"timeOut": true};
-          profileController.logout(arg);
+          logout(arg);
+        } else if (result.statusCode == 400) {
+          Get.defaultDialog(title: "Change password", content: Text("Change password failed!\n${jsonDecode(result.body)["Message"]}", style: AppStyle.txtManropeRegular16,));
         } else {
-          print('errror');
+          Get.defaultDialog(title: "Change password", content: Text("Change password failed!\n\n Cannot change password now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+
+          Logger.log(
+              "ChangePasswordController error at changePassword: ${result.statusCode}. \n ${result.body}");
         }
       });
     }
+  }
+
+  void logout(Map<String, bool> arg) {
+    PrefUtils.clearPreferencesData();
+    Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
   }
 }

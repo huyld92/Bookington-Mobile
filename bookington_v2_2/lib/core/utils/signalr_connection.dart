@@ -40,6 +40,7 @@ class SignalrConnection extends ChangeNotifier {
     });
 
     await hubConnection.start();
+    print(hubConnection.connectionId);
   }
 
   Future retryUntilSuccessfulConnection(Exception? exception) async {

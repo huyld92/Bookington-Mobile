@@ -152,7 +152,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                         if (value == null ||
                                             (!isValidPassword(value,
                                                 isRequired: true))) {
-                                          return "The password at least 6 characters";
+                                          return "msg_password_err".tr;
                                         }
                                         return null;
                                       },

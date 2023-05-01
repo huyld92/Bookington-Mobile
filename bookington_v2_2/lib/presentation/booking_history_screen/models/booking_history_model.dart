@@ -18,11 +18,12 @@ class BookingHistoryScreenModel {
     endTime = DateFormat("HH:mm").format(bookingHistoryModel.endTime);
     status = bookingHistoryModel.status;
 
-    totalHour = (((bookingHistoryModel.endTime.hour * 60 +
-                    bookingHistoryModel.endTime.minute) -
-                (bookingHistoryModel.startTime.hour * 60 -
-                    bookingHistoryModel.startTime.minute)) /
-            60).toString();
+    totalHour = "0.5";
+        // (((bookingHistoryModel.endTime.hour * 60 +
+        //             bookingHistoryModel.endTime.minute) -
+        //         (bookingHistoryModel.startTime.hour * 60 -
+        //             bookingHistoryModel.startTime.minute)) /
+        //     60).toString();
    }
 
   BookingHistoryScreenModel.empty() {

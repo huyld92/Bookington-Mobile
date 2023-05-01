@@ -56,7 +56,7 @@ class VoucherScreen extends GetWidget<VoucherController> {
                             controller: controller.voucherController,
                             shape: TextFormFieldShape.RoundedBorder10,
                             width: 250,
-                            hintText: "Enter code voucher",
+                            hintText: "lbl_enter_voucher_code".tr,
                             fontStyle: TextFormFieldFontStyle.ManropeMedium14,
                             suffix: CustomImageView(
                               width: 16,
@@ -74,7 +74,8 @@ class VoucherScreen extends GetWidget<VoucherController> {
                             width: 80,
                             // color: Colors.amberAccent,
                             child: CustomButton(
-                              text: "Apply",
+                              text: "lbl_apply".tr,
+                              fontStyle: ButtonFontStyle.ManropeBold14WhiteA700,
                               onTap: () {
                                 print('Apply');
                               },
