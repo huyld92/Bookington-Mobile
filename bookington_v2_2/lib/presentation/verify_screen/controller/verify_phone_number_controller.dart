@@ -38,9 +38,9 @@ class VerifyPhoneNumberController extends GetxController
 
   @override
   void onClose() {
-
     if (_timer != null) {
       _timer!.cancel();
+      PrefUtils.clearPreferencesData();
     }
     super.onClose();
   }
@@ -48,10 +48,18 @@ class VerifyPhoneNumberController extends GetxController
   Future<void> verifyOTP() async {
     try {
       String? phoneNumber = PrefUtils.getString("rePhoneNumber");
-
       await ApiClient.verifyOtp(phoneNumber!, otpController.value.text)
           .then((result) {
         if (result.statusCode == 204) {
+          Get.snackbar(
+            'Verify account',
+            "Verify account successful",
+            colorText: ColorConstant.black900,
+            duration: const Duration(seconds: 3),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+          );
           Get.offNamed(AppRoutes.loginScreen);
         } else {
           Get.defaultDialog(
@@ -67,12 +75,23 @@ class VerifyPhoneNumberController extends GetxController
 
   Future<void> forgotPasswordVerifyOTP() async {
     try {
-      String? phoneNumber = PrefUtils.getString("rePhoneNumber");
-
-      await ApiClient.forgotPasswordVerifyOtp(phoneNumber!, otpController.value.text)
+      // String? phoneNumber = PrefUtils.getString("rePhoneNumber");
+      Map<String, String> arg = Get.arguments;
+      String phoneNumber = arg["rePhoneNumber"] ?? "";
+      await ApiClient.forgotPasswordVerifyOtp(
+              phoneNumber, otpController.value.text)
           .then((result) {
         if (result.statusCode == 204) {
-          Get.offNamed(AppRoutes.loginScreen);
+          Get.snackbar(
+            'Verify account',
+            "Verify account successful",
+            colorText: ColorConstant.black900,
+            duration: const Duration(seconds: 3),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+          );
+          Get.toNamed(AppRoutes.createNewPasswordScreen,arguments: arg);
         } else {
           Get.defaultDialog(
               title: "Verify otp failed!",
@@ -81,16 +100,15 @@ class VerifyPhoneNumberController extends GetxController
       });
     } catch (error) {
       Get.defaultDialog(
-          title: "Verify otp error!", middleText: error.toString());
+          title: "Verify otp error!", middleText: "Please Verify later");
     }
   }
-
 
   void loadData() {
     Map<String, String> arg = Get.arguments;
     phoneNumber = arg["rePhoneNumber"]!.substring(7);
     isResetPassword.value = arg["isResetPassword"] == "true" ? true : false;
-     _startTimer(90);
+    _startTimer(90);
   }
 
   _startTimer(int seconds) {
@@ -141,7 +159,8 @@ class VerifyPhoneNumberController extends GetxController
       });
     } catch (e) {
       Logger.log("VerifyController error at resendOtp: ${e.toString()}");
-      Get.defaultDialog(title: "Resend otp error!", middleText: e.toString());
+      Get.defaultDialog(
+          title: "Resend otp error!", middleText: "Please Verify later");
     } finally {
       change(null, status: RxStatus.success());
     }

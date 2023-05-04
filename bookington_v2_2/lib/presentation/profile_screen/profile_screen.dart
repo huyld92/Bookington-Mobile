@@ -39,25 +39,29 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       children: [
                         Row(
                           children: [
-                            controller.profileModelObj.value.accountModel.imgBase.isNotEmpty?
-                            Obx(() => Container(
-                              padding: getPadding(right: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadiusStyle.circleBorder23
-                              ),
-                              child: Image.memory(controller.profileModelObj.value.accountModel.imgBase,
-                                  width: getSize(70), height: getSize(70)),
-                            )):
-                            Container(
-                              padding: getPadding(right: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadiusStyle.circleBorder23
-                              ),
-                              child: CustomImageView(
-                                width: 48,
-                                svgPath: ImageConstant.imgUser,
-                              ),
-                            ),
+                            controller.profileModelObj.value.accountModel
+                                    .imgBase.isNotEmpty
+                                ? Obx(() => Container(
+                                      padding: getPadding(right: 10),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadiusStyle.circleBorder23),
+                                      child: Image.memory(
+                                          controller.profileModelObj.value
+                                              .accountModel.imgBase,
+                                          width: getSize(70),
+                                          height: getSize(70)),
+                                    ))
+                                : Container(
+                                    padding: getPadding(right: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadiusStyle.circleBorder23),
+                                    child: CustomImageView(
+                                      width: 48,
+                                      svgPath: ImageConstant.imgUser,
+                                    ),
+                                  ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -91,8 +95,8 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           ],
                         ),
                         CustomImageView(
-                          width: 32,
-                          height: 32,
+                          width: getSize(32),
+                          height: getSize(32),
                           svgPath: ImageConstant.imgChangeAccount,
                           color: ColorConstant.blue400,
                           onTap: () {

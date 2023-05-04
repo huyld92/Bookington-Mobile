@@ -57,6 +57,9 @@ class TopUpWidget extends StatelessWidget {
                         border: InputBorder.none,
                         hintStyle: AppStyle.txtManropeSemiBold20),
                     style: AppStyle.txtManropeBold20,
+                    validator: (value) {
+
+                    },
                     onChanged: (text) {
                       print('text: $text}');
                       if (text.isEmpty) {

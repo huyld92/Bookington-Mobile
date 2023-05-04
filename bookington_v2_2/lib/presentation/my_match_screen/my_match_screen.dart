@@ -4,6 +4,7 @@ import 'package:bookington_v2_2/presentation/my_match_screen/models/my_match_mod
 import 'package:bookington_v2_2/presentation/my_match_screen/widgets/matches_list_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
+import 'package:bookington_v2_2/widgets/coming_soon_widget.dart';
 import 'package:flutter/material.dart';
 
 class MyMatchScreen extends GetWidget<MyMatchController> {
@@ -30,75 +31,77 @@ class MyMatchScreen extends GetWidget<MyMatchController> {
           title: Container(
               margin: getMargin(top: 20),
               child: AppbarTitle(text: "lbl_matches".tr)),
-          bottom: TabBar(
-            controller: controller.tabController,
-            tabs: controller.myMatchTabs,
-            labelColor: ColorConstant.blue500,
-          ),
-          actions: [
-            Padding(
-              padding: getPadding(all: 10),
-              child: CustomImageView(
-                height: 32,
-                svgPath: ImageConstant.imgFilter,
-              ),
-            ),
-          ],
+          // bottom: TabBar(
+          //   controller: controller.tabController,
+          //   tabs: controller.myMatchTabs,
+          //   labelColor: ColorConstant.blue500,
+          // ),
+          // actions: [
+          //   Padding(
+          //     padding: getPadding(all: 10),
+          //     child: CustomImageView(
+          //       height: 32,
+          //       svgPath: ImageConstant.imgFilter,
+          //     ),
+          //   ),
+          // ],
         ),
-        body: TabBarView(
-          controller: controller.tabController,
-          children: [
-            // Competition tab
-            Container(
-              padding: getPadding(top: 20),
-              height: 500,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          itemCount: controller.listMatchesUpcoming.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (BuildContext context, int index) {
-                            MyMatchModel model =
-                                controller.listMatchesUpcoming[index];
-                            return MatchesListWidget(model);
-                          }),
-                    ),
-                  ],),
-            ),
-            //Team Tab
-            Container(
-              padding: getPadding(all: 20),
-              height: 500,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          itemCount: controller.listMatchesCompletes.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (BuildContext context, int index) {
-                            MyMatchModel model = controller.listMatchesCompletes[index];
-                            return MatchesListWidget(model);
-                          }),
-                    ),
-                  ]),
-            ),
-          ],
-        ),
-        floatingActionButton: Container(
-          margin: getMargin(bottom: 20, right: 10),
+        body:const ComingSoonWidget(),
 
-          child: FloatingActionButton(
-            onPressed: () {
-              controller.createMatchDialog();
-            },
-            child: CustomImageView(
-              svgPath: ImageConstant.imgBluePlus,
-            ),
-          ),
-        ),
+      // TabBarView(
+        //   controller: controller.tabController,
+        //   children: [
+        //     // Competition tab
+        //     Container(
+        //       padding: getPadding(top: 20),
+        //       height: 500,
+        //       child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Expanded(
+        //               child: ListView.builder(
+        //                   itemCount: controller.listMatchesUpcoming.length,
+        //                   scrollDirection: Axis.vertical,
+        //                   itemBuilder: (BuildContext context, int index) {
+        //                     MyMatchModel model =
+        //                         controller.listMatchesUpcoming[index];
+        //                     return MatchesListWidget(model);
+        //                   }),
+        //             ),
+        //           ],),
+        //     ),
+        //     //Team Tab
+        //     Container(
+        //       padding: getPadding(all: 20),
+        //       height: 500,
+        //       child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Expanded(
+        //               child: ListView.builder(
+        //                   itemCount: controller.listMatchesCompletes.length,
+        //                   scrollDirection: Axis.vertical,
+        //                   itemBuilder: (BuildContext context, int index) {
+        //                     MyMatchModel model = controller.listMatchesCompletes[index];
+        //                     return MatchesListWidget(model);
+        //                   }),
+        //             ),
+        //           ]),
+        //     ),
+        //   ],
+        // ),
+        // floatingActionButton: Container(
+        //   margin: getMargin(bottom: 20, right: 10),
+        //
+        //   child: FloatingActionButton(
+        //     onPressed: () {
+        //       controller.createMatchDialog();
+        //     },
+        //     child: CustomImageView(
+        //       svgPath: ImageConstant.imgBluePlus,
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

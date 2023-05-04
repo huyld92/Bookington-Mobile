@@ -1,11 +1,12 @@
-
 import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/map_utils.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
+import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
 import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   final selectedDistrict = DistrictModel("-1", "Choose district").obs;
   RxInt pageNumber = 1.obs;
   Rx<String> totalCourt = "0".obs;
+
   bool searchByLocation = true;
 
   var selectedDate =
@@ -78,11 +80,10 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   Future<void> searchByName(int pageNumber) async {
-
     if (pageNumber == 1) {
       this.pageNumber.value = 1;
     }
-    if(pageNumber == 1 ){
+    if (pageNumber == 1) {
       change(null, status: RxStatus.loading());
     }
     // default value
@@ -92,17 +93,23 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
     } else if (selectedDistrict.value.districtName == "Choose district") {
       selectedDistrict.value.districtName = "";
     }
-    SearchModel courtModel = SearchModel.search(
-        searchController.text.trim(),
-        selectedDistrict.value.districtName,
-        selectedProvince.value.provinceName);
-    try {
-      int maxPageSize = 5;
+    int maxPageSize = 5;
 
-      await ApiClient.searchCourt(pageNumber,maxPageSize, courtModel).then((result) {
+    QueryModel queryModel = QueryModel(
+        searchText: searchController.text.trim(),
+        district: selectedDistrict.value.districtName,
+        province: selectedProvince.value.provinceName,
+        // playDate: DateFormat("yyyy-MM-dd").format(selectedDate.value),
+        playDate: "",
+        playTime: DateFormat("HH:mm").format(selectedTime.value),
+        pageNumber: pageNumber,
+        maxPageSize: maxPageSize);
+     try {
+      await ApiClient.searchCourt(pageNumber, maxPageSize, queryModel)
+          .then((result) {
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
-          totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
+           totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
           if (totalCourt.value == '0') {
             listSearchMode.clear();
           } else {
@@ -189,7 +196,6 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
           selectedDistrict.value = DistrictModel("-1", "Choose district");
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
-
         } else {
           Logger.log(
               "SearchController error at getDistrictById: ${result.statusCode}");
@@ -207,17 +213,17 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   }
 
   courtDetailsScreen(int index) {
-    Map<String, String> arg = {
+    Map<String, dynamic> arg = {
       "courtId": listSearchMode[index].id,
+      "playDate": selectedDate.value
     };
-    // PrefUtils.setString("courtId", listSearchMode[index].id);
-    Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
+     Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
   }
 
   @override
   Future<void> onEndScroll() async {
-     change(null, status: RxStatus.loadingMore());
-    if (listSearchMode.length < int.parse(totalCourt.value)) {
+    // change(null, status: RxStatus.loadingMore());
+     if (listSearchMode.length < int.parse(totalCourt.value)) {
       pageNumber.value++;
       await searchByName(pageNumber.value);
     }

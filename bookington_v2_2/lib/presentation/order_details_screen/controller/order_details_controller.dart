@@ -15,35 +15,69 @@ class OrderDetailsController extends GetxController with StateMixin {
 
   void loadData() {
     try {
+      change(null, status: RxStatus.success());
       Map<String, dynamic>? arg = Get.arguments;
       if (arg != null) {
         orderHistory.value = arg["orderDetails"];
         print(orderHistory.value.id);
       }
     } on Exception catch (e) {
-      print('null');
+      Logger.log("OrderDetailsController ERROR at loadData: ${e.toString()}");
     }
   }
 
   Future<void> cancelOrder() async {
-    print('cancel');
     try {
-       String orderId = orderHistory.value.id;
-       print(orderId);
+      change(null, status: RxStatus.loading());
+
+      Get.back();
+      String orderId = orderHistory.value.id;
       await ApiClient.cancelOrder(orderId).then((result) {
         if (result.statusCode == 200) {
-            Get.snackbar("Cancel order", "Cancel order success!");
-            Get.back();
+          orderHistory.value.isCanceled = true;
+          Get.snackbar(
+            'msg_cancel_order'.tr,
+            "Cancel order success!",
+            colorText: ColorConstant.black900,
+            duration: const Duration(milliseconds: 2500),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: getSize(16),
+                height: getSize(16),
+                svgPath: ImageConstant.imgNotify),
+          );
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
+          Get.snackbar(
+            'msg_cancel_order'.tr,
+            "Cancel order failed!",
+            colorText: ColorConstant.black900,
+            duration: const Duration(milliseconds: 2500),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: getSize(16),
+                height: getSize(16),
+                svgPath: ImageConstant.imgNotify),
+          );
           Logger.log(
-              "OrderHistoryController error at getOrderHistory: ${result.statusCode}, \n${result.body}");
+              "OrderDetailsController error at cancelOrder: ${result.statusCode}, \n${result.body}");
         }
       });
     } catch (e) {
+      Get.snackbar(
+        'msg_cancel_order'.tr,
+        "Cancel order failed!",
+        colorText: ColorConstant.black900,
+        duration: const Duration(milliseconds: 2500),
+        backgroundColor: ColorConstant.whiteA700,
+        icon: CustomImageView(
+            width: getSize(16),
+            height: getSize(16),
+            svgPath: ImageConstant.imgNotify),
+      );
       Logger.log(
-          "OrderHistoryController ERROR at getOrderHistory: ${e.toString()}");
+          "OrderDetailsController ERROR at cancelOrder: ${e.toString()}");
     } finally {
       change(null, status: RxStatus.success());
     }

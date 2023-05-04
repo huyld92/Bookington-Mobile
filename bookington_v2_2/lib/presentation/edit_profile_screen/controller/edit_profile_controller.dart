@@ -142,7 +142,7 @@ class EditProfileController extends GetxController with StateMixin {
                 'Edit profile',
                 "Edit profile successful",
                 colorText: ColorConstant.black900,
-                duration: const Duration(seconds: 1),
+                duration: const Duration(seconds: 2),
                 backgroundColor: ColorConstant.whiteA700,
                 icon: CustomImageView(
                     width: 16, height: 16, svgPath: ImageConstant.imgNotify),
@@ -174,4 +174,6 @@ class EditProfileController extends GetxController with StateMixin {
       change(null, status: RxStatus.success());
     }
   }
+
+  void updateAvatar() {}
 }

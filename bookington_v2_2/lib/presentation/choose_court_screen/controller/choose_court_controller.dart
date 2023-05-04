@@ -26,18 +26,18 @@ class ChooseCourtController extends GetxController with StateMixin {
   }
 
   void loadData() {
-    print('selectedTime" ${DateTime.now().toUtc()}');
-    getAvailableSubCourt();
+    Map<String, dynamic>? arg = Get.arguments!;
+    if (arg != null) {
+      courtId = arg["courtId"]!;
+      selectedDate.value = arg["playDate"];
+    }
+     getAvailableSubCourt();
   }
 
   void getAvailableSubCourt() {
     try {
       change(null, status: RxStatus.loading());
 
-      Map<String, String> arg = Get.arguments;
-      if (arg["courtId"] != null) {
-        courtId = arg["courtId"]!;
-      }
       String playDate = DateFormat("yyy-MM-dd").format(selectedDate.value);
       String startTime =
           DateFormat("HH:mm").format(selectedTime.value); //'13:45:42.0000000';
@@ -56,9 +56,7 @@ class ChooseCourtController extends GetxController with StateMixin {
             change(null, status: RxStatus.success());
           }
         } else if (result.statusCode == 401 || result.statusCode == 403) {
-          ProfileController profileController = Get.find();
-          Map<String, bool> arg = {"timeOut": true};
-          profileController.logout(arg);
+          logout();
         } else {
           Logger.log(
               "ChooseCourtController error at getAvailableSubCourt: ${result.statusCode}");        }
@@ -66,7 +64,7 @@ class ChooseCourtController extends GetxController with StateMixin {
       });
     } catch (e) {
       Logger.log(
-          "ChooseCourtController error at getAvailableSubCourt: ${e.toString()}");
+          "ChooseCourtController ERROR at getAvailableSubCourt: ${e.toString()}");
     }
   }
 

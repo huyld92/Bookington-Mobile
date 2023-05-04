@@ -28,7 +28,7 @@ class MessagesItemWidget extends StatelessWidget {
               alignment: Alignment.bottomRight,
               children: [
                 CustomImageView(
-                  imagePath: ImageConstant.imgCourt1,
+                  imagePath: ImageConstant.imagesCourt1,
                   height: getSize(
                     55,
                   ),

@@ -61,7 +61,7 @@ class AccountModel {
 
   factory AccountModel.fromJson(Map<String, dynamic> json) {
     Uint8List bytesImage;
-     if (json["file"]["content"] != null) {
+     if (json["file"] != null) {
       bytesImage = const Base64Decoder().convert(json["file"]["content"]);
     } else {
       bytesImage = const Base64Decoder().convert(ImageConstant.noImageBase);
@@ -75,15 +75,6 @@ class AccountModel {
     );
   }
 
-  Uint8List convertBase64(Map<String, dynamic> json) {
-    Uint8List bytesImage;
-    if (json["file"]["content"] != null) {
-      bytesImage = const Base64Decoder().convert(json["file"]["content"]);
-    } else {
-      bytesImage = const Base64Decoder().convert(ImageConstant.noImageBase);
-    }
-    return bytesImage;
-  }
 
   Map<String, dynamic> toJson() => {
         "id": _id,

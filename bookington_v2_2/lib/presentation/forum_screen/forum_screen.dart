@@ -3,6 +3,7 @@ import 'package:bookington_v2_2/presentation/forum_screen/controller/forum_contr
 import 'package:bookington_v2_2/presentation/forum_screen/model/forum_match_model.dart';
 import 'package:bookington_v2_2/presentation/forum_screen/widgets/forum_matches_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
+import 'package:bookington_v2_2/widgets/coming_soon_widget.dart';
 import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,7 @@ class ForumScreen extends GetWidget<ForumController> {
   @override
   Widget build(BuildContext context) {
     CustomBottomBar.selectedIndex = 3.obs;
-
-    return SafeArea(
+     return SafeArea(
       child: GestureDetector(
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
@@ -42,69 +42,69 @@ class ForumScreen extends GetWidget<ForumController> {
               ),
             ],
           ),
-          body:
-          Container(
-            padding: getPadding(top: 20, bottom: 20, left: 10, right: 10),
-            height: 700,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: getPadding(left: 10, right: 10, bottom: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 253,
-                          padding: getPadding(),
-                          decoration: BoxDecoration(
-                              border: BorderRadiusStyle.border2Gray500,
-                              borderRadius:
-                              BorderRadiusStyle.roundedBorder10),
-                          child: TextField(
-                            controller: controller.joinMatchController,
-                            focusNode: FocusNode(),
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              hintText: 'msg_match_code'.tr,
-                              fillColor: ColorConstant.whiteA700,
-                              contentPadding: getPadding(
-                                  left: 20, top: 5, bottom: 5, right: 20),
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                            ),
-                            style: AppStyle.txtManropeRegular14,
-                            textInputAction: TextInputAction.search,
-                            onSubmitted: (value) {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              // controller.searchByName(1);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: getPadding(left: 10),
-                          child: CustomButton(
-                            height: 50,
-                            width: 90,
-                            text: "lbl_join".tr,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: controller.listCompetition.length,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (BuildContext context, int index) {
-                          ForumMatchModel model =
-                          controller.listMatches[index];
-                          return ForumMatchWidget(model);
-                        }),
-                  ),
-                ]),
-          ),
+          body:const ComingSoonWidget(),
+          // Container(
+          //   padding: getPadding(top: 20, bottom: 20, left: 10, right: 10),
+          //   height: 700,
+          //   child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Padding(
+          //           padding: getPadding(left: 10, right: 10, bottom: 20),
+          //           child: Row(
+          //             children: [
+          //               Container(
+          //                 width: 253,
+          //                 padding: getPadding(),
+          //                 decoration: BoxDecoration(
+          //                     border: BorderRadiusStyle.border2Gray500,
+          //                     borderRadius:
+          //                     BorderRadiusStyle.roundedBorder10),
+          //                 child: TextField(
+          //                   controller: controller.joinMatchController,
+          //                   focusNode: FocusNode(),
+          //                   enableSuggestions: false,
+          //                   autocorrect: false,
+          //                   decoration: InputDecoration(
+          //                     hintText: 'msg_match_code'.tr,
+          //                     fillColor: ColorConstant.whiteA700,
+          //                     contentPadding: getPadding(
+          //                         left: 20, top: 5, bottom: 5, right: 20),
+          //                     border: InputBorder.none,
+          //                     focusedBorder: InputBorder.none,
+          //                     enabledBorder: InputBorder.none,
+          //                   ),
+          //                   style: AppStyle.txtManropeRegular14,
+          //                   textInputAction: TextInputAction.search,
+          //                   onSubmitted: (value) {
+          //                     FocusManager.instance.primaryFocus?.unfocus();
+          //                     // controller.searchByName(1);
+          //                   },
+          //                 ),
+          //               ),
+          //               Padding(
+          //                 padding: getPadding(left: 10),
+          //                 child: CustomButton(
+          //                   height: 50,
+          //                   width: 90,
+          //                   text: "lbl_join".tr,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //         Expanded(
+          //           child: ListView.builder(
+          //               itemCount: controller.listCompetition.length,
+          //               scrollDirection: Axis.vertical,
+          //               itemBuilder: (BuildContext context, int index) {
+          //                 ForumMatchModel model =
+          //                 controller.listMatches[index];
+          //                 return ForumMatchWidget(model);
+          //               }),
+          //         ),
+          //       ]),
+          // ),
 
           // TabBarView(
           //   controller: controller.tabController,
@@ -198,17 +198,17 @@ class ForumScreen extends GetWidget<ForumController> {
           //     ),
           //   ],
           // ),
-          floatingActionButton: Container(
-            margin: getMargin(bottom: 20, right: 10),
-            child: FloatingActionButton(
-              onPressed: () {
-                controller.createMatchDialog();
-              },
-              child: CustomImageView(
-                svgPath: ImageConstant.imgBluePlus,
-              ),
-            ),
-          ),
+          // floatingActionButton: Container(
+          //   margin: getMargin(bottom: 20, right: 10),
+          //   child: FloatingActionButton(
+          //     onPressed: () {
+          //       controller.createMatchDialog();
+          //     },
+          //     child: CustomImageView(
+          //       svgPath: ImageConstant.imgBluePlus,
+          //     ),
+          //   ),
+          // ),
           bottomNavigationBar: CustomBottomBar(
             onChanged: (BottomBarEnum type) {
               Get.toNamed(getCurrentRoute(type));

@@ -45,12 +45,8 @@ class SearchResultWidget extends StatelessWidget {
                   CustomImageView(
                     margin: getMargin(right: 10, bottom: 5),
                     svgPath: ImageConstant.imgFilter,
-                    height: getSize(
-                      28.00
-                    ),
-                    width: getSize(
-                      28.00
-                    ),
+                    height: getSize(28.00),
+                    width: getSize(28.00),
                     onTap: () {
                       controller.filterDialog();
                     },
@@ -61,7 +57,8 @@ class SearchResultWidget extends StatelessWidget {
             Container(
               margin: getMargin(bottom: 20),
               height: getVerticalSize(430),
-              child: Obx(() => ListView.builder(
+              child: Obx(
+                () => ListView.builder(
                   controller: controller.scroll,
                   shrinkWrap: true,
                   itemCount: controller.listSearchMode.length,

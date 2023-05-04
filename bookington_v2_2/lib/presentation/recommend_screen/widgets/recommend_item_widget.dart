@@ -28,20 +28,20 @@ class RecommendItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomImageView(
-            imagePath: recommendItemModelObj.courtImage.image_binary,
-            height: getVerticalSize(
-              120.00,
-            ),
-            width: getHorizontalSize(
-              150.00,
-            ),
-            radius: BorderRadius.circular(
-              getHorizontalSize(
-                16.00,
-              ),
-            ),
-          ),
+          // CustomImageView(
+          //   imagePath: recommendItemModelObj.courtImage.imgBase,
+          //   height: getVerticalSize(
+          //     120.00,
+          //   ),
+          //   width: getHorizontalSize(
+          //     150.00,
+          //   ),
+          //   radius: BorderRadius.circular(
+          //     getHorizontalSize(
+          //       16.00,
+          //     ),
+          //   ),
+          // ),
           Container(
             width: getHorizontalSize(
               150.00,

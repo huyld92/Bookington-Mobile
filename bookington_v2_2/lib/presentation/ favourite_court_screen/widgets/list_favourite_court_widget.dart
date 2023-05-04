@@ -29,7 +29,7 @@ class ListFavouriteCourtWidget extends StatelessWidget {
           children: [
             CustomImageView(
               margin: getMargin(all: 10),
-              imagePath: ImageConstant.imgPhoThoCourt,
+              imagePath: ImageConstant.imagesPhoThoCourt,
               height: getSize(
                 120.00,
               ),

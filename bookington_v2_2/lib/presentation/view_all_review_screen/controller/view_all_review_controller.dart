@@ -33,7 +33,7 @@ class ViewAllCommentReviewController extends GetxController
   Future<void> queryComment(int pageNumber) async {
     change(null, status: RxStatus.loading());
     try {
-      Map<String, String> arg = Get.arguments;
+      Map<String, dynamic> arg = Get.arguments;
       String courtId = "";
       if (arg["courtId"] != null) {
         courtId = arg["courtId"] ?? "";

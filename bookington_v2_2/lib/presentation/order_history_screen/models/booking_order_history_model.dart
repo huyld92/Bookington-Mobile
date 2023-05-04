@@ -24,13 +24,12 @@ class BookingOrderHistoryModel {
         .toLocal()
         .toString();
     DateTime playDate = DateFormat("yyyy-MM-dd").parse(dateValue);
-
-    return BookingOrderHistoryModel(
+     return BookingOrderHistoryModel(
       id: json["id"] ?? "",
       subCourtName: json["subCourtName"] ?? "",
       playDate: playDate,
-      startTime: DateFormat("HH:mm").parse(json["startTime"]),
-      endTime: DateFormat("HH:mm").parse(json["endTime"]),
+      startTime: DateFormat("kk:mm").parse(json["startTime"]),
+      endTime: DateFormat("kk:mm").parse(json["endTime"]),
       price: json["price"]*1.0 ?? 0.0,
       isCancel: json["isCancel"] ?? false,
     );

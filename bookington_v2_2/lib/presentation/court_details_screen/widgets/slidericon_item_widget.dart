@@ -16,23 +16,15 @@ class SlidericonItemWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
-        height: getSize(
-          343.00,
-        ),
-        width: getSize(
-          343.00,
-        ),
+        height: getVerticalSize(343.00),
+        width: getHorizontalSize(343.00),
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
             CustomImageView(
-              imagePath: ImageConstant.imgPhoThoCourt,
-              height: getSize(
-                343.00,
-              ),
-              width: getSize(
-                343.00,
-              ),
+              imagePath: ImageConstant.imagesPhoThoCourt,
+              height: getSize(343.00),
+              width: getSize(343.00),
               radius: BorderRadius.circular(
                 getHorizontalSize(
                   20.00,
@@ -43,11 +35,7 @@ class SlidericonItemWidget extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: getPadding(
-                  left: 24,
-                  top: 24,
-                  right: 24,
-                ),
+                padding: getPadding(left: 24, top: 24, right: 24),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,11 +45,13 @@ class SlidericonItemWidget extends StatelessWidget {
                       padding: getPadding(
                         bottom: 1,
                       ),
-                      child:  Obx(() => Text(
+                      child: Obx(
+                        () => Text(
                           controller.courtDetailsModelObj.value.name,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          style: AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
+                          style:
+                              AppStyle.txtManropeExtraBold24WhiteA700.copyWith(
                             height: getVerticalSize(
                               0.95,
                             ),
@@ -73,9 +63,10 @@ class SlidericonItemWidget extends StatelessWidget {
                       padding: getPadding(
                         bottom: 40,
                       ),
-                      child:  Obx(() => Text(
+                      child: Obx(
+                        () => Text(
                           "${controller.courtDetailsModelObj.value.address}, ${controller.courtDetailsModelObj.value.districtName}",
-                           overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtManropeMedium14Gray300.copyWith(
                             height: getVerticalSize(

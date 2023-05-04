@@ -18,9 +18,9 @@ class SplashScreen extends GetWidget<SplashController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomImageView(
-                          svgPath: ImageConstant.imgLogo,
-                          height: getVerticalSize(122.00),
-                          width: getHorizontalSize(197.00),
+                          imagePath: ImageConstant.imgLogo,
+                          height: getVerticalSize(240.00),
+                          width: getHorizontalSize(240.00),
                           margin: getMargin(top: 3))
                     ]))));
   }

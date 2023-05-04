@@ -7,8 +7,8 @@ import 'package:bookington_v2_2/presentation/home_screen/models/home_court_item_
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CourtItemWidget extends StatelessWidget {
-  CourtItemWidget(this.model, this.index,{super.key});
+class HomeCourtItemWidget extends StatelessWidget {
+  HomeCourtItemWidget(this.model, this.index, {super.key});
 
   HomeCourtItemModel model;
   int index;
@@ -26,18 +26,32 @@ class CourtItemWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgPhoThoCourt,
-                height: getVerticalSize(400.00),
-                width: getHorizontalSize(300.00),
-                radius: BorderRadius.circular(
-                  getHorizontalSize(36.00),
+              if (model.listCourtImage.isNotEmpty)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    getHorizontalSize(36.00),
+                  ),
+                  child: Image.memory(
+                    model.listCourtImage[0].imgBase,
+                    height: getVerticalSize(400.00),
+                    width: getHorizontalSize(300.00),
+                    fit: BoxFit.cover,
+                  ),
+                )
+              else
+                CustomImageView(
+                  imagePath: ImageConstant.imagesPhoThoCourt,
+                  // imagePath: ImageConstant.imgNoPhoto,
+                  height: getVerticalSize(400.00),
+                  width: getHorizontalSize(300.00),
+                  radius: BorderRadius.circular(
+                    getHorizontalSize(36.00),
+                  ),
+                  alignment: Alignment.center,
+                  onTap: () {
+                    controller.courtDetailsScreen(index);
+                  },
                 ),
-                alignment: Alignment.center,
-                onTap: () {
-                   controller.courtDetailsScreen(index);
-                },
-              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
@@ -66,6 +80,7 @@ class CourtItemWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtManropeExtraBold24WhiteA700
+                              // style: AppStyle.txtManropeExtraBold24
                                   .copyWith(
                                 height: getVerticalSize(1.00),
                               ),
@@ -78,7 +93,7 @@ class CourtItemWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style:
-                                  AppStyle.txtManropeMedium14Gray300.copyWith(
+                                  AppStyle.txtManropeMedium14Gray500.copyWith(
                                 letterSpacing: getHorizontalSize(
                                   0.20,
                                 ),

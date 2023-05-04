@@ -153,8 +153,8 @@ class CourtDetailsModel {
   RxList<SlidericonItemModel> slidericonItemList =
       RxList.filled(2, SlidericonItemModel());
 
-  RxList<ListfiveItemModel> listfiveItemList =
-      RxList.filled(5, ListfiveItemModel());
+  // RxList<ListfiveItemModel> listfiveItemList =
+  //     RxList.filled(5, ListfiveItemModel());
   //
   // RxList<ListdateItemModel> listdateItemList =
   //     RxList.filled(5, ListdateItemModel());

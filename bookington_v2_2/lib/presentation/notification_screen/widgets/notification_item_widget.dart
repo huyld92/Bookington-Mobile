@@ -15,10 +15,10 @@ class NotificationItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getVerticalSize(82),
+      // height: getVerticalSize(82),
       width: size.width,
       margin: getMargin(left: 10, right: 10, bottom: 10),
-      padding: getPadding(left:15, top: 12, right: 15, bottom: 12),
+      padding: getPadding(left: 5, top: 12, right: 5, bottom: 12),
       decoration: AppDecoration.fillBlue50,
       child: InkWell(
         onTap: () {
@@ -30,17 +30,14 @@ class NotificationItemWidget extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: getPadding(
-                  top: 3,
-                ),
+                padding: getPadding(),
                 child: Text(
+                  // notificationModel.createAt,
                   DateFormat("dd-MM-yyyy").format(notificationModel.createAt),
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: AppStyle.txtManropeBold12.copyWith(
-                    letterSpacing: getHorizontalSize(
-                      0.3,
-                    ),
+                  style: AppStyle.txtManropeSemiBold12.copyWith(
+                    letterSpacing: getHorizontalSize(0.3),
                   ),
                 ),
               ),
@@ -51,7 +48,7 @@ class NotificationItemWidget extends StatelessWidget {
                 children: [
                   Stack(children: [
                     CustomImageView(
-                      svgPath: ImageConstant.imgNotFound,
+                      svgPath: ImageConstant.imgNotify,
                       height: getSize(48),
                       width: getSize(48),
                       radius: BorderRadius.circular(
@@ -65,8 +62,8 @@ class NotificationItemWidget extends StatelessWidget {
                             top: 0,
                             right: 30,
                             child: Container(
-                              height: 16,
-                              width: 16,
+                              height: getVerticalSize(16),
+                              width: getHorizontalSize(16),
                               decoration: BoxDecoration(
                                 color: ColorConstant.red500,
                                 shape: BoxShape.circle,
@@ -77,7 +74,7 @@ class NotificationItemWidget extends StatelessWidget {
                           )
                   ]),
                   Container(
-                     width: getHorizontalSize(200),
+                    width: getHorizontalSize(200),
                     margin: getMargin(
                       left: 14,
                     ),
@@ -89,14 +86,11 @@ class NotificationItemWidget extends StatelessWidget {
                           notificationModel.content,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          maxLines: 3,
+                          maxLines: 4,
                           style: AppStyle.txtManropeMedium14.copyWith(
-                            letterSpacing: getHorizontalSize(
-                              0.5,
-                            ),
+                            letterSpacing: getHorizontalSize(0.5),
                           ),
                         ),
-
                       ],
                     ),
                   ),

@@ -41,7 +41,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                           margin: getMargin(top: 40),
+                          margin: getMargin(top: 40),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -69,8 +69,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                   ),
                                   child: Center(
                                     child: Text("2",
-                                        style:
-                                            AppStyle.txtManropeBold14),
+                                        style: AppStyle.txtManropeBold14),
                                   )),
                             ],
                           ),
@@ -79,7 +78,7 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                         Container(
                             width: size.width,
                             margin: getMargin(top: 20),
-                            child:  Text("lbl_register".tr,
+                            child: Text("lbl_register".tr,
                                 maxLines: null,
                                 textAlign: TextAlign.center,
                                 style: AppStyle.txtManropeExtraBold24.copyWith(
@@ -98,7 +97,8 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                     focusNode: FocusNode(),
                                     controller: controller.txtPhoneController,
                                     hintText: "msg_enter_your_phone".tr,
-                                    variant: TextFormFieldVariant.OutlineGray300,
+                                    variant:
+                                        TextFormFieldVariant.OutlineGray300,
                                     padding: TextFormFieldPadding.PaddingT14L20,
                                     textInputAction: TextInputAction.none,
                                     textInputType: TextInputType.phone,
@@ -129,14 +129,16 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                       hintText: "msg_enter_your_password".tr,
                                       variant:
                                           TextFormFieldVariant.OutlineGray300,
-                                      padding: TextFormFieldPadding.PaddingT14L20,
+                                      padding:
+                                          TextFormFieldPadding.PaddingT14L20,
                                       textInputAction: TextInputAction.done,
                                       textInputType:
                                           TextInputType.visiblePassword,
                                       suffix: InkWell(
                                           onTap: () {
                                             controller.isShowPassword.value =
-                                                !controller.isShowPassword.value;
+                                                !controller
+                                                    .isShowPassword.value;
                                           },
                                           child: Container(
                                               margin: getMargin(right: 20),
@@ -170,10 +172,12 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                     width: 310,
                                     controller: controller.txtPasswordConfirm,
                                     hintText: "msg_enter_confirm_password".tr,
-                                    variant: TextFormFieldVariant.OutlineGray300,
+                                    variant:
+                                        TextFormFieldVariant.OutlineGray300,
                                     padding: TextFormFieldPadding.PaddingT14L20,
                                     textInputAction: TextInputAction.done,
-                                    textInputType: TextInputType.visiblePassword,
+                                    textInputType:
+                                        TextInputType.visiblePassword,
                                     suffix: InkWell(
                                         onTap: () {
                                           controller.isShowConfirm.value =
@@ -183,10 +187,10 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                                             margin: getMargin(right: 20),
                                             child: CustomImageView(
                                                 width: 28,
-                                                svgPath:
-                                                    controller.isShowConfirm.value
-                                                        ? ImageConstant.imgHideEye
-                                                        : ImageConstant.imgEye))),
+                                                svgPath: controller
+                                                        .isShowConfirm.value
+                                                    ? ImageConstant.imgHideEye
+                                                    : ImageConstant.imgEye))),
                                     suffixConstraints: BoxConstraints(
                                         maxHeight: getVerticalSize(28.00)),
                                     validator: (value) {
@@ -212,6 +216,8 @@ class RegistrationPhoneScreen extends GetWidget<RegistrationPhoneController> {
                           text: "lbl_register".tr,
                           margin: getMargin(top: 24),
                           onTap: () async {
+                            print(
+                                'password: ${controller.txtPasswordController.text}\n confirm: ${controller.txtPasswordConfirm.text}');
                             if (_formKey.currentState!.validate()) {
                               controller.registrationWithPhone();
                             }

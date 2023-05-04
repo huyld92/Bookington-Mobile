@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CommentRatingWidget extends StatelessWidget {
+  CommentRatingWidget({super.key});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CourtDetailsController controller = Get.find();
 
   @override
@@ -64,6 +67,7 @@ class CommentRatingWidget extends StatelessWidget {
                         ),
                       ),
                       TextField(
+                        key: _formKey,
                         controller: controller.commentController,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
@@ -94,23 +98,22 @@ class CommentRatingWidget extends StatelessWidget {
                   ),
                   CustomButton(
                     margin: getMargin(left: 20),
-                    height: 48,
+                    height: getSize(48),
                     width: size.width / 3,
                     text: "lbl_submit".tr,
                     padding: ButtonPadding.PaddingAll12,
                     onTap: () {
                       if (controller.rating.value == 0.0) {
-                        print('cccccccccccc');
-
-                        Get.snackbar("Send comment", "Rating before submitting");
-                      } else if (controller.commentController.text.isEmpty) {
-                        print('bbbbbbbbbbb');
-
                         Get.snackbar(
-                            "Send comment", "Write a comment before submitting");
-                      } else
-                        print('aaaaaaaaaa');
-                      controller.createComment();
+                            "Send comment", "Rating before submitting");
+                      } else if (controller.commentController.text.isEmpty) {
+                        Get.snackbar("Send comment",
+                            "Write a comment before submitting");
+                      } else {
+                        controller.getBack();
+                        controller.commentController.clear();
+                        controller.createComment();
+                      }
                     },
                   ),
                 ],

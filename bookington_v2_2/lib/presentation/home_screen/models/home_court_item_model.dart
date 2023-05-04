@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_getters_setters
 
+import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:intl/intl.dart';
 
 class HomeCourtItemModel {
@@ -13,6 +14,7 @@ class HomeCourtItemModel {
   late String _numberOfReview;
   late String _openAt;
   late String _closeAt;
+  late List<CourtImage> _listCourtImage;
 
   HomeCourtItemModel(
       this._id,
@@ -24,7 +26,8 @@ class HomeCourtItemModel {
       this._numberOfSubCourt,
       this._numberOfReview,
       this._openAt,
-      this._closeAt);
+      this._closeAt,
+      this._listCourtImage);
 
   String get id => _id;
 
@@ -46,6 +49,8 @@ class HomeCourtItemModel {
         json["numOfReview"].toString(),
         DateFormat("kk:mm").parse(json["openAt"]).toString(),
         DateFormat("kk:mm").parse(json["closeAt"]).toString(),
+        // List.empty(),
+        CourtImage.listFromJson(json["courtPictures"]),
       );
   }
   HomeCourtItemModel.empty(){
@@ -59,17 +64,12 @@ class HomeCourtItemModel {
     _numberOfReview = "";
     _openAt = "";
     _closeAt = "";
-
+    _listCourtImage = List.empty();
   }
   static List<HomeCourtItemModel> listFromJson(list) =>
       List<HomeCourtItemModel>.from(
           list.map((dynamic x) => HomeCourtItemModel.fromJson(x)));
 
-  HomeCourtItemModel.search(
-    this._name,
-    this._districtName,
-    this._provinceName,
-  );
 
   String get name => _name;
 
@@ -123,5 +123,11 @@ class HomeCourtItemModel {
 
   set closeAt(String value) {
     _closeAt = value;
+  }
+
+  List<CourtImage> get listCourtImage => _listCourtImage;
+
+  set listCourtImage(List<CourtImage> value) {
+    _listCourtImage = value;
   }
 }

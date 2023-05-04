@@ -59,10 +59,13 @@ class CommentItemWidgets extends StatelessWidget {
                     svgPath: ImageConstant.imgStar,
                     height: getVerticalSize(15.00),
                     width: getHorizontalSize(10.00),
-                    margin: getMargin(left: 12, top: 13, bottom: 14),
+                    margin: getMargin(left: 12, top: 10, bottom: 10),
                   ),
                 ]),
-                Text(model.content, style: AppStyle.txtManropeSemiBold14, maxLines: 2),
+                Padding(
+                  padding: getPadding(bottom: 10),
+                  child: Text(model.content, style: AppStyle.txtManropeSemiBold14, maxLines: 2),
+                ),
 
               ],
             ),

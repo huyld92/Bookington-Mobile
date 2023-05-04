@@ -6,7 +6,6 @@ import 'package:bookington_v2_2/presentation/login_screen/models/login_model.dar
 import 'package:flutter/material.dart';
 
 class LoginController extends GetxController with StateMixin {
-  late ApiClient apiClient;
 
   TextEditingController txtPhoneController = TextEditingController();
 
@@ -16,8 +15,8 @@ class LoginController extends GetxController with StateMixin {
 
   @override
   void onInit() async {
-     txtPhoneController.text = "0111111131";
-    txtPasswordController.text = "customer";
+    //  txtPhoneController.text = "0111111131";
+    // txtPasswordController.text = "customer";
 
     super.onInit();
   }
@@ -42,7 +41,7 @@ class LoginController extends GetxController with StateMixin {
           Get.offNamed(AppRoutes.homeScreen);
         } else if (result.statusCode == 500) {
           Get.defaultDialog(
-              title: "Login Failed!", middleText: "Cannot connect to server!");
+              title: "Login Failed!", middleText: "Can't login now, please come back later");
         } else {
           final jsonResult = jsonDecode(result.body);
           String errorMessage = jsonResult["Message"];

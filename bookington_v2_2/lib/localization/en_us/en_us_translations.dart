@@ -127,7 +127,13 @@ final Map<String, String> enUs = {
   'lbl_refunded': 'Refunded',
   'lbl_not_yet': 'Not yet',
   'lbl_order_details': 'Order Details',
+  'lbl_no': 'No',
+  'lbl_yes': 'Yes',
 
+  'msg_report_content': 'Report content',
+  'msg_is_coming_soon': 'IS COMING SOON',
+  'msg_cancel_order': 'Cancel order',
+  'msg_are_you_sure': 'Are you sure you want to cancel order?',
   'msg_no_order_found': 'Look like you haven\'t made your order yet',
   'msg_password_err': 'The password at least 6 characters',
   'msg_password_match_err': 'The password don\'t match',

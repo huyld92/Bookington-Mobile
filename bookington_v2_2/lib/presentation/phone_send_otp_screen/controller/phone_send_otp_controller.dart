@@ -31,8 +31,9 @@ class PhoneSendOtpController extends GetxController with StateMixin {
       change(null, status: RxStatus.loading());
 
       await ApiClient.forgotPasswordVerify(txtPhoneController.text).then((result) {
-        print('txtPhoneController.text:${txtPhoneController.text}');
-        if (result.statusCode == 204) {
+        print('${result.statusCode}');
+        if (result.statusCode == 200) {
+
           Get.offNamed(AppRoutes.verifyPhoneNumberScreen, arguments: arg);
         } else {
           Get.defaultDialog(

@@ -48,7 +48,7 @@ class OrderHistoryModel {
     orderDate:
     DateFormat("dd-MM-yyyy").format(DateTime.now());
     orderTime:
-    DateFormat("HH-mm").format(DateTime.now());
+    DateFormat("HH:mm").format(DateTime.now());
     originalPrice:
     "";
     totalPrice:
@@ -78,7 +78,7 @@ class OrderHistoryModel {
                 voucherCode: listOrder[index].voucherCode,
                 orderDate:
                     DateFormat("dd-MM-yyyy").format(listOrder[index].orderAt),
-                orderTime: DateFormat("HH-mm").format(listOrder[index].orderAt),
+                orderTime: DateFormat("HH:mm").format(listOrder[index].orderAt),
                 originalPrice:formatCurrency.format( listOrder[index].originalPrice),
                 totalPrice: formatCurrency.format(listOrder[index].totalPrice),
                 isPaid: listOrder[index].isPaid,

@@ -133,7 +133,7 @@ class HomeScreen extends GetWidget<HomeController> {
                         child: CustomImageView(
                           width: double.infinity,
                           height: 120,
-                          imagePath: ImageConstant.imgMomoAds,
+                          imagePath: ImageConstant.imagesMomoAds,
                         ),
                       ),
                       //Recommend see more
@@ -225,7 +225,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                     .homeModelObj
                                     .value
                                     .homeCourtItemList[index];
-                                return CourtItemWidget(model, index);
+                                return HomeCourtItemWidget(model, index);
                               },
                             ),
                           ),

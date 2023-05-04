@@ -4,12 +4,14 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/apiClient/api_client.dart';
 
 class NotificationController extends GetxController
     with StateMixin, ScrollMixin {
-  RxList<NotificationModel> listNotificationModel = <NotificationModel>[].obs;
+  RxList<NotificationModel> listNotificationModel =
+      RxList.empty(growable: true);
   int pageNumber = 1;
   int totalCount = 0;
 
@@ -26,6 +28,7 @@ class NotificationController extends GetxController
   Future<void> queryNotifications(int pageNumber) async {
     try {
       if (pageNumber == 1) {
+        this.pageNumber = 1;
         change(null, status: RxStatus.loading());
       } else {
         change(null, status: RxStatus.loadingMore());
@@ -36,6 +39,8 @@ class NotificationController extends GetxController
           .then((result) {
         if (result.statusCode == 200) {
           var jsonResult = jsonDecode(result.body);
+          totalCount = jsonResult["pagination"]["totalCount"];
+
           if (totalCount == 0) {
             listNotificationModel.clear();
           } else {
@@ -47,14 +52,12 @@ class NotificationController extends GetxController
                   .addAll(NotificationModel.listFromJson(jsonResult["result"]));
             }
           }
-          totalCount = jsonResult["pagination"]["totalCount"];
-
           listNotificationModel.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
           Logger.log(
-              "NotificationController error at queryNotifications: ${result.statusCode}");
+              "NotificationController error at queryNotifications: ${result.statusCode}, \n ${result.body}");
         }
       });
     } on Exception catch (e) {
@@ -79,8 +82,52 @@ class NotificationController extends GetxController
     Get.back(result: "notify screen back");
   }
 
-  void readNotification(int index) {
+  Future<void> readNotification(int index) async {
     listNotificationModel[index].isRead = true;
+    listNotificationModel.refresh();
+    try {
+      List<Map<String, String>> listMapNotification =
+          List.empty(growable: true);
+      if (index < listNotificationModel.length) {
+        Map<String, String> body = {
+          "id": listNotificationModel[index].id,
+          "refAccount": listNotificationModel[index].refAccount,
+          "content": listNotificationModel[index].content,
+          "createAt": DateFormat("yyyy-MM-dd")
+              .format(listNotificationModel[index].createAt),
+          "isRead": "true"
+        };
+        listMapNotification.add(body);
+        print(listMapNotification[0].toString());
+      } else if (index == -999) {
+        listMapNotification = listNotificationModel.map((o) {
+          return {
+            "id": o.id,
+            "refAccount": o.refAccount,
+            "content": o.content,
+            "createAt": DateFormat("yyyy-MM-dd").format(o.createAt),
+            "isRead": "true"
+          };
+        }).toList();
+      }
+      if (listMapNotification.isNotEmpty) {
+        await ApiClient.markAllAsRead(listMapNotification).then((result) {
+          print('result.statusCode:${result.statusCode}');
+          if (result.statusCode == 204) {
+            var jsonResult = jsonDecode(result.body);
+            print(jsonResult.toString());
+          } else if (result.statusCode == 401 || result.statusCode == 403) {
+            logout();
+          } else {
+            Logger.log(
+                "NotificationController error at readNotification: ${result.statusCode}, \n ${result.body}");
+          }
+        });
+      }
+    } on Exception catch (e) {
+      Logger.log(
+          "NotificationController error at readNotification: ${e.toString()}");
+    }
     listNotificationModel.refresh();
   }
 

@@ -6,7 +6,7 @@ class AppUrl {
 
   static const String loginEndPoint = "$baseUrl/auth/login";
 
-  // static const String sendOtpEndPoint =  "$baseUrl/sms/sent/";
+  static const String sendOtpEndPoint =  "$baseUrl/sms/sent/";
 
   static const String verifyEndPoint = "$baseUrl/accounts/verify";
 
@@ -27,7 +27,7 @@ class AppUrl {
 
   static const String searchCourtEndPoint = "$baseUrl/courts/query";
 
-  static const String reportEndPoint = "$baseUrl/reports/courtreports";
+  static const String reportCourtEndPoint = "$baseUrl/bookington/reports/courtreports";
 
   static const String courtEndPoint = "$baseUrl/courts";
 
@@ -52,6 +52,8 @@ class AppUrl {
   static const String createNewBookingEndPoint = "$baseUrl/bookings";
 
   static const String queryNotificationsEndPoint = "$baseUrl/notifications";
+
+  static const String markAllAsReadEndPoint = "$baseUrl/markAllAsRead";
 
   static const String getAllVoucherOfCourtEndPoint = "$baseUrl/vouchers/court";
 

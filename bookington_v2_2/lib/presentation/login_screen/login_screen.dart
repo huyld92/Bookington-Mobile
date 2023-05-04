@@ -36,7 +36,7 @@ class LoginScreen extends GetWidget<LoginController> {
                   // ),
                   image: DecorationImage(
                     image: AssetImage(
-                      ImageConstant.imgBadminton,
+                      ImageConstant.imagesBadminton,
                     ),
                     fit: BoxFit.cover,
                   ),

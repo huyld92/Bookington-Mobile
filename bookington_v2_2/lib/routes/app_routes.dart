@@ -48,8 +48,8 @@ import 'package:bookington_v2_2/presentation/phone_send_otp_screen/binding/phone
 import 'package:bookington_v2_2/presentation/phone_send_otp_screen/phone_send_otp_screen.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/binding/profile_binding.dart';
 import 'package:bookington_v2_2/presentation/profile_screen/profile_screen.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/registration_phone_screen/binding/registration_phone_binding.dart';
-import 'package:bookington_v2_2/presentation/recommend_screen/registration_phone_screen/registration_phone_screen.dart';
+import 'package:bookington_v2_2/presentation/registration_phone_screen/binding/registration_phone_binding.dart';
+import 'package:bookington_v2_2/presentation/registration_phone_screen/registration_phone_screen.dart';
 import 'package:bookington_v2_2/presentation/report_screen/binding/report_binding.dart';
 import 'package:bookington_v2_2/presentation/report_screen/report_screen.dart';
 import 'package:bookington_v2_2/presentation/verify_screen/binding/verify_phone_number_binding.dart';

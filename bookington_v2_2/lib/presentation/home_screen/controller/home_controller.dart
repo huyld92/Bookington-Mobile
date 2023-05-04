@@ -8,11 +8,13 @@ import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_court_item_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
 import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 
 class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj = HomeModel.empty().obs;
   RxInt totalUnread = 0.obs;
+
   // Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
@@ -36,7 +38,7 @@ class HomeController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  queryNotifications() async  {
+  queryNotifications() async {
     try {
       change(null, status: RxStatus.loading());
       String userID = PrefUtils.getString("userID") ?? "null";
@@ -121,10 +123,11 @@ class HomeController extends GetxController with StateMixin {
   }
 
   courtDetailsScreen(int index) {
-    Map<String, String> arg = {
+    Map<String, dynamic> arg = {
       "courtId": homeModelObj.value.homeCourtItemList[index].id,
+      "playDate": DateTime.now(),
     };
-     Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
+    Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
   }
 
   void logout() async {
@@ -136,21 +139,25 @@ class HomeController extends GetxController with StateMixin {
   Future<void> searchByName() async {
     // Map<String, String?> positionAddress = await getPosition();
 
-    SearchModel courtModel = SearchModel.search(
-      "","", ""
-      // positionAddress["districtName"]!,
-      // positionAddress["provinceName"]!,
-    );
     int pageNumber = 1;
     int maxPageSize = 3;
+    QueryModel queryModel = QueryModel(
+        searchText: "",
+        district: "",
+        province: "",
+        playDate: "",
+        playTime: "",
+        pageNumber: pageNumber,
+        maxPageSize: maxPageSize);
+
     try {
-      await ApiClient.searchCourt(pageNumber, maxPageSize, courtModel)
+      await ApiClient.searchCourt(pageNumber, maxPageSize, queryModel)
           .then((result) {
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
           homeModelObj.value.homeCourtItemList =
               HomeCourtItemModel.listFromJson(jsonResult["result"]).obs;
-         } else if (result.statusCode == 401 || result.statusCode == 403) {
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
           Logger.log(

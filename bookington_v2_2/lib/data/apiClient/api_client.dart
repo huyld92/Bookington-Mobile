@@ -6,8 +6,9 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/app_url.dart';
 import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
+import 'package:bookington_v2_2/data/models/notification_model.dart';
 import 'package:bookington_v2_2/data/models/report_model.dart';
-import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
+import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient extends GetConnect {
@@ -90,6 +91,13 @@ class ApiClient extends GetConnect {
     return response;
   }
 
+  static Future<http.Response> sendOtp(String phone) async {
+    var url = Uri.parse('${AppUrl.sendOtpEndPoint}$phone');
+    http.Response response = await http.post(url);
+
+    return response;
+  }
+
   static Future<http.Response> getProfile(String sysToken) async {
     var headers = {'Authorization': 'Bearer $sysToken'};
     var url = Uri.parse(AppUrl.getProfileByIDEndPoint);
@@ -98,41 +106,32 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> searchCourt(
-      int pageNumber, int maxPageSize, SearchModel searchValue) async {
+      int pageNumber, int maxPageSize, QueryModel searchValue) async {
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> header = {
       "Authorization": "Bearer $sysToken",
     };
     var url = Uri.parse(
-        "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.name}&District=${searchValue.districtName}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+        "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.searchText}&District="
+        "${searchValue.district}&PlayDate=${searchValue.playDate}&PlayTime="
+        "${searchValue.playTime}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
     http.Response response = await http.get(url, headers: header);
     return response;
   }
 
-  static Future<dynamic> reportCourt(
-      String reportUrl, ReportModel reportModel) async {
+  static Future<http.Response> reportCourt(
+      String courtId, String reportContent) async {
     String? sysToken = PrefUtils.getAccessToken();
-    if (sysToken != null && sysToken.isNotEmpty) {
-      var headers = {
-        'Authorization': 'Bearer $sysToken',
-        'Content-Type': 'application/json'
-      };
-      var url = Uri.parse(AppUrl.verifyEndPoint);
-      Map body = {
-        'refCourt': reportModel.refCourt,
-        'content': reportModel.content
-      };
-      http.Response response =
-          await http.post(url, body: jsonEncode(body), headers: headers);
-      print(body.toString());
-      if (response.statusCode == 201) {
-        final jsonResult = jsonDecode(response.body);
-        print("result ${jsonResult["result"]}");
-        return jsonResult;
-      } else {
-        print(response.statusCode);
-      }
-    }
+    var headers = {
+      'Authorization': 'Bearer $sysToken',
+      'Content-Type': 'application/json'
+    };
+    var url = Uri.parse(AppUrl.reportCourtEndPoint);
+    Map body = {'refCourt': courtId, 'content': reportContent};
+    http.Response response =
+        await http.post(url, body: jsonEncode(body), headers: headers);
+
+    return response;
   }
 
   static Future<http.Response> getAllProvince() async {
@@ -267,6 +266,21 @@ class ApiClient extends GetConnect {
     };
 
     http.Response response = await http.get(url, headers: headers);
+
+    return response;
+  }
+
+  static Future<http.Response> markAllAsRead(
+      List<Map<String, String>> listNotification) async {
+    var url = Uri.parse(AppUrl.markAllAsReadEndPoint);
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+
+    http.Response response = await http.put(url,
+        body: jsonEncode(listNotification), headers: headers);
 
     return response;
   }
@@ -448,16 +462,13 @@ class ApiClient extends GetConnect {
     return response;
   }
 
-  static Future<http.Response> cancelOrder(
-      String orderId) async {
-    var url = Uri.parse(
-        "${AppUrl.cancelOrderEndPoint}?orderId=$orderId");
+  static Future<http.Response> cancelOrder(String orderId) async {
+    var url = Uri.parse("${AppUrl.cancelOrderEndPoint}?orderId=$orderId");
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {
       "Authorization": "Bearer $sysToken",
       'Content-Type': 'application/json',
     };
-    print('url: $url');
     http.Response response = await http.post(url, headers: headers);
 
     return response;

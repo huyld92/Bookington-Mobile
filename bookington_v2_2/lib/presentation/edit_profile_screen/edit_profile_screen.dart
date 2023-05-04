@@ -44,7 +44,7 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                 centerTitle: true,
                 title: AppbarTitle(text: "lbl_edit_profile".tr)),
             body: SingleChildScrollView(
-               child: Form(
+              child: Form(
                 key: _formKey,
                 child: Container(
                   width: size.width,
@@ -61,22 +61,42 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                           child: Stack(
                             alignment: Alignment.bottomRight,
                             children: [
-                              controller.editProfileModelObj.value.accountModel.imgBase.isNotEmpty?
-                              Obx(() => Container(
-                                padding: getPadding(right: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadiusStyle.circleBorder23
-                                ),
-                                child: Image.memory(controller.editProfileModelObj.value.accountModel.imgBase,
-                                    width: getSize(70), height: getSize(70)),
-                              )):
-                              CustomImageView(
-                                  svgPath: ImageConstant.imgUser,
-                                  height: getSize(75.00),
-                                  width: getSize(75.00),
+                              controller.editProfileModelObj.value.accountModel
+                                      .imgBase.isNotEmpty
+                                  ? Obx(() => Container(
+                                        padding: getPadding(right: 10),
+                                        child: ClipOval(
+                                          child: Image.memory(
+                                              controller.editProfileModelObj
+                                                  .value.accountModel.imgBase,
+                                              width: getSize(70),
+                                              height: getSize(70),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ))
+                                  : CustomImageView(
+                                      svgPath: ImageConstant.imgUser,
+                                      height: getSize(75.00),
+                                      width: getSize(75.00),
+                                      radius: BorderRadius.circular(
+                                          getHorizontalSize(50.00)),
+                                      alignment: Alignment.center),
+                              Positioned(
+                                top: 60,
+                                right: 0,
+                                child: CustomImageView(
+                                  svgPath: ImageConstant.imgEdit,
+                                  height: getSize(32.00),
+                                  width: getSize(32.00),
+                                  // color: ColorConstant.blue500,
                                   radius: BorderRadius.circular(
                                       getHorizontalSize(50.00)),
-                                  alignment: Alignment.center),
+                                  alignment: Alignment.center,
+                                  onTap: () {
+                                    controller.updateAvatar();
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -89,11 +109,20 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               style: AppStyle.txtManropeMedium12.copyWith(
                                   letterSpacing: getHorizontalSize(0.40)))),
                       CustomTextFormField(
-                          width: 327,
-                          focusNode: FocusNode(),
-                          controller: controller.fullNameController,
-                          hintText: "lbl_enter_full_name".tr,
-                          margin: getMargin(top: 7)),
+                        width: getHorizontalSize(327),
+                        focusNode: FocusNode(),
+                        controller: controller.fullNameController,
+                        hintText: "lbl_enter_full_name".tr,
+                        margin: getMargin(top: 7),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Full name cannot empty";
+                          } else if (value.length > 50) {
+                            return "Maximum 50 characters";
+                          }
+                          return null;
+                        },
+                      ),
                       Padding(
                           padding: getPadding(top: 17),
                           child: Text("lbl_birthday".tr,
@@ -102,30 +131,27 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                               style: AppStyle.txtManropeMedium12.copyWith(
                                   letterSpacing: getHorizontalSize(0.40)))),
                       Obx(
-                            () =>
-                            TextButton.icon(
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(
-                                    color: ColorConstant.black900),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusStyle
-                                      .circleBorder23,
-                                ),
-                              ),
-                              onPressed: () {
-                                controller.presentDatePicker();
-                              },
-                              icon: CustomImageView(
-                                  height: 32,
-                                  width: 32,
-                                  svgPath: ImageConstant.imgCalendar,
-                                  color: ColorConstant.black900),
-                              label: Text(
-                                DateFormat('dd-MM-yyyy')
-                                    .format(controller.selectedDate.value),
-                                style: AppStyle.txtManropeSemiBold20,
-                              ),
+                        () => TextButton.icon(
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(color: ColorConstant.black900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusStyle.circleBorder23,
                             ),
+                          ),
+                          onPressed: () {
+                            controller.presentDatePicker();
+                          },
+                          icon: CustomImageView(
+                              height: 32,
+                              width: 32,
+                              svgPath: ImageConstant.imgCalendar,
+                              color: ColorConstant.black900),
+                          label: Text(
+                            DateFormat('dd-MM-yyyy')
+                                .format(controller.selectedDate.value),
+                            style: AppStyle.txtManropeSemiBold20,
+                          ),
+                        ),
                       ),
                       // Padding(
                       //     padding: getPadding(top: 33),
@@ -163,7 +189,9 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
                     variant: ButtonVariant.FillBlue500,
                     fontStyle: ButtonFontStyle.ManropeBold16,
                     onTap: () {
-                      controller.updateProfile();
+                      if (_formKey.currentState!.validate()) {
+                        controller.updateProfile();
+                      }
                     },
                   )
                 ],
@@ -172,8 +200,6 @@ class EditProfileScreen extends GetWidget<EditProfileController> {
           ),
         ),
       );
-    },
-        onLoading: const LoadingWidget()
-    );
+    }, onLoading: const LoadingWidget());
   }
 }

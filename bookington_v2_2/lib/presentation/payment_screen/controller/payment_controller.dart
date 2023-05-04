@@ -83,7 +83,7 @@ class PaymentController extends GetxController with StateMixin {
             balance.value =
                 formatCurrency.format(jsonResult["result"]["balance"]);
           } else {
-            Get.defaultDialog(title: "Load Balance", content: Text("Cannot load balance now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+            Get.defaultDialog(title: "Load Balance", content: Text("Cannot load balance now. Please do it later", style: AppStyle.txtManropeRegular16,));
 
             Logger.log(
                 "PaymentController error at getBalance: ${result.statusCode}");
@@ -91,7 +91,7 @@ class PaymentController extends GetxController with StateMixin {
         },
       );
     } catch (e) {
-      Logger.log("PaymentController error at getBalance: ${e.toString()}");
+      Logger.log("PaymentController ERROR at getBalance: ${e.toString()}");
     } finally {
       change(null, status: RxStatus.success());
     }
@@ -160,7 +160,7 @@ class PaymentController extends GetxController with StateMixin {
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             logout();
           } else {
-             Get.defaultDialog(title: "Confirm Payment", content: Text("Cannot payment now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+             Get.defaultDialog(title: "Confirm Payment", content: Text("Cannot payment now. Please do it later", style: AppStyle.txtManropeRegular16,));
 
              Logger.log(
                 "PaymentController error at confirmPayment: ${result.statusCode}");

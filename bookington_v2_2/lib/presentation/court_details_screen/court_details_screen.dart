@@ -36,18 +36,26 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                   },
                 ),
                 centerTitle: true,
-                title: AppbarTitle(text: "lbl_court_details".tr)),
+                title: AppbarTitle(text: "lbl_court_details".tr),
+                actions: [
+                  Container(
+                    margin: getMargin(right: 15),
+                    child: CustomImageView(
+                      onTap: () {
+                        controller.reportCourtBottomSheet();
+                      },
+                      width: getSize(28),
+                      height: getSize(28),
+                      svgPath: ImageConstant.imgFlat,
+                    ),
+                  )
+                ]),
             backgroundColor: ColorConstant.whiteA700,
             body: SizedBox(
               width: size.width,
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: getPadding(
-                    left: 20,
-                    right: 20,
-                    top: 15,
-                    bottom: 5,
-                  ),
+                  padding: getPadding(left: 20, right: 20, top: 15, bottom: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -190,8 +198,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         width: getSize(335 / 2),
                                         child: Row(children: [
                                           CustomIconButton(
-                                            height: 34,
-                                            width: 34,
+                                            height: getSize(34),
+                                            width: getSize(34),
                                             // variant: IconButtonVariant.FillBlue500,
                                             shape:
                                                 IconButtonShape.RoundedBorder5,
@@ -237,8 +245,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         child: Row(
                                           children: [
                                             CustomIconButton(
-                                              height: 34,
-                                              width: 34,
+                                              height: getSize(34),
+                                              width: getSize(34),
                                               shape: IconButtonShape
                                                   .RoundedBorder5,
                                               padding:
@@ -278,43 +286,46 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         ),
                                       ),
                                       SizedBox(
-                                          width: getSize(335 / 2),
-                                          child: Row(children: [
-                                            CustomIconButton(
-                                              height: 34,
-                                              width: 34,
-                                              shape: IconButtonShape
-                                                  .RoundedBorder5,
-                                              padding:
-                                                  IconButtonPadding.PaddingAll6,
-                                              child: CustomImageView(
-                                                svgPath: ImageConstant
-                                                    .imgBadmintonCourt,
-                                              ),
+                                        width: getSize(335 / 2),
+                                        child: Row(children: [
+                                          CustomIconButton(
+                                            height: 34,
+                                            width: 34,
+                                            shape:
+                                                IconButtonShape.RoundedBorder5,
+                                            padding:
+                                                IconButtonPadding.PaddingAll6,
+                                            child: CustomImageView(
+                                              svgPath: ImageConstant
+                                                  .imgBadmintonCourt,
                                             ),
-                                            Padding(
-                                                padding: getPadding(
-                                                  left: 5,
+                                          ),
+                                          Padding(
+                                              padding: getPadding(
+                                                left: 5,
+                                              ),
+                                              child: Padding(
+                                                padding: getPadding(top: 1),
+                                                child: Obx(
+                                                  () => Text(
+                                                    " ${controller.courtDetailsModelObj.value.numberOfSubCourt}",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    style: AppStyle
+                                                        .txtManropeBold12
+                                                        .copyWith(
+                                                      letterSpacing:
+                                                          getHorizontalSize(
+                                                              0.40),
+                                                      height:
+                                                          getVerticalSize(1.10),
+                                                    ),
+                                                  ),
                                                 ),
-                                                child: Padding(
-                                                    padding: getPadding(top: 1),
-                                                    child: Obx(() => Text(
-                                                        " ${controller.courtDetailsModelObj.value.numberOfSubCourt}",
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtManropeBold12
-                                                            .copyWith(
-                                                          letterSpacing:
-                                                              getHorizontalSize(
-                                                                  0.40),
-                                                          height:
-                                                              getVerticalSize(
-                                                                  1.10),
-                                                        )))))
-                                          ]))
+                                              ))
+                                        ]),
+                                      ),
                                     ]),
                               ),
                             ],
@@ -428,7 +439,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                         child: Row(
                           children: [
                             Text(
-                              controller.courtDetailsModelObj.value.ratingStar.toStringAsFixed(1) ,
+                              controller.courtDetailsModelObj.value.ratingStar
+                                  .toStringAsFixed(1),
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtManropeBold32.copyWith(
@@ -439,35 +451,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                             CustomImageView(
                               svgPath: ImageConstant.imgStar,
                               height: getVerticalSize(15.00),
-                              width: getHorizontalSize(10.00),
-                              margin: getMargin(left: 12, top: 13, bottom: 14),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgStar,
-                              height: getVerticalSize(15.00),
-                              width: getHorizontalSize(10.00),
-                              margin: getMargin(left: 12, top: 13, bottom: 14),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgStar,
-                              height: getVerticalSize(15.00),
-                              width: getHorizontalSize(10.00),
-                              margin: getMargin(left: 12, top: 13, bottom: 14),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgStar,
-                              height: getVerticalSize(15.00),
-                              width: getHorizontalSize(10.00),
-                              margin: getMargin(
-                                left: 12,
-                                top: 13,
-                                bottom: 14,
-                              ),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgStar,
-                              height: getVerticalSize(15.00),
-                              width: getHorizontalSize(10.00),
+                              width: getHorizontalSize(15.00),
                               margin: getMargin(left: 12, top: 13, bottom: 14),
                             ),
                             Padding(

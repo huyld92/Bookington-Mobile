@@ -102,13 +102,6 @@ class ProfileController extends GetxController with StateMixin {
     );
   }
 
-  Future<void> sendReport() async {
-    String reportCourtURL = "/bookington/reports/courtreports";
-    late String refCourt = "f2cfb0d1-5e3a-4012-b8dc-5793e1b4334c";
-    late String content = "aaaaaaaaa";
-    ReportModel reportModel = ReportModel.forReport(refCourt, content);
-    var result = await ApiClient.reportCourt(reportCourtURL, reportModel);
-  }
 
   void transactionScreen() {
     Get.toNamed(AppRoutes.transactionScreen);

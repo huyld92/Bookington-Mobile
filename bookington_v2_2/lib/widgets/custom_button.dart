@@ -120,11 +120,9 @@ class CustomButton extends StatelessWidget {
         return getPadding(
           all: 8,
         );
-      case ButtonPadding.PaddingT9:
+      case ButtonPadding.PaddingAll0:
         return getPadding(
-          left: 9,
-          top: 9,
-          bottom: 9,
+         all: 0
         );
       default:
         return getPadding(
@@ -141,7 +139,9 @@ class CustomButton extends StatelessWidget {
         return ColorConstant.blue400;
       case ButtonVariant.FillBlue50:
         return ColorConstant.blue50;
-      case ButtonVariant.FillGray300:
+      case ButtonVariant.FillGray500:
+        return ColorConstant.gray500;
+        case ButtonVariant.FillGray300:
         return ColorConstant.gray300;
       case ButtonVariant.FillBluegray50:
         return ColorConstant.blueGray50;
@@ -307,7 +307,7 @@ enum ButtonPadding {
   PaddingAll12,
   PaddingT10,
   PaddingAll8,
-  PaddingT9,
+  PaddingAll0,
 }
 
 enum ButtonVariant {
@@ -316,6 +316,7 @@ enum ButtonVariant {
   FillBlue500,
   FillBlue50,
   FillGray300,
+  FillGray500,
   FillBluegray50,
   OutlineBluegray40014,
   OutlineGray300,

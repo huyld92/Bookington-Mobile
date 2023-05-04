@@ -7,11 +7,13 @@ import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/models/court_details_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/comment_rating_widget.dart';
+import 'package:bookington_v2_2/presentation/court_details_screen/widgets/report_widget.dart';
 import 'package:flutter/cupertino.dart';
 
 class CourtDetailsController extends GetxController with StateMixin {
   Rx<CourtDetailsModel> courtDetailsModelObj = CourtDetailsModel.empty().obs;
   TextEditingController commentController = TextEditingController();
+  TextEditingController reportContentController = TextEditingController();
   Rx<int> silderIndex = 2.obs;
   RxDouble rating = 0.0.obs;
   RxInt countNumOfCharacter = 0.obs;
@@ -26,8 +28,8 @@ class CourtDetailsController extends GetxController with StateMixin {
 
   loadData() {
     try {
-      Map<String, String> arg = Get.arguments;
-      if (arg["courtId"] != null) {
+      Map<String, dynamic>? arg = Get.arguments;
+      if (arg != null) {
         getCourtDetails(arg["courtId"]!);
       }
     } on Exception {
@@ -42,18 +44,24 @@ class CourtDetailsController extends GetxController with StateMixin {
         if (result.statusCode == 200) {
           CourtModel court =
               CourtModel.fromJson(jsonDecode(result.body)["result"]);
+          print(court.toString());
           courtDetailsModelObj.value = CourtDetailsModel(court);
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         } else {
-          Get.defaultDialog(title: "Court Details", content: Text("Cannot load court details now. Please do it later}", style: AppStyle.txtManropeRegular16,));
+          Get.defaultDialog(
+              title: "Court Details",
+              content: Text(
+                "Cannot load court details now. Please do it later}",
+                style: AppStyle.txtManropeRegular16,
+              ));
           Logger.log(
               "CourtDetailsController error at api getCourtDetails: ${result.statusCode}");
         }
       });
     } catch (e) {
       Logger.log(
-          "CourtDetailsController error at getCourtDetails: ${e.toString()}");
+          "CourtDetailsController ERROR at getCourtDetails: ${e.toString()}");
     } finally {
       change(null, status: RxStatus.success());
     }
@@ -66,7 +74,7 @@ class CourtDetailsController extends GetxController with StateMixin {
   }
 
   void chooseCourtScreen() {
-    Map<String, String> arg = Get.arguments;
+    Map<String, dynamic> arg = Get.arguments;
     Get.toNamed(AppRoutes.chooseCourtScreen, arguments: arg);
   }
 
@@ -90,13 +98,12 @@ class CourtDetailsController extends GetxController with StateMixin {
       await ApiClient.createComment(commentRatingModel).then((result) {
         if (result.statusCode == 201) {
           CommentModel commentModel =
-          CommentModel.fromJson(jsonDecode(result.body)["result"]);
-           Get.back();
+              CommentModel.fromJson(jsonDecode(result.body)["result"]);
           Get.snackbar(
             'Post comment',
             "Post comment success",
             colorText: ColorConstant.black900,
-            duration: const Duration(milliseconds: 1500),
+            duration: const Duration(milliseconds: 2000),
             backgroundColor: ColorConstant.whiteA700,
             icon: CustomImageView(
                 width: 16, height: 16, svgPath: ImageConstant.imgNotify),
@@ -132,7 +139,66 @@ class CourtDetailsController extends GetxController with StateMixin {
   }
 
   void viewAllReviewsScreen() {
-    Map<String, String> arg = Get.arguments;
+    Map<String, dynamic> arg = Get.arguments;
     Get.toNamed(AppRoutes.viewAllReviewScreen, arguments: arg);
+  }
+
+  Future<void> reportCourt() async {
+    change(null, status: RxStatus.loading());
+    try {
+      String courtId = courtDetailsModelObj.value.id;
+      String reportContent = reportContentController.text;
+      await ApiClient.reportCourt(courtId, reportContent).then((result) {
+        if (result.statusCode == 201) {
+          var jsonResult = jsonDecode(result.body);
+
+          getBack();
+
+          Get.snackbar(
+            'Report',
+            "Report court ${courtDetailsModelObj.value.name} success",
+            colorText: ColorConstant.black900,
+            duration: const Duration(milliseconds: 2000),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+          );
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+          Get.snackbar(
+            'Report',
+            "Report court ${courtDetailsModelObj.value.name} failed",
+            colorText: ColorConstant.black900,
+            duration: const Duration(milliseconds: 2000),
+            backgroundColor: ColorConstant.whiteA700,
+            icon: CustomImageView(
+                width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+          );
+
+          Logger.log(
+              "CourtDetailsController error at api reportCourt: ${result.statusCode}");
+        }
+      });
+    } catch (e) {
+      Get.snackbar(
+        'Report',
+        "Report court ${courtDetailsModelObj.value.name} failed",
+        colorText: ColorConstant.black900,
+        duration: const Duration(milliseconds: 2000),
+        backgroundColor: ColorConstant.whiteA700,
+        icon: CustomImageView(
+            width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+      );
+      Logger.log(
+          "CourtDetailsController ERROR at reportCourt: ${e.toString()}");
+    } finally {
+      reportContentController.clear();
+      change(null, status: RxStatus.success());
+    }
+  }
+
+  void reportCourtBottomSheet() {
+    Get.bottomSheet(ReportCourtWidget(), isDismissible: false);
   }
 }

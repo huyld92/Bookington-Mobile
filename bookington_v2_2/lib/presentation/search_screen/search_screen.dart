@@ -36,7 +36,7 @@ class SearchScreen extends GetWidget<SearchController> {
                       padding: getPadding(
                         left: 10,
                         right: 10,
-                        top: 40,
+                        top: 40
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,8 +229,8 @@ class SearchScreen extends GetWidget<SearchController> {
                                                     locale: LocaleType.vi);
                                               },
                                               icon: CustomImageView(
-                                                  height: 32,
-                                                  width: 32,
+                                                  height: getSize(32),
+                                                  width: getSize(32),
                                                   svgPath: ImageConstant.imgClock,
                                                   color: ColorConstant.blue500),
                                               label: Text(

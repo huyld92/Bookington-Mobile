@@ -3,58 +3,38 @@
 import 'package:intl/intl.dart';
 
 class NotificationModel {
-  late String _id;
-  late String _refAccount;
-  late String _content;
-  late DateTime _createAt;
-  late bool _isRead;
+  late String id;
+  late String refAccount;
+  late String content;
+  late DateTime createAt;
+  late bool isRead;
 
   NotificationModel(
-      this._id, this._refAccount, this._content, this._createAt, this._isRead);
+      {required this.id,
+      required this.refAccount,
+      required this.content,
+      required this.createAt,
+      required this.isRead});
 
   NotificationModel.empty() {
-    _id = "";
-    _refAccount = "";
-    _content = "";
-    _createAt = DateTime.now();
-    _isRead = false;
+    id = "";
+    refAccount = "";
+    content = "";
+    createAt = DateTime.now();
+    isRead = false;
   }
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
-      NotificationModel(json["id"], json["refAccount"], json["content"],
-          DateFormat("yyyy-MM-dd").parse(json["createAt"]), json["isRead"]);
+  factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    DateTime createAt = DateFormat("yyyy-MM-ddTHH:mmz").parseUTC(json["createAt"]).toLocal();
+    return NotificationModel(
+          id: json["id"],
+          refAccount: json["refAccount"],
+          content: json["content"],
+          createAt: createAt,
+          isRead: json["isRead"]);
+  }
 
   static List<NotificationModel> listFromJson(list) =>
       List<NotificationModel>.from(
-          list.map((x) => NotificationModel.fromJson(x)));
-
-  String get id => _id;
-
-  set id(String value) {
-    _id = value;
-  }
-
-  String get refAccount => _refAccount;
-
-  set refAccount(String value) {
-    _refAccount = value;
-  }
-
-  String get content => _content;
-
-  set content(String value) {
-    _content = value;
-  }
-
-  DateTime get createAt => _createAt;
-
-  set createAt(DateTime value) {
-    _createAt = value;
-  }
-
-  bool get isRead => _isRead;
-
-  set isRead(bool value) {
-    _isRead = value;
-  }
+          list.map((dynamic x) => NotificationModel.fromJson(x)));
 }

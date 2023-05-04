@@ -1,131 +1,79 @@
-// ignore_for_file: unnecessary_getters_setters
+// ignore for file: unnecessary getters setters
 
+import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:intl/intl.dart';
 
 class CourtModel {
-  String _id;
-  String _name;
-  String _phone;
-  String _districtName;
-  String _address;
-  String _description;
-  double _moneyPerHour;
-  int _numberOfSubCourt;
-  int _numberOfReview;
-  double _ratingStar;
-  DateTime _openAt;
-  DateTime _closeAt;
-  bool _isActive;
+  late String id;
+  late String name;
+  late String phone;
+  late String districtName;
+  late String address;
+  late String description;
+  late double moneyPerHour;
+  late int numberOfSubCourt;
+  late int numberOfReview;
+  late double ratingStar;
+  late DateTime openAt;
+  late DateTime closeAt;
+  late bool isActive;
+  late List<CourtImage> listCourtImage;
 
   CourtModel(
-      this._id,
-      this._name,
-      this._phone,
-      this._districtName,
-      this._address,
-      this._description,
-      this._moneyPerHour,
-      this._numberOfSubCourt,
-      this._numberOfReview,
-      this._ratingStar,
-      this._openAt,
-      this._closeAt,
-      this._isActive);
-
-  String get id => _id;
-
-  set id(String value) {
-    _id = value;
-  }
+      {required this.id,
+      required this.name,
+      required this.phone,
+      required this.districtName,
+      required this.address,
+      required this.description,
+      required this.moneyPerHour,
+      required this.numberOfSubCourt,
+      required this.numberOfReview,
+      required this.ratingStar,
+      required this.openAt,
+      required this.closeAt,
+      required this.isActive,
+      required this.listCourtImage});
 
   factory CourtModel.fromJson(Map<String, dynamic> json) => CourtModel(
-        json["id"],
-        json["name"],
-        json["phone"] ?? "0907777778",
-        json["districtName"],
-        json["address"],
-        json["description"]??"",
-        json["moneyPerHour"]*1.0,
-        json["numberOfSubCourt"],
-        json["numOfReview"],
-        json["ratingStar"] *1.0,
-        DateFormat("hh:mm:ss").parse(json["openAt"]),
-        DateFormat("hh:mm:ss").parse(json["closeAt"]),
-        json["isActive"],
+        id: json["id"] ?? "",
+        name: json["name"] ?? "",
+        phone: json["phone"] ?? "0907777778",
+        districtName: json["districtName"] ?? "",
+        address: json["address"] ?? "",
+        description: json["description"] ?? "",
+        moneyPerHour: json["moneyPerHour"] * 1.0,
+        numberOfSubCourt: json["numberOfSubCourt"] ?? 0,
+        numberOfReview: json["numOfReview"],
+        ratingStar: json["ratingStar"] * 1.0,
+        openAt: DateFormat("HH:mm").parse(json["openAt"]),
+        closeAt: DateFormat("HH:mm").parse(json["closeAt"]),
+        isActive: json["isActive"],
+        listCourtImage: List.empty(),
+        // listCourtImage: json["isActive"]
       );
 
   static List<CourtModel> listFromJson(list) =>
       List<CourtModel>.from(list.map((x) => CourtModel.fromJson(x)));
 
-  String get name => _name;
+  factory CourtModel.empty() => CourtModel(
+      id: "",
+      name: "",
+      phone: "",
+      districtName: "",
+      address: "",
+      description: "",
+      moneyPerHour: 0,
+      numberOfSubCourt: 0,
+      numberOfReview: 0,
+      ratingStar: 0.0,
+      openAt: DateTime.now(),
+      closeAt: DateTime.now(),
+      isActive: false,
+      listCourtImage: List.empty());
 
-  set name(String value) {
-    _name = value;
-  }
-
-  String get phone => _phone;
-
-  set phone(String value) {
-    _phone = value;
-  }
-
-  String get districtName => _districtName;
-
-  set districtName(String value) {
-    _districtName = value;
-  }
-
-  String get address => _address;
-
-  set address(String value) {
-    _address = value;
-  }
-
-  String get description => _description;
-
-  set description(String value) {
-    _description = value;
-  }
-
-  double get moneyPerHour => _moneyPerHour;
-
-  set moneyPerHour(double value) {
-    _moneyPerHour = value;
-  }
-
-  int get numberOfSubCourt => _numberOfSubCourt;
-
-  set numberOfSubCourt(int value) {
-    _numberOfSubCourt = value;
-  }
-
-  int get numberOfReview => _numberOfReview;
-
-  set numberOfReview(int value) {
-    _numberOfReview = value;
-  }
-
-  double get ratingStar => _ratingStar;
-
-  set ratingStar(double value) {
-    _ratingStar = value;
-  }
-
-  DateTime get openAt => _openAt;
-
-  set openAt(DateTime value) {
-    _openAt = value;
-  }
-
-  DateTime get closeAt => _closeAt;
-
-  set closeAt(DateTime value) {
-    _closeAt = value;
-  }
-
-  bool get isActive => _isActive;
-
-  set isActive(bool value) {
-    _isActive = value;
+  @override
+  String toString() {
+    return 'CourtModel{id: $id, name: $name, phone: $phone, districtName: $districtName, address: $address, description: $description, moneyPerHour: $moneyPerHour, numberOfSubCourt: $numberOfSubCourt, numberOfReview: $numberOfReview, ratingStar: $ratingStar, openAt: $openAt, closeAt: $closeAt, isActive: $isActive, listCourtImage: $listCourtImage}';
   }
 }
