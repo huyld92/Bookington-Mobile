@@ -1,4 +1,4 @@
-package huydd.bookington.bookington_v2_2;
+package huydd.fu.bookington;
 
 import io.flutter.embedding.android.FlutterActivity;
 

@@ -30,6 +30,7 @@ class ChooseCourtController extends GetxController with StateMixin {
     if (arg != null) {
       courtId = arg["courtId"]!;
       selectedDate.value = arg["playDate"];
+      selectedTime.value = arg["playTime"];
     }
      getAvailableSubCourt();
   }

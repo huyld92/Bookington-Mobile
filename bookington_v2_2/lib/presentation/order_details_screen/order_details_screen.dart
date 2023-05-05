@@ -157,7 +157,7 @@ class OrderDetailsScreen extends GetWidget<OrderDetailsController> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Slot: ${DateFormat("KK:mm").format(model.startTime)}-${DateFormat("KK:mm").format(model.endTime)}",
+                                        "Slot: ${DateFormat("kk:mm").format(model.startTime)}-${DateFormat("kk:mm").format(model.endTime)}",
                                         style: AppStyle.txtManropeBold16,
                                       ),
                                     ],

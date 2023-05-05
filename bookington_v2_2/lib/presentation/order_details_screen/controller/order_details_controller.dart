@@ -19,8 +19,7 @@ class OrderDetailsController extends GetxController with StateMixin {
       Map<String, dynamic>? arg = Get.arguments;
       if (arg != null) {
         orderHistory.value = arg["orderDetails"];
-        print(orderHistory.value.id);
-      }
+       }
     } on Exception catch (e) {
       Logger.log("OrderDetailsController ERROR at loadData: ${e.toString()}");
     }

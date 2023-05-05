@@ -3,9 +3,12 @@ import 'dart:typed_data';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/map_utils.dart';
+import 'package:bookington_v2_2/core/utils/notify.dart';
+import 'package:bookington_v2_2/core/utils/signalr_connection.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
 import 'package:bookington_v2_2/data/models/account_model.dart';
 import 'package:bookington_v2_2/data/models/notification_model.dart';
+import 'package:bookington_v2_2/main.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_court_item_model.dart';
 import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart';
 import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
@@ -20,6 +23,8 @@ class HomeController extends GetxController with StateMixin {
   @override
   void onInit() async {
     loadData();
+    Get.put(SignalrConnection()).startConnection();
+    Notify.initialize(flutterLocalNotificationsPlugin);
     super.onInit();
   }
 
@@ -126,6 +131,7 @@ class HomeController extends GetxController with StateMixin {
     Map<String, dynamic> arg = {
       "courtId": homeModelObj.value.homeCourtItemList[index].id,
       "playDate": DateTime.now(),
+      "playTime": DateTime.now(),
     };
     Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
   }

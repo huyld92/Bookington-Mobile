@@ -64,13 +64,18 @@ class AccountModel {
      if (json["file"] != null) {
       bytesImage = const Base64Decoder().convert(json["file"]["content"]);
     } else {
-      bytesImage = const Base64Decoder().convert(ImageConstant.noImageBase);
+      bytesImage = const Base64Decoder().convert(ImageConstant.noAvatarBase);
     }
+    DateTime date = DateFormat("dd-MM-yyyy").parse(json["dateOfBirth"]);
+    if(date.year < 1900){
+      date= DateTime.now();
+    }
+
     return AccountModel(
       json["id"] ?? "aaa",
       json["phone"],
       json["fullName"],
-      DateFormat("dd-MM-yyyy").parse(json["dateOfBirth"]),
+      date,
       bytesImage,
     );
   }

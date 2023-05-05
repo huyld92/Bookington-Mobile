@@ -9,7 +9,5 @@ class HomeBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => HomeController(), fenix: true);
-    Get.put(SignalrConnection()).startConnection();
-    Notify.initialize(flutterLocalNotificationsPlugin);
   }
 }

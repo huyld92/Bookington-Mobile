@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_getters_setters
 
+import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -150,8 +151,8 @@ class CourtDetailsModel {
     this._address,
   );
 
-  RxList<SlidericonItemModel> slidericonItemList =
-      RxList.filled(2, SlidericonItemModel());
+  RxList<CourtImage> slidericonItemList =
+      RxList.filled(2, CourtImage.empty());
 
   // RxList<ListfiveItemModel> listfiveItemList =
   //     RxList.filled(5, ListfiveItemModel());

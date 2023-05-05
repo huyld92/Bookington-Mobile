@@ -28,8 +28,8 @@ class BookingOrderHistoryModel {
       id: json["id"] ?? "",
       subCourtName: json["subCourtName"] ?? "",
       playDate: playDate,
-      startTime: DateFormat("kk:mm").parse(json["startTime"]),
-      endTime: DateFormat("kk:mm").parse(json["endTime"]),
+      startTime: DateFormat("KK:mm").parse(json["startTime"]),
+      endTime: DateFormat("KK:mm").parse(json["endTime"]),
       price: json["price"]*1.0 ?? 0.0,
       isCancel: json["isCancel"] ?? false,
     );

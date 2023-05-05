@@ -104,12 +104,12 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         playTime: DateFormat("HH:mm").format(selectedTime.value),
         pageNumber: pageNumber,
         maxPageSize: maxPageSize);
-     try {
+    try {
       await ApiClient.searchCourt(pageNumber, maxPageSize, queryModel)
           .then((result) {
         if (result.statusCode == 200) {
           final jsonResult = jsonDecode(result.body);
-           totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
+          totalCourt = jsonResult["pagination"]["totalCount"].toString().obs;
           if (totalCourt.value == '0') {
             listSearchMode.clear();
           } else {
@@ -215,15 +215,16 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
   courtDetailsScreen(int index) {
     Map<String, dynamic> arg = {
       "courtId": listSearchMode[index].id,
-      "playDate": selectedDate.value
+      "playDate": selectedDate.value,
+      "playTime": selectedTime.value
     };
-     Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
+    Get.toNamed(AppRoutes.courtDetailsScreen, arguments: arg);
   }
 
   @override
   Future<void> onEndScroll() async {
     // change(null, status: RxStatus.loadingMore());
-     if (listSearchMode.length < int.parse(totalCourt.value)) {
+    if (listSearchMode.length < int.parse(totalCourt.value)) {
       pageNumber.value++;
       await searchByName(pageNumber.value);
     }

@@ -271,7 +271,7 @@ class ApiClient extends GetConnect {
   }
 
   static Future<http.Response> markAllAsRead(
-      List<Map<String, String>> listNotification) async {
+      List<String> listNotification) async {
     var url = Uri.parse(AppUrl.markAllAsReadEndPoint);
     String? sysToken = PrefUtils.getAccessToken();
     Map<String, String> headers = {

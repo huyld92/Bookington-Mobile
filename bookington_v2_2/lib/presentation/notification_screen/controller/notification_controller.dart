@@ -52,6 +52,7 @@ class NotificationController extends GetxController
                   .addAll(NotificationModel.listFromJson(jsonResult["result"]));
             }
           }
+          listNotificationModel.sort((a, b) => b.createAt.compareTo(a.createAt));
           listNotificationModel.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
@@ -86,36 +87,21 @@ class NotificationController extends GetxController
     listNotificationModel[index].isRead = true;
     listNotificationModel.refresh();
     try {
-      List<Map<String, String>> listMapNotification =
-          List.empty(growable: true);
+      List<String> listMapNotification = List.empty(growable: true);
       if (index < listNotificationModel.length) {
-        Map<String, String> body = {
-          "id": listNotificationModel[index].id,
-          "refAccount": listNotificationModel[index].refAccount,
-          "content": listNotificationModel[index].content,
-          "createAt": DateFormat("yyyy-MM-dd")
-              .format(listNotificationModel[index].createAt),
-          "isRead": "true"
-        };
-        listMapNotification.add(body);
+        listMapNotification.add(listNotificationModel[index].id);
         print(listMapNotification[0].toString());
       } else if (index == -999) {
-        listMapNotification = listNotificationModel.map((o) {
-          return {
-            "id": o.id,
-            "refAccount": o.refAccount,
-            "content": o.content,
-            "createAt": DateFormat("yyyy-MM-dd").format(o.createAt),
-            "isRead": "true"
-          };
-        }).toList();
+        listMapNotification = listNotificationModel.map((element) => element.id).toList();
+        print(listMapNotification.asMap().toString());
       }
       if (listMapNotification.isNotEmpty) {
         await ApiClient.markAllAsRead(listMapNotification).then((result) {
           print('result.statusCode:${result.statusCode}');
           if (result.statusCode == 204) {
-            var jsonResult = jsonDecode(result.body);
-            print(jsonResult.toString());
+
+            // var jsonResult = jsonDecode(result.body);
+            // print(jsonResult.toString());
           } else if (result.statusCode == 401 || result.statusCode == 403) {
             logout();
           } else {

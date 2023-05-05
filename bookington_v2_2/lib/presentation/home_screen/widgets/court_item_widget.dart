@@ -27,15 +27,21 @@ class HomeCourtItemWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               if (model.listCourtImage.isNotEmpty)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    getHorizontalSize(36.00),
-                  ),
-                  child: Image.memory(
-                    model.listCourtImage[0].imgBase,
-                    height: getVerticalSize(400.00),
-                    width: getHorizontalSize(300.00),
-                    fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    controller.courtDetailsScreen(index);
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      getHorizontalSize(36.00),
+                    ),
+                    child: Image.memory(
+                      model.listCourtImage[0].imgBase,
+                      height: getVerticalSize(400.00),
+                      width: getHorizontalSize(300.00),
+                      fit: BoxFit.cover,
+                    ),
+
                   ),
                 )
               else
@@ -84,6 +90,8 @@ class HomeCourtItemWidget extends StatelessWidget {
                                   .copyWith(
                                 height: getVerticalSize(1.00),
                               ),
+                              maxLines: 3,
+                              softWrap: true,
                             ),
                           ),
                           Padding(
@@ -93,7 +101,7 @@ class HomeCourtItemWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style:
-                                  AppStyle.txtManropeMedium14Gray500.copyWith(
+                                  AppStyle.txtManropeMedium14Gray300.copyWith(
                                 letterSpacing: getHorizontalSize(
                                   0.20,
                                 ),

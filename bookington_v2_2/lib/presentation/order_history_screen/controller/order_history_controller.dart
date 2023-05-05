@@ -46,11 +46,14 @@ class OrderHistoryController extends GetxController
                   OrderModel.listFromJson(jsonResult["result"]);
               listOrderHistory.value =
                   OrderHistoryModel.listFromListObject(listOrderModel);
+              listOrderHistory.sort((a, b) => a.orderTime.compareTo(b.orderTime));
             } else {
               List<OrderModel> listOrderModel =
                   OrderModel.listFromJson(jsonResult["result"]);
               listOrderHistory
                   .addAll(OrderHistoryModel.listFromListObject(listOrderModel));
+              listOrderHistory.sort((a, b) => a.orderTime.compareTo(b.orderTime));
+
             }
           }
         } else if (result.statusCode == 401 || result.statusCode == 403) {

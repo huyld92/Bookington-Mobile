@@ -1,4 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/slidericon_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
@@ -9,7 +10,6 @@ import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:intl/intl.dart';
 
 import 'controller/court_details_controller.dart';
-import 'models/slidericon_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -83,7 +83,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                 itemCount: controller.courtDetailsModelObj.value
                                     .slidericonItemList.length,
                                 itemBuilder: (context, index, realIndex) {
-                                  SlidericonItemModel model = controller
+                                  CourtImage model = controller
                                       .courtDetailsModelObj
                                       .value
                                       .slidericonItemList[index];
@@ -136,20 +136,18 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                             children: [
                               //time and phone
                               Padding(
-                                  padding: getPadding(
-                                    top: 10,
-                                  ),
+                                  padding: getPadding(top: 10),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        width: getSize(360 / 2),
+                                        width: getHorizontalSize(360 / 2),
                                         child: Row(
                                           children: [
                                             CustomIconButton(
-                                              height: 34,
-                                              width: 34,
+                                              height: getSize(34),
+                                              width: getSize(34),
                                               // variant: IconButtonVariant.FillBlue500,
                                               shape: IconButtonShape
                                                   .RoundedBorder5,
@@ -160,15 +158,11 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: getPadding(
-                                                left: 8,
-                                              ),
+                                              padding: getPadding(left: 5),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Padding(
-                                                  padding: getPadding(
-                                                    top: 1,
-                                                  ),
+                                                  padding: getPadding(top: 1),
                                                   child: Obx(
                                                     () => Text(
                                                       "${DateFormat("HH:mm").format(controller.courtDetailsModelObj.value.openAt)}"
@@ -195,7 +189,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: getSize(335 / 2),
+                                        width: getSize(310 / 2),
                                         child: Row(children: [
                                           CustomIconButton(
                                             height: getSize(34),
@@ -241,7 +235,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        width: getSize(360 / 2),
+                                        width: getHorizontalSize(360 / 2),
                                         child: Row(
                                           children: [
                                             CustomIconButton(
@@ -286,11 +280,11 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: getSize(335 / 2),
+                                        width: getSize(310 / 2),
                                         child: Row(children: [
                                           CustomIconButton(
-                                            height: 34,
-                                            width: 34,
+                                            height: getSize(34),
+                                            width: getSize(34),
                                             shape:
                                                 IconButtonShape.RoundedBorder5,
                                             padding:
@@ -302,7 +296,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                           ),
                                           Padding(
                                               padding: getPadding(
-                                                left: 5,
+                                                left: 5
                                               ),
                                               child: Padding(
                                                 padding: getPadding(top: 1),
@@ -363,28 +357,28 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: getPadding(left: 8, top: 13),
-                        child: Row(
-                          children: [
-                            Text(
-                              "lbl_see_more".tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtManropeBold14Blue500.copyWith(
-                                letterSpacing: getHorizontalSize(0.20),
-                                height: getVerticalSize(1.10),
-                              ),
-                            ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgNext,
-                              height: getSize(16.00),
-                              width: getSize(16.00),
-                              margin: getMargin(left: 8, top: 1, bottom: 2),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: getPadding(left: 8, top: 13),
+                      //   child: Row(
+                      //     children: [
+                      //       Text(
+                      //         "lbl_see_more".tr,
+                      //         overflow: TextOverflow.ellipsis,
+                      //         textAlign: TextAlign.left,
+                      //         style: AppStyle.txtManropeBold14Blue500.copyWith(
+                      //           letterSpacing: getHorizontalSize(0.20),
+                      //           height: getVerticalSize(1.10),
+                      //         ),
+                      //       ),
+                      //       CustomImageView(
+                      //         svgPath: ImageConstant.imgNext,
+                      //         height: getSize(16.00),
+                      //         width: getSize(16.00),
+                      //         margin: getMargin(left: 8, top: 1, bottom: 2),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
 
                       Container(
                         height: getVerticalSize(1.00),
@@ -448,11 +442,22 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                 height: getVerticalSize(0.92),
                               ),
                             ),
-                            CustomImageView(
-                              svgPath: ImageConstant.imgStar,
+                            SizedBox(
                               height: getVerticalSize(15.00),
-                              width: getHorizontalSize(15.00),
-                              margin: getMargin(left: 12, top: 13, bottom: 14),
+                              width: getHorizontalSize(
+                                  30.0 * controller.ratingStart.value),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.ratingStart.value,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CustomImageView(
+                                    svgPath: ImageConstant.imgStar,
+                                    height: getVerticalSize(15.00),
+                                    width: getHorizontalSize(15.00),
+                                    margin: getMargin(left: 12),
+                                  );
+                                },
+                              ),
                             ),
                             Padding(
                               padding:
@@ -506,15 +511,11 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       Container(
                         width: getHorizontalSize(342.00),
                         // color: Colors.black,
-                        padding: getPadding(
-                          top: 15,
-                          bottom: 20,
-                          right: 10,
-                        ),
+                        padding: getPadding(top: 15, bottom: 20, right: 10),
                         alignment: Alignment.center,
                         child: CustomButton(
-                          height: 48,
-                          width: 271,
+                          height: getVerticalSize(48),
+                          width: getHorizontalSize(265),
                           text: "lbl_write_review".tr,
                           padding: ButtonPadding.PaddingAll12,
                           variant: ButtonVariant.OutlineGray300,

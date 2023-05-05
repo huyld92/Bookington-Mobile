@@ -17,6 +17,7 @@ class EditProfileController extends GetxController with StateMixin {
   var selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
 
   late Rx<EditProfileModel> editProfileModelObj = EditProfileModel.empty().obs;
+
   // Rx<Uint8List> bytesImage = Uint8List(0).obs;
 
   @override
@@ -35,15 +36,6 @@ class EditProfileController extends GetxController with StateMixin {
 
   void loadData() async {
     await loadProfile();
-
-    // try {
-    //    bytesImage.value = const Base64Decoder()
-    //       .convert(editProfileModelObj.value.accountModel.imgBase);
-    // } on Exception catch (e) {
-    //   bytesImage.value = Uint8List(0);
-    //   Logger.log(
-    //       "EditProfileController error at convert bytesImage: ${e.toString()}");
-    // }
   }
 
   Future<void> loadProfile() async {
@@ -61,17 +53,9 @@ class EditProfileController extends GetxController with StateMixin {
                   AccountModel.fromJson(jsonResult);
               fullNameController.text = jsonResult["fullName"];
               descriptionController.text = jsonResult["description"] ?? "";
-              try {
-                var dateValue = DateFormat("yyyy-MM-dd")
-                    .parseUTC(jsonResult["dateOfBirth"])
-                    .toLocal()
-                    .toString();
-                selectedDate.value = DateFormat("yyyy-MM-dd").parse(dateValue);
-              } catch (error) {
-                Logger.log(
-                    "EditProfileController error at loadProfile: ${error.toString()}");
-                selectedDate = DateFormat("dd/MM/yyyy").parse("01/01/1900").obs;
-              }
+              selectedDate.value =
+                  editProfileModelObj.value.accountModel.dateOfBirth;
+
             } else if (result.statusCode == 401 || result.statusCode == 403) {
               logout();
             } else {
@@ -102,7 +86,7 @@ class EditProfileController extends GetxController with StateMixin {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: selectedDate.value,
-      firstDate: DateTime(0010),
+      firstDate: DateTime(1950),
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendar,
       // initialDatePickerMode: DatePickerMode.year,

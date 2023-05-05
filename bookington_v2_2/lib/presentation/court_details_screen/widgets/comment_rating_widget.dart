@@ -56,6 +56,7 @@ class CommentRatingWidget extends StatelessWidget {
                               ),
                               onRatingUpdate: (rating) {
                                 controller.rating.value = rating;
+                                controller.errorText.value = "";
                               },
                             ),
                             Padding(
@@ -66,18 +67,36 @@ class CommentRatingWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      TextField(
+                      if (controller.errorText.isNotEmpty)
+                        Obx(() => Padding(
+                              padding: getPadding(bottom: 15),
+                              child: Text(
+                                controller.errorText.value,
+                                style: AppStyle.txtManropeSemiBold14Red500,
+                              ),
+                            )),
+                      Form(
                         key: _formKey,
-                        controller: controller.commentController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'lbl_comment'.tr,
+                        child: TextFormField(
+                          controller: controller.commentController,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            labelText: 'lbl_comment'.tr,
+                          ),
+                          maxLengthEnforcement:
+                              MaxLengthEnforcement.truncateAfterCompositionEnds,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(200),
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Write a comment before submitting";
+                            } else if (value.length > 200) {
+                              return "Maximum 200 characters";
+                            }
+                            return null;
+                          },
                         ),
-                        maxLengthEnforcement:
-                            MaxLengthEnforcement.truncateAfterCompositionEnds,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(200),
-                        ],
                       ),
                     ],
                   ),
@@ -102,17 +121,15 @@ class CommentRatingWidget extends StatelessWidget {
                     width: size.width / 3,
                     text: "lbl_submit".tr,
                     padding: ButtonPadding.PaddingAll12,
-                    onTap: () {
+                    onTap: () async {
                       if (controller.rating.value == 0.0) {
-                        Get.snackbar(
-                            "Send comment", "Rating before submitting");
-                      } else if (controller.commentController.text.isEmpty) {
-                        Get.snackbar("Send comment",
-                            "Write a comment before submitting");
-                      } else {
+                        controller.errorText.value =
+                            "Please rating before submitting";
+                        if (_formKey.currentState!.validate()) {}
+                      } else if (_formKey.currentState!.validate()) {
                         controller.getBack();
+                        await controller.createComment();
                         controller.commentController.clear();
-                        controller.createComment();
                       }
                     },
                   ),

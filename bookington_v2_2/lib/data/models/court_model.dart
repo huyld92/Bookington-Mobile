@@ -35,7 +35,8 @@ class CourtModel {
       required this.isActive,
       required this.listCourtImage});
 
-  factory CourtModel.fromJson(Map<String, dynamic> json) => CourtModel(
+  factory CourtModel.fromJson(Map<String, dynamic> json) {
+    return CourtModel(
         id: json["id"] ?? "",
         name: json["name"] ?? "",
         phone: json["phone"] ?? "0907777778",
@@ -49,9 +50,10 @@ class CourtModel {
         openAt: DateFormat("HH:mm").parse(json["openAt"]),
         closeAt: DateFormat("HH:mm").parse(json["closeAt"]),
         isActive: json["isActive"],
-        listCourtImage: List.empty(),
-        // listCourtImage: json["isActive"]
+        listCourtImage: CourtImage.listFromJson(json["courtPictures"]),
+         // listCourtImage: json["isActive"]
       );
+  }
 
   static List<CourtModel> listFromJson(list) =>
       List<CourtModel>.from(list.map((x) => CourtModel.fromJson(x)));
