@@ -82,8 +82,8 @@ class TransactionModel {
       json["fromUsername"] ?? "a",
       json["refTo"],
       json["toUsername"] ?? "b",
-      // json["reason"].toString(),
-      "Payment for booking",
+      json["reason"].toString(),
+      // "Payment for booking",
       DateFormat("yyyy-MM-dd").parseUTC(json["createAt"]),
       "${formatCurrency.format(json["amount"])} đ",
     );

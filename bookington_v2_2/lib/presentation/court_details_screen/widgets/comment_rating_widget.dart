@@ -61,7 +61,7 @@ class CommentRatingWidget extends StatelessWidget {
                             ),
                             Padding(
                               padding: getPadding(left: 15),
-                              child: Obx(() => Text("${controller.rating}/5",
+                              child: Obx(() => Text("${controller.rating}/5.0",
                                   style: AppStyle.txtManropeBold16)),
                             )
                           ],

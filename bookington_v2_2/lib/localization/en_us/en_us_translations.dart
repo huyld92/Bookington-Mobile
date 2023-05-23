@@ -87,6 +87,7 @@ final Map<String, String> enUs = {
   'lbl_enter_voucher': 'Enter voucher',
   'lbl_apply': 'Apply',
   'lbl_cancel': 'Cancel',
+  'lbl_cancelled': 'Cancelled',
   'lbl_favourite': 'Favourite',
   'lbl_showing_all': 'Showing all',
   'lbl_view_all': 'View all',
@@ -130,6 +131,8 @@ final Map<String, String> enUs = {
   'lbl_no': 'No',
   'lbl_yes': 'Yes',
 
+  'msg_you_don\'t_have_any_coupon_yet': 'You don\'t have any coupon yet',
+  'msg_get_your_first_review': 'Get your first review',
   'msg_report_content': 'Report content',
   'msg_is_coming_soon': 'IS COMING SOON',
   'msg_cancel_order': 'Cancel order',

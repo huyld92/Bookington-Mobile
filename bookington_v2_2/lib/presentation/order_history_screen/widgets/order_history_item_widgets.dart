@@ -94,7 +94,7 @@ class OrderHistoryItemWidgets extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: ColorConstant.yellow700,
                           borderRadius: BorderRadiusStyle.roundedBorder10),
-                      child: Text("lbl_cancel".tr,
+                      child: Text("lbl_cancelled".tr,
                           style: AppStyle.txtManropeSemiBold14whiteA700))
                 else if (model.isPaid)
                   Container(

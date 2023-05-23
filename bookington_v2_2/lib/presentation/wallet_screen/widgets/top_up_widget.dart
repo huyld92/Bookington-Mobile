@@ -6,11 +6,17 @@ import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+
+import '../../../core/utils/currency_formatter.dart';
 
 class TopUpWidget extends StatelessWidget {
   WalletController controller = Get.find();
 
   TopUpWidget({super.key});
+
+  final NumberFormat _currencyFormatter =
+      NumberFormat.currency(locale: 'vi_VN', symbol: '');
 
   @override
   Widget build(BuildContext context) {
@@ -39,54 +45,81 @@ class TopUpWidget extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: getHorizontalSize(300),
-                  child: TextFormField(
-                    controller: controller.amountController,
-                    textAlign: TextAlign.center,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    autofocus: true,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(12),
-                    ],
-                    maxLengthEnforcement:
-                        MaxLengthEnforcement.truncateAfterCompositionEnds,
-                    decoration: InputDecoration(
-                        hintText: '0',
-                        border: InputBorder.none,
-                        hintStyle: AppStyle.txtManropeSemiBold20),
-                    style: AppStyle.txtManropeBold20,
-                    validator: (value) {
-
-                    },
-                    onChanged: (text) {
-                      print('text: $text}');
-                      if (text.isEmpty) {
-                        controller.isTextFieldEmpty.value = true;
-                      } else {
-                        controller.isTextFieldEmpty.value = false;
-                      }
-                    },
+                Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    TextField(
+                      controller: controller.amountController,
+                      textAlign: TextAlign.center,
+                      // textDirection: TextDirection.LTR,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      autofocus: true,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        // CurrencyFormatter(_currencyFormatter),
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                      maxLengthEnforcement:
+                          MaxLengthEnforcement.truncateAfterCompositionEnds,
+                      decoration: InputDecoration(
+                          hintText: '0',
+                          border: InputBorder.none,
+                          hintStyle: AppStyle.txtManropeSemiBold20),
+                      style: AppStyle.txtManropeBold20,
+                      onChanged: (text) {
+                         double amount = double.tryParse(text) ?? 0.0;
+                        controller.amount.value = amount;
+                        if (text.isEmpty) {
+                          controller.isTextFieldEmpty.value = true;
+                        } else {
+                          if (amount < 10000) {
+                            controller.isTextFieldEmpty.value = true;
+                          } else {
+                            controller.isTextFieldEmpty.value = false;
+                          }
+                        }
+                      },
+                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(right: 10.0),
+                    //   child: Text(
+                    //     _currencyFormatter.currencySymbol,
+                    //     style: TextStyle(fontSize: 16.0),
+                    //   ),
+                    // ),
+                  ],
+                ),
+                if (controller.amount.value > 0 &&
+                    controller.amount.value < 10000)
+                  Obx(
+                    () => Text("Minimum amount: 10.000đ",
+                        style: controller.amount.value == 0
+                            ? AppStyle.txtManropeSemiBold16Gray500
+                            : AppStyle.txtManropeSemiBold16Gray500),
+                  )
+                else
+                  Obx(
+                    () => Text("Current balance: ${controller.balance.value}",
+                        style: controller.amount.value == 0
+                            ? AppStyle.txtManropeSemiBold16Gray500
+                            : AppStyle.txtManropeSemiBold16Gray500),
                   ),
-                ),
-                Obx(
-                  () => Text("Current balance: ${controller.balance.value}",
-                      style: AppStyle.txtManropeSemiBold16Gray500),
-                ),
                 Obx(
                   () => CustomButton(
                     height: getVerticalSize(56),
                     width: getHorizontalSize(327),
                     text: "lbl_next".tr,
                     margin: getMargin(top: 20, bottom: 5),
-                    variant: controller.isTextFieldEmpty.value
+                    variant: controller.amount.value < 10000
                         ? ButtonVariant.FillGray300
                         : ButtonVariant.FillBlue400,
                     onTap: () {
-                      if (!controller.isTextFieldEmpty.value) {
+                      if (controller.amount.value >= 10000) {
+                        Get.back();
                         controller.topUpAmount();
                       }
+                      // controller.testDeeplink();
                     },
                   ),
                 )

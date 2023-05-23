@@ -1,4 +1,5 @@
 import 'package:bookington_v2_2/core/app_export.dart';
+import 'package:bookington_v2_2/core/app_export.dart';
 
 import 'package:bookington_v2_2/presentation/choose_slot_screen/controller/choose_slot_controller.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
@@ -62,7 +63,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                                 Padding(
                                   padding: getPadding(top: 5, left: 21),
                                   child: Obx(() => Text(
-                                      DateFormat("dd-MM-yyyy").format(controller.playDate.value),
+                                      DateFormat("dd-MM-yyyy")
+                                          .format(controller.playDate.value),
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeBold18)),
@@ -78,12 +80,12 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                             Padding(
                                 padding:
                                     getPadding(left: 21, top: 5, bottom: 6),
-                                child: Obx(
-                                  () => Text(controller.courtName.value,
+                                child: Obx(() => Text(
+                                      controller.courtName.value,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtManropeBold18,
-                                ))),
+                                    ))),
                           ]))
                     ])),
           ),
@@ -101,8 +103,9 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
             decoration: AppDecoration.fillWhiteA700.copyWith(
               border: BorderRadiusStyle.borderBlack2,
             ),
-            child:  controller.obx(
-                  (state) => Obx(() => GridView.builder(
+            child: controller.obx(
+              (state) => Obx(
+                () => GridView.builder(
                     padding: getPadding(top: 5, left: 5, right: 5),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisExtent: getVerticalSize(95.00),
@@ -115,35 +118,37 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                     itemCount: controller.slotList.length,
                     itemBuilder: (BuildContext ctx, index) {
                       return SlotItemWidget(index);
-                    }),),
-                onLoading:
-                 Dialog(
-                  backgroundColor: Colors.transparent,
-                  child: Container(
-                    height: 150,
-                    width: 50,
-                    padding: getPadding(top: 50),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: getPadding(right: 10),
-                            child: const CircularProgressIndicator(),
-                          ),
-                          Padding(
-                            padding: getPadding(top: 20),
-                            child: Text("loading....",
-                                style: AppStyle.txtManropeSemiBold16),
-                          ),
-                        ],
-                      ),
+                    }),
+              ),
+              onLoading: Dialog(
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  height: 150,
+                  width: 50,
+                  padding: getPadding(top: 50),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: getPadding(right: 10),
+                          child: const CircularProgressIndicator(),
+                        ),
+                        Padding(
+                          padding: getPadding(top: 20),
+                          child: Text("loading....",
+                              style: AppStyle.txtManropeSemiBold16),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                onEmpty: const Dialog(
-                  child: Center(child: Text("EMPTY")),
-                )
+              ),
+              onEmpty: Center(
+                  child: Text(
+                "Not available slot now!",
+                style: AppStyle.txtManropeBold16,
+              )),
             ),
           ),
           Container(
@@ -167,10 +172,8 @@ class ChooseSlotScreen extends GetWidget<ChooseSlotController> {
                   height: getVerticalSize(15),
                   width: getHorizontalSize(30),
                   decoration: BoxDecoration(
-                    color: ColorConstant.whiteA700,
-                    border: BorderRadiusStyle.borderBlack2
-                  ),
-
+                      color: ColorConstant.whiteA700,
+                      border: BorderRadiusStyle.borderBlack2),
                 ),
                 Text(
                   "lbl_can_book".tr,

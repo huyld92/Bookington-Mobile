@@ -16,15 +16,40 @@ class WalletController extends GetxController with StateMixin {
 
   RxList<TransactionModel> listTransactionObj = <TransactionModel>[].obs;
   RxString balance = "".obs;
+  RxDouble amount = 0.0.obs;
 
   @override
-  void onInit() {
+  void onReady() {
     loadData();
-    super.onInit();
+    super.onReady();
   }
 
   Future<void> loadData() async {
     change(null, status: RxStatus.loading());
+    Map<String, String>? arg = Get.arguments;
+    if (arg != null) {
+      if (arg["paymentResult"] == "true") {
+        Get.snackbar(
+          'Top up',
+          "Top up successful",
+          colorText: ColorConstant.black900,
+          duration: const Duration(seconds: 1),
+          backgroundColor: ColorConstant.whiteA700,
+          icon: CustomImageView(
+              width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+        );
+      } else {
+        Get.snackbar(
+          'Top up',
+          "Top up failed",
+          colorText: ColorConstant.black900,
+          duration: const Duration(seconds: 1),
+          backgroundColor: ColorConstant.whiteA700,
+          icon: CustomImageView(
+              width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+        );
+      }
+    }
     await getBalance();
     await getListTransaction();
     change(null, status: RxStatus.success());
@@ -94,7 +119,7 @@ class WalletController extends GetxController with StateMixin {
 
   void addBalance() {
     Get.bottomSheet(TopUpWidget(), isDismissible: false).then((value) {
-      // rating.value = 0.0;
+      amountController.clear();
     });
   }
 
@@ -115,11 +140,24 @@ class WalletController extends GetxController with StateMixin {
               if (await canLaunchUrl(url)) {
                 print('can launch');
                 // Launch the url which will open Spotify
-                launchUrl(url);
+                launchUrl(url).then((value) async {
+                  await loadData();
+                  Get.snackbar(
+                    'Top up',
+                    "Top up success!",
+                    colorText: ColorConstant.black900,
+                    duration: const Duration(seconds: 10),
+                    backgroundColor: ColorConstant.whiteA700,
+                    icon: CustomImageView(
+                        width: 16,
+                        height: 16,
+                        svgPath: ImageConstant.imgNotify),
+                  );
+                });
               } else {
                 Get.snackbar(
                   'Top up',
-                  "Top up failed",
+                  "Top up failed!",
                   colorText: ColorConstant.black900,
                   duration: const Duration(seconds: 1),
                   backgroundColor: ColorConstant.whiteA700,
@@ -140,6 +178,26 @@ class WalletController extends GetxController with StateMixin {
       Logger.log("WalletController error at topUpAmount: ${e.toString()}");
     } finally {
       change(null, status: RxStatus.success());
+    }
+  }
+
+  testDeeplink() async {
+    var url = Uri.parse("myApp://bookington");
+
+    if (await canLaunchUrl(url)) {
+      print('can launch');
+      // Launch the url which will open Spotify
+      launchUrl(url);
+    } else {
+      Get.snackbar(
+        'Top up',
+        "Top up failed",
+        colorText: ColorConstant.black900,
+        duration: const Duration(seconds: 1),
+        backgroundColor: ColorConstant.whiteA700,
+        icon: CustomImageView(
+            width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+      );
     }
   }
 }

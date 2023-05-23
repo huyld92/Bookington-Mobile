@@ -1,5 +1,6 @@
 // ignore for file: unnecessary getters setters
 
+import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:intl/intl.dart';
 
@@ -36,6 +37,12 @@ class CourtModel {
       required this.listCourtImage});
 
   factory CourtModel.fromJson(Map<String, dynamic> json) {
+    List list = json["courtPictures"];
+    bool checkList= false;
+    if(list.isEmpty){
+      checkList = true;
+    }
+    print('checkList=$checkList');
     return CourtModel(
         id: json["id"] ?? "",
         name: json["name"] ?? "",
@@ -50,7 +57,7 @@ class CourtModel {
         openAt: DateFormat("HH:mm").parse(json["openAt"]),
         closeAt: DateFormat("HH:mm").parse(json["closeAt"]),
         isActive: json["isActive"],
-        listCourtImage: CourtImage.listFromJson(json["courtPictures"]),
+        listCourtImage: checkList ? List.filled(1, CourtImage.empty()):CourtImage.listFromJson(json["courtPictures"]),
          // listCourtImage: json["isActive"]
       );
   }

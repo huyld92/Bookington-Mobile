@@ -56,12 +56,13 @@ class SubCourtItemWidget extends StatelessWidget {
 
                 },
               ),
-              Text(
-                "Court $index",
-                style: TextStyle(
-                    color: controller.subCourtList[index-1].isAvailable
-                        ? (controller.subCourtList[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
-                        : ColorConstant.gray500),
+              Obx(() => Text(
+                  controller.subCourtList[index-1].name,
+                  style: TextStyle(
+                      color: controller.subCourtList[index-1].isAvailable
+                          ? (controller.subCourtList[index-1].isSelected ? ColorConstant.blue500:ColorConstant.black900)
+                          : ColorConstant.gray500),
+                ),
               ),
             ]),),
     );

@@ -1,3 +1,4 @@
+import 'package:bookington_v2_2/core/utils/deeplink_controller.dart';
 import 'package:bookington_v2_2/presentation/home_screen/widgets/court_item_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/loading_widget.dart';
@@ -11,7 +12,7 @@ import 'package:bookington_v2_2/widgets/custom_bottom_bar.dart';
 import 'package:bookington_v2_2/widgets/custom_icon_button.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,42 +25,33 @@ class HomeScreen extends GetWidget<HomeController> {
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.gray50,
             appBar: CustomAppBar(
-              height: getVerticalSize(
-                80.00
-              ),
+              height: getVerticalSize(80.00),
               title: Row(
                 children: [
                   Padding(
-                    padding: getPadding(
-                      left: 24,
-                      top: 10,
-                      bottom: 9
-                    ),
+                    padding: getPadding(left: 24, top: 10, bottom: 9),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: getPadding(
-                            top: 6
-                          ),
+                          padding: getPadding(top: 6),
                           child: Row(
                             children: [
-                              if (controller.homeModelObj.value.accountModel.imgBase.isEmpty)
+                              if (controller.homeModelObj.value.accountModel
+                                  .imgBase.isEmpty)
                                 AppbarImage(
                                   height: getSize(32.00),
                                   width: getSize(32.00),
                                   svgPath: ImageConstant.imgUser,
-                                  margin: getMargin(
-                                    bottom: 3,
-                                    right: 10
-                                  ),
+                                  margin: getMargin(bottom: 3, right: 10),
                                 )
                               else
                                 Obx(() => Container(
                                     width: getHorizontalSize(40),
                                     padding: getPadding(all: 5),
                                     child: Image.memory(
-                                        controller.homeModelObj.value.accountModel.imgBase,
+                                        controller.homeModelObj.value
+                                            .accountModel.imgBase,
                                         width: getSize(32),
                                         height: getSize(32)))),
                               Obx(() => Text(
@@ -67,7 +59,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                         .fullName,
                                     style: TextStyle(
                                         color: ColorConstant.black900),
-                                  )),
+                              )),
                             ],
                           ),
                         ),

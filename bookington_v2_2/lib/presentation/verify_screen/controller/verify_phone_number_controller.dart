@@ -69,7 +69,7 @@ class VerifyPhoneNumberController extends GetxController
       });
     } catch (error) {
       Get.defaultDialog(
-          title: "Verify otp error!", middleText: error.toString());
+          title: "Verify otp error!", middleText: "Please verify later");
     }
   }
 

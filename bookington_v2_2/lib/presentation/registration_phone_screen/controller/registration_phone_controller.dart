@@ -139,7 +139,7 @@ class RegistrationPhoneController extends GetxController with StateMixin {
         } else {
           Get.defaultDialog(
               title: "Send otp failed!",
-              middleText: jsonDecode(result.body)["Message"]);
+              middleText: "Please register later");
         }
       });
     } catch (e) {

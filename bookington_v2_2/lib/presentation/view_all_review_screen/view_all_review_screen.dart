@@ -8,6 +8,8 @@ import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
 import 'package:bookington_v2_2/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/view_review_empty_widget.dart';
+
 class ViewAllCommentScreen extends GetWidget<ViewAllCommentReviewController> {
   const ViewAllCommentScreen({super.key});
 
@@ -35,16 +37,23 @@ class ViewAllCommentScreen extends GetWidget<ViewAllCommentReviewController> {
         backgroundColor: ColorConstant.gray50,
         body: Container(
           padding: getPadding(all: 5),
-          child: Obx(
-            () => ListView.builder(
-              controller: controller.scroll,
-              shrinkWrap: true,
-              itemCount: controller.listComment.length,
-              itemBuilder: (context, index) {
-                CommentModel model = controller.listComment[index];
-                return  CommentItemWidgets(model);
-              },
-            ),
+          child: Column(
+            children: [
+              if (controller.listComment.isNotEmpty)
+                Obx(
+                  () => ListView.builder(
+                    controller: controller.scroll,
+                    shrinkWrap: true,
+                    itemCount: controller.listComment.length,
+                    itemBuilder: (context, index) {
+                      CommentModel model = controller.listComment[index];
+                      return CommentItemWidgets(model);
+                    },
+                  ),
+                )
+              else
+                const ViewReviewEmptyWidget()
+            ],
           ),
         ),
       ));

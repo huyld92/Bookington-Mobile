@@ -14,6 +14,8 @@ import 'package:bookington_v2_2/presentation/home_screen/models/home_model.dart'
 import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
 import 'package:bookington_v2_2/presentation/search_screen/models/search_model.dart';
 
+import '../../../core/utils/deeplink_controller.dart';
+
 class HomeController extends GetxController with StateMixin {
   late Rx<HomeModel> homeModelObj = HomeModel.empty().obs;
   RxInt totalUnread = 0.obs;
@@ -30,6 +32,11 @@ class HomeController extends GetxController with StateMixin {
 
   loadData() async {
     change(null, status: RxStatus.loading());
+    final DeepLinkController deepLinkController = Get.find();
+    if (deepLinkController.link.isNotEmpty) {
+      deepLinkController.handleLink(deepLinkController.link);
+      return;
+    }
     await getProfile();
     await queryNotifications();
     await searchByName();

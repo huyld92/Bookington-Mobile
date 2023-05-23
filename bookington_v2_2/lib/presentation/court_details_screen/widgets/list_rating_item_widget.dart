@@ -34,14 +34,14 @@ class ListRatingItemWidget extends StatelessWidget {
           padding: getPadding(
             left: 7,
             top: 4,
-            bottom: 7,
+            bottom: 7
           ),
           child: Container(
             height: getVerticalSize(
-              8.00,
+              8.00
             ),
             width: getHorizontalSize(
-              257.00,
+              257.00
             ),
             decoration: BoxDecoration(
               color: ColorConstant.gray300,

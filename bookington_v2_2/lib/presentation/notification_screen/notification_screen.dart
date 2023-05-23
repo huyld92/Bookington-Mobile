@@ -40,6 +40,9 @@ class NotificationScreen extends GetWidget<NotificationController> {
                       padding:
                           getPadding(left: 20, top: 25, right: 20, bottom: 17),
                       child: CustomImageView(
+                        onTap: () {
+                          controller.markAsReadNotification(99999);
+                        },
                         svgPath: ImageConstant.imgReadAll,
                       ))
                 ]),

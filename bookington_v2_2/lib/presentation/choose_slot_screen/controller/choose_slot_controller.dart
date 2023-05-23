@@ -64,22 +64,27 @@ class ChooseSlotController extends GetxController with StateMixin {
   }
 
   Future<void> getAvailableSlot() async {
+    bool isError = false;
     try {
       change(null, status: RxStatus.loading());
       String strPlayDate = DateFormat("yyyy-MM-dd").format(playDate.value);
+      print(subCourtID + "  " + strPlayDate);
+
       await ApiClient.getAvailableSlot(subCourtID, strPlayDate).then((result) {
         if (result.statusCode == 200) {
           var jsonResult = jsonDecode(result.body);
           slotList.value =
               SlotModel.listFromJson(jsonResult["result"]["slots"]);
           listSelected.value = RxList.filled(slotList.length, false);
-          // validateSlot(strPlayDate);
+          validateSlot(strPlayDate);
            slotList.refresh();
           listSelected.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
         }  else if (result.statusCode == 500){
-          print('error 500');
+          isError= true;
+          Logger.log(
+              "ChooseSlotController error at getAvailableSlot: ${result.statusCode}\n ${result.body}");
         } else {
           Logger.log(
               "ChooseSlotController error at getAvailableSlot: ${result.statusCode}");
@@ -89,7 +94,12 @@ class ChooseSlotController extends GetxController with StateMixin {
       Logger.log(
           "ChooseSlotController error at getAvailableSlot: ${e.toString()}");
     } finally {
-      change(null, status: RxStatus.success());
+      if(!isError) {
+        change(null, status: RxStatus.success());
+      } else {
+        change(null, status: RxStatus.empty());
+      }
+
     }
   }
 

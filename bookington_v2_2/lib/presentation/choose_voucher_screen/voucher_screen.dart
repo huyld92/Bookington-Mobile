@@ -4,6 +4,7 @@ import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/models/voucher_model.dart';
 import 'package:bookington_v2_2/presentation/choose_voucher_screen/controller/voucher_controller.dart';
 import 'package:bookington_v2_2/presentation/choose_voucher_screen/widgets/list_voucher_item_widget.dart';
+import 'package:bookington_v2_2/presentation/choose_voucher_screen/widgets/voucher_empty_widget.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_image.dart';
 import 'package:bookington_v2_2/widgets/app_bar/appbar_title.dart';
 import 'package:bookington_v2_2/widgets/app_bar/custom_app_bar.dart';
@@ -83,29 +84,33 @@ class VoucherScreen extends GetWidget<VoucherController> {
                       ],
                     ),
                     Container(
-                      height: 520,
+                      height: getVerticalSize(520),
                       margin: getMargin(top: 20),
-                      child: SingleChildScrollView(
-                        padding: getPadding(top: 10),
-                        child: Obx(
-                          () => ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            separatorBuilder: (context, index) {
-                              return SizedBox(
-                                height: getVerticalSize(
-                                  20.00,
-                                ),
-                              );
-                            },
-                            itemCount: controller.listVoucherMode.length,
-                            itemBuilder: (context, index) {
-                              VoucherModel model =
-                                  controller.listVoucherMode[index];
-                              return ListVoucherItemWidget(model, index);
-                            },
-                          ),
-                        ),
+                      child: Column(
+                        children: [
+                          if (controller.listVoucherMode.isNotEmpty)
+                            Obx(
+                              () => ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: getVerticalSize(
+                                      20.00,
+                                    ),
+                                  );
+                                },
+                                itemCount: controller.listVoucherMode.length,
+                                itemBuilder: (context, index) {
+                                  VoucherModel model =
+                                      controller.listVoucherMode[index];
+                                  return ListVoucherItemWidget(model, index);
+                                },
+                              ),
+                            )
+                          else
+                            VoucherEmptyWidget()
+                        ],
                       ),
                     )
                   ],
@@ -125,7 +130,7 @@ class VoucherScreen extends GetWidget<VoucherController> {
                     width: 320,
                     text: "lbl_ok".tr,
                     onTap: () {
-                       controller.getBack();
+                      controller.getBack();
                     },
                   )
                 ],

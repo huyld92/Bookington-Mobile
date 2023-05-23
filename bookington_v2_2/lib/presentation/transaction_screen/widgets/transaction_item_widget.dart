@@ -32,7 +32,7 @@ class TransactionItemWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtManropeMedium16Black900,
-                maxLines: 3,
+                maxLines:6,
               ),
             ),
             Row(

@@ -11,9 +11,17 @@ import 'package:intl/intl.dart';
 
 class ChooseCourtController extends GetxController with StateMixin {
   var selectedDate =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
+      DateTime(DateTime
+          .now()
+          .year, DateTime
+          .now()
+          .month, DateTime
+          .now()
+          .day)
           .obs;
-  var selectedTime = DateTime.now().obs;
+  var selectedTime = DateTime
+      .now()
+      .obs;
   RxString selectedIndex = "".obs;
 
   RxList<ChooseCourtModel> subCourtList = <ChooseCourtModel>[].obs;
@@ -32,7 +40,9 @@ class ChooseCourtController extends GetxController with StateMixin {
       selectedDate.value = arg["playDate"];
       selectedTime.value = arg["playTime"];
     }
-     getAvailableSubCourt();
+
+    print(arg.toString());
+    getAvailableSubCourt();
   }
 
   void getAvailableSubCourt() {
@@ -41,7 +51,7 @@ class ChooseCourtController extends GetxController with StateMixin {
 
       String playDate = DateFormat("yyy-MM-dd").format(selectedDate.value);
       String startTime =
-          DateFormat("HH:mm").format(selectedTime.value); //'13:45:42.0000000';
+      DateFormat("HH:mm").format(selectedTime.value); //'13:45:42.0000000';
       ApiClient.getAvailableSubCourt(courtId, playDate, startTime)
           .then((result) {
         print('statusCode: ${result.statusCode}');
@@ -50,6 +60,7 @@ class ChooseCourtController extends GetxController with StateMixin {
           final jsonResult = jsonDecode(result.body);
           subCourtList.value =
               ChooseCourtModel.listFromJson(jsonResult["result"]);
+          subCourtList.sort((a, b) => a.name.compareTo(b.name));
           subCourtList.refresh();
           if (subCourtList.isEmpty) {
             change(null, status: RxStatus.empty());
@@ -60,17 +71,20 @@ class ChooseCourtController extends GetxController with StateMixin {
           logout();
         } else {
           Logger.log(
-              "ChooseCourtController error at getAvailableSubCourt: ${result.statusCode}");        }
+              "ChooseCourtController error at getAvailableSubCourt: ${result
+                  .statusCode}");
+        }
         change(null, status: RxStatus.success());
       });
     } catch (e) {
       Logger.log(
-          "ChooseCourtController ERROR at getAvailableSubCourt: ${e.toString()}");
+          "ChooseCourtController ERROR at getAvailableSubCourt: ${e
+              .toString()}");
     }
   }
 
 
-  void logout()  {
+  void logout() {
     PrefUtils.clearPreferencesData();
     Map<String, bool> arg = {"timeOut": true};
     Get.offAllNamed(AppRoutes.loginScreen, arguments: arg);
@@ -135,7 +149,6 @@ class ChooseCourtController extends GetxController with StateMixin {
       getAvailableSubCourt();
     }
     selectedIndex.value = "";
-
   }
 
   void nextChooseSlot() {
@@ -147,11 +160,12 @@ class ChooseCourtController extends GetxController with StateMixin {
         "name": subCourtList[index].name,
         "playDate": DateFormat('dd-MM-yyyy').format(selectedDate.value),
       };
+      print('courtName:${subCourtList[index].name}');
       Get.toNamed(AppRoutes.chooseSlotScreen, arguments: arg);
     }
   }
 
   getBack() {
-     Get.back();
+    Get.back();
   }
 }

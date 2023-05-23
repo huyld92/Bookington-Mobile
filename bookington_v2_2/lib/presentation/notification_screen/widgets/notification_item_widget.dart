@@ -22,7 +22,7 @@ class NotificationItemWidget extends StatelessWidget {
       decoration: AppDecoration.fillBlue50,
       child: InkWell(
         onTap: () {
-          controller.readNotification(index);
+          controller.markAsReadNotification(index);
         },
         child: Stack(
           alignment: Alignment.centerLeft,
@@ -86,7 +86,7 @@ class NotificationItemWidget extends StatelessWidget {
                           notificationModel.content,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
-                          maxLines: 4,
+                          maxLines: 6,
                           style: AppStyle.txtManropeMedium14.copyWith(
                             letterSpacing: getHorizontalSize(0.5),
                           ),

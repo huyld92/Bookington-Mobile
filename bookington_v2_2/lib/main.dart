@@ -10,9 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'core/app_export.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
-
-
+    FlutterLocalNotificationsPlugin();
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -51,8 +49,8 @@ class MyApp extends StatelessWidget {
       fallbackLocale: const Locale('en', 'GB'),
       title: 'Bookington',
       initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.initialRoute,
-       getPages: AppRoutes.pages,
+      initialRoute:  AppRoutes.initialRoute,
+      getPages: AppRoutes.pages,
     );
   }
 }

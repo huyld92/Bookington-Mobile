@@ -14,7 +14,7 @@ class CourtImage {
 
   factory CourtImage.fromJson(Map<String, dynamic> json) {
     Uint8List bytesImage;
-    if (json["content"] != null) {
+     if (json["content"] != null) {
       bytesImage = const Base64Decoder().convert(json["content"]);
     } else {
       bytesImage = const Base64Decoder().convert(ImageConstant.noCourtBase);

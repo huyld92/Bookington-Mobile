@@ -52,7 +52,8 @@ class NotificationController extends GetxController
                   .addAll(NotificationModel.listFromJson(jsonResult["result"]));
             }
           }
-          listNotificationModel.sort((a, b) => b.createAt.compareTo(a.createAt));
+          listNotificationModel
+              .sort((a, b) => b.createAt.compareTo(a.createAt));
           listNotificationModel.refresh();
         } else if (result.statusCode == 401 || result.statusCode == 403) {
           logout();
@@ -83,23 +84,25 @@ class NotificationController extends GetxController
     Get.back(result: "notify screen back");
   }
 
-  Future<void> readNotification(int index) async {
-    listNotificationModel[index].isRead = true;
-    listNotificationModel.refresh();
+  Future<void> markAsReadNotification(int index) async {
     try {
       List<String> listMapNotification = List.empty(growable: true);
       if (index < listNotificationModel.length) {
+        listNotificationModel[index].isRead = true;
         listMapNotification.add(listNotificationModel[index].id);
         print(listMapNotification[0].toString());
-      } else if (index == -999) {
-        listMapNotification = listNotificationModel.map((element) => element.id).toList();
-        print(listMapNotification.asMap().toString());
+      } else if (index == 99999) {
+        listMapNotification =
+            listNotificationModel.map((element) => element.id).toList();
+        for (var element in listNotificationModel) {
+          element.isRead = true;
+        }
       }
+      listNotificationModel.refresh();
       if (listMapNotification.isNotEmpty) {
         await ApiClient.markAllAsRead(listMapNotification).then((result) {
           print('result.statusCode:${result.statusCode}');
           if (result.statusCode == 204) {
-
             // var jsonResult = jsonDecode(result.body);
             // print(jsonResult.toString());
           } else if (result.statusCode == 401 || result.statusCode == 403) {
@@ -114,7 +117,6 @@ class NotificationController extends GetxController
       Logger.log(
           "NotificationController error at readNotification: ${e.toString()}");
     }
-    listNotificationModel.refresh();
   }
 
   @override

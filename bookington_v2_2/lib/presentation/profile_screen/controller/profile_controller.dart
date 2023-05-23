@@ -120,7 +120,9 @@ class ProfileController extends GetxController with StateMixin {
   }
 
   void walletScreen() {
-    Get.toNamed(AppRoutes.walletScreen);
+    Get.toNamed(AppRoutes.walletScreen)?.then((value) {
+      loadData();
+    });
   }
 
   void changePassword() {

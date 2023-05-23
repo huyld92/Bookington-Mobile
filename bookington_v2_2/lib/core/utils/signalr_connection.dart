@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/app_url.dart';
 import 'package:bookington_v2_2/core/utils/notify.dart';
-import 'package:bookington_v2_2/core/utils/pref_utils.dart';
 import 'package:bookington_v2_2/main.dart';
 import 'package:bookington_v2_2/presentation/home_screen/controller/home_controller.dart';
-import 'package:bookington_v2_2/presentation/notification_screen/controller/notification_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
 class SignalrConnection extends ChangeNotifier {
@@ -27,7 +23,7 @@ class SignalrConnection extends ChangeNotifier {
             options: HttpConnectionOptions(
               accessTokenFactory: () =>
                   Future.value(PrefUtils.getAccessToken()),
-              transport: HttpTransportType.WebSockets,
+              transport: HttpTransportType.ServerSentEvents,
             ))
         .build();
     hubConnection.onclose(

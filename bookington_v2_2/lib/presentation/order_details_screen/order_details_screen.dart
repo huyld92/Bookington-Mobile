@@ -40,7 +40,7 @@ class OrderDetailsScreen extends GetWidget<OrderDetailsController> {
                       Padding(
                         padding: getPadding(right: 20),
                         child: Text(
-                          "Status: #",
+                          "Status:",
                           style: AppStyle.txtManropeBold16,
                         ),
                       ),
@@ -68,7 +68,7 @@ class OrderDetailsScreen extends GetWidget<OrderDetailsController> {
                                     : ColorConstant.yellow700,
                                 borderRadius:
                                     BorderRadiusStyle.roundedBorder10),
-                            child: Text("lbl_cancel".tr,
+                            child: Text("lbl_cancelled".tr,
                                 style: AppStyle.txtManropeSemiBold16whiteA700)))
                       else if (controller.orderHistory.value.isPaid)
                         Obx(() => Container(
@@ -115,6 +115,8 @@ class OrderDetailsScreen extends GetWidget<OrderDetailsController> {
                           child: Text(
                             "Court: ${controller.orderHistory.value.courtName}",
                             style: AppStyle.txtManropeBold16,
+                            softWrap: true,
+                          maxLines: 2,
                           ),
                         ),
                       ],

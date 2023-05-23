@@ -1,3 +1,4 @@
+import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Notify {
@@ -7,7 +8,12 @@ class Notify {
         const AndroidInitializationSettings('mipmap/ic_launcher');
     var initializationsSettings =
         InitializationSettings(android: androidInitialize);
-    await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationsSettings,
+      onDidReceiveNotificationResponse: (details) {
+        Get.toNamed(AppRoutes.notificationScreen);
+      },
+    );
   }
 
   static Future showBigTextNotification(
@@ -21,12 +27,14 @@ class Notify {
       'you_can_name_it_whatever1',
       'channel_name',
       playSound: true,
-      // sound: RawResourceAndroidNotificationSound('notification'),
+      sound: RawResourceAndroidNotificationSound('notification'),
       importance: Importance.max,
       priority: Priority.high,
     );
 
-    var not = NotificationDetails(android: androidPlatformChannelSpecifics);
+    var not = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+    );
     await fln.show(0, title, body, not);
   }
 }
