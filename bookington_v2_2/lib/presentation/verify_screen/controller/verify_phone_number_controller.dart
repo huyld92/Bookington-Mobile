@@ -63,7 +63,7 @@ class VerifyPhoneNumberController extends GetxController
           Get.offNamed(AppRoutes.loginScreen);
         } else {
           Get.defaultDialog(
-              title: "Verify otp failed!",
+              title: "Verify account failed!",
               middleText: jsonDecode(result.body)["Message"]);
         }
       });

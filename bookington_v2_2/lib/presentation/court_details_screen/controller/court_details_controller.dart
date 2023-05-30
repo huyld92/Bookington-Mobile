@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
- import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
+import 'package:bookington_v2_2/data/models/comment_rating_model.dart';
 import 'package:bookington_v2_2/data/models/court_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/models/court_details_model.dart';
 import 'package:bookington_v2_2/presentation/court_details_screen/widgets/comment_rating_widget.dart';
@@ -17,6 +17,7 @@ class CourtDetailsController extends GetxController with StateMixin {
   RxDouble rating = 0.0.obs;
   RxInt ratingStart = 0.obs;
   RxString errorText = "".obs;
+  RxBool isBooked = false.obs;
 
   @override
   void onInit() {
@@ -26,11 +27,12 @@ class CourtDetailsController extends GetxController with StateMixin {
     super.onInit();
   }
 
-  loadData() {
+  loadData() async {
     try {
       Map<String, dynamic>? arg = Get.arguments;
       if (arg != null) {
-        getCourtDetails(arg["courtId"]!);
+        await getCourtDetails(arg["courtId"]!);
+        await CheckUserIsBooked();
       }
     } on Exception {
       getBack();
@@ -45,7 +47,7 @@ class CourtDetailsController extends GetxController with StateMixin {
         if (result.statusCode == 200) {
           CourtModel court =
               CourtModel.fromJson(jsonDecode(result.body)["result"]);
-           courtDetailsModelObj.value = CourtDetailsModel(court);
+          courtDetailsModelObj.value = CourtDetailsModel(court);
 
           courtDetailsModelObj.value.slidericonItemList.value =
               court.listCourtImage;
@@ -208,5 +210,40 @@ class CourtDetailsController extends GetxController with StateMixin {
 
   void reportCourtBottomSheet() {
     Get.bottomSheet(ReportCourtWidget(), isDismissible: false);
+  }
+
+  CheckUserIsBooked() async {
+    change(null, status: RxStatus.loading());
+    try {
+      String courtId = courtDetailsModelObj.value.id;
+      String userId = PrefUtils.getString("userID")!;
+      await ApiClient.checkUserIsBooked(userId, courtId).then((result) {
+        if (result.statusCode == 201) {
+          var jsonResult = jsonDecode(result.body);
+          isBooked.value = jsonResult["result"] ?? false;
+
+        } else if (result.statusCode == 401 || result.statusCode == 403) {
+          logout();
+        } else {
+           isBooked.value = false;
+        }
+      });
+    } catch (e) {
+      isBooked.value = false;
+      // Get.snackbar(
+      //   'Report',
+      //   "Report court ${courtDetailsModelObj.value.name} failed",
+      //   colorText: ColorConstant.black900,
+      //   duration: const Duration(milliseconds: 2000),
+      //   backgroundColor: ColorConstant.whiteA700,
+      //   icon: CustomImageView(
+      //       width: 16, height: 16, svgPath: ImageConstant.imgNotify),
+      // );
+      Logger.log(
+          "CourtDetailsController ERROR at reportCourt: ${e.toString()}");
+    } finally {
+      reportContentController.clear();
+      change(null, status: RxStatus.success());
+    }
   }
 }

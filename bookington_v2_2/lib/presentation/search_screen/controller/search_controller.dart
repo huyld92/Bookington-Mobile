@@ -99,8 +99,8 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
         searchText: searchController.text.trim(),
         district: selectedDistrict.value.districtName,
         province: selectedProvince.value.provinceName,
-        // playDate: DateFormat("yyyy-MM-dd").format(selectedDate.value),
-        playDate: "",
+        playDate: DateFormat("yyyy-MM-dd").format(selectedDate.value),
+        // playDate: "",
         playTime: DateFormat("HH:mm").format(selectedTime.value),
         pageNumber: pageNumber,
         maxPageSize: maxPageSize);
@@ -126,7 +126,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
           logout();
         } else {
           Logger.log(
-              "SearchController error at searchByName: ${result.statusCode}");
+              "SearchController error at searchByName: ${result.statusCode} \n ${result.body}");
         }
       });
 

@@ -38,17 +38,18 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                 centerTitle: true,
                 title: AppbarTitle(text: "lbl_court_details".tr),
                 actions: [
-                  Container(
-                    margin: getMargin(right: 15),
-                    child: CustomImageView(
-                      onTap: () {
-                        controller.reportCourtBottomSheet();
-                      },
-                      width: getSize(28),
-                      height: getSize(28),
-                      svgPath: ImageConstant.imgFlat,
-                    ),
-                  )
+                  if (controller.isBooked.value)
+                    Container(
+                      margin: getMargin(right: 15),
+                      child: CustomImageView(
+                        onTap: () {
+                          controller.reportCourtBottomSheet();
+                        },
+                        width: getSize(28),
+                        height: getSize(28),
+                        svgPath: ImageConstant.imgFlat,
+                      ),
+                    )
                 ]),
             backgroundColor: ColorConstant.whiteA700,
             body: SizedBox(
@@ -113,12 +114,8 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                       spacing: 4,
                                       activeDotColor: ColorConstant.blue500,
                                       dotColor: ColorConstant.gray30099,
-                                      dotHeight: getVerticalSize(
-                                        3.00,
-                                      ),
-                                      dotWidth: getHorizontalSize(
-                                        16.00,
-                                      ),
+                                      dotHeight: getVerticalSize(3.00),
+                                      dotWidth: getHorizontalSize(16.00),
                                     ),
                                   ),
                                 ),
@@ -129,9 +126,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                       ),
                       Container(
                           width: getSize(360),
-                          padding: getPadding(
-                            top: 5,
-                          ),
+                          padding: getPadding(top: 5),
                           child: Column(
                             children: [
                               //time and phone
@@ -204,9 +199,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: getPadding(
-                                              top: 1,
-                                            ),
+                                            padding: getPadding(top: 1),
                                             child: Obx(
                                               () => Text(
                                                 controller.courtDetailsModelObj
@@ -295,9 +288,7 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                                             ),
                                           ),
                                           Padding(
-                                              padding: getPadding(
-                                                left: 5
-                                              ),
+                                              padding: getPadding(left: 5),
                                               child: Padding(
                                                 padding: getPadding(top: 1),
                                                 child: Obx(
@@ -508,23 +499,24 @@ class CourtDetailsScreen extends GetWidget<CourtDetailsController> {
                         ),
                       ),
                       // button write a review
-                      Container(
-                        width: getHorizontalSize(342.00),
-                        // color: Colors.black,
-                        padding: getPadding(top: 15, bottom: 20, right: 10),
-                        alignment: Alignment.center,
-                        child: CustomButton(
-                          height: getVerticalSize(48),
-                          width: getHorizontalSize(265),
-                          text: "lbl_write_review".tr,
-                          padding: ButtonPadding.PaddingAll12,
-                          variant: ButtonVariant.OutlineGray300,
-                          fontStyle: ButtonFontStyle.ManropeBold16,
-                          onTap: () {
-                            controller.commentAndRatingBottomSheet();
-                          },
+                      if (controller.isBooked.value)
+                        Container(
+                          width: getHorizontalSize(342.00),
+                          // color: Colors.black,
+                          padding: getPadding(top: 15, bottom: 20, right: 10),
+                          alignment: Alignment.center,
+                          child: CustomButton(
+                            height: getVerticalSize(48),
+                            width: getHorizontalSize(265),
+                            text: "lbl_write_review".tr,
+                            padding: ButtonPadding.PaddingAll12,
+                            variant: ButtonVariant.OutlineGray300,
+                            fontStyle: ButtonFontStyle.ManropeBold16,
+                            onTap: () {
+                              controller.commentAndRatingBottomSheet();
+                            },
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),

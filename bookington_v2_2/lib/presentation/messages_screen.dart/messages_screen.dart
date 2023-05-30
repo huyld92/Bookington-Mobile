@@ -39,7 +39,7 @@ class MessagesScreen extends GetWidget<MessagesController> {
       case BottomBarEnum.Home:
         return AppRoutes.homeScreen;
       case BottomBarEnum.Message:
-        return AppRoutes.messageChatScreen;
+        return AppRoutes.messagesScreen;
       case BottomBarEnum.Search:
         return AppRoutes.searchScreen;
       case BottomBarEnum.Forum:

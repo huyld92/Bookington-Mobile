@@ -112,9 +112,10 @@ class ApiClient extends GetConnect {
       "Authorization": "Bearer $sysToken",
     };
     var url = Uri.parse(
-        "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.searchText}&District="
+        "${AppUrl.searchCourtEndPoint}?SearchText=${searchValue.searchText}&Province=${searchValue.province}&District="
         "${searchValue.district}&PlayDate=${searchValue.playDate}&PlayTime="
         "${searchValue.playTime}&PageNumber=$pageNumber&MaxPageSize=$maxPageSize");
+    print('url search: $url');
     http.Response response = await http.get(url, headers: header);
     return response;
   }
@@ -470,6 +471,18 @@ class ApiClient extends GetConnect {
       'Content-Type': 'application/json',
     };
     http.Response response = await http.post(url, headers: headers);
+
+    return response;
+  }
+
+  static checkUserIsBooked(String userId, String courtId) async {
+    var url = Uri.parse('${AppUrl.checkUserIsBooked}?userId=$userId&courtId=$courtId');
+    String? sysToken = PrefUtils.getAccessToken();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $sysToken",
+      'Content-Type': 'application/json',
+    };
+    http.Response response = await http.get(url, headers: headers);
 
     return response;
   }

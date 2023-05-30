@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "huydd.fu.bookington",
+      "sha256_cert_fingerprints": ["D5:BF:A5:0B:38:7B:D5:9D:9D:2F:52:E8:86:F1:53:F3:37:0F:77:F9:EA:97:CF:76:CF:57:33:2E:BB:BA:D7:F4"]
+    }
+  }
+]

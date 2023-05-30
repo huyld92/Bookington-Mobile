@@ -47,7 +47,7 @@ class CommentRatingWidget extends StatelessWidget {
                               initialRating: 0,
                               minRating: 1,
                               direction: Axis.horizontal,
-                              allowHalfRating: true,
+                              allowHalfRating: false,
                               itemCount: 5,
                               itemSize: 50,
                               itemBuilder: (context, _) => const Icon(

@@ -19,7 +19,7 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
       bottom: false,
       child: GestureDetector(
         onTap: () {
-           FocusScope.of(context).requestFocus(FocusNode());
+          FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
           backgroundColor: ColorConstant.whiteA700,
@@ -43,12 +43,16 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Phu Tho Court Ow".tr,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtManropeBold18.copyWith(
-                                letterSpacing: getHorizontalSize(0.10),),),),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Phu Tho Court Ow".tr,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtManropeBold18.copyWith(
+                          letterSpacing: getHorizontalSize(0.10),
+                        ),
+                      ),
+                    ),
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -66,219 +70,145 @@ class MessageChatScreen extends GetWidget<MessageChatController> {
             ]),
           ),
           resizeToAvoidBottomInset: true,
-          body: Container(
-            width: size.width,
-            padding: getPadding(bottom: 14),
-            child: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        height: getVerticalSize(1.00),
-                        width: size.width,
-                        decoration:
-                            BoxDecoration(color: ColorConstant.gray300)),
-                    Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                            padding: getPadding(top: 16),
-                            child: Text("lbl_today".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeSemiBold12.copyWith(
-                                    letterSpacing: getHorizontalSize(0.40))))),
-                    CustomButton(
-                        height: 53,
-                        width: 97,
-                        text: "Xin Chào".tr,
-                        margin: getMargin(top: 15, right: 24),
-                        variant: ButtonVariant.FillBlue50,
-                        shape: ButtonShape.CustomBorderTL10,
-                        fontStyle: ButtonFontStyle.ManropeMedium14),
-                    Container(
-                        width: getHorizontalSize(264.00),
-                        margin: getMargin(top: 8, right: 24),
-                        padding: getPadding(all: 16),
-                        decoration: AppDecoration.fillBlue50.copyWith(
-                            borderRadius: BorderRadiusStyle.customBorderTL10),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                  width: getHorizontalSize(218.00),
-                                  child: Text("Tôi có để quên đồ ở sân vào ngày hôm qua".tr,
-                                      maxLines: null,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtManropeMedium14))
-                            ])),
-                    Padding(
-                        padding: getPadding(top: 5, right: 24),
-                        child: Text("12:13".tr,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: AppStyle.txtManropeRegular12.copyWith(
-                                letterSpacing: getHorizontalSize(0.40)))),
-                    Align(
-                        alignment: Alignment.centerLeft,
+          body: Column(
+            children: [
+              Expanded(
+                child: Obx(() {
+                  return ListView.builder(
+                    reverse: true,
+                    itemCount: controller.messages.length,
+                    itemBuilder: (context, index) {
+                      final message = controller.messages[index];
+                      return Align(
+                        alignment: message.isMe
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: Container(
-                            width: getHorizontalSize(210.00),
-                            margin: getMargin(left: 24, top: 15),
-                            padding: getPadding(
-                                left: 16, top: 13, right: 16, bottom: 13),
-                            decoration: AppDecoration.fillBluegray50.copyWith(
-                                borderRadius:
-                                    BorderRadiusStyle.customBorderTL10),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: getHorizontalSize(154.00),
-                                      margin: getMargin(top: 4),
-                                      child: Text("Chào bạn".tr,
-                                          maxLines: null,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtManropeMedium14))
-                                ]))),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                            padding: getPadding(left: 24, top: 5),
-                            child: Text("12:15".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtManropeRegular12.copyWith(
-                                    letterSpacing: getHorizontalSize(0.40))))),
-                    // Container(
-                    //     width: getHorizontalSize(264.00),
-                    //     margin: getMargin(top: 15, right: 24),
-                    //     padding: getPadding(
-                    //         left: 16, top: 13, right: 16, bottom: 13),
-                    //     decoration: AppDecoration.fillBlue50.copyWith(
-                    //         borderRadius: BorderRadiusStyle.customBorderTL10),
-                    //     child: Column(
-                    //         mainAxisSize: MainAxisSize.min,
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: [
-                    //           Container(
-                    //               width: getHorizontalSize(222.00),
-                    //               margin: getMargin(top: 4),
-                    //               child: Text("dasdasdsad".tr,
-                    //                   maxLines: null,
-                    //                   textAlign: TextAlign.left,
-                    //                   style: AppStyle.txtManropeMedium14))
-                    //         ])),
-                    // Padding(
-                    //     padding: getPadding(top: 5, right: 24),
-                    //     child: Text("12:18".tr,
-                    //         overflow: TextOverflow.ellipsis,
-                    //         textAlign: TextAlign.left,
-                    //         style: AppStyle.txtManropeRegular12.copyWith(
-                    //             letterSpacing: getHorizontalSize(0.40)))),
-                    // Align(
-                    //     alignment: Alignment.centerLeft,
-                    //     child: Container(
-                    //         width: getHorizontalSize(176.00),
-                    //         margin: getMargin(left: 24, top: 15),
-                    //         padding: getPadding(
-                    //             left: 16, top: 13, right: 16, bottom: 13),
-                    //         decoration: AppDecoration.fillBluegray50.copyWith(
-                    //             borderRadius:
-                    //                 BorderRadiusStyle.customBorderTL10),
-                    //         child: Column(
-                    //             mainAxisSize: MainAxisSize.min,
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             children: [
-                    //               Container(
-                    //                   width: getHorizontalSize(140.00),
-                    //                   margin: getMargin(top: 4),
-                    //                   child: Text("acsascascascas".tr,
-                    //                       maxLines: null,
-                    //                       textAlign: TextAlign.left,
-                    //                       style: AppStyle.txtManropeMedium14))
-                    //             ]))),
-                    // Align(
-                    //     alignment: Alignment.centerLeft,
-                    //     child: Padding(
-                    //         padding: getPadding(left: 24, top: 5, bottom: 5),
-                    //         child: Text("12:19".tr,
-                    //             overflow: TextOverflow.ellipsis,
-                    //             textAlign: TextAlign.left,
-                    //             style: AppStyle.txtManropeRegular12.copyWith(
-                    //                 letterSpacing: getHorizontalSize(0.40)))))
-                  ],),
-            ),
+                          padding: getPadding(left: 12, top: 9, right: 12, bottom: 8),
+                          margin: getMargin(left: 16, top: 9, right: 16, bottom: 8),
+                          decoration: BoxDecoration(
+                            color: message.isMe
+                                ? ColorConstant.blue300
+                                : ColorConstant.gray300,
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          child: Text(
+                            message.text,
+                            style: AppStyle.txtManropeRegular16
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
+              Container(
+                padding: getPadding(all: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    top: BorderSide(color: ColorConstant.gray300),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: const InputDecoration.collapsed(
+                          hintText: 'Type a message...',
+                        ),
+                        maxLines: null,
+                        // Allow multiple lines
+                        textInputAction: TextInputAction.newline,
+                        // Create new line on Enter
+                        onSubmitted: (text) {
+                          if (text.trim().isNotEmpty) {
+                            controller.sendMessage(text);
+                          }
+                        },
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () {
+                        final text = controller.messagesController.text;
+                        if (text.trim().isNotEmpty) {
+                          controller.sendMessage(text);
+                          controller.messagesController.clear();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          bottomNavigationBar: Container(
-            width: size.width,
-            decoration: AppDecoration.outlineBluegray1000f,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    width: size.width,
-                    padding:
-                        getPadding(left: 24, top: 16, right: 24, bottom: 16),
-                    decoration: AppDecoration.outlineBluegray1000f,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              width: 290,
-                              height: 56,
-                              padding: getPadding(
-                                  left: 16, top: 5, right: 16, bottom: 5),
-                              decoration: AppDecoration.fillBluegray50.copyWith(
-                                  borderRadius:
-                                      BorderRadiusStyle.roundedBorder20),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 210,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom),
-                                        child: TextField(
-                                          controller: controller.messagesController,
-                                          focusNode: FocusNode(),
-                                          decoration: InputDecoration(
-                                            hintText: 'Aa'.tr,
-                                            contentPadding: getPadding(all: 5),
-                                            border: InputBorder.none,
-                                          ),
-                                          textInputAction: TextInputAction.send,
-
-                                        ),
-                                      ),
-                                    ),
-                                    CustomImageView(
-                                        svgPath: ImageConstant.imgCamera,
-                                        height: getSize(24.00),
-                                        width: getSize(24.00),
-                                        margin: getMargin(left: 10),
-                                        onTap: () {
-                                          onTapImgCamera();
-                                        })
-                                  ])),
-                          CustomIconButton(
-                              height: 56,
-                              width: 56,
-                              variant: IconButtonVariant.FillBlue400,
-                              padding: IconButtonPadding.PaddingAll16,
-                              child: CustomImageView(
-                                  svgPath: ImageConstant.imgSend))
-                        ]))
-              ],
-            ),
-          ),
+          // bottomNavigationBar: Container(
+          //   width: size.width,
+          //   decoration: AppDecoration.outlineBluegray1000f,
+          //   child: Column(
+          //     mainAxisSize: MainAxisSize.min,
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       Container(
+          //           width: size.width,
+          //           padding:
+          //               getPadding(left: 24, top: 16, right: 24, bottom: 16),
+          //           decoration: AppDecoration.outlineBluegray1000f,
+          //           child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 Container(
+          //                     width: 290,
+          //                     height: 56,
+          //                     padding: getPadding(
+          //                         left: 16, top: 5, right: 16, bottom: 5),
+          //                     decoration: AppDecoration.fillBluegray50.copyWith(
+          //                         borderRadius:
+          //                             BorderRadiusStyle.roundedBorder20),
+          //                     child: Row(
+          //                         mainAxisAlignment: MainAxisAlignment.center,
+          //                         children: [
+          //                           SizedBox(
+          //                             width: 210,
+          //                             child: Padding(
+          //                               padding: EdgeInsets.only(
+          //                                   bottom: MediaQuery.of(context)
+          //                                       .viewInsets
+          //                                       .bottom),
+          //                               child: TextField(
+          //                                 controller: controller.messagesController,
+          //                                 focusNode: FocusNode(),
+          //                                 decoration: InputDecoration(
+          //                                   hintText: 'Aa'.tr,
+          //                                   contentPadding: getPadding(all: 5),
+          //                                   border: InputBorder.none,
+          //                                 ),
+          //                                 textInputAction: TextInputAction.send,
+          //
+          //                               ),
+          //                             ),
+          //                           ),
+          //                           CustomImageView(
+          //                               svgPath: ImageConstant.imgCamera,
+          //                               height: getSize(24.00),
+          //                               width: getSize(24.00),
+          //                               margin: getMargin(left: 10),
+          //                               onTap: () {
+          //                                 onTapImgCamera();
+          //                               })
+          //                         ])),
+          //                 CustomIconButton(
+          //                     height: 56,
+          //                     width: 56,
+          //                     variant: IconButtonVariant.FillBlue400,
+          //                     padding: IconButtonPadding.PaddingAll16,
+          //                     child: CustomImageView(
+          //                         svgPath: ImageConstant.imgSend))
+          //               ]))
+          //     ],
+          //   ),
+          // ),
         ),
       ),
     );
