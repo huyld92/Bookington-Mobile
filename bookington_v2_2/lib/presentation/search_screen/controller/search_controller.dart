@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:bookington_v2_2/core/app_export.dart';
 import 'package:bookington_v2_2/core/utils/map_utils.dart';
 import 'package:bookington_v2_2/data/apiClient/api_client.dart';
-import 'package:bookington_v2_2/data/models/court_images.dart';
 import 'package:bookington_v2_2/data/models/district_model.dart';
 import 'package:bookington_v2_2/data/models/province_model.dart';
 import 'package:bookington_v2_2/presentation/search_screen/models/query_model.dart';
@@ -154,7 +153,9 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
           List jsonResult = jsonDecode(result.body)["result"];
           province.value = ProvinceModel.listNameFromJson(jsonResult);
           province.add(ProvinceModel("-1", "Choose province"));
+          district.add( DistrictModel("-1", "Choose district"));
           province.refresh();
+          district.refresh();
           if (searchByLocation) {
             for (ProvinceModel p in province) {
               if (p.provinceName == positionAddress["provinceName"]) {

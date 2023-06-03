@@ -22,6 +22,7 @@ class PaymentController extends GetxController with StateMixin {
   RxDouble total = 0.0.obs;
   RxBool isSuccess = false.obs;
   String courtId = "";
+  RxString message = "".obs;
 
   @override
   void onInit() {
@@ -116,6 +117,7 @@ class PaymentController extends GetxController with StateMixin {
            if (result.statusCode == 200) {
             var jsonResult = jsonDecode(result.body);
             print('paymentResult: ${jsonResult.toString()}');
+            message.value = jsonResult["message"];
             isSuccess.value = true;
             Get.defaultDialog(
               barrierDismissible: false,

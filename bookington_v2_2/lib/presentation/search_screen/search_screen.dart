@@ -41,7 +41,7 @@ class SearchScreen extends GetWidget<SearchController> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width: getVerticalSize(360),
+                            width: getHorizontalSize(360),
                             padding: getPadding(top: 10, bottom: 10),
                             decoration: BoxDecoration(
                               border: BorderRadiusStyle.border2Gray500,
@@ -80,7 +80,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                   children: [
                                     Obx(
                                       () => Container(
-                                        width: getVerticalSize(160),
+                                        width: getHorizontalSize(160),
                                         height: getVerticalSize(40),
                                         decoration: BoxDecoration(
                                           border:
@@ -117,19 +117,19 @@ class SearchScreen extends GetWidget<SearchController> {
                                         ),
                                       ),
                                     ),
-                                    Obx(
-                                      () => Container(
-                                        width: getVerticalSize(160),
-                                        height: getVerticalSize(40),
-                                        margin: getMargin(top: 10, bottom: 10),
-                                        padding: getPadding(all: 5),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              BorderRadiusStyle.border2Gray500,
-                                          borderRadius:
-                                              BorderRadiusStyle.roundedBorder16,
-                                        ),
-                                        child: DropdownButton<DistrictModel>(
+                                    Container(
+                                      width: getHorizontalSize(160),
+                                      height: getVerticalSize(40),
+                                      margin: getMargin(top: 10, bottom: 10),
+                                      padding: getPadding(all: 5),
+                                      decoration: BoxDecoration(
+                                        border:
+                                            BorderRadiusStyle.border2Gray500,
+                                        borderRadius:
+                                            BorderRadiusStyle.roundedBorder16,
+                                      ),
+                                      child: Obx(
+                                        () => DropdownButton<DistrictModel>(
                                           underline: SizedBox(),
                                           isExpanded: true,
                                           items: controller.district.map(
@@ -156,7 +156,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                   ],
                                 ),
                                 Container(
-                                  margin: getMargin(left: 10, right: 10),
+                                  margin: getMargin(left: 5, right: 5),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -188,8 +188,8 @@ class SearchScreen extends GetWidget<SearchController> {
                                                 controller.presentDatePicker();
                                               },
                                               icon: CustomImageView(
-                                                  height: 32,
-                                                  width: 32,
+                                                  height: getSize(32),
+                                                  width: getSize(32),
                                                   svgPath:
                                                       ImageConstant.imgCalendar,
                                                   color: ColorConstant.blue500),
@@ -198,7 +198,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                                     controller
                                                         .selectedDate.value),
                                                 style: AppStyle
-                                                    .txtManropeSemiBold20BlueA400,
+                                                    .txtManropeSemiBold18BlueA400,
                                               ),
                                             ),
                                           ),
@@ -247,7 +247,7 @@ class SearchScreen extends GetWidget<SearchController> {
                                                     controller
                                                         .selectedTime.value),
                                                 style: AppStyle
-                                                    .txtManropeSemiBold20BlueA400,
+                                                    .txtManropeSemiBold18BlueA400,
                                               ),
                                             ),
                                           ),

@@ -62,13 +62,13 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
           controller.isSuccess.value?
           Container(
             width: getHorizontalSize(
-              263.00,
+              263.00
             ),
             margin: getMargin(
-              top: 14,
+              top: 14
             ),
             child: Text(
-                "Payment for booking: courtName court",
+                controller.message.value,
                 maxLines: 3,
                 textAlign: TextAlign.center,
                 style: AppStyle.txtManropeRegular18.copyWith(
@@ -80,18 +80,18 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
           ):
           Container(
             width: getHorizontalSize(
-              263.00,
+              263.00
             ),
             margin: getMargin(
-              top: 14,
+              top: 14
             ),
             child: Text(
-               "Payment for booking: courtName court",
+              controller.message.value,
               maxLines: 3,
               textAlign: TextAlign.center,
               style: AppStyle.txtManropeRegular18.copyWith(
                 letterSpacing: getHorizontalSize(
-                  0.20,
+                  0.20
                 ),
               ),
             ),
@@ -101,8 +101,8 @@ import 'package:bookington_v2_2/widgets/custom_button.dart';
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomButton(
-                      height: 50,
-                      width: 220,
+                      height: getSize(50),
+                      width: getSize(220),
                       text: "lbl_view_booking".tr,
                       margin: getMargin(left: 3.2, top: 29),
                       variant: ButtonVariant.FillBlue500,
