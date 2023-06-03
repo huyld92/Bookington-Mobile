@@ -135,6 +135,7 @@ class SearchController extends GetxController with StateMixin, ScrollMixin {
       if (selectedDistrict.value.districtName.isEmpty) {
         selectedDistrict.value.districtName = "Choose district";
       }
+      print(district[0].districtName);
     } on Exception catch (e) {
       Logger.log("SearchController error at searchByName: ${e.toString()}");
     } finally {

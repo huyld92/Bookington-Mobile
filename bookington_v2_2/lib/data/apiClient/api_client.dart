@@ -69,7 +69,7 @@ class ApiClient extends GetConnect {
     var url = Uri.parse(
         "${AppUrl.updateNewPasswordEndPoint}?phoneNumber=$phone&newPassword=$newPassword");
 
-    http.Response response = await http.post(url);
+    http.Response response = await http.put(url);
     return response;
   }
 
@@ -78,7 +78,6 @@ class ApiClient extends GetConnect {
     var url = Uri.parse(AppUrl.verifyEndPoint + body);
     // Map body = {'phoneNumber': phone, 'otp': otp};
     http.Response response = await http.put(url);
-    // http.Response response = await http.put(url);
 
     print(response.statusCode);
     return response;

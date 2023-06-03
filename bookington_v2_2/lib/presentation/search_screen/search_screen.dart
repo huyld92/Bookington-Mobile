@@ -117,19 +117,19 @@ class SearchScreen extends GetWidget<SearchController> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      width: getHorizontalSize(160),
-                                      height: getVerticalSize(40),
-                                      margin: getMargin(top: 10, bottom: 10),
-                                      padding: getPadding(all: 5),
-                                      decoration: BoxDecoration(
-                                        border:
-                                            BorderRadiusStyle.border2Gray500,
-                                        borderRadius:
-                                            BorderRadiusStyle.roundedBorder16,
-                                      ),
-                                      child: Obx(
-                                        () => DropdownButton<DistrictModel>(
+                                    Obx(
+                                      () => Container(
+                                        width: getHorizontalSize(160),
+                                        height: getVerticalSize(40),
+                                        margin: getMargin(top: 10, bottom: 10),
+                                        padding: getPadding(all: 5),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              BorderRadiusStyle.border2Gray500,
+                                          borderRadius:
+                                              BorderRadiusStyle.roundedBorder16,
+                                        ),
+                                        child: DropdownButton<DistrictModel>(
                                           underline: SizedBox(),
                                           isExpanded: true,
                                           items: controller.district.map(

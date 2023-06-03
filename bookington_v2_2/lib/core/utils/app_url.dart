@@ -1,6 +1,5 @@
 class AppUrl {
   static const String baseUrl = "https://bookington-backend.azurewebsites.net";
-
   // static const String baseUrl = "https://10.0.2.2:7179";
   // static const String baseUrl = "https://192.168.1.127:7179";
 

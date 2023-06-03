@@ -13,37 +13,42 @@ class CreateNewPasswordController extends GetxController {
   Rx<bool> isShowConfirm = false.obs;
 
   Future<void> createNewPassword() async {
-    try {
-      // String? phoneNumber = PrefUtils.getString("rePhoneNumber");
-      Map<String, String> arg = Get.arguments;
-      String phoneNumber = arg["rePhoneNumber"] ?? "";
-      await ApiClient.updateNewPassword(
-              phoneNumber, txtPasswordController.value.text)
-          .then((result) {
-        if (result.statusCode == 200) {
-          Get.snackbar(
-            'Create new password',
-            "Create new password successful",
-            colorText: ColorConstant.black900,
-            duration: const Duration(seconds: 3),
-            backgroundColor: ColorConstant.whiteA700,
-            icon: CustomImageView(
-                width: 16, height: 16, svgPath: ImageConstant.imgNotify),
-          );
-          PrefUtils.clearPreferencesData();
-          Get.offNamed(AppRoutes.loginScreen);
-        } else {
-          Get.defaultDialog(
-              title: "Create new password failed!",
-              middleText: jsonDecode(result.body)["Message"]);
-        }
-      });
-    } catch (error) {
-      Logger.log(
-          "CreateNewPasswordController ERROR at createNewPassword: ${error.toString()}");
-      Get.defaultDialog(
-          title: "Create new password error!",
-          middleText: "Please create new password later");
+    if (txtPasswordController.text == txtPasswordConfirm.text) {
+      try {
+        // String? phoneNumber = PrefUtils.getString("rePhoneNumber");
+        Map<String, String> arg = Get.arguments;
+        String phoneNumber = arg["rePhoneNumber"] ?? "";
+        await ApiClient.updateNewPassword(
+                phoneNumber, txtPasswordController.value.text)
+            .then((result) {
+          print("result.statusCode: ${result.statusCode}");
+          if (result.statusCode == 200) {
+            Get.snackbar(
+              'Create new password',
+              "Create new password successful",
+              colorText: ColorConstant.black900,
+              duration: const Duration(seconds: 3),
+              backgroundColor: ColorConstant.whiteA700,
+              icon: CustomImageView(
+                  width: getSize(16),
+                  height: getSize(16),
+                  svgPath: ImageConstant.imgNotify),
+            );
+            PrefUtils.clearPreferencesData();
+            Get.offNamed(AppRoutes.loginScreen);
+          } else {
+            Get.defaultDialog(
+                title: "Create new password failed!",
+                middleText: jsonDecode(result.body)["Message"]);
+          }
+        });
+      } catch (error) {
+        Logger.log(
+            "CreateNewPasswordController ERROR at createNewPassword: ${error.toString()}");
+        Get.defaultDialog(
+            title: "Create new password error!",
+            middleText: "Please create new password later");
+      }
     }
   }
 

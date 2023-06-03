@@ -74,6 +74,7 @@ class VerifyPhoneNumberController extends GetxController
   }
 
   Future<void> forgotPasswordVerifyOTP() async {
+
     try {
       // String? phoneNumber = PrefUtils.getString("rePhoneNumber");
       Map<String, String> arg = Get.arguments;
